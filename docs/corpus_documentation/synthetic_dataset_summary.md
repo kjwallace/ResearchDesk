@@ -29,7 +29,7 @@ Each line of `emails.jsonl` is one JSON object with 14 fields: the 10 fields fro
 | `affected_tickers` | array | Any of `AMZN`, `NVDA`, `MSFT`, `AAPL`, `GOOGL`; empty when no target is affected |
 | `human_attention` | bool | True for credible, time-sensitive meetings or calls worth taking |
 | `reason` | string | Short justification for the triage label, based on the email's content |
-| `email_type` | string | Format of the email, e.g. `sell_side_research`, `channel_check`, `meeting_request`, `newsletter` |
+| `email_type` | string | Format of the email, one of 11 types, e.g. `sell_side_research`, `primary_research`, `meeting_request`, `newsletter` |
 | `systemic` | bool | True when one development affects all five targets together |
 | `angle` | string | How the email earns its label, e.g. "contradicts consensus with new evidence" |
 | `day` | int or string | `1`, `2`, or `"tuning"` |
@@ -80,26 +80,21 @@ Tickers are rotated evenly through the `thesis_relevant` and `monitor` emails. C
 
 ### Email types
 
-| Email type | Day 1 | Day 2 | Tuning |
-| --- | --- | --- | --- |
-| `sell_side_research` | 50 | 51 | 11 |
-| `news_alert` | 48 | 33 | 12 |
-| `newsletter` | 24 | 30 | 9 |
-| `event_invitation` | 24 | 26 | 7 |
-| `vendor_sales_pitch` | 27 | 25 | 13 |
-| `meeting_request` | 20 | 21 | 11 |
-| `sell_side_morning_note` | 11 | 21 | 6 |
-| `vendor_data_report` | 19 | 16 | 8 |
-| `industry_contact` | 18 | 16 | 3 |
-| `expert_call_offer` | 12 | 13 | 6 |
-| `administrative` | 14 | 12 | 1 |
-| `channel_check` | 12 | 7 | 4 |
-| `sell_side_sales_color` | 6 | 10 | 1 |
-| `expert_network_transcript` | 6 | 6 | 1 |
-| `company_ir` | 1 | 5 | 0 |
-| `internal_forward` | 3 | 4 | 4 |
-| `macro_strategy` | 3 | 4 | 0 |
-| `government_regulatory` | 2 | 0 | 3 |
+The generator wrote 18 email types. They were consolidated in place to 11 (see `DECISIONS.md`): types that differ only by length or cadence from the same source were merged, as were the first-hand research formats and the meeting-like formats that ask for a call. The last column lists the generator types each one absorbed.
+
+| Email type | Day 1 | Day 2 | Tuning | Generator types merged |
+| --- | --- | --- | --- | --- |
+| `sell_side_research` | 70 | 86 | 18 | sell_side_research, sell_side_morning_note, sell_side_sales_color, macro_strategy |
+| `news_alert` | 50 | 33 | 15 | news_alert, government_regulatory |
+| `meeting_request` | 32 | 34 | 17 | meeting_request, expert_call_offer |
+| `primary_research` | 36 | 29 | 8 | channel_check, industry_contact, expert_network_transcript |
+| `vendor_pitch` | 27 | 25 | 13 | vendor_sales_pitch |
+| `newsletter` | 24 | 30 | 9 | newsletter |
+| `event_invitation` | 24 | 26 | 7 | event_invitation |
+| `data_report` | 19 | 16 | 8 | vendor_data_report |
+| `administrative` | 14 | 12 | 1 | administrative |
+| `internal_forward` | 3 | 4 | 4 | internal_forward |
+| `company_release` | 1 | 5 | 0 | company_ir |
 
 ### Text statistics
 
