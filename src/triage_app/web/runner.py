@@ -24,6 +24,7 @@ from triage_app.schema import (
     TriageRecord, VerifyResult,
 )
 from triage_app.state.fold import Seed, fold
+from triage_app.web import labels
 from triage_app.web.data import DayData
 
 StepStatus = Literal["ok", "skipped", "unavailable", "failed"]
@@ -68,6 +69,7 @@ class Trace:
     subject: str
     steps: list[Step] = field(default_factory=list)
     triage: TriageRecord | None = None
+    redundancy: RedundancyRecord | None = None
     result: EmailResult | None = None
     note: AttentionNote | None = None
     claims: list[Claim] = field(default_factory=list)
@@ -161,12 +163,12 @@ def run_live(email: Email, data: DayData, make_ctx: ContextFactory, seed: Seed, 
             return record
 
         red = r.step("redundancy", redundancy, lambda x: (
-            f"Nearest earlier email {x.nearest} (content {x.content_similarity or 0:.2f}, subject {x.subject_score or 0:.2f})"
-            + ("; flagged as a possible repeat" if x.flagged else "") if x.nearest else "no earlier email"))
+            f"Possible repeat of {x.nearest}" if x.flagged and x.nearest else "No repeat of an earlier email"))
         if red is None:
             red = RedundancyRecord(email_id=email.email_id, nearest=None, content_similarity=None,
                                    subject_score=None, flagged=False)
             trace.steps[-1].detail += "; treated as no repeat"
+        trace.redundancy = red
 
         trace.triage = r.step("classify", lambda: stage_fn("classify")(email, ctx),
                               lambda t: f"Top label: {max(t.triage_probs, key=t.triage_probs.get)}")
@@ -176,7 +178,7 @@ def run_live(email: Email, data: DayData, make_ctx: ContextFactory, seed: Seed, 
             return trace
         triage = trace.triage
         trace.result = r.step("gate", lambda: stage_fn("gate")(triage, red, ctx.thresholds),
-                              lambda x: x.reason)
+                              labels.verdict)
         if trace.result is None:
             for name in ("human_attention", "extract", "analyze", "validate", "merge"):
                 r.skip(name, "Needs a gate decision")

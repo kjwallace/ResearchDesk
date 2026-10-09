@@ -140,7 +140,7 @@ GET_ROUTES = [
     "/", "/suggestion/MSFT.p1.supports", "/suggestion/AMZN.new1", "/suggestion/NVDA.p2.supports",
     "/suggestion/AAPL.p1.supports", "/suggestion/fixture_001.s2", *(f"/company/{t}" for t in config.TICKERS),
     "/criteria", *(f"/criteria/{label}" for label in config.CRITERIA_FILES), "/audit", "/inbox", "/attention",
-    "/attention?view=calendar", "/book", "/review", "/review/MSFT.p1.supports",
+    "/attention?view=calendar", "/book", "/review", "/review/MSFT.p1.supports", "/research-log/NVDA",
     *(f"/email/{i}" for i in CORPUS), "/live", "/eval", "/monitor",
 ]
 
@@ -203,6 +203,58 @@ def test_review_queue_walks_open_suggestions_and_counts_decisions(client: TestCl
 def test_attention_calendar_puts_requests_on_their_due_day(client: TestClient) -> None:
     text = client.get("/attention?view=calendar").text
     assert 'class="cal-day today"' in text and 'href="/email/fixture_007"' in text and "Calendar" in text
+
+
+def test_scores_sit_behind_view_scores_and_the_classifier_is_unnamed(client: TestClient) -> None:
+    for url in GET_ROUTES:
+        assert "Jev" not in client.get(url).text, url
+    text = client.get("/email/fixture_001").text
+    panel = text.index('<details class="scores')
+    assert "View scores" in text[panel:]
+    for score in ("Signal score", "Decision record", f"{RESULTS['fixture_001'].signal_score:.2f}"):
+        assert score in text[panel:] and score not in text[:panel], score
+
+
+def test_manual_pillar_editing_from_the_company_page(client: TestClient) -> None:
+    page = client.get("/company/AAPL").text
+    assert 'action="/company/AAPL/pillars"' in page and 'action="/pillar/AAPL.p1/edit"' in page
+    r = client.post("/company/AAPL/pillars", headers=HX,
+                    data={"statement": "Enterprise demand grows on AI features.", "driver_ids": ["AAPL.other_products_growth"]})
+    assert r.status_code == 200 and "Added AAPL pillar 4." in r.text
+    r = client.post("/pillar/AAPL.p1/edit", headers=HX, data={"statement": "The upgrade cycle disappoints."})
+    assert r.status_code == 200 and "Saved AAPL pillar 1." in r.text
+    assert client.post("/pillar/AAPL.p2/evidence", headers=HX, data={"stance": "contradicts", "strength": "2"}).status_code == 200
+    assert client.post("/pillar/AAPL.p3/remove", headers=HX).status_code == 200
+    page = client.get("/company/AAPL").text
+    assert "Enterprise demand grows on AI features." in page and "The upgrade cycle disappoints." in page
+    assert "added by hand" in page and 'id="pillar-AAPL-p3"' not in page
+    assert "Pillar removed" in page and "Pillar edited" in page
+    bad = client.post("/company/AAPL/pillars", headers=HX, data={"statement": "  "})
+    assert bad.status_code == 422
+    p2 = next(p for t in load_seed().theses for p in t.pillars if p.id == "AAPL.p2")
+    same = client.post("/pillar/AAPL.p2/edit", headers=HX, data={"statement": p2.statement, "driver_ids": p2.driver_ids})
+    assert same.status_code == 200 and "No changes to save." in same.text and "HX-Refresh" not in same.headers
+
+
+def test_book_shows_dollars_shares_logos_and_research_log(client: TestClient) -> None:
+    text = client.get("/book").text
+    assert "bps" not in text and 'class="num">Shares</th>' in text and "$30.0m" in text   # NVDA: 300 bps of $1bn
+    assert "/static/logos/NVDA.svg" in text and 'href="/research-log/NVDA"' in text
+    assert "Conviction</th>" not in text
+    log = client.get("/research-log/NVDA").text
+    assert "Full research log" in log and "Not connected yet" in log
+    assert client.get("/research-log/TSLA").status_code == 404
+
+
+def test_criteria_are_grouped_with_safety_separate_and_editing_marked_as_example(client: TestClient) -> None:
+    text = client.get("/criteria").text
+    for section in ("Email categories", "Attention required", "Topics and companies", "<b>Safety</b>"):
+        assert section in text, section
+    assert text.index("Email categories") < text.index('id="safety"')
+    assert "not saved" in text and "Read-only" in text and "Possible MNPI" in text
+    one = client.get("/criteria/thesis_relevant").text
+    assert "data-crit-editor" in one and "Definition (fixed)" in one and "not saved" in one
+    assert 'hx-post="/criteria' not in one   # editing never reaches the server
 
 
 def test_brief_lists_every_section(client: TestClient) -> None:
@@ -340,7 +392,7 @@ def test_conviction_review_and_set_conviction(client: TestClient) -> None:
     assert client.get("/suggestion/MSFT.p1.review").status_code == 200
     r = client.post("/conviction/MSFT", headers=HX, data={"conviction": "2", "suggestion_id": "MSFT.p1.review"})
     assert r.status_code == 200 and "from 3 to 2" in r.text
-    assert "Conviction 2 of 5" in client.get("/company/MSFT").text
+    assert "onviction" not in client.get("/company/MSFT").text and "onviction" not in client.get("/book").text
     assert "MSFT.p1.review" not in client.get("/").text
     assert client.post("/conviction/MSFT", headers=HX, data={"conviction": "9"}).status_code == 422
 

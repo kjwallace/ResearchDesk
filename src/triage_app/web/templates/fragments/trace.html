@@ -1,18 +1,19 @@
-{% from "macros.html" import icon %}
+{% from "macros.html" import icon, scores %}
 {% if error %}<div class="flash err">{{ error | sentence }}</div>{% endif %}
 {% if trace %}
 <div class="trace">
-  <div class="pane-head">{{ icon('activity') }}<span>Trace</span> <span class="mono-id">{{ trace.email_id }}</span></div>
+  <div class="pane-head">{{ icon('activity') }}<span>Trace</span> <a class="mono-id" href="/email/{{ trace.email_id }}">{{ trace.email_id | ref }}</a></div>
   <h2 style="font-size:17px">{{ trace.subject }}</h2>
   <p class="small muted" style="margin-top:-8px">{{ trace.sender }}</p>
   {% if trace.quarantined %}<div class="callout bad"><div class="eyebrow">{{ icon('lock') }}Quarantined</div><p>Quarantined: held unsummarized; no later model saw it.</p></div>
   {% elif trace.result %}
     <div class="callout {{ '' if trace.result.gate == 'pass' else 'plain' }}">
       <div class="eyebrow"><span class="pill {{ trace.result.triage }}">{{ trace.result.triage | human }}</span> <span class="pill {{ trace.result.gate }}">{{ trace.result.gate | human }}</span></div>
-      <p class="small">{{ trace.result.reason | prose }}</p></div>
+      <p class="small">{{ trace.result | verdict }}</p></div>
+    {{ scores(v, trace.triage, trace.result, trace.redundancy) }}
     {% if trace.note %}<div class="callout warn"><div class="eyebrow">{{ icon('clock') }}Attention note · {{ trace.note.action | human }}</div><p>{{ trace.note.summary }}</p></div>{% endif %}
-    {% for s in trace.suggestions %}<div class="linked-item"><span class="ic-round">{{ icon('trend') }}</span><div>Suggestion <a href="/suggestion/{{ trace.email_id }}.{{ s.id }}" class="mono-id">{{ s.id }}</a><div class="small muted">{{ s.rationale }}</div></div></div>{% endfor %}
-    {% for s in trace.rejected %}<p class="small muted">Rejected <span class="mono-id">{{ s.id }}</span>: {{ s.reject_reason | prose }}</p>{% endfor %}
+    {% for s in trace.suggestions %}<div class="linked-item"><span class="ic-round">{{ icon('trend') }}</span><div>Suggestion <a href="/suggestion/{{ trace.email_id }}.{{ s.id }}" class="mono-id">{{ s.id | ref }}</a><div class="small muted">{{ s.rationale }}</div></div></div>{% endfor %}
+    {% for s in trace.rejected %}<p class="small muted">Rejected <span class="mono-id">{{ s.id | ref }}</span>: {{ s.reject_reason | prose }}</p>{% endfor %}
     {% if trace.analysis and trace.analysis.no_change_reason %}<p class="small">No change: {{ trace.analysis.no_change_reason | prose }}</p>{% endif %}
     {% if trace.note or trace.suggestions %}<p class="small"><a href="/">Added to your brief →</a></p>{% endif %}
   {% endif %}

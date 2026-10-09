@@ -29,7 +29,7 @@
     <a href="/review/{{ s.id }}" class="{{ 'on' if current and s.id == current.id else '' }} {{ 'done' if st != 'open' else '' }}"
        {% if current and s.id == current.id %}aria-current="true"{% endif %}>
       <span class="st {{ st }}" title="{{ st | human }}"></span>
-      <span class="q-text"><b>{% if b.kind == 'existing_thesis' %}{{ b.pillar_id }} · {{ b.stance | human }}{% else %}{{ b.ticker }} · {{ b.kind | human }}{% endif %}</b>
+      <span class="q-text"><b>{% if b.kind == 'existing_thesis' %}{{ b.pillar_id | ref }} · {{ b.stance | human }}{% else %}{{ b.ticker }} · {{ b.kind | human }}{% endif %}</b>
         <span class="muted">{{ s.rationale }}</span></span>
     </a>
   {% else %}<p class="small muted">No suggestions today.</p>{% endfor %}

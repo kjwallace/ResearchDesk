@@ -23,9 +23,11 @@ from typing import Literal
 
 from triage_app import thresholds
 from triage_app.schema import (
-    ConvictionReview, ExistingThesis, LinkedSection, LogEntry, NewThesis, Pillar, Suggestion, Ticker,
+    ConvictionReview, ExistingThesis, LinkedSection, LogEntry, NewThesis, Pillar, Stance, Suggestion, Ticker,
 )
-from triage_app.state.fold import BookState, Seed, effective_entries, fold, net_contradicting, next_pillar_id
+from triage_app.state.fold import (
+    BookState, Seed, effective_entries, fold, net_contradicting, next_pillar_id, ticker_of,
+)
 
 Strength = Literal[1, 2, 3]
 Status = Literal["open", "accepted", "dismissed", "rejected"]
@@ -141,6 +143,76 @@ def set_conviction(seed: Seed, log: list[LogEntry], ticker: Ticker, conviction: 
     )
 
 
+# ---- Manual changes to pillars (no suggestion behind them) ----
+
+def _pillar(state: BookState, pillar_id: str) -> Pillar:
+    pillar = next((p for t in state.theses.values() for p in t.pillars if p.id == pillar_id), None)
+    if pillar is None:
+        raise ActionError(f"unknown pillar {pillar_id}")
+    return pillar
+
+
+def _drivers(state: BookState, ticker: Ticker, driver_ids: Iterable[str]) -> list[str]:
+    """The driver IDs, checked to belong to the company, in the model's order."""
+    known = [d.id for d in state.models[ticker].drivers]
+    wanted = set(driver_ids)
+    if unknown := wanted - set(known):
+        raise ActionError(f"not {ticker} assumptions: {', '.join(sorted(unknown))}")
+    return [d for d in known if d in wanted]
+
+
+def add_pillar(seed: Seed, log: list[LogEntry], ticker: Ticker, statement: str, *, driver_ids: Iterable[str] = (),
+               wrong_if: str = "", at: datetime | None = None) -> LogEntry:
+    """Add a pillar the analyst wrote; it gets the company's next free pillar ID."""
+    state = fold(seed, log)
+    if ticker not in state.theses:
+        raise ActionError(f"unknown ticker {ticker}")
+    if not statement.strip():
+        raise ActionError("a pillar needs a statement")
+    pillar_id = next_pillar_id(state, ticker)
+    pillar = Pillar(id=pillar_id, statement=statement.strip(), wrong_if=wrong_if.strip(),
+                    driver_ids=_drivers(state, ticker, driver_ids))
+    return LogEntry(id=next_entry_id(log), at=_now(at), suggestion_id="", change="pillar_added",
+                    item_id=pillar_id, pillar=pillar, sections=[])
+
+
+def edit_pillar(seed: Seed, log: list[LogEntry], pillar_id: str, *, statement: str | None = None,
+                driver_ids: Iterable[str] | None = None, at: datetime | None = None) -> LogEntry:
+    """Reword a pillar or change its linked assumptions; anything not given is kept."""
+    state = fold(seed, log)
+    before = _pillar(state, pillar_id)
+    after = before.model_copy(update={
+        "statement": (statement or "").strip() or before.statement,
+        "driver_ids": before.driver_ids if driver_ids is None
+                      else _drivers(state, ticker_of(pillar_id), driver_ids),
+    })
+    if after == before:
+        raise ActionError(f"{pillar_id} is unchanged")
+    return LogEntry(id=next_entry_id(log), at=_now(at), suggestion_id="", change="pillar_edited",
+                    item_id=pillar_id, pillar=after, pillar_before=before, sections=[])
+
+
+def remove_pillar(seed: Seed, log: list[LogEntry], pillar_id: str, *, at: datetime | None = None) -> LogEntry:
+    """Take a pillar out of the thesis for this session; undo restores it with its evidence."""
+    state = fold(seed, log)
+    pillar = _pillar(state, pillar_id)
+    return LogEntry(id=next_entry_id(log), at=_now(at), suggestion_id="", change="pillar_removed",
+                    item_id=pillar_id, pillar=pillar, sections=[])
+
+
+def log_evidence(seed: Seed, log: list[LogEntry], pillar_id: str, stance: Stance, strength: Strength, *,
+                 at: datetime | None = None) -> LogEntry:
+    """Evidence the analyst records by hand, counted like accepted evidence (and toward conviction reviews)."""
+    state = fold(seed, log)
+    _pillar(state, pillar_id)
+    if stance not in ("supports", "contradicts"):
+        raise ActionError("stance must be supports or contradicts")
+    if strength not in (1, 2, 3):
+        raise ActionError("strength must be 1, 2 or 3")
+    return LogEntry(id=next_entry_id(log), at=_now(at), suggestion_id="", change="pillar_evidence",
+                    item_id=pillar_id, stance=stance, strength=strength, sections=[])
+
+
 # ---- Undo ----
 
 def undo(log: list[LogEntry], *, at: datetime | None = None) -> LogEntry | None:
@@ -152,7 +224,8 @@ def undo(log: list[LogEntry], *, at: datetime | None = None) -> LogEntry | None:
     return LogEntry(
         id=next_entry_id(log), at=_now(at), suggestion_id=last.suggestion_id, change=last.change,
         item_id=last.item_id, before=last.after, after=last.before, stance=last.stance,
-        strength=last.strength, pillar=last.pillar, reverses=last.id, sections=list(last.sections),
+        strength=last.strength, pillar=last.pillar, pillar_before=last.pillar_before, reverses=last.id,
+        sections=list(last.sections),
     )
 
 

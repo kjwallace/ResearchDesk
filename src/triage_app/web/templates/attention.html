@@ -21,7 +21,7 @@
 {%- set n_today = items | selectattr('bucket', 'equalto', 'today') | list | length -%}
 
 <section class="stats" aria-label="Requests in numbers">
-  {{ stat('Needs your attention', items | length, 'Flagged by Jev; each has a note', 'clock') }}
+  {{ stat('Needs your attention', items | length, 'Flagged by the classifier; each has a note', 'clock') }}
   {{ stat('Meeting requests', n_meet, 'Calls and small-group meetings offered', 'mail') }}
   {{ stat('Reply due today', n_today, brief.day.strftime('%a %b %d').replace(' 0', ' '), 'alert') }}
   {{ stat('Events and other', n_event + n_other, (n_event ~ ' event invitation' ~ ('' if n_event == 1 else 's')) ~ ', ' ~ n_other ~ ' other', 'book') }}
@@ -60,7 +60,7 @@
   </div>
   <div class="search"><label class="sr-only" for="q">Search requests</label>{{ icon('search') }}
     <input type="search" id="q" placeholder="Search by person, firm, company or subject…" data-filter-text autocomplete="off"></div>
-  <p class="xs muted" style="margin:10px 0 12px">Soonest reply first. Jev decides which emails need a person; the note explains why and never recommends an investment action.</p>
+  <p class="xs muted" style="margin:10px 0 12px">Soonest reply first. The classifier decides which emails need a person; the note explains why and never recommends an investment action.</p>
 
   <div class="list">
     <div class="list-head"><span>Requests by deadline</span><span class="muted"><span data-shown>{{ items | length }}</span> shown</span></div>
@@ -102,14 +102,13 @@
             {% if r %}{% for t in r.affected_tickers %}<a class="tag ticker" href="/company/{{ t }}">{{ t }}</a>{% endfor %}
               {% for t in r.additional_labels %}<span class="tag soft">{{ t | human }}</span>{% endfor %}
               {{ label_pill(r.triage) }}{% endif %}
-            <span class="tag soft" title="Jev's human-attention probability">Attention {{ it.probability | num(2) }}</span>
           </div>
         </article>
       {% endfor %}
       </details>
       {% endif %}
     {% endfor %}
-    {% if not items %}<div class="empty">Nothing needs a person today.</div>{% endif %}
+    {% if not items %}<div class="empty">No emails require attention today.</div>{% endif %}
   </div>
 </section>
 

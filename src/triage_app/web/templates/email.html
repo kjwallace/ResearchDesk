@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-{% from "macros.html" import email_link, icon, avatar, bar, prob_bars, label_pill %}
+{% from "macros.html" import email_link, icon, avatar, label_pill, scores %}
 {% block title %}{{ email.subject }}{% endblock %}
 {% block content %}
-<nav class="crumbs"><a href="/inbox">Inbox</a> / <span class="mono">{{ email.email_id }}</span></nav>
+<nav class="crumbs"><a href="/inbox">Inbox</a> / <span class="mono">{{ email.email_id | ref }}</span></nav>
 <div id="detail" class="detail">
-  <div class="pane-head">{{ icon('mail') }}<span>Email</span> <span class="mono-id">{{ email.email_id }}</span><span class="grow"></span>
+  <div class="pane-head">{{ icon('mail') }}<span>Email</span> <span class="mono-id">{{ email.email_id | ref }}</span><span class="grow"></span>
     {% if result %}{{ label_pill(result.triage) }}{% endif %}
     <a class="btn" href="/email/{{ email.email_id }}" title="Open on its own page">{{ icon('eye') }}Full page</a></div>
   <h2>{{ email.subject }}</h2>
@@ -16,7 +16,7 @@
 {% if quarantined %}
   <div class="callout bad"><div class="eyebrow">{{ icon('lock') }}Quarantined</div>
     <p>Quarantined: held unsummarized. Only the sender and subject are shown, and no later model saw the body.</p></div>
-  {% if result %}<p class="small muted">{{ result.reason | prose }}</p>{% endif %}
+  {% if result %}{{ scores(v, triage, result) }}{% endif %}
 {% else %}
 <div class="email-detail">
 <section>
@@ -30,24 +30,20 @@
 
   {% if result %}
   <div class="section">
-    <div class="eyebrow">Classification <span class="grow"></span><span class="chip">Jev · Criteria <span class="mono-id">{{ triage.criteria_version if triage else '' }}</span></span></div>
+    <div class="eyebrow">Classification</div>
     <dl class="kv">
-      <dt>Label</dt><dd>{{ label_pill(result.triage) }}{% if result.decided_by != 'jev' %} <span class="xs muted">by the {{ (result.decided_by | human).lower() }}</span>{% endif %}</dd>
-      <dt>Gate</dt><dd><span class="pill {{ result.gate }}">{{ result.gate | human }}</span></dd>
-      <dt>Signal score</dt><dd class="big-num">{{ result.signal_score | num(2) }}</dd>
-    </dl>
-    {{ bar(result.signal_score, '' if result.gate == 'pass' else 'muted') }}
-    <dl class="kv" style="margin-top:6px">
-      {% if result.human_attention %}<dt>Needs a person</dt><dd><span class="pill attention">Needs attention</span></dd>{% endif %}
-      {% if triage %}<dt>Email type</dt><dd><span class="tag" title="Email type (Jev, display only)">{{ triage.email_type | human }}</span></dd>{% endif %}
+      <dt>Label</dt><dd>{{ label_pill(result.triage) }}</dd>
+      <dt>Analysis</dt><dd><span class="pill {{ result.gate }}">{{ 'Passed on' if result.gate == 'pass' else result.gate | human }}</span></dd>
+      {% if result.human_attention %}<dt>Attention required</dt><dd><span class="pill attention">Yes</span></dd>{% endif %}
+      {% if triage %}<dt>Email type</dt><dd><span class="tag">{{ triage.email_type | human }}</span></dd>{% endif %}
       <dt>Companies</dt><dd>{% for t in result.affected_tickers %}<a class="tag" href="/company/{{ t }}">{{ t }}</a>{% else %}<span class="muted">None</span>{% endfor %}</dd>
       <dt>Topics</dt><dd>{% for t in result.additional_labels %}<span class="tag soft">{{ t | human }}</span>{% else %}<span class="muted">None</span>{% endfor %}</dd>
     </dl>
-    <div class="callout plain"><div class="eyebrow">{{ icon('shield') }}Reason (written by code, not a model)</div><p>{{ result.reason | prose }}</p></div>
+    <div class="callout plain"><div class="eyebrow">{{ icon('shield') }}What happened</div><p>{{ result | verdict }}</p></div>
     {% if redundancy and redundancy.flagged and redundancy.nearest %}<div class="callout warn"><div class="eyebrow">{{ icon('repeat') }}Possible repeat</div>
-      <p>Flagged as a possible repeat of {{ email_link(v, redundancy.nearest) }}
-      (content {{ redundancy.content_similarity | num(2) }}, subject {{ redundancy.subject_score | num(2) }})</p></div>{% endif %}
+      <p>Flagged as a possible repeat of {{ email_link(v, redundancy.nearest) }}.</p></div>{% endif %}
     {% if no_change %}<div class="callout plain"><div class="eyebrow">No change to the book</div><p>{{ no_change | prose }}</p></div>{% endif %}
+    {{ scores(v, triage, result, redundancy) }}
   </div>
   {% endif %}
 
@@ -55,21 +51,10 @@
   <div class="section">
     <div class="eyebrow">{{ icon('link') }}Suggestions citing this email</div>
     {% for s in linked %}<div class="linked-item"><span class="ic-round">{{ icon('trend') }}</span>
-      <div><a href="/suggestion/{{ s.id }}" class="mono-id">{{ s.id }}</a><div class="small muted">{{ s.rationale }}</div></div></div>{% endfor %}
+      <div><a href="/suggestion/{{ s.id }}" class="mono-id">{{ s.id | ref }}</a><div class="small muted">{{ s.rationale }}</div></div></div>{% endfor %}
   </div>
   {% endif %}
 
-  {% if triage %}
-  <details class="section more"><summary>All of Jev's answers</summary>
-    <div class="eyebrow" style="margin-top:10px">Triage</div>{{ prob_bars(triage.triage_probs) }}
-    <div class="eyebrow" style="margin-top:14px">Companies</div>{{ prob_bars(triage.ticker_probs) }}
-    <div class="eyebrow" style="margin-top:14px">Topics</div>{{ prob_bars(triage.topic_probs) }}
-    <div class="eyebrow" style="margin-top:14px">Needs a person, and safety checks</div>
-    {{ prob_bars(dict(triage.safety, human_attention=triage.human_attention)) }}
-    <div class="eyebrow" style="margin-top:14px">Email type</div>{{ prob_bars(triage.email_type_probs, 4) }}
-    {% if triage.truncated %}<p class="small muted">The body was trimmed to Jev's input limit; the gate passes truncated emails.</p>{% endif %}
-  </details>
-  {% endif %}
 </section>
 
 <section>

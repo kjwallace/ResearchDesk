@@ -15,9 +15,9 @@
   <ul>
   {% for a in alerts %}
     <li>
-    {% if a.kind == 'human_attention' %}<span class="pill attention">Needs a person</span> {{ email_link(v, a.ref_id) }}
-    {% elif a.kind == 'wrong_if_met' %}<span class="pill contradicts">Pillar at risk</span> <a href="/suggestion/{{ a.ref_id }}">{{ a.ref_id }}</a>
-    {% else %}<span class="pill second">Conviction review</span> <a href="/suggestion/{{ a.ref_id }}">{{ a.ref_id }}</a>{% endif %}
+    {% if a.kind == 'human_attention' %}<span class="pill attention">Attention required</span> {{ email_link(v, a.ref_id) }}
+    {% elif a.kind == 'wrong_if_met' %}<span class="pill contradicts">Pillar at risk</span> <a href="/suggestion/{{ a.ref_id }}">{{ a.ref_id | ref }}</a>
+    {% else %}<span class="pill second">Conviction review</span> <a href="/suggestion/{{ a.ref_id }}">{{ a.ref_id | ref }}</a>{% endif %}
     </li>
   {% endfor %}
   </ul>
@@ -66,10 +66,9 @@
         {% call email_row(v, e, snippet=n.summary if n else '') %}
           {% if n %}<span class="tag warn">{{ n.action | human }}</span>
             {% if n.deadline %}<span class="tag">{{ icon('clock') }}{{ n.deadline.strftime('%b %d, %H:%M') }}</span>{% endif %}{% endif %}
-          {% if t %}<span class="tag soft" title="Jev's human-attention probability">Attention {{ t.human_attention | num(2) }}</span>{% endif %}
         {% endcall %}
         {% endif %}
-      {% else %}<div class="empty">Nothing needs a person today.</div>{% endfor %}
+      {% else %}<div class="empty">No emails require attention today.</div>{% endfor %}
     </details>
 
     <details class="group" {% if brief.relevant_unlinked | length <= 12 %}open{% endif %}><summary>{{ icon('chev') }}<h2>Relevant with no link to your book</h2><span class="badge">{{ brief.relevant_unlinked | length }}</span></summary>

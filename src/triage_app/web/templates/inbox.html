@@ -12,7 +12,7 @@
 <section class="stats" aria-label="Inbox in numbers">
   {{ stat('Inbox', emails | length, 'Emails, arrival order, untouched', 'mail') }}
   {{ stat('Actionable or worth watching', ns.relevant, 'Emails with something for the book', 'trend') }}
-  {{ stat('Needs a person', ns.attention, 'A person is asked to act', 'clock') }}
+  {{ stat('Attention required', ns.attention, 'A person is asked to act', 'clock') }}
   {{ stat('Passed the gate', ns.passed, 'Sent on to the analysis model', 'layers', '/') }}
 </section>
 
