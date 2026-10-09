@@ -12,7 +12,9 @@
       "uncached_output_tokens": 3600,
       "latency_p50_ms": 3605.0,
       "latency_p95_ms": 4955.0,
-      "latency_max_ms": 5405.0
+      "latency_max_ms": 5405.0,
+      "cost_usd": 0.003738,
+      "uncached_cost_usd": 0.003738
     },
     "classify": {
       "calls": 10,
@@ -23,7 +25,9 @@
       "uncached_output_tokens": 140,
       "latency_p50_ms": 995.0,
       "latency_p95_ms": 1076.0,
-      "latency_max_ms": 1085.0
+      "latency_max_ms": 1085.0,
+      "cost_usd": null,
+      "uncached_cost_usd": null
     },
     "extract": {
       "calls": 6,
@@ -34,7 +38,9 @@
       "uncached_output_tokens": 1320,
       "latency_p50_ms": 2260.0,
       "latency_p95_ms": 2342.5,
-      "latency_max_ms": 2350.0
+      "latency_max_ms": 2350.0,
+      "cost_usd": 0.001269,
+      "uncached_cost_usd": 0.001269
     },
     "gate": {
       "calls": 0,
@@ -45,7 +51,9 @@
       "uncached_output_tokens": 0,
       "latency_p50_ms": 0.2,
       "latency_p95_ms": 0.2,
-      "latency_max_ms": 0.2
+      "latency_max_ms": 0.2,
+      "cost_usd": 0.0,
+      "uncached_cost_usd": 0.0
     },
     "human_attention": {
       "calls": 1,
@@ -56,7 +64,9 @@
       "uncached_output_tokens": 160,
       "latency_p50_ms": 1405.0,
       "latency_p95_ms": 1405.0,
-      "latency_max_ms": 1405.0
+      "latency_max_ms": 1405.0,
+      "cost_usd": 0.000152,
+      "uncached_cost_usd": 0.000152
     },
     "redundancy": {
       "calls": 10,
@@ -67,7 +77,9 @@
       "uncached_output_tokens": 0,
       "latency_p50_ms": 42.5,
       "latency_p95_ms": 46.55,
-      "latency_max_ms": 47.0
+      "latency_max_ms": 47.0,
+      "cost_usd": 0.0,
+      "uncached_cost_usd": 0.0
     },
     "validate": {
       "calls": 0,
@@ -78,7 +90,9 @@
       "uncached_output_tokens": 0,
       "latency_p50_ms": 1.0,
       "latency_p95_ms": 1.0,
-      "latency_max_ms": 1.0
+      "latency_max_ms": 1.0,
+      "cost_usd": 0.0,
+      "uncached_cost_usd": 0.0
     }
   },
   "by_model": {
@@ -91,7 +105,9 @@
       "uncached_output_tokens": 4920,
       "latency_p50_ms": 1800.0,
       "latency_p95_ms": 2314.5,
-      "latency_max_ms": 2340.0
+      "latency_max_ms": 2340.0,
+      "cost_usd": 0.005007,
+      "uncached_cost_usd": 0.005007
     },
     "fixture/embedding": {
       "calls": 10,
@@ -102,7 +118,9 @@
       "uncached_output_tokens": 0,
       "latency_p50_ms": 39.5,
       "latency_p95_ms": 43.55,
-      "latency_max_ms": 44.0
+      "latency_max_ms": 44.0,
+      "cost_usd": 0.0,
+      "uncached_cost_usd": 0.0
     },
     "fixture/jev": {
       "calls": 10,
@@ -113,7 +131,9 @@
       "uncached_output_tokens": 140,
       "latency_p50_ms": 990.0,
       "latency_p95_ms": 1071.0,
-      "latency_max_ms": 1080.0
+      "latency_max_ms": 1080.0,
+      "cost_usd": null,
+      "uncached_cost_usd": null
     },
     "fixture/notes": {
       "calls": 1,
@@ -124,11 +144,19 @@
       "uncached_output_tokens": 160,
       "latency_p50_ms": 1400.0,
       "latency_p95_ms": 1400.0,
-      "latency_max_ms": 1400.0
+      "latency_max_ms": 1400.0,
+      "cost_usd": 0.000152,
+      "uncached_cost_usd": 0.000152
     }
   },
   "tokens_per_email_mean": 4539.1,
   "email_latency_p50_ms": 5737.15,
   "email_latency_p95_ms": 8035.405000000002,
-  "total_latency_ms": 44005.0
+  "total_latency_ms": 44005.0,
+  "cost_usd": 0.005159,
+  "uncached_cost_usd": 0.005159,
+  "cost_per_email_usd": 0.000516,
+  "unpriced_models": [
+    "fixture/jev"
+  ]
 }

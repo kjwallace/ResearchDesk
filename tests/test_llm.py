@@ -3,7 +3,7 @@ import time
 import httpx
 import pytest
 
-from triage_app import llm, thresholds
+from triage_app import thresholds
 from triage_app.llm import Message, OpenRouterClient
 
 
@@ -14,12 +14,6 @@ def response(status: int, body: dict[str, object], headers: dict[str, str] | Non
 
 OK: dict[str, object] = {"model": "m", "choices": [{"message": {"content": "hi"}}], "usage": {"prompt_tokens": 3, "completion_tokens": 1}}
 MSG = [Message(role="user", content="x")]
-
-
-@pytest.fixture(autouse=True)
-def no_throttle(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(thresholds, "OPENROUTER_REQUESTS_PER_MINUTE", 10**9)
-    monkeypatch.setattr(llm, "_next_slot", {})
 
 
 def test_retries_rate_limit_then_succeeds(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -57,12 +51,25 @@ def test_client_errors_are_not_retried(monkeypatch: pytest.MonkeyPatch) -> None:
     assert len(calls) == 1
 
 
-def test_throttle_spaces_calls_per_model(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(thresholds, "OPENROUTER_REQUESTS_PER_MINUTE", 20)
-    slept: list[float] = []
-    monkeypatch.setattr(time, "monotonic", lambda: 100.0)
-    monkeypatch.setattr(time, "sleep", slept.append)
-    llm._throttle("a")
-    llm._throttle("a")
-    llm._throttle("b")
-    assert slept == [3.0]
+
+def test_network_errors_are_retried(monkeypatch: pytest.MonkeyPatch) -> None:
+    calls: list[int] = []
+
+    def post(*a: object, **k: object) -> httpx.Response:
+        calls.append(1)
+        if len(calls) < 3:
+            raise httpx.ConnectError("connection refused")
+        return response(200, OK)
+    monkeypatch.setattr(httpx, "post", post)
+    monkeypatch.setattr(time, "sleep", lambda s: None)
+    out = OpenRouterClient(api_key="k", use_cache=False).complete(model="m", messages=MSG)
+    assert out.text == "hi" and len(calls) == 3
+
+
+def test_network_errors_give_up_after_max_retries(monkeypatch: pytest.MonkeyPatch) -> None:
+    def post(*a: object, **k: object) -> httpx.Response:
+        raise httpx.ReadTimeout("timed out")
+    monkeypatch.setattr(httpx, "post", post)
+    monkeypatch.setattr(time, "sleep", lambda s: None)
+    with pytest.raises(httpx.ReadTimeout):
+        OpenRouterClient(api_key="k", use_cache=False).complete(model="m", messages=MSG)

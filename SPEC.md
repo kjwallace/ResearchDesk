@@ -176,7 +176,7 @@ The wording of all 14 questions lives in `instructions/jev_questions.md`. Eleven
 Stage 4 then sets the label and the gate, in this order:
 
 1. **Quarantine** if the prompt injection safety probability reaches the quarantine threshold. Nothing further runs on a quarantined email.
-2. **Label.** The email takes Jev's most probable triage label. The one exception: a flagged repeat whose signal score is below the pass threshold is labeled redundant and points to the earlier email.
+2. **Label.** The email takes Jev's most probable triage label, except that `monitor` needs P(monitor) of at least `MONITOR_LABEL_MIN` (0.70); a weaker monitor takes the next most probable label (the gate still reads the signal score). The other exception: a flagged repeat whose signal score is below the pass threshold is labeled redundant and points to the earlier email.
 3. **Tickers and topics.** A company or topic is listed when its probability reaches its threshold.
 4. **Human attention.** The flag is set when the attention probability reaches the attention threshold. Flagged emails take the attention pathway.
 5. **Gate.** The email passes to the analysis model when its signal score reaches the pass threshold, or when it was truncated. The signal score is the combined probability of thesis\_relevant and monitor. Everything else stops, with its probabilities stored as the reason.
@@ -365,6 +365,8 @@ Every number the pipeline depends on is listed here and is defined once, in `src
 | Human-attention threshold (`HUMAN_ATTENTION`) | 0.6 | ReAnchor |
 | Ticker and topic thresholds | 0.5 each | ReAnchor |
 | Quarantine threshold | 0.65 | Fixed |
+| Minimum P(monitor) for the monitor label | 0.70 | Chosen on the tuning fit split |
+| Relevance a thesis suggestion needs (monitor-only evidence) | 0.7 (0.85) | Fixed |
 | Content similarity that flags a repeat | 0.85 | Fixed |
 | Content similarity that flags a repeat when subjects match | 0.75 | Fixed |
 | Subject similarity that counts as a match | 0.6 | Fixed |

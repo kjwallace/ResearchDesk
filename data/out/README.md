@@ -38,6 +38,5 @@ All data is synthetic.
 
 ## Renamed keys
 
-Older files may still use earlier names: `kind` / `kind_probs` / `attention` in `triage.json`, `attention` in `tuned/thresholds.json`, `attention_precision` / `attention_recall` in `eval.json` and `criteria_history.json`, and the `attention` stage in `metrics.json`. `uv run python scripts/rename_output_keys.py` rewrites them in place to `email_type` / `email_type_probs` / `human_attention` (idempotent). Old six-option `email_type` values stay until the next classify run.
 
 Files earlier runs wrote that the pipeline no longer writes, and that can be deleted: `raw.json`, `parsed.json`, `vectors.npy`, `usage.json`.

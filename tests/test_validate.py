@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 from fakes import FIXTURE_EMAILS, FakeEmbedder, fixture_emails
 
+from triage_app import thresholds
 from triage_app.config import FIXTURES_DIR
 from triage_app.pipeline import validate
 from triage_app.pipeline.context import RunContext
@@ -200,7 +201,6 @@ def test_numbers_in_reads_separators_and_signs() -> None:
 
 
 def test_weak_match_rejected(ctx: RunContext, inputs: validate.ValidationInputs) -> None:
-    from triage_app import thresholds
 
     out = check(with_body(raw()["fixture_001.s1"], relevance=0.5), ctx, inputs)
     assert out.status == "rejected"
@@ -212,3 +212,13 @@ def test_weak_match_rejected(ctx: RunContext, inputs: validate.ValidationInputs)
 def test_quote_mismatch_reported_before_weak_match(ctx: RunContext, inputs: validate.ValidationInputs) -> None:
     out = check(with_body(raw()["fixture_001.s2"], relevance=0.1), ctx, inputs)
     assert (out.reject_reason or "").startswith("quote mismatch")
+
+
+def test_monitor_only_evidence_needs_a_closer_match(ctx: RunContext, inputs: validate.ValidationInputs) -> None:
+    s = raw()["fixture_002.s1"]  # backed only by fixture_002, labeled monitor
+    out = check(with_body(s, relevance=0.8), ctx, inputs)
+    assert out.status == "rejected"
+    assert out.reject_reason == (f"weak match for monitor-only evidence: relevance 0.8 below "
+                                 f"{thresholds.MIN_PILLAR_RELEVANCE_MONITOR:g}")
+    kept = check(with_body(s, relevance=thresholds.MIN_PILLAR_RELEVANCE_MONITOR), ctx, inputs)
+    assert kept.status == "open"

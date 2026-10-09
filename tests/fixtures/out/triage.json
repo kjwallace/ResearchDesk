@@ -47,8 +47,8 @@
     "email_id": "fixture_002",
     "criteria_version": "fixture0000",
     "triage_probs": {
-      "thesis_relevant": 0.24,
-      "monitor": 0.58,
+      "thesis_relevant": 0.1,
+      "monitor": 0.72,
       "redundant": 0.05,
       "low_value": 0.1,
       "irrelevant": 0.03
@@ -179,8 +179,8 @@
     "email_id": "fixture_005",
     "criteria_version": "fixture0000",
     "triage_probs": {
-      "thesis_relevant": 0.16,
-      "monitor": 0.55,
+      "thesis_relevant": 0.0,
+      "monitor": 0.71,
       "redundant": 0.06,
       "low_value": 0.18,
       "irrelevant": 0.05
@@ -225,8 +225,8 @@
     "triage_probs": {
       "thesis_relevant": 0.1,
       "monitor": 0.42,
-      "redundant": 0.38,
-      "low_value": 0.07,
+      "redundant": 0.07,
+      "low_value": 0.38,
       "irrelevant": 0.03
     },
     "ticker_probs": {
@@ -267,8 +267,8 @@
     "email_id": "fixture_007",
     "criteria_version": "fixture0000",
     "triage_probs": {
-      "thesis_relevant": 0.25,
-      "monitor": 0.47,
+      "thesis_relevant": 0.02,
+      "monitor": 0.7,
       "redundant": 0.03,
       "low_value": 0.2,
       "irrelevant": 0.05

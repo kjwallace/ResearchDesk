@@ -1,0 +1,1 @@
+{"estimated": false, "input_tokens": 7746, "output_tokens": 150, "value": {"input_tokens": 7746, "model": "anthropic/claude-haiku-5.5", "output_tokens": 150, "text": "```json\n{\"result\": {\"suggestions\": [], \"no_change_reason\": \"The email states its TAC and EPS figures only for 2027, while the book models FY2026, so no stated figure matches the modeled year.\"}}\n```"}}

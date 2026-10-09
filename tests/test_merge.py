@@ -79,7 +79,8 @@ def test_run_reproduces_fixture(tmp_path: Path, ctx: RunContext, seed: Seed) -> 
 
 def test_rejected_dropped_and_ids_assigned(ctx: RunContext, results: list[EmailResult], seed: Seed) -> None:
     out = merged(list(checked().values()), ctx, results, seed)
-    assert [s.id for s in out] == ["NVDA.p2.supports", "MSFT.p1.supports", "AAPL.p1.supports", "AMZN.new1"]
+    assert [s.id for s in out] == ["NVDA.p2.supports", "MSFT.p1.supports", "AAPL.p1.supports",
+                                  "MSFT.intelligent_cloud_growth.proj1", "AMZN.new1"]
     assert all(s.status == "open" for s in out)
 
 

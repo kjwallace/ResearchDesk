@@ -1,1 +1,677 @@
-[]
+[
+  {
+    "id": "synthetic_000309.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AMZN.p1",
+      "stance": "supports",
+      "strength": 1,
+      "relevance": 0.75,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "toward_buy",
+      "street_view_note": "The street rates AMZN a hold while the desk is long; this target raise with a Buy rating moves the street toward the desk's side.",
+      "assumption_impact": "The email's sell-side analyst raises the 3Q26 AWS revenue forecast to +25.8% y/y, which speaks to the pillar's subject of AWS growth re-accelerating. The figure is a forecast, not a reported result, and it reaches the desk only through a relayed note. It points above the desk's AWS growth assumption and above consensus, so the desk's view that growth is under-modeled by the street gains some support, but the evidence is unconfirmed. Company results or a second independent check would be needed to test it.",
+      "if_accepted": "Accepting logs a strength-1 signal of supporting evidence against AMZN.p1, a weak and unconfirmed step away from its wrong-if test, so the desk holds the view no more firmly. Because the email states a figure for the linked AWS growth driver, the analyst could update that assumption and see EPS and the target price recompute."
+    },
+    "rationale": "The analyst's forecast of AWS growth accelerating to +25.8% bears on the pillar's subject, though it is an estimate rather than a reported result.",
+    "claim_ids": [
+      "synthetic_000309.c7",
+      "synthetic_000309.c9"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000309",
+        "quote": "3Q26 AWS revenue to $41.5bn (+25.8% y/y) from $40.1bn."
+      },
+      {
+        "email_id": "synthetic_000309",
+        "quote": "4Q AWS revenue to $44.8bn (Street ~$43.2bn)."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000309.s2",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AMZN.p3",
+      "stance": "supports",
+      "strength": 1,
+      "relevance": 0.7,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "toward_buy",
+      "street_view_note": "The street rates AMZN a hold while the desk is long; this target raise with a Buy rating moves the street toward the desk's side.",
+      "assumption_impact": "The partner report that enterprise commit sizes rose on renewals bears on the pillar's mechanism of capacity spending turning into signed AWS commitments. It addresses contract value rather than the backlog figure itself, and it is relayed from partners rather than first-hand. It does not test the capex driver, so the desk's capex assumption is unchanged. Confirmation would come from reported backlog growth or company disclosure of commitments.",
+      "if_accepted": "Accepting logs a strength-1 signal of supporting evidence against AMZN.p3, a weak and unconfirmed indication worth watching rather than acting on. It does not move the pillar toward its wrong-if test, and no assumption changes."
+    },
+    "rationale": "Partner reports of larger renewal commitments speak to the signed-commitment step the pillar relies on, though they are not a direct backlog measure.",
+    "claim_ids": [
+      "synthetic_000309.c4"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000309",
+        "quote": "Four of the nine partners report average enterprise commit size up 12-20% on renewals."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000329.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AMZN.p2",
+      "stance": "contradicts",
+      "strength": 1,
+      "relevance": 0.72,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates AMZN a hold while the desk is long; this note reports an unchanged Buy rating and target, so the street's view does not move toward the desk's side.",
+      "assumption_impact": "The email ties a Q4 increase in operating expense to regionalization startup costs, which bears on the fulfillment-efficiency mechanism the pillar relies on for expanding retail margin. It also states that revenue should see little lift in the quarter, so the cost step-up is not offset by near-term sales. This points to retail margin below the desk's assumption, which sits above consensus, though the margin driver is not stated as a figure in the claims. The evidence is relayed from management commentary and is a forecast by the analyst, not a reported result, so it is unconfirmed.",
+      "if_accepted": "Accepting logs weak, unconfirmed contradicting evidence against AMZN.p2, a signal worth watching rather than acting on. No figure is stated for the linked margin driver, so no assumption is changed."
+    },
+    "rationale": "The analyst's estimate of higher Q4 operating expense from regionalization costs bears on the fulfillment-efficiency mechanism in the pillar's statement, and the note's view that revenue will not offset it is consistent with the pillar's wrong-if test on costs outrunning revenue, though it does not report that outcome.",
+    "claim_ids": [
+      "synthetic_000329.c2",
+      "synthetic_000329.c3"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000329",
+        "quote": "Using management's past commentary on regionalization startup costs, we estimate $0.9-1.3bn of incremental Q4 operating expense versus our prior assumption."
+      },
+      {
+        "email_id": "synthetic_000329",
+        "quote": "Revenue should not get much of a lift in the quarter, as the benefits from lower cost-to-serve and faster delivery accrue mostly in 2027."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000335.s1",
+    "body": {
+      "kind": "new_thesis",
+      "ticker": "MSFT",
+      "statement": "Security add-on upgrades in the Microsoft 365 base displace third-party security products and raise revenue per user.",
+      "wrong_if": "Panel data shows E5 upgraders' third-party retirements stalling, per-user revenue gains fading, or discounting widening at EA renewals.",
+      "driver_ids": [
+        "MSFT.productivity_growth"
+      ]
+    },
+    "rationale": "A first-hand channel check reports that E5 or E5 Security add-on penetration rose to 31% of the panel, that 44% of recent upgraders retired at least one third-party endpoint or identity product within 6 months, and that upgraders' average revenue per user rose 19-24% before discounts. The nearest pillar, MSFT.p2, concerns paid AI assistants raising revenue per seat, but these upgrades are driven by security bundling and vendor displacement, and Security Copilot entitlements are active in only 9% of E5 tenants, so no existing pillar addresses security suite consolidation. For the statement to hold, upgraders would need to keep retiring third-party security products and keep paying more per user while renewal discounting stays flat. Evidence that retirements stall, per-user revenue gains fade, or EA renewal discounting widens would prove it wrong.",
+    "claim_ids": [
+      "synthetic_000335.c1",
+      "synthetic_000335.c2",
+      "synthetic_000335.c3",
+      "synthetic_000335.c4",
+      "synthetic_000335.c5"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000335",
+        "quote": "Tenants with Microsoft 365 E5 or the E5 Security add-on: 31% of the panel, up from 26% in March and 22% a year ago."
+      },
+      {
+        "email_id": "synthetic_000335",
+        "quote": "Among tenants that moved to E5 or the add-on in the last 12 months, 44% retired at least one third-party endpoint or identity product within 6 months."
+      },
+      {
+        "email_id": "synthetic_000335",
+        "quote": "Average revenue per user among upgraders rose 19-24%, depending on the starting SKU, before any negotiated discounts."
+      },
+      {
+        "email_id": "synthetic_000335",
+        "quote": "Renewal-cohort discounting did not widen: median discount off list on EA renewals in the panel was 14%, vs. 15% a year ago."
+      },
+      {
+        "email_id": "synthetic_000335",
+        "quote": "Security Copilot entitlements were active in 9% of E5 tenants, up from 3% in March."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000366.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "GOOGL.p2",
+      "stance": "supports",
+      "strength": 3,
+      "relevance": 0.9,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates GOOGL a hold while the desk is short; this company guidance is not a street rating change, so the street's view is unchanged.",
+      "assumption_impact": "The email is Alphabet's own guidance on depreciation, the mechanism the pillar names: capital spending turning into depreciation that squeezes operating margin. It reports a useful-life cut for AI-accelerated servers and a stated increase in FY2027 depreciation, and says Google Cloud operating margin will be affected more than Services. This supports the pillar's statement directly, and the Cloud margin comment suggests Cloud is not offsetting the step-up, so the wrong-if test is not met. The email gives no figure for capital expenditure, operating margin or Cloud growth, so the desk's above-consensus capex view and below-consensus margin view gain support in direction but no linked driver value is updated. The source is first-hand company guidance, which makes the evidence strong.",
+      "if_accepted": "Accepting logs strength-3 supporting evidence against GOOGL.p2 and moves the pillar further from its wrong-if test, so the desk can hold the margin-compression view more firmly. No driver figure is stated for a linked driver, so no assumption is recomputed."
+    },
+    "rationale": "The company's own guidance reports the depreciation step-up and says Cloud margin is affected more than Services, which speaks directly to the pillar's statement and its Cloud-offset wrong-if test.",
+    "claim_ids": [
+      "synthetic_000366.c1",
+      "synthetic_000366.c2",
+      "synthetic_000366.c3",
+      "synthetic_000366.c4",
+      "synthetic_000366.c5"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000366",
+        "quote": "we are reducing the estimated useful life of certain AI-accelerated servers and associated networking equipment from six years to five years, effective October 1, 2026, on a prospective basis."
+      },
+      {
+        "email_id": "synthetic_000366",
+        "quote": "Depreciation expense in Q4 2026 is expected to increase by approximately $0.7 billion relative to the prior estimate."
+      },
+      {
+        "email_id": "synthetic_000366",
+        "quote": "For full-year 2027, we currently estimate an increase in depreciation expense of approximately $3.9 billion, depending on the pace of capital deployment."
+      },
+      {
+        "email_id": "synthetic_000366",
+        "quote": "On an after-tax basis, we estimate this to reduce diluted EPS by approximately $0.26 in 2027."
+      },
+      {
+        "email_id": "synthetic_000366",
+        "quote": "We expect Google Cloud operating margin to be affected more than Services."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000372.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "MSFT.p1",
+      "stance": "contradicts",
+      "strength": 2,
+      "relevance": 0.78,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates MSFT a buy, in line with the desk's long; this note carries no rating change, so the street's view is not recorded as moving.",
+      "assumption_impact": "The email's Azure growth figure bears on the pillar's claim that Azure growth stays above consensus. The analyst says Azure growth is in line with consensus rather than above it, which contradicts the part of the pillar that depends on growth beating the street. The estimate is a third-party forecast rather than a company disclosure, so it is moderate evidence. Azure growth is not the same metric as the Intelligent Cloud revenue growth driver, so no assumption is recorded, and the desk's above-consensus Intelligent Cloud assumption is not tested by this figure.",
+      "if_accepted": "Accepting logs strength-2 contradicting evidence against MSFT.p1 and weakens the desk's confidence that Azure runs above consensus, though it does not meet the wrong-if test. No assumption changes, because the figure is for Azure growth rather than a linked driver."
+    },
+    "rationale": "The email's Azure growth view speaks directly to the pillar's claim of above-consensus Azure growth, and it says growth is in line rather than above.",
+    "claim_ids": [
+      "synthetic_000372.c12"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000372",
+        "quote": "we see Azure growth at +39% cc, in line"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000372.s2",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "MSFT.p3",
+      "stance": "contradicts",
+      "strength": 2,
+      "relevance": 0.72,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates MSFT a buy, in line with the desk's long; this note carries no rating change, so the street's view is not recorded as moving.",
+      "assumption_impact": "The pillar says operating margin holds while capital intensity peaks within the model year. The email raises the expected depreciation step-up above the prior model and cuts the Microsoft Cloud gross margin for the next two quarters. Higher depreciation and lower gross margin point against the margin-holds half of the pillar. The evidence is a third-party estimate rather than company guidance, and it concerns gross margin rather than the operating margin the desk models, so the desk's operating margin assumption is not directly tested and is not changed here.",
+      "if_accepted": "Accepting logs strength-2 contradicting evidence against MSFT.p3, which weakens the view that margin holds through the step-up without yet meeting the wrong-if test. No assumption is updated, because the email states no figure for a linked driver such as operating margin or capital expenditure."
+    },
+    "rationale": "The depreciation step-up and the cut to Microsoft Cloud gross margin bear on whether operating margin holds through peak capital intensity, though the metric is gross margin rather than operating margin.",
+    "claim_ids": [
+      "synthetic_000372.c5",
+      "synthetic_000372.c6"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000372",
+        "quote": "Q/Q depreciation step-up: ~$2.2bn vs. ~$1.3bn previously modeled"
+      },
+      {
+        "email_id": "synthetic_000372",
+        "quote": "Microsoft Cloud gross margin: FQ1 66.1% (from 67.8%); FQ2 64.8% (from 66.9%)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000373.s1",
+    "body": {
+      "kind": "new_thesis",
+      "ticker": "GOOGL",
+      "statement": "Shorts monetization closes part of its pricing gap to in-stream video, lifting YouTube ad revenue.",
+      "wrong_if": "Reported Shorts CPM as a share of in-stream CPM falls back toward March levels, or YouTube ads come in below the street figure of $10.4bn for 3Q26E.",
+      "driver_ids": [
+        "GOOGL.services_growth"
+      ]
+    },
+    "rationale": "A channel check, reported first-hand, puts the median Shorts CPM at 58% of in-stream CPM against 44% in March, and the same email notes rising Shorts time-share. The YouTube ads estimate lines are not first-hand. The nearest pillar, GOOGL.p1, concerns AI answers reducing search clicks, and GOOGL.p2 and GOOGL.p3 cover margin and regulation, so none addresses YouTube Shorts monetization. For the statement to hold, Shorts would need to keep monetizing at a rising share of in-stream pricing while its time-share grows. A reported narrowing reversing, or YouTube ads landing below the street figure, would prove it wrong.",
+    "claim_ids": [
+      "synthetic_000373.c7",
+      "synthetic_000373.c8"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000373",
+        "quote": "Median Shorts CPM / in-stream CPM: 58% (vs. 44% in March)"
+      },
+      {
+        "email_id": "synthetic_000373",
+        "quote": "We think the narrower discount, plus rising Shorts time-share, supports ~13% growth instead."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000398.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "GOOGL.p3",
+      "stance": "contradicts",
+      "strength": 2,
+      "relevance": 0.85,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates GOOGL a hold while the desk is short; these claims do not move the street's view, so it stays between the desk and a buy.",
+      "assumption_impact": "The claims describe the early uptake of the remedy: qualified competitors hold a combined 1.1% of U.S. query volume per the committee's estimate, syndicated queries are about 0.2% in the first 90 days, and only one of three approved firms has signed a syndication agreement. This runs against the pillar's premise that remedies will restrict search distribution in a way that hurts Services, so it contradicts the short. No driver figure is stated, so the linked Services growth assumption is not tested directly, but the early evidence sits against the desk's below-consensus Services view. The source is reported by the committee and counsel rather than first-hand, and the figures are early readings from one remedy.",
+      "if_accepted": "Accepting logs strength-2 contradicting evidence against GOOGL.p3, moving the pillar away from its statement and toward its wrong-if test of remedies with little operating effect, though the test is not met. The desk could hold the short on this pillar less firmly, and no assumption changes because the email states no figure for a linked driver."
+    },
+    "rationale": "The claims report early uptake of the search remedy, which speaks directly to whether remedies restrict distribution, though the evidence is partial and early.",
+    "claim_ids": [
+      "synthetic_000398.c1",
+      "synthetic_000398.c2",
+      "synthetic_000398.c6",
+      "synthetic_000398.c4",
+      "synthetic_000398.c5"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000398",
+        "quote": "Combined U.S. query volume of the 3 approved firms: roughly 1.1% of Google's U.S. query volume, per the committee's estimate."
+      },
+      {
+        "email_id": "synthetic_000398",
+        "quote": "Syndicated queries in the first 90 days: about 0.2% of Google U.S. queries."
+      },
+      {
+        "email_id": "synthetic_000398",
+        "quote": "Only 1 of 3 approved firms has executed a syndication agreement for search results; none has signed for text ads."
+      },
+      {
+        "email_id": "synthetic_000398",
+        "quote": "Google's counsel estimates annual compliance cost at about $210m"
+      },
+      {
+        "email_id": "synthetic_000398",
+        "quote": "versus about $1.1bn of revenue the company previously said was at risk in its remedy briefing."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000431.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AAPL.p3",
+      "stance": "supports",
+      "strength": 1,
+      "relevance": 0.72,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates AAPL a buy while the desk is short; this expert channel check is not a sell-side signal and does not move the street's view.",
+      "assumption_impact": "The expert's comments bear on the component-cost half of the pillar: a modem swap that saves less per unit than Apple's internal planning assumed, and a gross margin benefit that shrinks at reduced mix. Both point to less margin cushion from component costs, which is the mechanism the pillar relies on. The email gives no operating margin figure, so the desk's operating margin assumption is not tested directly, and it is a relayed, unconfirmed account from a former employee. Confirmation would need company guidance on the modem transition or a second independent source.",
+      "if_accepted": "Accepting logs a strength-1 supporting signal against AAPL.p3, recorded as weak and unconfirmed and worth watching rather than acting on. No assumption changes, because the email states no figure for the operating margin driver."
+    },
+    "rationale": "The expert's comments on modem component cost savings and the gross margin benefit from the modem swap bear on the pillar's component-cost mechanism, though they address gross margin rather than operating margin and are not first-hand.",
+    "claim_ids": [
+      "synthetic_000431.c6",
+      "synthetic_000431.c7",
+      "synthetic_000431.c8"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000431",
+        "quote": "Apple's modem content cost savings per unit coming in about $8-11 below what internal planning had assumed ($18-22 per unit at target mix)."
+      },
+      {
+        "email_id": "synthetic_000431",
+        "quote": "At full planned mix the expert said Finance had counted roughly 40-60bp of annual iPhone gross margin benefit from the modem swap."
+      },
+      {
+        "email_id": "synthetic_000431",
+        "quote": "A mix reduction to approximately 30% of 2027 units would cut that to roughly 20-30bp."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000431.s2",
+    "body": {
+      "kind": "new_thesis",
+      "ticker": "AAPL",
+      "statement": "Apple's in-house modem becomes a substantial share of iPhone units, reducing its reliance on Qualcomm for modems.",
+      "wrong_if": "Apple reports or confirms that Pro-tier modems remain sourced mainly from Qualcomm, or that the in-house modem share target is cut below the planned mix.",
+      "driver_ids": []
+    },
+    "rationale": "A former Apple employee, speaking second-hand in one email, says the internal target was to carry the in-house modem C2 in roughly half of iPhone units, and that the target was under review. The nearest pillar, AAPL.p3, covers tariffs and component costs, and AAPL.p1 covers upgrade demand and China share, so neither addresses a shift in modem sourcing from Qualcomm. For the statement to hold, the in-house modem would need to reach Pro-tier models and ramp past the current supply and certification problems. Reported Pro-tier modems staying with Qualcomm, or a confirmed cut to the in-house share target, would prove it wrong.",
+    "claim_ids": [
+      "synthetic_000431.c1",
+      "synthetic_000431.c2",
+      "synthetic_000431.c3",
+      "synthetic_000431.c4",
+      "synthetic_000431.c5"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000431",
+        "quote": "The in-house modem now ships in the base iPhone 18 and the iPad line."
+      },
+      {
+        "email_id": "synthetic_000431",
+        "quote": "The expert said Apple's internal target for the 2027 iPhone cycle was to carry C2 in roughly half of all units, including some Pro models."
+      },
+      {
+        "email_id": "synthetic_000431",
+        "quote": "In her last quarter at Apple, that target was \"under review\" because the Pro-tier carrier certification slipped."
+      },
+      {
+        "email_id": "synthetic_000431",
+        "quote": "a wafer-level yield issue on the RF transceiver die that held effective supply below plan."
+      },
+      {
+        "email_id": "synthetic_000431",
+        "quote": "She believes Qualcomm will keep supplying most Pro-tier modems through 2027"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000450.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "MSFT.p3",
+      "stance": "contradicts",
+      "strength": 1,
+      "relevance": 0.75,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates MSFT a buy, in line with the desk's long; this channel-check opinion is not a rating or estimate change, so the street's view is unchanged.",
+      "assumption_impact": "The pillar says capital intensity peaks within the model year, and the email's FY27 figure of roughly $142bn for capex including finance leases points to a higher spending level in that year rather than a plateau, so it contradicts the pillar. It points above the desk's capex assumption, which matches consensus, so the base case that spending levels off looks harder to defend. The email is a second-hand channel check, and it counts finance leases, which may not match the definition the desk uses for capex.",
+      "if_accepted": "Accepting logs a strength-1 contradicting signal against MSFT.p3, a weak and unconfirmed point that would make the desk hold the peaking view less firmly. The email states a figure for the linked capex driver, so the analyst could update that assumption and see EPS and the target price recompute, after checking the finance-lease definition."
+    },
+    "rationale": "The email gives a forecast of FY27 capex including finance leases, which bears on the pillar's claim that capital intensity peaks within the model year, though it is an opinion rather than reported guidance.",
+    "claim_ids": [
+      "synthetic_000450.c6"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000450",
+        "quote": "we see FY27 capex including finance leases at roughly $142bn"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000455.s1",
+    "body": {
+      "kind": "new_thesis",
+      "ticker": "AMZN",
+      "statement": "Amazon's retail growth increasingly rests on higher-spending shoppers as lower-income basket sizes shrink.",
+      "wrong_if": "Reported bottom-tercile basket size recovers, or top-tercile Amazon spend growth slows to flat or negative.",
+      "driver_ids": []
+    },
+    "rationale": "A thesis-relevant email reports first-hand that average basket size among bottom-tercile Amazon shoppers fell ~6% y/y in September, while the share of their orders made up of Prime-eligible items under $25 rose to 44% from 38%. Over the same period top-tercile Amazon spend rose +5.2% y/y. The nearest existing pillar, AMZN.p2, concerns retail operating margin through fulfillment efficiency and advertising, not where retail demand comes from by shopper income, so this debate is not covered. For the statement to hold, higher-spending shoppers would need to keep carrying retail growth while lower-income baskets stay smaller and trade down. Reports that bottom-tercile basket size recovers, or that top-tercile spend growth stalls, would prove it wrong.",
+    "claim_ids": [
+      "synthetic_000455.c1",
+      "synthetic_000455.c2",
+      "synthetic_000455.c4"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000455",
+        "quote": "Average basket size among bottom-tercile Amazon shoppers fell ~6% y/y in September"
+      },
+      {
+        "email_id": "synthetic_000455",
+        "quote": "Share of bottom-tercile orders consisting of only Prime-eligible items under $25 rose to 44% from 38% a year earlier"
+      },
+      {
+        "email_id": "synthetic_000455",
+        "quote": "Top-tercile Amazon spend rose +5.2% y/y"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000477.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AMZN.p2",
+      "stance": "supports",
+      "strength": 2,
+      "relevance": 0.85,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates AMZN a hold while the desk is long; this channel check does not move the street's view.",
+      "assumption_impact": "The channel check reports that North America cost-to-serve per unit fell roughly 4.5% year over year through July, which is the fulfillment-efficiency mechanism the pillar relies on for retail margin to keep expanding. The same source says the Street models about a 2% improvement in the fulfillment line, so the reported decline points well above the Street's assumed efficiency gain. The evidence is a relayed channel check rather than company disclosure, and it is not tied to a linked driver figure, so the operating margin and North America growth assumptions are not changed by it.",
+      "if_accepted": "Accepting logs strength-2 supporting evidence against AMZN.p2 and moves the pillar further from its wrong-if test. No assumption is updated, because the email states no figure for a linked driver, so the analyst would need company or further channel evidence before revisiting the margin assumption."
+    },
+    "rationale": "The channel check reports the fulfillment cost-per-unit trend that the pillar names as its driver of retail margin expansion; the wrong-if test, fulfillment costs rising faster than revenue, is not met because the reported cost trend is falling.",
+    "claim_ids": [
+      "synthetic_000477.c1",
+      "synthetic_000477.c2"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000477",
+        "quote": "Cost-to-serve per unit in North America was running down roughly 4.5% y/y through July"
+      },
+      {
+        "email_id": "synthetic_000477",
+        "quote": "She says the Street models closer to a 2% y/y improvement in the fulfillment line."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000512.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "NVDA.p3",
+      "stance": "contradicts",
+      "strength": 2,
+      "relevance": 0.75,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates NVDA a buy, on the same side as the desk's long, and this reported share data does not move the street's view.",
+      "assumption_impact": "The email reports that Nvidia's share of new AWS accelerated-instance hours fell while Trainium's share rose, which is the in-house substitution the pillar says will not happen at large customers. It also reports Trainium fine-tuning and inference jobs costing 34-41% less than comparable Nvidia instances, which bears on the pricing half of the pillar. The email states no figure for NVDA.operating_margin or NVDA.data_center_growth, so the base case that pricing and margin hold is challenged qualitatively rather than quantified. The evidence is first-hand and reported as fact, from one source, and it bears on one AWS workload mix rather than the whole customer base.",
+      "if_accepted": "Accepting logs strength-2 contradicting evidence against NVDA.p3 and moves the pillar toward its wrong-if test, though the test itself is not met. No linked driver is given a figure in the email, so no assumption would be updated and no EPS or target change would be recomputed from this item."
+    },
+    "rationale": "The claims report in-house chip share gains at AWS, a large Nvidia customer, which the pillar's statement says should grow alongside Nvidia rather than replace it, and the lower per-job cost bears on the pillar's pricing claim; the wrong-if test is not met because Trainium holds only a minority of new hours.",
+    "claim_ids": [
+      "synthetic_000512.c1",
+      "synthetic_000512.c2",
+      "synthetic_000512.c6"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000512",
+        "quote": "| Nvidia (H100/H200/B-class) | 88% | 83% | 71% |"
+      },
+      {
+        "email_id": "synthetic_000512",
+        "quote": "| AWS Trainium (Trn2/Trn3) | 8% | 14% | 27% |"
+      },
+      {
+        "email_id": "synthetic_000512",
+        "quote": "Median per-job cost on Trainium for fine-tuning and inference workloads was 34-41% lower than on comparable Nvidia instances"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000512.s2",
+    "body": {
+      "kind": "new_thesis",
+      "ticker": "AMZN",
+      "statement": "AWS's in-house accelerators take a growing share of its accelerated compute hours from Nvidia.",
+      "wrong_if": "Reported Trainium share of total accelerated hours stalls or falls in later quarters, or the Trainium per-job cost advantage over comparable Nvidia instances disappears.",
+      "driver_ids": []
+    },
+    "rationale": "A report marked first-hand states that Trainium's share of total accelerated hours rose while Nvidia's fell, and that 62% of incremental Trainium hours came from accounts outside the top 20 by spend. The same report says median per-job cost on Trainium was 34-41% lower than on comparable Nvidia instances. The nearest pillar, AMZN.p1, concerns AWS growth re-accelerating as power and chip capacity is added, and it does not address which silicon supplies that capacity or how the mix shifts between in-house and Nvidia hardware. For the statement to hold, Trainium would need to keep gaining hours share and win new accounts beyond the largest spenders. A reported stall or decline in Trainium's share, or the cost advantage disappearing, would prove it wrong.",
+    "claim_ids": [
+      "synthetic_000512.c4",
+      "synthetic_000512.c5",
+      "synthetic_000512.c6"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000512",
+        "quote": "Share of TOTAL accelerated hours: Nvidia 86% (from 91% in Q2), Trainium 12% (from 7%)."
+      },
+      {
+        "email_id": "synthetic_000512",
+        "quote": "In Q3, 62% of the incremental Trainium hours came from accounts outside the top 20 by spend"
+      },
+      {
+        "email_id": "synthetic_000512",
+        "quote": "Median per-job cost on Trainium for fine-tuning and inference workloads was 34-41% lower than on comparable Nvidia instances"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000525.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AAPL.p3",
+      "stance": "supports",
+      "strength": 1,
+      "relevance": 0.75,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates AAPL a buy while the desk is short, and these channel checks do not move that view.",
+      "assumption_impact": "The pre-screen says NAND pricing is less locked, at about 40%, and gives a rough estimate of a 20-30bp gross margin hit from DRAM before any offset. Both bear on the pillar's component-cost half, because unlocked memory exposes margin to price moves. The estimate is for gross margin, not operating margin, which is the linked driver, so it indicates pressure in the same direction without setting a level. That direction is below the consensus margin view, but the evidence is an unconfirmed, relayed channel check.",
+      "if_accepted": "Accepting logs a strength-1 supporting signal against AAPL.p3 as an unconfirmed channel check, worth watching rather than acting on. No assumption changes, because the email states no figure for the operating margin driver."
+    },
+    "rationale": "The channel check reports that memory pricing is less locked and estimates a margin impact from DRAM, which speaks to the pillar's component-cost risk, though only in part and in gross margin terms.",
+    "claim_ids": [
+      "synthetic_000525.c2",
+      "synthetic_000525.c4"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000525",
+        "quote": "She also said NAND was less locked, at about 40%."
+      },
+      {
+        "email_id": "synthetic_000525",
+        "quote": "Her rough estimate was a 20-30bp impact from DRAM before any offset."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000525.s2",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AAPL.p3",
+      "stance": "contradicts",
+      "strength": 1,
+      "relevance": 0.75,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates AAPL a buy while the desk is short, and this channel check does not move that view.",
+      "assumption_impact": "The pre-screen reports that Apple has fixed pricing on about 70% of its CY27 LPDDR5X volume through June 2027. That bears on the component-cost half of the pillar, because locked memory prices would cushion margin against DRAM cost increases. It runs against the desk's below-consensus operating margin view, but it is a forecast beyond the model year, relayed secondhand and not confirmed, so it counts only lightly against the pillar.",
+      "if_accepted": "Accepting logs a strength-1 contradicting signal against AAPL.p3 as an unconfirmed channel check, worth watching rather than acting on. No assumption changes, because the email states no figure for the operating margin driver."
+    },
+    "rationale": "The channel check reports fixed memory pricing on most CY27 volume, which lowers the component-cost risk the pillar describes, though the period falls outside the model year.",
+    "claim_ids": [
+      "synthetic_000525.c1"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000525",
+        "quote": "In our pre-screen she said that, as of her exit, Apple had fixed pricing on roughly 70% of its CY27 LPDDR5X volume through the end of June 2027."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000551.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "GOOGL.p1",
+      "stance": "contradicts",
+      "strength": 2,
+      "relevance": 0.8,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates GOOGL a hold while the desk is short; this channel check does not move the street's view.",
+      "assumption_impact": "The email reports that AI answers are rising while commercial query behavior has not changed, which tests the mechanism at the heart of the pillar: fewer clicks on commercial queries as AI answers appear. Steady advertiser demand and no visible shift in commercial queries point against the desk's view that Search growth falls below consensus. The Services growth driver is the one tested, and the email gives no figure for it, so the desk's assumption of 7% against consensus of 10.5% is not moved by a number here. The evidence comes from unnamed local contacts in a channel check, so it is first-hand but not confirmed by company data.",
+      "if_accepted": "Accepting logs strength-2 contradicting evidence against GOOGL.p1 and moves the pillar somewhat toward its wrong-if test, which asks for paid-click and pricing data showing monetization holding. The desk can hold the short view somewhat less firmly until that data arrives. No assumption changes, because the email states no figure for a linked driver."
+    },
+    "rationale": "The channel check reports no change in commercial query behavior despite rising AI answer usage, which speaks directly to the pillar's claim that AI answers reduce commercial clicks.",
+    "claim_ids": [
+      "synthetic_000551.c1"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000551",
+        "quote": "Search: Local contacts described advertiser demand as steady; AI Overviews and AI Mode usage keep rising, with no change in commercial query behavior that they could point to."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  }
+]

@@ -27,7 +27,7 @@
     "human_attention": false,
     "signal_score": 0.82,
     "gate": "pass",
-    "reason": "monitor 0.58; signal score 0.82 clears 0.60"
+    "reason": "monitor 0.72; signal score 0.82 clears 0.60"
   },
   {
     "email_id": "fixture_003",
@@ -67,7 +67,7 @@
     "human_attention": false,
     "signal_score": 0.71,
     "gate": "pass",
-    "reason": "monitor 0.55; signal score 0.71 clears 0.60"
+    "reason": "monitor 0.71; signal score 0.71 clears 0.60"
   },
   {
     "email_id": "fixture_006",
@@ -83,7 +83,7 @@
     "human_attention": false,
     "signal_score": 0.52,
     "gate": "stop",
-    "reason": "redundant: repeat of fixture_005 (content 0.96, subject 0.86); jev monitor 0.42; signal score 0.52 is below 0.60"
+    "reason": "redundant: repeat of fixture_005 (content 0.96, subject 0.86); jev monitor 0.42 is below 0.70, so low_value 0.38; signal score 0.52 is below 0.60"
   },
   {
     "email_id": "fixture_007",
@@ -97,7 +97,7 @@
     "human_attention": true,
     "signal_score": 0.72,
     "gate": "pass",
-    "reason": "monitor 0.47; signal score 0.72 clears 0.60"
+    "reason": "monitor 0.70; signal score 0.72 clears 0.60"
   },
   {
     "email_id": "fixture_008",

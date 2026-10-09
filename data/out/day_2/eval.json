@@ -1,16 +1,16 @@
 {
   "corpus": "day_2",
-  "criteria_version": "1f44a2faac8e",
+  "criteria_version": "0b34df14dec8",
   "measures": {
     "gate_recall": 0.6667,
-    "monitor_gate_recall": 0.9167,
-    "gate_reduction": 0.7933,
-    "signal_accuracy": 0.8467,
-    "triage_accuracy": 0.6567,
-    "ticker_f1": 0.8333,
-    "human_attention_precision": 0.8182,
-    "human_attention_recall": 0.9,
-    "topic_f1": 0.1152,
+    "monitor_gate_recall": 0.9375,
+    "gate_reduction": 0.7867,
+    "signal_accuracy": 0.8667,
+    "triage_accuracy": 0.6733,
+    "ticker_f1": 0.8373,
+    "human_attention_precision": 0.8095,
+    "human_attention_recall": 0.85,
+    "topic_f1": 0.115,
     "repeat_flagged": 43.0,
     "repeat_precision": 0.0698,
     "stray_suggestions": 0.0,
@@ -23,28 +23,31 @@
   },
   "confusion": {
     "monitor": {
-      "monitor": 48
+      "monitor": 45,
+      "thesis_relevant": 2,
+      "irrelevant": 1
     },
     "irrelevant": {
-      "irrelevant": 78,
-      "low_value": 7,
-      "redundant": 8
+      "irrelevant": 80,
+      "redundant": 8,
+      "low_value": 5
     },
     "redundant": {
       "redundant": 30,
       "irrelevant": 3
     },
     "low_value": {
-      "irrelevant": 47,
-      "monitor": 15,
-      "low_value": 21,
-      "redundant": 16
+      "irrelevant": 50,
+      "low_value": 25,
+      "redundant": 17,
+      "monitor": 6,
+      "thesis_relevant": 1
     },
     "thesis_relevant": {
-      "thesis_relevant": 20,
-      "monitor": 3,
+      "thesis_relevant": 22,
       "quarantined": 1,
-      "redundant": 3
+      "redundant": 3,
+      "monitor": 1
     }
   },
   "misses": [
@@ -103,12 +106,6 @@
       "got": "stop"
     },
     {
-      "email_id": "synthetic_000348",
-      "measure": "monitor_gate_recall",
-      "expected": "pass",
-      "got": "stop"
-    },
-    {
       "email_id": "synthetic_000371",
       "measure": "monitor_gate_recall",
       "expected": "pass",
@@ -127,28 +124,10 @@
       "got": "stop"
     },
     {
-      "email_id": "synthetic_000308",
-      "measure": "signal_accuracy",
-      "expected": "noise",
-      "got": "signal"
-    },
-    {
-      "email_id": "synthetic_000310",
-      "measure": "signal_accuracy",
-      "expected": "noise",
-      "got": "signal"
-    },
-    {
       "email_id": "synthetic_000325",
       "measure": "signal_accuracy",
       "expected": "noise",
       "got": "redundant"
-    },
-    {
-      "email_id": "synthetic_000328",
-      "measure": "signal_accuracy",
-      "expected": "noise",
-      "got": "signal"
     },
     {
       "email_id": "synthetic_000342",
@@ -211,12 +190,6 @@
       "got": "quarantined"
     },
     {
-      "email_id": "synthetic_000409",
-      "measure": "signal_accuracy",
-      "expected": "noise",
-      "got": "signal"
-    },
-    {
       "email_id": "synthetic_000412",
       "measure": "signal_accuracy",
       "expected": "noise",
@@ -229,10 +202,10 @@
       "got": "redundant"
     },
     {
-      "email_id": "synthetic_000425",
+      "email_id": "synthetic_000422",
       "measure": "signal_accuracy",
       "expected": "noise",
-      "got": "signal"
+      "got": "redundant"
     },
     {
       "email_id": "synthetic_000426",
@@ -271,10 +244,10 @@
       "got": "noise"
     },
     {
-      "email_id": "synthetic_000467",
+      "email_id": "synthetic_000466",
       "measure": "signal_accuracy",
-      "expected": "noise",
-      "got": "signal"
+      "expected": "signal",
+      "got": "noise"
     },
     {
       "email_id": "synthetic_000470",
@@ -361,12 +334,6 @@
       "got": "redundant"
     },
     {
-      "email_id": "synthetic_000541",
-      "measure": "signal_accuracy",
-      "expected": "noise",
-      "got": "signal"
-    },
-    {
       "email_id": "synthetic_000556",
       "measure": "signal_accuracy",
       "expected": "signal",
@@ -380,12 +347,6 @@
     },
     {
       "email_id": "synthetic_000570",
-      "measure": "signal_accuracy",
-      "expected": "noise",
-      "got": "signal"
-    },
-    {
-      "email_id": "synthetic_000585",
       "measure": "signal_accuracy",
       "expected": "noise",
       "got": "signal"
@@ -415,22 +376,10 @@
       "got": "irrelevant"
     },
     {
-      "email_id": "synthetic_000308",
-      "measure": "triage_accuracy",
-      "expected": "low_value",
-      "got": "monitor"
-    },
-    {
       "email_id": "synthetic_000310",
       "measure": "triage_accuracy",
       "expected": "low_value",
-      "got": "monitor"
-    },
-    {
-      "email_id": "synthetic_000312",
-      "measure": "triage_accuracy",
-      "expected": "irrelevant",
-      "got": "low_value"
+      "got": "irrelevant"
     },
     {
       "email_id": "synthetic_000316",
@@ -478,13 +427,13 @@
       "email_id": "synthetic_000328",
       "measure": "triage_accuracy",
       "expected": "low_value",
-      "got": "monitor"
+      "got": "irrelevant"
     },
     {
-      "email_id": "synthetic_000337",
+      "email_id": "synthetic_000331",
       "measure": "triage_accuracy",
-      "expected": "irrelevant",
-      "got": "low_value"
+      "expected": "low_value",
+      "got": "irrelevant"
     },
     {
       "email_id": "synthetic_000338",
@@ -553,16 +502,10 @@
       "got": "irrelevant"
     },
     {
-      "email_id": "synthetic_000365",
+      "email_id": "synthetic_000371",
       "measure": "triage_accuracy",
-      "expected": "thesis_relevant",
-      "got": "monitor"
-    },
-    {
-      "email_id": "synthetic_000367",
-      "measure": "triage_accuracy",
-      "expected": "thesis_relevant",
-      "got": "monitor"
+      "expected": "monitor",
+      "got": "thesis_relevant"
     },
     {
       "email_id": "synthetic_000375",
@@ -643,12 +586,6 @@
       "got": "quarantined"
     },
     {
-      "email_id": "synthetic_000409",
-      "measure": "triage_accuracy",
-      "expected": "low_value",
-      "got": "monitor"
-    },
-    {
       "email_id": "synthetic_000412",
       "measure": "triage_accuracy",
       "expected": "irrelevant",
@@ -664,13 +601,7 @@
       "email_id": "synthetic_000422",
       "measure": "triage_accuracy",
       "expected": "low_value",
-      "got": "irrelevant"
-    },
-    {
-      "email_id": "synthetic_000425",
-      "measure": "triage_accuracy",
-      "expected": "low_value",
-      "got": "monitor"
+      "got": "redundant"
     },
     {
       "email_id": "synthetic_000426",
@@ -727,6 +658,12 @@
       "got": "low_value"
     },
     {
+      "email_id": "synthetic_000455",
+      "measure": "triage_accuracy",
+      "expected": "monitor",
+      "got": "thesis_relevant"
+    },
+    {
       "email_id": "synthetic_000459",
       "measure": "triage_accuracy",
       "expected": "low_value",
@@ -745,10 +682,16 @@
       "got": "irrelevant"
     },
     {
+      "email_id": "synthetic_000466",
+      "measure": "triage_accuracy",
+      "expected": "monitor",
+      "got": "irrelevant"
+    },
+    {
       "email_id": "synthetic_000467",
       "measure": "triage_accuracy",
       "expected": "low_value",
-      "got": "monitor"
+      "got": "irrelevant"
     },
     {
       "email_id": "synthetic_000469",
@@ -796,7 +739,7 @@
       "email_id": "synthetic_000482",
       "measure": "triage_accuracy",
       "expected": "low_value",
-      "got": "monitor"
+      "got": "thesis_relevant"
     },
     {
       "email_id": "synthetic_000486",
@@ -919,12 +862,6 @@
       "got": "irrelevant"
     },
     {
-      "email_id": "synthetic_000541",
-      "measure": "triage_accuracy",
-      "expected": "low_value",
-      "got": "monitor"
-    },
-    {
       "email_id": "synthetic_000542",
       "measure": "triage_accuracy",
       "expected": "low_value",
@@ -985,12 +922,6 @@
       "got": "irrelevant"
     },
     {
-      "email_id": "synthetic_000585",
-      "measure": "triage_accuracy",
-      "expected": "low_value",
-      "got": "monitor"
-    },
-    {
       "email_id": "synthetic_000592",
       "measure": "triage_accuracy",
       "expected": "low_value",
@@ -1039,16 +970,22 @@
       "got": "AMZN,MSFT,GOOGL"
     },
     {
-      "email_id": "synthetic_000343",
+      "email_id": "synthetic_000347",
       "measure": "ticker_f1",
-      "expected": "none",
-      "got": "MSFT"
+      "expected": "NVDA",
+      "got": "none"
+    },
+    {
+      "email_id": "synthetic_000351",
+      "measure": "ticker_f1",
+      "expected": "NVDA",
+      "got": "none"
     },
     {
       "email_id": "synthetic_000359",
       "measure": "ticker_f1",
       "expected": "none",
-      "got": "NVDA,MSFT,AAPL,GOOGL"
+      "got": "MSFT,AAPL,GOOGL"
     },
     {
       "email_id": "synthetic_000361",
@@ -1123,12 +1060,6 @@
       "got": "AMZN,MSFT,AAPL,GOOGL"
     },
     {
-      "email_id": "synthetic_000455",
-      "measure": "ticker_f1",
-      "expected": "AMZN",
-      "got": "AMZN,GOOGL"
-    },
-    {
       "email_id": "synthetic_000462",
       "measure": "ticker_f1",
       "expected": "MSFT",
@@ -1159,12 +1090,6 @@
       "got": "AMZN,NVDA,MSFT,GOOGL"
     },
     {
-      "email_id": "synthetic_000505",
-      "measure": "ticker_f1",
-      "expected": "AAPL",
-      "got": "none"
-    },
-    {
       "email_id": "synthetic_000517",
       "measure": "ticker_f1",
       "expected": "none",
@@ -1187,6 +1112,12 @@
       "measure": "ticker_f1",
       "expected": "NVDA",
       "got": "none"
+    },
+    {
+      "email_id": "synthetic_000537",
+      "measure": "ticker_f1",
+      "expected": "NVDA,AAPL",
+      "got": "AMZN,NVDA,AAPL"
     },
     {
       "email_id": "synthetic_000548",
@@ -1217,12 +1148,6 @@
       "measure": "ticker_f1",
       "expected": "MSFT",
       "got": "MSFT,GOOGL"
-    },
-    {
-      "email_id": "synthetic_000576",
-      "measure": "ticker_f1",
-      "expected": "AMZN",
-      "got": "AMZN,MSFT"
     },
     {
       "email_id": "synthetic_000587",
@@ -1280,6 +1205,12 @@
     },
     {
       "email_id": "synthetic_000479",
+      "measure": "human_attention_recall",
+      "expected": "true",
+      "got": "false"
+    },
+    {
+      "email_id": "synthetic_000493",
       "measure": "human_attention_recall",
       "expected": "true",
       "got": "false"
@@ -1558,7 +1489,7 @@
       "email_id": "synthetic_000346",
       "measure": "topic_f1",
       "expected": "none",
-      "got": "macro,sector,other"
+      "got": "macro,sector"
     },
     {
       "email_id": "synthetic_000347",
@@ -2074,7 +2005,7 @@
       "email_id": "synthetic_000434",
       "measure": "topic_f1",
       "expected": "none",
-      "got": "other"
+      "got": "sector,other"
     },
     {
       "email_id": "synthetic_000435",
@@ -2134,7 +2065,7 @@
       "email_id": "synthetic_000444",
       "measure": "topic_f1",
       "expected": "none",
-      "got": "sector,other"
+      "got": "macro,sector,other"
     },
     {
       "email_id": "synthetic_000445",
@@ -2590,7 +2521,7 @@
       "email_id": "synthetic_000522",
       "measure": "topic_f1",
       "expected": "none",
-      "got": "macro,sector,government,other"
+      "got": "macro,sector,other"
     },
     {
       "email_id": "synthetic_000523",
@@ -2986,7 +2917,7 @@
       "email_id": "synthetic_000588",
       "measure": "topic_f1",
       "expected": "none",
-      "got": "other"
+      "got": "sector,other"
     },
     {
       "email_id": "synthetic_000589",
@@ -3373,6 +3304,12 @@
       "got": "vendor_pitch"
     },
     {
+      "email_id": "synthetic_000388",
+      "measure": "email_type_accuracy",
+      "expected": "newsletter",
+      "got": "event_invitation"
+    },
+    {
       "email_id": "synthetic_000407",
       "measure": "email_type_accuracy",
       "expected": "primary_research",
@@ -3449,12 +3386,6 @@
       "measure": "email_type_accuracy",
       "expected": "meeting_request",
       "got": "sell_side_research"
-    },
-    {
-      "email_id": "synthetic_000485",
-      "measure": "email_type_accuracy",
-      "expected": "vendor_pitch",
-      "got": "data_report"
     },
     {
       "email_id": "synthetic_000491",

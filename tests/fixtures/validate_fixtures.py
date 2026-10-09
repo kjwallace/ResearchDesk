@@ -20,6 +20,7 @@ from triage_app.pipeline import run as pipeline_run
 from triage_app.pipeline import summary
 from triage_app.pipeline.io import normalize_ws, quote_in
 from triage_app.schema import (
+    ProjectionChange,
     AnalysisRecord, AttentionNote, Brief, Claim, CompanyModel, CriteriaHistoryEntry,
     EmailLabel, EmailResult, EvalReport, ExistingThesis, Link, NewThesis, RedundancyRecord,
     Suggestion, Thesis, TriageRecord, UsageReport,
@@ -333,12 +334,15 @@ if brief is not None:
                 out |= {x.email_id for x in SFIN[sid].sections}
         return out
 
-    listed = brief.thesis_changes + brief.new_theses + brief.worth_watching
+    listed = brief.thesis_changes + brief.new_theses + brief.projection_changes + brief.worth_watching
     check(sorted(listed) == sorted(SFIN), "brief.json: suggestion lists must hold every suggestion exactly once")
     for sid in brief.thesis_changes:
         check(sid in SFIN and isinstance(SFIN[sid].body, ExistingThesis), f"brief.json: {sid} in thesis_changes is not existing_thesis")
     for sid in brief.new_theses:
         check(sid in SFIN and isinstance(SFIN[sid].body, NewThesis), f"brief.json: {sid} in new_theses is not new_thesis")
+    for sid in brief.projection_changes:
+        check(sid in SFIN and isinstance(SFIN[sid].body, ProjectionChange),
+              f"brief.json: {sid} in projection_changes is not projection_change")
     for sid in listed:
         if sid in SFIN:
             all_mon = {RES[x.email_id].triage for x in SFIN[sid].sections} == {"monitor"}
@@ -348,8 +352,10 @@ if brief is not None:
     check(sorted(brief.quarantined) == sorted(QUAR), "brief.json: quarantined must be the quarantined emails")
     # Every email placed exactly once: suggestion lists (by linked email), relevant_unlinked, audit,
     # quarantined. needs_attention is an overlay and may repeat an email placed elsewhere.
-    places = [emails_of(brief.thesis_changes), emails_of(brief.new_theses), emails_of(brief.worth_watching),
-              set(brief.relevant_unlinked), set(brief.audit), set(brief.quarantined)]
+    # An email with suggestions in several lists sits on each card (DECISIONS #41): count the lists as one place.
+    in_cards = (emails_of(brief.thesis_changes) | emails_of(brief.new_theses)
+                | emails_of(brief.projection_changes) | emails_of(brief.worth_watching))
+    places = [in_cards, set(brief.relevant_unlinked), set(brief.audit), set(brief.quarantined)]
     flat = [e for p in places for e in p]
     check(sorted(flat) == sorted(IDS), f"brief.json: emails not placed exactly once: {sorted(flat)}")
     check(len(brief.relevant_unlinked) == len(set(brief.relevant_unlinked)) and len(brief.audit) == len(set(brief.audit)),

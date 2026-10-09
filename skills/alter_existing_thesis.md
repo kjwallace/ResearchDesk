@@ -81,6 +81,12 @@ Rules for this skill:
 - `if_accepted` (one or two sentences) says what accepting would mean for the book: the evidence logged against the pillar at its strength, whether it moves the pillar toward or away from its wrong-if test, how much more or less firmly the desk can hold the view, and, when a figure is stated for a linked driver, that the analyst could update that assumption and see EPS and the target price recompute. It never proposes a trade, a position size or a number of its own.
 - Leave both empty for a `none` suggestion.
 
+**Skeptical reading of monitor emails.** When every email behind a suggestion is labeled `monitor` in `email_triage`, read the claims skeptically. Monitor means an early, partial or unconfirmed signal.
+- Default to `none` unless the claims are specific (a named source, a figure, a dated event) and bear directly on the pillar's exact statement or its wrong-if test. Code rejects monitor-only suggestions rated below 0.85 relevance, so rate them strictly.
+- Keep strength at 1; the evidence is not yet confirmed.
+- In `assumption_impact`, say plainly what is unconfirmed and what would confirm or refute it (for example a reported figure, a second independent check, or company guidance). Never treat it as settled.
+- In `if_accepted`, say that the evidence would be logged as a weak, unconfirmed signal, worth watching rather than acting on.
+
 **Form.**
 - Give one suggestion per pillar and stance. Put several claims on the same pillar and stance into one suggestion's `sections`.
 - A claim about one company can bear on another company's pillar when that pillar is among the candidates. Say why in the rationale.

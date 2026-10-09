@@ -1,243 +1,415 @@
 [
   {
     "email_id": "synthetic_000119",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "The email reports project re-phasing and conditional rack-timing risk tied to shell and power readiness, which share companies with the candidate pillars but do not address any pillar's own statement or wrong-if test, and the email is monitor-labelled and unconfirmed."
   },
   {
     "email_id": "synthetic_000258",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "The monitor-labelled email reports a shortened online delivery estimate for one iPhone 18 Pro Max configuration and mixed retailer inventory reports, a partial, single-day lead-time signal that does not clearly show a stronger upgrade cycle than consensus expects, so it does not meet the wrong-if test for AAPL.p1, and the email itself states no change to iPhone estimates."
   },
   {
     "email_id": "synthetic_000087",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "These were noticed: a non-first-hand channel check reports that Siri complex requests show a partner-model approval prompt and traffic to Google-owned endpoints, and an opinion suggests a possible Google cloud and model usage line tied to the iPhone installed base. Both claims come only from an email labelled monitor, so they are unconfirmed, and confirmation would require first-hand or documented evidence of the handoff and the endpoint traffic, or a disclosed partner-model arrangement with its cost terms."
   },
   {
     "email_id": "synthetic_000046",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "analysis failed: RuntimeError"
+    "no_change_reason": "A non-first-hand channel check from Carrier M reports inbound pallet volumes tied to third-party seller consignments for Amazon fulfillment centers up about 23% year over year, which may point to a debate no existing pillar covers. Because the only source is an email labelled monitor, confirmation from first-hand or other-labelled sources would be needed before a new thesis could be considered."
   },
   {
     "email_id": "synthetic_000229",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "Three claims from a single email labelled monitor point to Azure reserved-instance and savings-plan commitments being unwound or converted into Copilot or Fabric credits, a debate that no existing MSFT pillar covers. Because every claim comes from a monitor email, they are unconfirmed signals and cannot carry a new thesis. Confirmation would need an independent, thesis-relevant source, or further first-hand reports, that the commitment unwinds are occurring at scale."
   },
   {
     "email_id": "synthetic_000251",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "The only source is a single monitor-labelled email reporting, second-hand, that first-pass yields on the foldable hinge assembly run below target and that shipment quantities may fall below plan, which would be a new debate about manufacturing execution rather than any existing pillar; confirmation would need a first-hand or independently sourced report of yields or foldable shipment volumes from Apple or the assembler."
   },
   {
     "email_id": "synthetic_000067",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "The claims come only from an email labelled monitor and report a possible Safari default search renewal and a request for indicative economics, which sits close to the existing services pillar on search distribution payments. Confirmation would be needed from a non-monitor source, such as a filing, a partner statement or a first-hand report of the renewal terms, before any new thesis could be considered."
   },
   {
     "email_id": "synthetic_000105",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "The only claims come from an email labelled monitor, which reports an unconfirmed European Commission information-gathering inquiry into AI accelerator customers and distributors. Confirmation would need an official Commission announcement of a formal case, or first-hand reporting from Nvidia or its customers on the inquiry's scope and any effect on allocation or pricing."
   },
   {
     "email_id": "synthetic_000298",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "no claim bears directly on a candidate pillar"
   },
   {
     "email_id": "synthetic_000124",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "skills_called": [
+      "existing_thesis",
+      "projection_change"
+    ],
+    "suggestion_ids": [
+      "synthetic_000124.s1",
+      "synthetic_000124.s2",
+      "synthetic_000124.s3",
+      "synthetic_000124.s4",
+      "synthetic_000124.s5"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000270",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "skills_called": [
+      "existing_thesis",
+      "projection_change"
+    ],
+    "suggestion_ids": [
+      "synthetic_000270.s1",
+      "synthetic_000270.s2",
+      "synthetic_000270.s3"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000186",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "The only email is labelled monitor. It reports unnamed finance ministry officials weighing a digital levy revival and an app-store charge, and the claims do not come from any other label. Confirmation would be needed, such as a published government proposal or an official statement, before a new thesis could rest on it. The regulatory pillar GOOGL.p3 is the nearest existing coverage."
   },
   {
     "email_id": "synthetic_000064",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
-  },
-  {
-    "email_id": "synthetic_000234",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "analysis failed: RuntimeError"
+    "skills_called": [
+      "existing_thesis",
+      "projection_change"
+    ],
+    "suggestion_ids": [
+      "synthetic_000064.s1",
+      "synthetic_000064.s2",
+      "synthetic_000064.s3",
+      "synthetic_000064.s4"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000297",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "projection_change",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "A channel check, labelled monitor, reports that a hinge-component supplier was asked to hold part of its November shipments while Apple re-tests a revised hinge geometry for its first foldable, and that the initial November-December build could be trimmed by a low-to-mid-single-digit percentage. The claims are not first-hand and come only from a monitor email, so they cannot carry a new thesis. Confirmation would need a first-hand source or a second independent report of the shipment hold or build trim, showing whether the foldable program is a distinct revenue debate beyond the existing iPhone upgrade-cycle pillar."
   },
   {
     "email_id": "synthetic_000221",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "These claims come only from an email labelled monitor, citing unnamed agency sources, and describe a possible shift of about $150 million of Q4 paid-search budget from Google Search to Amazon, which the claims themselves call not final. The debate concerns Google Search revenue, which existing pillar GOOGL.p1 already addresses, so confirmation would need a named, first-hand source or reported advertiser spending data that is not tied to a single campaign."
   },
   {
     "email_id": "synthetic_000018",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "analysis failed: RuntimeError"
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000018.s1"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000075",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "skills_called": [
+      "existing_thesis",
+      "projection_change",
+      "projection_change"
+    ],
+    "suggestion_ids": [
+      "synthetic_000075.s1"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000265",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "analysis failed: RuntimeError"
+    "no_change_reason": "Two channel-check claims, both from an email labelled monitor and both unconfirmed, say Nvidia is lobbying against a hardware-level mandate and that a staffer favors software-based attestation. Confirmation would need a first-hand or on-the-record source for the lobbying position, and evidence that a hardware mandate is actually under consideration and would affect Nvidia's installed products."
   },
   {
     "email_id": "synthetic_000231",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "skills_called": [
+      "existing_thesis",
+      "projection_change"
+    ],
+    "suggestion_ids": [
+      "synthetic_000231.s1"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000127",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "The claims report federal and Azure Government award volumes, which bear on Azure growth already covered by MSFT.p1 rather than a distinct new debate, and they are secondhand reported facts without a first-hand source. Confirmation that government demand forms a separate growth source outside Azure's general growth, such as first-hand evidence on government contract revenue recognition, would be needed before a new thesis could be considered."
   },
   {
     "email_id": "synthetic_000237",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "projection_change",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "The claims come only from one email labelled monitor, and they describe capacity-leasing renegotiation, shorter lease terms and a roughly 20% push-out of GB300 capacity to 1Q27 reported second-hand. That is not enough to carry a new thesis, and confirmation from a thesis-relevant or first-hand source would be needed before a debate outside the existing pillars could be assessed."
   },
   {
     "email_id": "synthetic_000200",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "These were noticed in channel checks: Nvidia reps raising flexible delivery windows and financing partner offers, and a shift in the tone of GPU allocation calls. All of them come from one email labelled monitor, which cannot carry a new thesis alone. Confirmation would need a thesis_relevant or other non-monitor claim from an independent source describing the same allocation or delivery pattern, and the nearest existing pillar, NVDA.p2 on packaging and memory supply, should be checked against it."
   },
   {
     "email_id": "synthetic_000248",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "analysis failed: RuntimeError"
+    "no_change_reason": "The only source is an expert channel check labelled monitor, which reports a cut of around 15% to the final September build plan for next-generation Echo and Fire tablet SKUs and attributes it to channel inventory and a shift toward Alexa+ smart displays. Monitor-only claims cannot carry a new thesis, so confirmation would need a first-hand or thesis-relevant report from Amazon, a supplier, or a retailer that the build cut is durable and is not already covered by the existing pillars."
   },
   {
     "email_id": "synthetic_000286",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "analysis failed: RuntimeError"
+    "no_change_reason": "A distributor's first-hand report of lengthening quoted lead times on RTX Pro server SKUs is a monitor-labelled signal that touches the supply pillar NVDA.p2, so it cannot carry a new thesis alone; confirmation would need a second independent source, such as other channel checks or company commentary, showing the lead-time increase persists and reflects a supply constraint not already covered by NVDA.p2."
   },
   {
     "email_id": "synthetic_000222",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "analysis failed: RuntimeError"
+    "no_change_reason": "These were noticed in a single monitor-labelled email, which reports unconfirmed, second-hand station-level channel checks on lower peak-season route allotments, a per-package pay pilot and surge staffing training. Confirmation would need first-hand or company-sourced evidence showing these items affect a business outcome that no existing pillar covers, since the claims are not first-hand and the code rejects candidates backed only by monitor emails."
   },
   {
     "email_id": "synthetic_000174",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "The only source is an email labelled monitor, a secondhand channel check from an unnamed bank reporting that an Azure AI/OpenAI commitment may be moving toward consumption-based pricing with a lower committed minimum, and that is not enough on its own to carry a new thesis. Confirmation would need a first-hand account or a second independent source describing the contract terms or a change in the committed minimum, and the existing pillars MSFT.p1 and MSFT.p3 would need to be checked against any such confirmation."
   },
   {
     "email_id": "synthetic_000241",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "skills_called": [
+      "existing_thesis",
+      "projection_change"
+    ],
+    "suggestion_ids": [
+      "synthetic_000241.s1",
+      "synthetic_000241.s2"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000076",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "Channel checks in an email labelled monitor report slowing Microsoft agent and Copilot Studio pilot expansion, more flexible consumption-based agent pricing, and larger extended trial credits, but these claims come only from that monitor email and so cannot carry a new thesis. Confirmation would need an independent source or a claim from a thesis_relevant email, and the pilot slowdown would also need to be checked against the existing pillars for Azure growth and paid AI assistants."
   },
   {
     "email_id": "synthetic_000096",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "skills_called": [
+      "existing_thesis",
+      "projection_change"
+    ],
+    "suggestion_ids": [
+      "synthetic_000096.s1",
+      "synthetic_000096.s2",
+      "synthetic_000096.s3",
+      "synthetic_000096.s4"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000230",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "A plant manager at Cartonpack reports a customer pulled forward its Q4 packaging schedule by two to three weeks, and two others point to Amazon, but the only source is an email labelled monitor and the customer is not named on the record. Confirmation would need a named or on-record customer, or company disclosure of higher Q4 unit volumes or an earlier peak-season ramp, before this could support a new thesis."
+  },
+  {
+    "email_id": "synthetic_000061",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "The claims point to a state attorney general review of Amazon's marketplace pricing that no existing pillar covers, but every claim comes from the monitor-labelled email synthetic_000061 and none is first-hand, so a new thesis cannot be carried on this alone. Confirmation would need a non-monitor source, such as a formal order, a court or agency filing, or a first-hand report from the review's participants."
   },
   {
     "email_id": "synthetic_000202",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "skills_called": [
+      "existing_thesis",
+      "projection_change"
+    ],
+    "suggestion_ids": [
+      "synthetic_000202.s1",
+      "synthetic_000202.s2",
+      "synthetic_000202.s3"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000042",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "Three mid-size clients report faster Azure OpenAI quota approvals, reduced denials and softer reserved-throughput pricing, but every claim comes from one email labelled monitor and none is first-hand, so it cannot carry a new thesis. Confirmation would need first-hand or multi-source reports of these terms, or a disclosed change in capacity or pricing, that fall outside the existing Azure growth and capacity pillar, MSFT.p1."
+  },
+  {
+    "email_id": "synthetic_000189",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "The options flow noticed in the claims (call volume about 1.6x its 20-day average, roughly 38,000 Nov 20 calls, and a call-to-put ratio near 2.3 to 1) comes only from an email labelled monitor, and it describes trading activity rather than a business debate. Confirmation would need a reported business development, such as a customer, product or supply event, that no existing NVDA pillar covers."
   },
   {
     "email_id": "synthetic_000011",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "Two first-hand reports from a monitor-labelled email describe permit and interconnection friction affecting named Google and AWS data center projects in Northern Virginia and Phoenix, but monitor claims cannot carry a new thesis alone. Confirmation would need a non-monitor source showing that this friction materially delays Google capacity or raises its capital expenditure beyond what the existing capex and margin pillar already covers."
   },
   {
-    "email_id": "synthetic_000177",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "email_id": "synthetic_000001",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000001.s1"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000009",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "skills_called": [
+      "existing_thesis",
+      "projection_change"
+    ],
+    "suggestion_ids": [
+      "synthetic_000009.s1",
+      "synthetic_000009.s2",
+      "synthetic_000009.s3",
+      "synthetic_000009.s4",
+      "synthetic_000009.s5",
+      "synthetic_000009.s6"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000284",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "projection_change",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "The claims describe a one-quarter modeled non-operating gain and the GAAP EPS it would produce, which is an accounting item from an unconfirmed opinion rather than a durable business debate, so no new thesis is warranted."
   },
   {
     "email_id": "synthetic_000071",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "analysis failed: RuntimeError"
+    "no_change_reason": "All claims come from an email labelled monitor, and they describe a rejected coupling lot for Rubin pilot racks with a possible 3-4 week slip. That is an early, unconfirmed signal that falls within the supply pillar NVDA.p2 on shipping the newest platform on schedule, so it would need confirmation such as a reported replacement lot delivery or a rack shipment timing change before it could support a new thesis."
   },
   {
     "email_id": "synthetic_000196",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "analysis failed: RuntimeError"
+    "no_change_reason": "The only claim comes from an email labelled monitor, which is not enough to carry a new thesis. It notes that Google Workspace and Gemini are named in a reviewed document set, but that is a count of mentions, not a debate about a business outcome. Confirmation would need a claim from a thesis_relevant or monitor-independent source describing a revenue, margin or adoption outcome for Workspace or Gemini that no existing pillar covers."
   },
   {
     "email_id": "synthetic_000041",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000041.s1"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000074",
@@ -247,73 +419,109 @@
   },
   {
     "email_id": "synthetic_000003",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "skills_called": [
+      "existing_thesis",
+      "projection_change"
+    ],
+    "suggestion_ids": [
+      "synthetic_000003.s1",
+      "synthetic_000003.s2"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000027",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000027.s1",
+      "synthetic_000027.s2"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000144",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "The channel check is second-hand, unconfirmed and gives no figure or named source, so it only loosely touches NVDA.p3 (in-house chips) and GOOGL.p2 (Cloud growth offsetting depreciation). It does not reach either pillar's statement or wrong-if test, and it is a monitor-level signal."
   },
   {
     "email_id": "synthetic_000055",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "The claims come only from an email labelled monitor, and the reported drop in paid click volume and rise in CPCs on commercial-intent queries sits within the existing pillar GOOGL.p1 on AI answers reducing commercial query clicks. Confirmation would need first-hand or thesis_relevant reporting that the budget shift to Performance Max and shopping placements is a durable change, not a limited test, before any separate debate could be considered."
   },
   {
     "email_id": "synthetic_000112",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "Both claims come only from an email labelled monitor and are not first-hand, so they are early signals that cannot carry a new thesis. They point to possible slippage of lower-priority Mac and modem package shipments into the March quarter, which is not covered by any existing pillar. Confirmation would need a first-hand or corroborated report of actual shipment timing from a second, independent source."
   },
   {
     "email_id": "synthetic_000269",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "analysis failed: RuntimeError"
+    "no_change_reason": "All four claims come from a single email labelled monitor, which is an early, unconfirmed signal: non-first-hand broker reports point to tighter Blackwell-class rental capacity and firmer spot quotes, but one broker reported unchanged quotes. Confirmation would need first-hand or multiple independent sources showing sustained rental pricing and unfilled demand, and a clear link to a business outcome that no existing pillar covers."
   },
   {
     "email_id": "synthetic_000208",
     "skills_called": [
       "existing_thesis",
-      "existing_thesis",
-      "existing_thesis"
+      "new_thesis"
     ],
     "suggestion_ids": [],
-    "no_change_reason": "no reason given"
+    "no_change_reason": "The channel checks come only from an email labelled monitor, and they describe a reported trim in Amazon purchase orders for Oct-Nov, a tightening of replenishment weeks-of-cover targets on slower-selling categories, and Amazon's share of one vendor's sales. The source is not first-hand, so this is an early and unconfirmed signal that cannot carry a new thesis on its own. Confirmation would need a first-hand or corroborating source, such as an Amazon vendor, carrier or retail-data report, showing that the purchase-order and replenishment changes are persisting and reach beyond a single supplier."
   },
   {
     "email_id": "synthetic_000261",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000261.s1"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000295",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000295.s1"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000056",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "All three claims come from an email labelled monitor, and the shipment bookings and inventory positioning they describe are early, unconfirmed signals that cannot carry a new thesis alone. Confirmation would need a claim from a thesis_relevant or other non-monitor email reporting the same FBA-linked inbound volume or promotional inventory build, or a first-hand report that it affects retail margin or AWS capacity."
   },
   {
     "email_id": "synthetic_000162",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "projection_change",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "The claims describe GPU-backed financing costs and advance rates tightening, which could delay orders from non-hyperscaler buyers such as neoclouds. That is a narrower version of the existing pillar NVDA.p1, which covers whether AI infrastructure spending by cloud and sovereign buyers keeps Data Center growth above consensus, so it does not open a new debate."
   },
   {
     "email_id": "synthetic_000150",
@@ -323,68 +531,127 @@
   },
   {
     "email_id": "synthetic_000107",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "Partner channel checks report AWS pushing earlier Enterprise Discount Program renewals and matching Google Cloud commit sizes more readily, but all of this comes from an email labelled monitor. Confirmation would need at least one thesis_relevant or first-hand source showing whether these terms are changing AWS backlog or pricing, which would then be weighed against the existing AWS growth and capex pillars."
   },
   {
     "email_id": "synthetic_000036",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000036.s1"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000280",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "Three claims from a single monitor-labelled email describe a possible decline in Vertex AI provisioned-throughput commitments at three enterprise accounts, which may point to a debate outside the existing pillars. Because every claim comes from a monitor email and none is first-hand, confirmation would be needed from a first-hand source or a thesis-relevant email before a new thesis could be considered."
   },
   {
     "email_id": "synthetic_000045",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "skills_called": [
+      "existing_thesis",
+      "projection_change"
+    ],
+    "suggestion_ids": [
+      "synthetic_000045.s1",
+      "synthetic_000045.s2",
+      "synthetic_000045.s3",
+      "synthetic_000045.s4",
+      "synthetic_000045.s5",
+      "synthetic_000045.s6"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000049",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "analysis failed: RuntimeError"
+    "skills_called": [
+      "existing_thesis",
+      "projection_change",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000049.s1",
+      "synthetic_000049.s2"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000058",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "Three first-hand channel checks on Google Cloud committed-use pricing and GPU availability come only from an email labelled monitor, so they are early signals that cannot carry a new thesis. Confirmation would need a thesis_relevant or corroborated source reporting sustained Cloud pricing concessions or capacity constraints beyond this one email."
   },
   {
     "email_id": "synthetic_000002",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "skills_called": [
+      "existing_thesis",
+      "projection_change"
+    ],
+    "suggestion_ids": [
+      "synthetic_000002.s1",
+      "synthetic_000002.s2",
+      "synthetic_000002.s3",
+      "synthetic_000002.s4",
+      "synthetic_000002.s5",
+      "synthetic_000002.s6"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000243",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "analysis failed: RuntimeError"
+    "no_change_reason": "The Safari default payment renegotiation and lower revenue-share rate touch Alphabet's distribution terms, which sit closest to the existing regulatory distribution pillar GOOGL.p3, and the traffic acquisition cost tailwind is a margin effect that sits near GOOGL.p2. The claims are also not first-hand and rest on estimates and opinion (\"We estimate\", \"most Street models\", \"we think\"), so a separate thesis is not yet supported."
   },
   {
     "email_id": "synthetic_000136",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "All three claims come from a single email labelled monitor, and they describe a reported Trainium-based training capacity discount and a comparison with GPU capacity pricing on AWS, which is a possible new debate about AWS pricing that no existing pillar covers. Confirmation would need to come from a first-hand or thesis-relevant source, or from a second independent account of the discount program, before this could carry a new thesis."
   },
   {
     "email_id": "synthetic_000214",
-    "skills_called": [],
-    "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "skills_called": [
+      "existing_thesis",
+      "projection_change"
+    ],
+    "suggestion_ids": [
+      "synthetic_000214.s1",
+      "synthetic_000214.s2",
+      "synthetic_000214.s3",
+      "synthetic_000214.s4",
+      "synthetic_000214.s5"
+    ],
+    "no_change_reason": null
   },
   {
     "email_id": "synthetic_000125",
-    "skills_called": [],
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
     "suggestion_ids": [],
-    "no_change_reason": "no claims extracted"
+    "no_change_reason": "The claims about metered Copilot pricing and customer pushback all come from one email labelled monitor, so they are early, unconfirmed signals that cannot carry a new thesis. Confirmation would need a non-monitor source, such as a first-hand account or a company disclosure, that shows the pricing change is slowing seat expansion or shifting spend beyond what pillar MSFT.p2 on paid AI assistants already covers."
   }
 ]

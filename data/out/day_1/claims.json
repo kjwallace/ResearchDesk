@@ -1,20 +1,222 @@
 [
   {
+    "quote": "roughly $1.9bn of 2027 project starts were \"re-phased\" by owners, mostly pushed one to two quarters.",
+    "tickers": [
+      "MSFT",
+      "AMZN",
+      "GOOGL",
+      "NVDA"
+    ],
+    "entities": [
+      "Harlan-Voss Construction"
+    ],
+    "kind": "reported_fact",
+    "metric": "2027 project starts re-phased",
+    "period": "2027",
+    "value": 1.9,
+    "unit": "usd_bn",
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000119.c1",
+    "email_id": "synthetic_000119"
+  },
+  {
+    "quote": "we think low-single-digit percent of 2027 capex at risk of moving right",
+    "tickers": [
+      "MSFT",
+      "AMZN",
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "capex at risk of moving right",
+    "period": "2027",
+    "value": null,
+    "unit": "pct",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000119.c2",
+    "email_id": "synthetic_000119"
+  },
+  {
+    "quote": "A one- to two-quarter slip in shell and power readiness could shift timing of rack deliveries into 2027, particularly for liquid-cooled Rubin-class deployments.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "rack delivery timing",
+    "period": "2027",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000119.c3",
+    "email_id": "synthetic_000119"
+  },
+  {
+    "quote": "Apple's U.S. server buildout for Private Cloud Compute is small versus hyperscalers, and HVC does not cite it.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [
+      "Harlan-Voss Construction"
+    ],
+    "kind": "opinion",
+    "metric": "U.S. server buildout for Private Cloud Compute",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000119.c4",
+    "email_id": "synthetic_000119"
+  },
+  {
+    "quote": "Apple online store estimated delivery for iPhone 18 Pro Max (256GB, most popular colors) has shortened to 5-8 days in the U.S., Japan and the U.K. as of this morning, from 3-4 weeks at the start of October.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "Apple online store estimated delivery time for iPhone 18 Pro Max (256GB)",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": true,
+    "id": "synthetic_000258.c1",
+    "email_id": "synthetic_000258"
+  },
+  {
+    "quote": "Retailer calls (9 stores, 4 national chains/carriers, 3 independent resellers): 5 said Pro Max inventory is 'easy to get' now, 3 said 'no change', and 1 said allocation remains tight for the 1TB model.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "iPhone 18 Pro Max inventory availability",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000258.c2",
+    "email_id": "synthetic_000258"
+  },
+  {
+    "quote": "Not in our numbers: we have made no change to our iPhone unit estimates and we are not suggesting a call on the December quarter off this alone.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "iPhone unit estimates",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "flat",
+    "first_hand": false,
+    "id": "synthetic_000258.c3",
+    "email_id": "synthetic_000258"
+  },
+  {
+    "quote": "Seven of the nine said that when they test the new Siri \"complex request\" flow, the system prompt that appears the first time asks users to approve processing by a \"partner model\", and the network traces they captured show calls going to Google-owned endpoints.",
+    "tickers": [
+      "AAPL",
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Siri complex request handoff to partner model",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000087.c1",
+    "email_id": "synthetic_000087"
+  },
+  {
+    "quote": "one agency lead estimated 25-30% of their test Siri sessions are being handed off rather than handled on-device, higher than the 10-15% they expected from Apple's WWDC messaging.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "share of test Siri sessions handed off",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000087.c2",
+    "email_id": "synthetic_000087"
+  },
+  {
+    "quote": "handoff responses averaged 1.8-2.4 seconds in their testing.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "handoff response latency",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000087.c3",
+    "email_id": "synthetic_000087"
+  },
+  {
+    "quote": "two developers said an Apple contact told them there would be \"no per-call charges to developers,\"",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "per-call charges to developers",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000087.c4",
+    "email_id": "synthetic_000087"
+  },
+  {
+    "quote": "If the handoff share is genuinely this high, it would point to more Google cloud/model usage tied to the iPhone installed base than we think is modeled, and to a possible AI cost line for Apple.",
+    "tickers": [
+      "GOOGL",
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "Google cloud/model usage tied to iPhone installed base",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000087.c5",
+    "email_id": "synthetic_000087"
+  },
+  {
     "quote": "A mid-sized Midwest freight consolidator that reports to our panel (we'll call it Carrier M) recorded inbound pallet volumes tied to third-party seller consignments destined for Amazon fulfillment centers up ~23% y/y, vs. +9% in August and +7% in Q2.",
     "tickers": [
       "AMZN"
     ],
     "entities": [
-      "Carrier M",
-      "Marlowe Parcel Analytics"
+      "Carrier M"
     ],
     "kind": "channel_check",
-    "metric": "inbound pallet volumes to Amazon fulfillment centers, y/y",
-    "period": "September",
+    "metric": "inbound pallet volumes tied to third-party seller consignments destined for Amazon fulfillment centers",
+    "period": "Sept",
     "value": 23.0,
     "unit": "pct",
     "direction": "up",
-    "first_hand": true,
+    "first_hand": false,
     "id": "synthetic_000046.c1",
     "email_id": "synthetic_000046"
   },
@@ -35,96 +237,952 @@
     "email_id": "synthetic_000046"
   },
   {
-    "quote": "In our pre-call she said that, in her last quarter at Google, TPU and Gemini inference capacity had moved from constrained to roughly balanced in North America and Western Europe, with committed-use utilization on the largest AI contracts running around 70-75% of reserved volume.",
+    "quote": "Over the last three weeks, four of them (two insurers, a regional bank, a freight company) have asked us specifically about how to unwind or shrink Azure reserved-instance and savings-plan commitments that were signed in the first half of 2025.",
     "tickers": [
-      "GOOGL"
+      "MSFT"
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "TPU and Gemini inference capacity balance",
+    "metric": "Azure reserved-instance and savings-plan commitment unwinds",
     "period": null,
     "value": null,
     "unit": null,
     "direction": null,
     "first_hand": true,
-    "id": "synthetic_000234.c1",
-    "email_id": "synthetic_000234"
+    "id": "synthetic_000229.c1",
+    "email_id": "synthetic_000229"
   },
   {
-    "quote": "In our pre-call she said that, in her last quarter at Google, TPU and Gemini inference capacity had moved from constrained to roughly balanced in North America and Western Europe, with committed-use utilization on the largest AI contracts running around 70-75% of reserved volume.",
+    "quote": "Two of them said their Microsoft account teams were open to converting the unused portion into credits for Copilot or Fabric rather than letting it lapse.",
     "tickers": [
-      "GOOGL"
+      "MSFT"
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "committed-use utilization on largest AI contracts",
+    "metric": "conversion of unused Azure commitments into Copilot or Fabric credits",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000229.c2",
+    "email_id": "synthetic_000229"
+  },
+  {
+    "quote": "The workloads are running late, mostly because internal data-readiness work took longer than planned.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "AI workloads landing on Azure",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000229.c3",
+    "email_id": "synthetic_000229"
+  },
+  {
+    "quote": "First-pass yields on the hinge assembly for Apple's foldable are running well below the target the assembler was given.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [
+      "Meridian Precision Components"
+    ],
+    "kind": "channel_check",
+    "metric": "first-pass yield on foldable hinge assembly",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000251.c1",
+    "email_id": "synthetic_000251"
+  },
+  {
+    "quote": "My contact put it in the \"60s percent\" range for the last two weeks of September, vs. a target in the \"high 80s\" by October.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [
+      "Meridian Precision Components"
+    ],
+    "kind": "channel_check",
+    "metric": "first-pass yield on foldable hinge assembly",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000251.c2",
+    "email_id": "synthetic_000251"
+  },
+  {
+    "quote": "He said Apple engineers were on site twice in two weeks.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [
+      "Meridian Precision Components"
+    ],
+    "kind": "channel_check",
+    "metric": "Apple engineer site visits to hinge assembler",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000251.c3",
+    "email_id": "synthetic_000251"
+  },
+  {
+    "quote": "He said the shipments are still planned for this quarter, but \"quantities might be lower than the original plan.\"",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [
+      "Meridian Precision Components"
+    ],
+    "kind": "channel_check",
+    "metric": "foldable shipment quantities",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000251.c4",
+    "email_id": "synthetic_000251"
+  },
+  {
+    "quote": "they mentioned in passing that the default search arrangement with Google is now a one-year term, up for renewal in Q1.",
+    "tickers": [
+      "AAPL",
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "management_comment",
+    "metric": "Safari default search arrangement term",
+    "period": "Q1",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000067.c1",
+    "email_id": "synthetic_000067"
+  },
+  {
+    "quote": "they asked us and two other partners to submit \"indicative economics\" for a share of Safari default placement, with a deadline of Nov 30.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "Safari default placement indicative economics submissions",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000067.c2",
+    "email_id": "synthetic_000067"
+  },
+  {
+    "quote": "My read is that they want a credible alternative on the table before renewal talks start.",
+    "tickers": [
+      "AAPL",
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000067.c3",
+    "email_id": "synthetic_000067"
+  },
+  {
+    "quote": "the Commission has moved from informal market questionnaires to a more structured set of information requests to customers and distributors of AI accelerators",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [
+      "European Commission"
+    ],
+    "kind": "reported_fact",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000105.c1",
+    "email_id": "synthetic_000105"
+  },
+  {
+    "quote": "A formal opening decision, if it came, would likely not occur before the first quarter of 2027.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [
+      "European Commission"
+    ],
+    "kind": "opinion",
+    "metric": "timing of formal opening decision",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000105.c2",
+    "email_id": "synthetic_000105"
+  },
+  {
+    "quote": "The expert believes the allocation-priority question is the most sensitive, as complaints reportedly came from smaller cloud providers.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000105.c3",
+    "email_id": "synthetic_000105"
+  },
+  {
+    "quote": "but he said that outcome is \"very unlikely\" for a first case of this type.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "fine outcome likelihood",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000105.c4",
+    "email_id": "synthetic_000105"
+  },
+  {
+    "quote": "The more likely issue is commercial: customers using the inquiry as leverage in pricing talks.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000105.c5",
+    "email_id": "synthetic_000105"
+  },
+  {
+    "quote": "Remedies, if any, would more likely be behavioral (transparency on allocation, unbundling of software) than structural, and would take at least 18-24 months.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000105.c6",
+    "email_id": "synthetic_000105"
+  },
+  {
+    "quote": "Their CIO told us last Thursday that they are now \"slowing the Mac commitment\" until they see how Windows on Arm devices with the newest on-device AI tooling perform.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Mac fleet commitment",
+    "period": "2027",
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": true,
+    "id": "synthetic_000298.c1",
+    "email_id": "synthetic_000298"
+  },
+  {
+    "quote": "A second client, a mid-size law firm, said the opposite: they're accelerating Mac replacement because IT support tickets are down.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Mac replacement",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000298.c2",
+    "email_id": "synthetic_000298"
+  },
+  {
+    "quote": "Microsoft account teams are more flexible than at any point since 2022 on Copilot bundling.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Copilot bundling flexibility",
     "period": null,
     "value": null,
     "unit": null,
     "direction": null,
     "first_hand": true,
-    "id": "synthetic_000234.c2",
-    "email_id": "synthetic_000234"
+    "id": "synthetic_000298.c3",
+    "email_id": "synthetic_000298"
   },
   {
-    "quote": "She believes the sell-side narrative that Google Cloud revenue is capped by capacity through year-end is out of date, and that discounting on reserved AI capacity (low double-digit percentage off list on multi-year deals) has already started in competitive bids.",
+    "quote": "One was offered Copilot at roughly a 20% discount to list if they commit to a larger E5 footprint.",
     "tickers": [
-      "GOOGL"
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Copilot discount to list",
+    "period": null,
+    "value": 20.0,
+    "unit": "pct",
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000298.c4",
+    "email_id": "synthetic_000298"
+  },
+  {
+    "quote": "Two of the three said they plan to adopt Copilot for a subset of users only.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Copilot adoption plans",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000298.c5",
+    "email_id": "synthetic_000298"
+  },
+  {
+    "quote": "My read is that both vendors are working harder for enterprise budget in a tighter-IT-spend environment.",
+    "tickers": [
+      "AAPL",
+      "MSFT"
     ],
     "entities": [],
     "kind": "opinion",
-    "metric": "Google Cloud revenue capacity constraint",
+    "metric": null,
     "period": null,
     "value": null,
     "unit": null,
     "direction": null,
     "first_hand": false,
-    "id": "synthetic_000234.c3",
-    "email_id": "synthetic_000234"
+    "id": "synthetic_000298.c6",
+    "email_id": "synthetic_000298"
   },
   {
-    "quote": "She believes the sell-side narrative that Google Cloud revenue is capped by capacity through year-end is out of date, and that discounting on reserved AI capacity (low double-digit percentage off list on multi-year deals) has already started in competitive bids.",
+    "quote": "RATING CHANGE: NVDA to HOLD from BUY",
     "tickers": [
-      "GOOGL"
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "rating_change",
+    "metric": "rating",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000124.c1",
+    "email_id": "synthetic_000124"
+  },
+  {
+    "quote": "PT $180 (from $205)",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "target price",
+    "period": null,
+    "value": 180.0,
+    "unit": "usd",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000124.c2",
+    "email_id": "synthetic_000124"
+  },
+  {
+    "quote": "Data Center growth: 29% (from 37%)",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "Data Center growth",
+    "period": "FY2027",
+    "value": 29.0,
+    "unit": "pct",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000124.c3",
+    "email_id": "synthetic_000124"
+  },
+  {
+    "quote": "Revenue: $268bn (from $289bn)",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "revenue",
+    "period": "FY2027",
+    "value": 268.0,
+    "unit": "usd_bn",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000124.c4",
+    "email_id": "synthetic_000124"
+  },
+  {
+    "quote": "EPS: $5.70 (from $6.20)",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "EPS",
+    "period": "FY2027",
+    "value": 5.7,
+    "unit": "usd",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000124.c5",
+    "email_id": "synthetic_000124"
+  },
+  {
+    "quote": "Two hyperscaler procurement contacts described 1H27 accelerator budgets as flat with 2H26, with incremental dollars going to in-house accelerators and power infrastructure.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "accelerator budgets",
+    "period": "1H27",
+    "value": null,
+    "unit": null,
+    "direction": "flat",
+    "first_hand": true,
+    "id": "synthetic_000124.c6",
+    "email_id": "synthetic_000124"
+  },
+  {
+    "quote": "Custom ASIC tape-outs at the two largest design-services houses are up about 60% y/y, according to our supply-chain contacts. That is share Nvidia does not get.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "custom ASIC tape-outs y/y",
+    "period": null,
+    "value": 60.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000124.c7",
+    "email_id": "synthetic_000124"
+  },
+  {
+    "quote": "our checks say at least two of them are planning a digestion quarter in 1H27.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "hyperscaler digestion quarter",
+    "period": "1H27",
+    "value": 2.0,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000124.c8",
+    "email_id": "synthetic_000124"
+  },
+  {
+    "quote": "Upside risks: sovereign orders landing faster than we model, and a quicker ramp of the next platform.",
+    "tickers": [
+      "NVDA"
     ],
     "entities": [],
     "kind": "opinion",
-    "metric": "discounting on reserved AI capacity",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000124.c9",
+    "email_id": "synthetic_000124"
+  },
+  {
+    "quote": "Third-party App Store download and spending data for September came in a bit softer than we expected, mainly gaming in the US and Japan.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "App Store downloads and spending",
+    "period": "September",
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": true,
+    "id": "synthetic_000270.c1",
+    "email_id": "synthetic_000270"
+  },
+  {
+    "quote": "FY2026: Services growth 10.5% (from 12.0%); EPS $7.80 (from $7.92).",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "Services growth",
+    "period": "FY2026",
+    "value": 10.5,
+    "unit": "pct",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000270.c2",
+    "email_id": "synthetic_000270"
+  },
+  {
+    "quote": "FY2026: Services growth 10.5% (from 12.0%); EPS $7.80 (from $7.92).",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "EPS",
+    "period": "FY2026",
+    "value": 7.8,
+    "unit": "usd",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000270.c3",
+    "email_id": "synthetic_000270"
+  },
+  {
+    "quote": "AAPL (Hold, PT $205)",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "target price",
+    "period": null,
+    "value": 205.0,
+    "unit": "usd",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000270.c4",
+    "email_id": "synthetic_000270"
+  },
+  {
+    "quote": "Local business press has run two pieces in the past 72 hours, citing unnamed finance ministry officials, saying New Delhi is weighing a revival of the 6% equalisation levy on foreign digital advertising and a new charge on app-store billings.",
+    "tickers": [
+      "GOOGL",
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "digital levy revival and app-store billings charge",
     "period": null,
     "value": null,
     "unit": null,
     "direction": null,
     "first_hand": false,
-    "id": "synthetic_000234.c4",
-    "email_id": "synthetic_000234"
+    "id": "synthetic_000186.c1",
+    "email_id": "synthetic_000186"
   },
   {
-    "quote": "The Street consensus we see (roughly +36-38% y/y Cloud revenue growth with improving operating margin) assumes continued scarcity pricing.",
+    "quote": "(1) Alphabet's advertising and Apple's App Store/services billings would both be directly exposed",
     "tickers": [
-      "GOOGL"
+      "GOOGL",
+      "AAPL"
     ],
     "entities": [],
     "kind": "opinion",
-    "metric": "Cloud revenue growth consensus",
+    "metric": null,
     "period": null,
     "value": null,
     "unit": null,
     "direction": null,
     "first_hand": false,
-    "id": "synthetic_000234.c5",
-    "email_id": "synthetic_000234"
+    "id": "synthetic_000186.c2",
+    "email_id": "synthetic_000186"
+  },
+  {
+    "quote": "Our rough estimate is that India accounts for around 2-3% of Apple revenue, including a fast-growing iPhone base, and 1-2% of Alphabet revenue.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "India share of revenue",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000186.c3",
+    "email_id": "synthetic_000186"
+  },
+  {
+    "quote": "Our rough estimate is that India accounts for around 2-3% of Apple revenue, including a fast-growing iPhone base, and 1-2% of Alphabet revenue.",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "India share of revenue",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000186.c4",
+    "email_id": "synthetic_000186"
+  },
+  {
+    "quote": "A 6% levy absorbed by the companies is therefore a small direct hit, but the signal matters more than the number.",
+    "tickers": [
+      "AAPL",
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000186.c5",
+    "email_id": "synthetic_000186"
+  },
+  {
+    "quote": "AAPL: Upgrade to BUY from HOLD | PT $235 (from $190)",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "rating_change",
+    "metric": "rating",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000064.c1",
+    "email_id": "synthetic_000064"
+  },
+  {
+    "quote": "AAPL: Upgrade to BUY from HOLD | PT $235 (from $190)",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "target price",
+    "period": null,
+    "value": 235.0,
+    "unit": "usd",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000064.c2",
+    "email_id": "synthetic_000064"
+  },
+  {
+    "quote": "Our survey of 140 US and European carrier stores shows iPhone 18 Pro units in the first four weeks running 9% ahead of the iPhone 17 Pro at the same point, with the higher-storage mix up again.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "iPhone 18 Pro unit sell-through vs iPhone 17 Pro",
+    "period": null,
+    "value": 9.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000064.c3",
+    "email_id": "synthetic_000064"
+  },
+  {
+    "quote": "Weekly activation data from our third-party provider has Apple's share of premium (>$600) smartphones in China at 61% in September, up from 55% a year ago.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Apple share of premium smartphones in China",
+    "period": "September",
+    "value": 61.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000064.c4",
+    "email_id": "synthetic_000064"
+  },
+  {
+    "quote": "The September price increases on two subscription bundles stuck, with churn data from our panel showing no measurable rise.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "subscription price increases and churn",
+    "period": "September",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000064.c5",
+    "email_id": "synthetic_000064"
+  },
+  {
+    "quote": "Services growth: 12% (from 10%)",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "Services growth",
+    "period": "FY2026",
+    "value": 12.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000064.c6",
+    "email_id": "synthetic_000064"
+  },
+  {
+    "quote": "EPS: $8.10 (from $7.70); consensus $7.95",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "EPS",
+    "period": "FY2026",
+    "value": 8.1,
+    "unit": "usd",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000064.c7",
+    "email_id": "synthetic_000064"
+  },
+  {
+    "quote": "EPS: $8.10 (from $7.70); consensus $7.95",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "EPS consensus",
+    "period": "FY2026",
+    "value": 7.95,
+    "unit": "usd",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000064.c8",
+    "email_id": "synthetic_000064"
+  },
+  {
+    "quote": "PT $235, about 29x FY2026 EPS",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "P/E multiple on FY2026 EPS",
+    "period": "FY2026",
+    "value": 29.0,
+    "unit": "multiple",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000064.c9",
+    "email_id": "synthetic_000064"
+  },
+  {
+    "quote": "A hinge-component supplier for Apple's first foldable was asked last week to \"hold\" part of its November shipments while Apple re-tests a revised hinge geometry.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "November shipments",
+    "period": "November",
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000297.c1",
+    "email_id": "synthetic_000297"
+  },
+  {
+    "quote": "the initial build for the November-December period could be trimmed by a low-to-mid-single-digit percentage of the plan.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "initial build",
+    "period": "November-December",
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000297.c2",
+    "email_id": "synthetic_000297"
+  },
+  {
+    "quote": "we model low-single-digit millions of units in the Dec quarter",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "foldable iPhone units",
+    "period": "Dec quarter",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000297.c3",
+    "email_id": "synthetic_000297"
+  },
+  {
+    "quote": "even a trim wouldn't matter much for AAPL EPS",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "EPS",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000297.c4",
+    "email_id": "synthetic_000297"
+  },
+  {
+    "quote": "A global household-products advertiser, one of the five biggest CPG ad spenders in the U.S., has instructed its media agencies to reallocate roughly $150 million of Q4 paid-search budget from Google Search to Amazon Sponsored Products and Sponsored Brands, according to two people at agencies on the account and a third person briefed on the planning.",
+    "tickers": [
+      "GOOGL",
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Q4 paid-search budget reallocation from Google Search to Amazon Sponsored Products and Sponsored Brands",
+    "period": "Q4",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000221.c1",
+    "email_id": "synthetic_000221"
+  },
+  {
+    "quote": "One agency source said the move follows an internal test in which the advertiser saw about 20% lower cost per incremental sale on Amazon during the Prime Big Deal Days window than on Google Shopping campaigns.",
+    "tickers": [
+      "AMZN",
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "cost per incremental sale",
+    "period": null,
+    "value": 20.0,
+    "unit": "pct",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000221.c2",
+    "email_id": "synthetic_000221"
+  },
+  {
+    "quote": "The third person said the reallocation is \"not final\" and could be scaled to $75-100 million if the Amazon results soften in the first two weeks.",
+    "tickers": [
+      "GOOGL",
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "scale of Q4 paid-search budget reallocation",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000221.c3",
+    "email_id": "synthetic_000221"
+  },
+  {
+    "quote": "A single advertiser's reallocation is not a trend, and similar test-and-shift stories have fizzled before.",
+    "tickers": [
+      "GOOGL",
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000221.c4",
+    "email_id": "synthetic_000221"
   },
   {
     "quote": "The expert said liquid-cooling leak testing and backplane connector rework dragged rack yields to roughly 70% at his old site through the summer, but that they had improved to the high 80s by August.",
     "tickers": [
       "NVDA"
     ],
-    "entities": [],
+    "entities": [
+      "Taiwan-based ODM"
+    ],
     "kind": "channel_check",
     "metric": "GB300 rack yield",
-    "period": null,
-    "value": null,
-    "unit": null,
+    "period": "summer 2026",
+    "value": 70.0,
+    "unit": "pct",
     "direction": "up",
     "first_hand": false,
     "id": "synthetic_000018.c1",
@@ -135,9 +1193,11 @@
     "tickers": [
       "NVDA"
     ],
-    "entities": [],
+    "entities": [
+      "Taiwan-based ODM"
+    ],
     "kind": "opinion",
-    "metric": "GB300 rack shipment rate vs plan",
+    "metric": "GB300 shipment rate",
     "period": null,
     "value": null,
     "unit": null,
@@ -153,8 +1213,8 @@
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "Rubin rack sample timing",
-    "period": "first quarter of 2027",
+    "metric": "Rubin rack sample and volume ramp timing",
+    "period": "Q1 2027",
     "value": null,
     "unit": null,
     "direction": null,
@@ -170,7 +1230,7 @@
     "entities": [],
     "kind": "opinion",
     "metric": "GB300 orders",
-    "period": "second quarter of 2027",
+    "period": "Q2 2027",
     "value": null,
     "unit": null,
     "direction": "down",
@@ -179,19 +1239,37 @@
     "email_id": "synthetic_000018"
   },
   {
-    "quote": "The expert said his former employer's backlog was fully booked through Q1 2027, with the largest orders coming from two hyperscalers and one sovereign program.",
+    "quote": "\"Some customers are already asking whether they can swap their Q2 allocations.\"",
     "tickers": [
       "NVDA"
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "ODM backlog bookings",
-    "period": "Q1 2027",
+    "metric": "GB300 allocation swaps",
+    "period": "Q2 2027",
     "value": null,
     "unit": null,
     "direction": null,
     "first_hand": false,
     "id": "synthetic_000018.c5",
+    "email_id": "synthetic_000018"
+  },
+  {
+    "quote": "The expert said his former employer's backlog was fully booked through Q1 2027, with the largest orders coming from two hyperscalers and one sovereign program.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [
+      "Taiwan-based ODM"
+    ],
+    "kind": "channel_check",
+    "metric": "backlog",
+    "period": "Q1 2027",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000018.c6",
     "email_id": "synthetic_000018"
   },
   {
@@ -201,23 +1279,7 @@
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "GB300 pricing discounts",
-    "period": null,
-    "value": null,
-    "unit": null,
-    "direction": null,
-    "first_hand": false,
-    "id": "synthetic_000018.c6",
-    "email_id": "synthetic_000018"
-  },
-  {
-    "quote": "Any slip in the Rubin HBM4 qualification would push the ramp by a quarter or more, and in that case customers would likely resume GB300 purchasing.",
-    "tickers": [
-      "NVDA"
-    ],
-    "entities": [],
-    "kind": "opinion",
-    "metric": "Rubin ramp timing risk",
+    "metric": "GB300 discounts",
     "period": null,
     "value": null,
     "unit": null,
@@ -227,12 +1289,156 @@
     "email_id": "synthetic_000018"
   },
   {
-    "quote": "Nvidia is lobbying against a hardware-level mandate. Their position, per one staffer, is that software-based attestation is sufficient and that a hardware requirement would hit existing installed products.",
+    "quote": "Any slip in the Rubin HBM4 qualification would push the ramp by a quarter or more, and in that case customers would likely resume GB300 purchasing.",
     "tickers": [
       "NVDA"
     ],
     "entities": [],
-    "kind": "reported_fact",
+    "kind": "opinion",
+    "metric": "Rubin ramp timing",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000018.c8",
+    "email_id": "synthetic_000018"
+  },
+  {
+    "quote": "Our FQ1 (Dec) gross margin falls to 46.2% from 46.9%, and our FQ1 EPS goes to $2.71 from $2.78 (consensus $2.76).",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "gross margin",
+    "period": "FQ1 (Dec)",
+    "value": 46.2,
+    "unit": "pct",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000075.c1",
+    "email_id": "synthetic_000075"
+  },
+  {
+    "quote": "Our FQ1 (Dec) gross margin falls to 46.2% from 46.9%, and our FQ1 EPS goes to $2.71 from $2.78 (consensus $2.76).",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "EPS",
+    "period": "FQ1 (Dec)",
+    "value": 2.71,
+    "unit": "usd",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000075.c2",
+    "email_id": "synthetic_000075"
+  },
+  {
+    "quote": "We think Apple is only partly hedged through its supply agreements, so the hit builds in FQ2 (GM 45.6%).",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "gross margin",
+    "period": "FQ2",
+    "value": 45.6,
+    "unit": "pct",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000075.c3",
+    "email_id": "synthetic_000075"
+  },
+  {
+    "quote": "We now model iPhone ASP up $12 q/q for pricing offsets, which assumes no volume loss.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "iPhone ASP change q/q",
+    "period": null,
+    "value": 12.0,
+    "unit": "usd",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000075.c4",
+    "email_id": "synthetic_000075"
+  },
+  {
+    "quote": "Our 2027 capex rises to $176bn from $172bn on higher server BOM cost and bigger prepayments, with about $4bn of that increase being price rather than volume.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "capex",
+    "period": "2027",
+    "value": 176.0,
+    "unit": "usd_bn",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000075.c5",
+    "email_id": "synthetic_000075"
+  },
+  {
+    "quote": "Our 2027 capex rises to $176bn from $172bn on higher server BOM cost and bigger prepayments, with about $4bn of that increase being price rather than volume.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "capex increase from price",
+    "period": "2027",
+    "value": 4.0,
+    "unit": "usd_bn",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000075.c6",
+    "email_id": "synthetic_000075"
+  },
+  {
+    "quote": "We keep the AWS 2027 revenue forecast unchanged, so this is a margin issue (-35bp to AWS 2027 operating margin).",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "AWS revenue",
+    "period": "2027",
+    "value": null,
+    "unit": null,
+    "direction": "flat",
+    "first_hand": false,
+    "id": "synthetic_000075.c7",
+    "email_id": "synthetic_000075"
+  },
+  {
+    "quote": "We keep the AWS 2027 revenue forecast unchanged, so this is a margin issue (-35bp to AWS 2027 operating margin).",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "AWS operating margin",
+    "period": "2027",
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000075.c8",
+    "email_id": "synthetic_000075"
+  },
+  {
+    "quote": "Nvidia is lobbying against a hardware-level mandate.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "channel_check",
     "metric": null,
     "period": null,
     "value": null,
@@ -243,7 +1449,359 @@
     "email_id": "synthetic_000265"
   },
   {
-    "quote": "The expert said that, per two former colleagues still at contract manufacturers, Amazon cut the final September build plan for next-generation Echo and Fire tablet SKUs by what they described as \"around 15%,\" with some Kindle models moved out by a few weeks.",
+    "quote": "Their position, per one staffer, is that software-based attestation is sufficient and that a hardware requirement would hit existing installed products.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000265.c2",
+    "email_id": "synthetic_000265"
+  },
+  {
+    "quote": "told us that Microsoft has informally indicated lower 2027 volumes for its second-generation Maia accelerator than the planning numbers shared in the spring.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Maia 2 volume",
+    "period": "2027",
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": true,
+    "id": "synthetic_000231.c1",
+    "email_id": "synthetic_000231"
+  },
+  {
+    "quote": "The number he gave was roughly 30-35% below the earlier plan, with units re-allocated toward merchant GPU racks.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Maia 2 volume versus earlier plan",
+    "period": "2027",
+    "value": null,
+    "unit": "pct",
+    "direction": "down",
+    "first_hand": true,
+    "id": "synthetic_000231.c2",
+    "email_id": "synthetic_000231"
+  },
+  {
+    "quote": "purchase orders for a Maia-related package have been \"paused, not cancelled\" since late September.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Maia-related package purchase orders",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000231.c3",
+    "email_id": "synthetic_000231"
+  },
+  {
+    "quote": "Our MSFT rating (Buy) and FY27 capex estimate are unchanged.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "rating_change",
+    "metric": "rating",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "flat",
+    "first_hand": true,
+    "id": "synthetic_000231.c4",
+    "email_id": "synthetic_000231"
+  },
+  {
+    "quote": "Our MSFT rating (Buy) and FY27 capex estimate are unchanged.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "capex",
+    "period": "FY27",
+    "value": null,
+    "unit": null,
+    "direction": "flat",
+    "first_hand": true,
+    "id": "synthetic_000231.c5",
+    "email_id": "synthetic_000231"
+  },
+  {
+    "quote": "September obligations: $4.1bn vs. $2.9bn in Sept 2025, +41% y/y.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "September obligations",
+    "period": "September",
+    "value": 4.1,
+    "unit": "usd_bn",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000127.c1",
+    "email_id": "synthetic_000127"
+  },
+  {
+    "quote": "September obligations: $4.1bn vs. $2.9bn in Sept 2025, +41% y/y.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "September obligations growth y/y",
+    "period": "September",
+    "value": 41.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000127.c2",
+    "email_id": "synthetic_000127"
+  },
+  {
+    "quote": "Full FY26: $17.6bn vs. $14.2bn in FY25, +24% y/y.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "federal obligations",
+    "period": "FY26",
+    "value": 17.6,
+    "unit": "usd_bn",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000127.c3",
+    "email_id": "synthetic_000127"
+  },
+  {
+    "quote": "Full FY26: $17.6bn vs. $14.2bn in FY25, +24% y/y.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "federal obligations growth y/y",
+    "period": "FY26",
+    "value": 24.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000127.c4",
+    "email_id": "synthetic_000127"
+  },
+  {
+    "quote": "Largest single item: a $1.3bn, three-year consolidated enterprise order from a military department.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "consolidated enterprise order value",
+    "period": null,
+    "value": 1.3,
+    "unit": "usd_bn",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000127.c5",
+    "email_id": "synthetic_000127"
+  },
+  {
+    "quote": "Azure Government task orders: $1.1bn in Q4 of the fiscal year (Jul-Sep), +58% y/y.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "Azure Government task orders",
+    "period": "Q4",
+    "value": 1.1,
+    "unit": "usd_bn",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000127.c6",
+    "email_id": "synthetic_000127"
+  },
+  {
+    "quote": "Azure Government task orders: $1.1bn in Q4 of the fiscal year (Jul-Sep), +58% y/y.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "Azure Government task orders growth y/y",
+    "period": "Q4",
+    "value": 58.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000127.c7",
+    "email_id": "synthetic_000127"
+  },
+  {
+    "quote": "Most of this volume would flow into Microsoft's fiscal Q2 and Q3 as licenses are provisioned.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "revenue timing of award volume",
+    "period": "fiscal Q2 and Q3",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000127.c8",
+    "email_id": "synthetic_000127"
+  },
+  {
+    "quote": "In the pre-screen he said Microsoft's capacity-leasing team has changed its tone over the last three weeks in renegotiation talks on two follow-on contracts:",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "capacity-leasing renegotiation tone",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000237.c1",
+    "email_id": "synthetic_000237"
+  },
+  {
+    "quote": "Asking for 3-year terms vs. the 5-year terms in earlier deals",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "lease term requested",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000237.c2",
+    "email_id": "synthetic_000237"
+  },
+  {
+    "quote": "Seeking swap or upgrade rights to move part of the contracted capacity to Rubin-class systems when available",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "swap or upgrade rights sought",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000237.c3",
+    "email_id": "synthetic_000237"
+  },
+  {
+    "quote": "Pushing roughly 20% of previously discussed GB300 capacity out to 1Q27",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "previously discussed GB300 capacity pushed out",
+    "period": "1Q27",
+    "value": 20.0,
+    "unit": "pct",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000237.c4",
+    "email_id": "synthetic_000237"
+  },
+  {
+    "quote": "His read is that Microsoft is \"hedging on architecture timing, not on demand.\"",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000237.c5",
+    "email_id": "synthetic_000237"
+  },
+  {
+    "quote": "On two calls this month the Nvidia team proactively raised flexible delivery windows and asked one customer whether they wanted to \"pull in\" a Q4 slot that had been held for someone else.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "delivery windows and slot availability",
+    "period": "Q4",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000200.c1",
+    "email_id": "synthetic_000200"
+  },
+  {
+    "quote": "A third customer told me the rep offered to walk through financing partners without being asked.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "financing partner offers",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000200.c2",
+    "email_id": "synthetic_000200"
+  },
+  {
+    "quote": "In the last two or three weeks the tone has shifted.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "tone of GPU allocation calls",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000200.c3",
+    "email_id": "synthetic_000200"
+  },
+  {
+    "quote": "Amazon cut the final September build plan for next-generation Echo and Fire tablet SKUs by what they described as \"around 15%,\" with some Kindle models moved out by a few weeks.",
     "tickers": [
       "AMZN"
     ],
@@ -259,35 +1817,19 @@
     "email_id": "synthetic_000248"
   },
   {
-    "quote": "The expert said that, per two former colleagues still at contract manufacturers, Amazon cut the final September build plan for next-generation Echo and Fire tablet SKUs by what they described as \"around 15%,\" with some Kindle models moved out by a few weeks.",
-    "tickers": [
-      "AMZN"
-    ],
-    "entities": [],
-    "kind": "channel_check",
-    "metric": "Kindle model build timing",
-    "period": null,
-    "value": null,
-    "unit": null,
-    "direction": null,
-    "first_hand": false,
-    "id": "synthetic_000248.c2",
-    "email_id": "synthetic_000248"
-  },
-  {
     "quote": "The expert's contacts attributed the cut to higher-than-planned channel inventory from Prime Day carryover and a decision to prioritize Alexa+ smart displays.",
     "tickers": [
       "AMZN"
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "reason for build plan cut",
+    "metric": null,
     "period": null,
     "value": null,
     "unit": null,
     "direction": null,
     "first_hand": false,
-    "id": "synthetic_000248.c3",
+    "id": "synthetic_000248.c2",
     "email_id": "synthetic_000248"
   },
   {
@@ -303,23 +1845,7 @@
     "unit": null,
     "direction": null,
     "first_hand": false,
-    "id": "synthetic_000248.c4",
-    "email_id": "synthetic_000248"
-  },
-  {
-    "quote": "He could not size the revenue impact, and noted devices are a small portion of Amazon's total revenue.",
-    "tickers": [
-      "AMZN"
-    ],
-    "entities": [],
-    "kind": "opinion",
-    "metric": "devices share of total revenue",
-    "period": null,
-    "value": null,
-    "unit": null,
-    "direction": null,
-    "first_hand": false,
-    "id": "synthetic_000248.c5",
+    "id": "synthetic_000248.c3",
     "email_id": "synthetic_000248"
   },
   {
@@ -327,66 +1853,28 @@
     "tickers": [
       "NVDA"
     ],
-    "entities": [
-      "Whitfield Systems Integration"
-    ],
+    "entities": [],
     "kind": "channel_check",
-    "metric": "RTX Pro server SKU quoted lead time",
-    "period": null,
-    "value": null,
-    "unit": null,
-    "direction": "up",
-    "first_hand": true,
-    "id": "synthetic_000286.c1",
-    "email_id": "synthetic_000286"
-  },
-  {
-    "quote": "My own order book for Q4 is up about 30% vs. Q3.",
-    "tickers": [
-      "NVDA"
-    ],
-    "entities": [
-      "Whitfield Systems Integration"
-    ],
-    "kind": "channel_check",
-    "metric": "order book for RTX Pro-class servers",
-    "period": "Q4",
-    "value": 30.0,
-    "unit": "pct",
-    "direction": "up",
-    "first_hand": true,
-    "id": "synthetic_000286.c2",
-    "email_id": "synthetic_000286"
-  },
-  {
-    "quote": "Two buyers asked us to lock in pricing now because they're worried it will move.",
-    "tickers": [
-      "NVDA"
-    ],
-    "entities": [
-      "Whitfield Systems Integration"
-    ],
-    "kind": "channel_check",
-    "metric": "customer requests to lock in pricing",
+    "metric": "quoted lead time on RTX Pro server SKUs",
     "period": null,
     "value": null,
     "unit": null,
     "direction": null,
     "first_hand": true,
-    "id": "synthetic_000286.c3",
+    "id": "synthetic_000286.c1",
     "email_id": "synthetic_000286"
   },
   {
-    "quote": "Over the past week, two Amazon delivery service partner owners I talk to regularly (one in the Southeast, one in the Mid-Atlantic, both with 40-plus vans) independently said their Amazon station managers have told them to plan for fewer peak-season routes than last year.",
+    "quote": "The numbers they gave were roughly 8-12% below last year's Nov-Dec allotments, versus the normal pattern of a 5-10% increase.",
     "tickers": [
       "AMZN"
     ],
     "entities": [],
     "kind": "channel_check",
     "metric": "peak-season route allotments",
-    "period": null,
+    "period": "Nov-Dec",
     "value": null,
-    "unit": null,
+    "unit": "pct",
     "direction": "down",
     "first_hand": false,
     "id": "synthetic_000222.c1",
@@ -399,7 +1887,7 @@
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "per-package pay pilot for delivery service partners",
+    "metric": "per-package pay element pilot",
     "period": null,
     "value": null,
     "unit": null,
@@ -415,14 +1903,1380 @@
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "surge staffing training at delivery station",
+    "metric": "surge staffing training",
+    "period": "September",
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000222.c3",
+    "email_id": "synthetic_000222"
+  },
+  {
+    "quote": "A multi-year Azure AI/OpenAI commitment that was due to renew at a higher floor is being renegotiated toward consumption-based pricing with a lower committed minimum.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [
+      "Large global bank (name withheld)"
+    ],
+    "kind": "channel_check",
+    "metric": "Azure AI/OpenAI committed minimum",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000174.c1",
+    "email_id": "synthetic_000174"
+  },
+  {
+    "quote": "He said Microsoft was \"flexible but not thrilled.\"",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [
+      "Large global bank (name withheld)"
+    ],
+    "kind": "channel_check",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000174.c2",
+    "email_id": "synthetic_000174"
+  },
+  {
+    "quote": "he stressed that production usage of Copilot and Azure inference is still growing.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [
+      "Large global bank (name withheld)"
+    ],
+    "kind": "channel_check",
+    "metric": "production usage of Copilot and Azure inference",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000174.c3",
+    "email_id": "synthetic_000174"
+  },
+  {
+    "quote": "The filing describes a roughly 2.4GW dedicated block, phased 2027-2029, for a single \"hyperscale customer\" at a site adjacent to existing Amazon data center land holdings.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [
+      "Delmarre Grid Partners"
+    ],
+    "kind": "reported_fact",
+    "metric": "dedicated power block capacity",
+    "period": "2027-2029",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000241.c1",
+    "email_id": "synthetic_000241"
+  },
+  {
+    "quote": "Our read, which the VP is prepared to discuss in general terms, is that the customer is AWS.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [
+      "Delmarre Grid Partners"
+    ],
+    "kind": "opinion",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000241.c2",
+    "email_id": "synthetic_000241"
+  },
+  {
+    "quote": "AWS would take a firm 15-year capacity commitment and co-fund transmission upgrades, instead of the usual utility tariff arrangement.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [
+      "Delmarre Grid Partners"
+    ],
+    "kind": "reported_fact",
+    "metric": "power capacity commitment structure",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000241.c3",
+    "email_id": "synthetic_000241"
+  },
+  {
+    "quote": "Our tracking of announced and filed AWS power commitments adds up to about 5.1GW through 2028.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "announced and filed AWS power commitments",
+    "period": "through 2028",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000241.c4",
+    "email_id": "synthetic_000241"
+  },
+  {
+    "quote": "This block would take that to roughly 7.5GW",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [
+      "Delmarre Grid Partners"
+    ],
+    "kind": "opinion",
+    "metric": "AWS power commitments including the Delmarre block",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000241.c5",
+    "email_id": "synthetic_000241"
+  },
+  {
+    "quote": "We do not believe that is in Street 2027 capex or free cash flow estimates.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "capex and free cash flow estimates",
+    "period": "2027",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000241.c6",
+    "email_id": "synthetic_000241"
+  },
+  {
+    "quote": "For MSFT, nothing here changes our numbers",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "estimates",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "flat",
+    "first_hand": false,
+    "id": "synthetic_000076.c1",
+    "email_id": "synthetic_000076"
+  },
+  {
+    "quote": "Now only 5 of 14 do, and 6 said they are pausing expansion until they can show business-case metrics.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Microsoft agent and Copilot Studio pilots expanding",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": true,
+    "id": "synthetic_000076.c2",
+    "email_id": "synthetic_000076"
+  },
+  {
+    "quote": "Four LSPs said Microsoft's field teams have become more flexible on consumption-based agent pricing and are offering extended trial credits, compared with the more rigid per-seat language this spring.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "consumption-based agent pricing flexibility",
     "period": null,
     "value": null,
     "unit": null,
     "direction": null,
     "first_hand": true,
-    "id": "synthetic_000222.c3",
-    "email_id": "synthetic_000222"
+    "id": "synthetic_000076.c3",
+    "email_id": "synthetic_000076"
+  },
+  {
+    "quote": "Two said the credits were larger than they had seen.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "extended trial credit size",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000076.c4",
+    "email_id": "synthetic_000076"
+  },
+  {
+    "quote": "8 of 14 said they plan to add Defender or Purview scope in the next 12 months",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "planned Defender or Purview scope additions (next 12 months)",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000076.c5",
+    "email_id": "synthetic_000076"
+  },
+  {
+    "quote": "Fabric adoption comment was upbeat from 7.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Fabric adoption sentiment",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000076.c6",
+    "email_id": "synthetic_000076"
+  },
+  {
+    "quote": "effective prices on GPU instances rose in September.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "effective GPU instance prices",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000096.c1",
+    "email_id": "synthetic_000096"
+  },
+  {
+    "quote": "Average committed-use discounts on P5/P6 instances narrowed by about 4 points for new contracts",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "average committed-use discounts on P5/P6 instances for new contracts",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": true,
+    "id": "synthetic_000096.c2",
+    "email_id": "synthetic_000096"
+  },
+  {
+    "quote": "on-demand Trainium2 pricing was unchanged despite added capacity.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "on-demand Trainium2 pricing",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "flat",
+    "first_hand": true,
+    "id": "synthetic_000096.c3",
+    "email_id": "synthetic_000096"
+  },
+  {
+    "quote": "We read this as demand running ahead of supply in AI capacity, and it lifts our revenue line.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000096.c4",
+    "email_id": "synthetic_000096"
+  },
+  {
+    "quote": "AWS growth 21% (was 18.5%)",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "AWS revenue growth",
+    "period": "FY2026",
+    "value": 21.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000096.c5",
+    "email_id": "synthetic_000096"
+  },
+  {
+    "quote": "Consolidated operating margin 12.8% (was 12.2%)",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "operating margin",
+    "period": "FY2026",
+    "value": 12.8,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000096.c6",
+    "email_id": "synthetic_000096"
+  },
+  {
+    "quote": "EPS $7.45 (was $7.10)",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "EPS",
+    "period": "FY2026",
+    "value": 7.45,
+    "unit": "usd",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000096.c7",
+    "email_id": "synthetic_000096"
+  },
+  {
+    "quote": "We hold capex at $140bn.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "capex",
+    "period": null,
+    "value": 140.0,
+    "unit": "usd_bn",
+    "direction": "flat",
+    "first_hand": false,
+    "id": "synthetic_000096.c8",
+    "email_id": "synthetic_000096"
+  },
+  {
+    "quote": "AMZN (Overweight, PT $250)",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "target price",
+    "period": null,
+    "value": 250.0,
+    "unit": "usd",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000096.c9",
+    "email_id": "synthetic_000096"
+  },
+  {
+    "quote": "The pricing data says the existing build earns more, not that more needs to be built.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000096.c10",
+    "email_id": "synthetic_000096"
+  },
+  {
+    "quote": "One plant manager said that customer pulled forward its Q4 packaging schedule by about two to three weeks and asked for added capacity on poly mailers.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [
+      "Cartonpack"
+    ],
+    "kind": "channel_check",
+    "metric": "Q4 packaging schedule pull-forward",
+    "period": "Q4",
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000230.c1",
+    "email_id": "synthetic_000230"
+  },
+  {
+    "quote": "He did not name the customer on the record; two others used language that points to Amazon.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [
+      "Cartonpack"
+    ],
+    "kind": "channel_check",
+    "metric": "attribution of large customer volume increase",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000230.c2",
+    "email_id": "synthetic_000230"
+  },
+  {
+    "quote": "If the packaging pull-forward is real, it could point to higher expected Q4 unit volumes or an earlier peak-season ramp.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [
+      "Cartonpack"
+    ],
+    "kind": "opinion",
+    "metric": "Q4 unit volumes",
+    "period": "Q4",
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000230.c3",
+    "email_id": "synthetic_000230"
+  },
+  {
+    "quote": "a coalition of several state AG offices has been reviewing Amazon's marketplace pricing and fair-pricing enforcement practices, separate from the federal case, since early this year.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "state AG review of marketplace pricing",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000061.c1",
+    "email_id": "synthetic_000061"
+  },
+  {
+    "quote": "They described the matter as \"past the document-request stage and into term-sheet conversations,\"",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "state AG review stage",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000061.c2",
+    "email_id": "synthetic_000061"
+  },
+  {
+    "quote": "The expert's base case is a consent decree rather than litigation: Amazon would stop penalizing sellers (via Buy Box suppression or search demotion) for lower prices on rival sites, and would accept an independent monitor for roughly three years.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "resolution structure",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000061.c3",
+    "email_id": "synthetic_000061"
+  },
+  {
+    "quote": "They did not expect a monetary penalty above \"low hundreds of millions.\"",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "monetary penalty",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000061.c4",
+    "email_id": "synthetic_000061"
+  },
+  {
+    "quote": "\"Realistically, this could be announced anywhere between six weeks and nine months from now.\"",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "announcement timing",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000061.c5",
+    "email_id": "synthetic_000061"
+  },
+  {
+    "quote": "Amazon already changed its fair-pricing language twice in the past two years",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "fair-pricing language changes",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000061.c6",
+    "email_id": "synthetic_000061"
+  },
+  {
+    "quote": "a formal order might add little beyond what is in place",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "commercial impact of formal order",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000061.c7",
+    "email_id": "synthetic_000061"
+  },
+  {
+    "quote": "AMZN: UPGRADE to BUY from HOLD. PT $255 (from $215).",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "rating_change",
+    "metric": "rating",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000202.c1",
+    "email_id": "synthetic_000202"
+  },
+  {
+    "quote": "AMZN: UPGRADE to BUY from HOLD. PT $255 (from $215).",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "target price",
+    "period": null,
+    "value": 255.0,
+    "unit": "usd",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000202.c2",
+    "email_id": "synthetic_000202"
+  },
+  {
+    "quote": "Advertising revenue growth: 23% (from 19%)",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "Advertising revenue growth",
+    "period": "FY2026",
+    "value": 23.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000202.c3",
+    "email_id": "synthetic_000202"
+  },
+  {
+    "quote": "Operating margin: 12.5% (from 11.9%)",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "operating margin",
+    "period": "FY2026",
+    "value": 12.5,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000202.c4",
+    "email_id": "synthetic_000202"
+  },
+  {
+    "quote": "EPS: $7.60 (from $7.05)",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "EPS",
+    "period": "FY2026",
+    "value": 7.6,
+    "unit": "usd",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000202.c5",
+    "email_id": "synthetic_000202"
+  },
+  {
+    "quote": "The ad mix makes us more comfortable that consolidated margin can rise even with capex at about $140bn.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "capex",
+    "period": null,
+    "value": 140.0,
+    "unit": "usd_bn",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000202.c6",
+    "email_id": "synthetic_000202"
+  },
+  {
+    "quote": "Our panel of 85 brand advertisers shows Amazon's share of planned Q4 retail-media budgets at 58%, up from 51% last year, with Prime Video ad loads now priced at a premium to the CTV market.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Amazon share of planned retail-media budgets",
+    "period": "Q4",
+    "value": 58.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000202.c7",
+    "email_id": "synthetic_000202"
+  },
+  {
+    "quote": "Over the last ~10 days, three of our mid-size clients (a regional insurer, a logistics software firm and a healthcare services group) got Azure OpenAI quota increases approved in 2-3 business days.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Azure OpenAI quota increase approval time",
+    "period": "last ~10 days",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000042.c1",
+    "email_id": "synthetic_000042"
+  },
+  {
+    "quote": "For most of this year those requests sat for 3-5 weeks, and a couple were denied outright for East US and West Europe.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Azure OpenAI quota request turnaround and denials",
+    "period": "this year",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000042.c2",
+    "email_id": "synthetic_000042"
+  },
+  {
+    "quote": "One of the clients' Microsoft reps also told them \"capacity is in a much better place this quarter\" and offered to pre-provision a reserved-throughput commitment at what our client thought was a softer price than quoted in June.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Azure capacity",
+    "period": "this quarter",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000042.c3",
+    "email_id": "synthetic_000042"
+  },
+  {
+    "quote": "offered to pre-provision a reserved-throughput commitment at what our client thought was a softer price than quoted in June.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "reserved-throughput commitment price",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000042.c4",
+    "email_id": "synthetic_000042"
+  },
+  {
+    "quote": "Microsoft's new data center capacity is coming online faster than demand, which would be good for revenue over the next few quarters.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "data center capacity versus demand",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000042.c5",
+    "email_id": "synthetic_000042"
+  },
+  {
+    "quote": "Nvidia (NVDA) options volume is running about 1.6x its 20-day average this morning, led by roughly 38,000 calls in the Nov 20 expiry across several upper strikes.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "options volume relative to 20-day average",
+    "period": null,
+    "value": 1.6,
+    "unit": "multiple",
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000189.c1",
+    "email_id": "synthetic_000189"
+  },
+  {
+    "quote": "Nvidia (NVDA) options volume is running about 1.6x its 20-day average this morning, led by roughly 38,000 calls in the Nov 20 expiry across several upper strikes.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "call options volume, Nov 20 expiry",
+    "period": "Nov 20",
+    "value": 38000.0,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000189.c2",
+    "email_id": "synthetic_000189"
+  },
+  {
+    "quote": "Call volume outpaced puts by about 2.3 to 1 on the session.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "call-to-put volume ratio",
+    "period": null,
+    "value": 2.3,
+    "unit": "multiple",
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000189.c3",
+    "email_id": "synthetic_000189"
+  },
+  {
+    "quote": "5 trades of 1,000+ contracts classified as \"aggressive\" by our flow model",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "count of aggressive trades of 1,000+ contracts",
+    "period": null,
+    "value": 5.0,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000189.c4",
+    "email_id": "synthetic_000189"
+  },
+  {
+    "quote": "Implied volatility for the Nov 20 expiry up roughly 1.5 vol points on the day",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "implied volatility change, Nov 20 expiry",
+    "period": "Nov 20",
+    "value": 1.5,
+    "unit": null,
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000189.c5",
+    "email_id": "synthetic_000189"
+  },
+  {
+    "quote": "Open interest in the highest-volume strike rose by about 9,500 contracts at the open",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "open interest change in highest-volume strike",
+    "period": null,
+    "value": 9500.0,
+    "unit": null,
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000189.c6",
+    "email_id": "synthetic_000189"
+  },
+  {
+    "quote": "Traders may be anticipating a strong data center print when the company reports in November, and the flow could signal that institutional buyers are getting in early.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000189.c7",
+    "email_id": "synthetic_000189"
+  },
+  {
+    "quote": "Northern Virginia (outer counties) | 2 | 9 | 2 AWS, 1 Google",
+    "tickers": [
+      "AMZN",
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "named projects affected by permit and interconnection friction",
+    "period": "Aug 15-Oct 9",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000011.c1",
+    "email_id": "synthetic_000011"
+  },
+  {
+    "quote": "Central Ohio | 1 | 6 | 1 AWS",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "named projects affected by permit and interconnection friction",
+    "period": "Aug 15-Oct 9",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000011.c2",
+    "email_id": "synthetic_000011"
+  },
+  {
+    "quote": "Phoenix metro / Pinal County | 1 (water-use review) | 7 | 1 Google, 1 AWS",
+    "tickers": [
+      "GOOGL",
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "named projects affected by permit and interconnection friction",
+    "period": "Aug 15-Oct 9",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000011.c3",
+    "email_id": "synthetic_000011"
+  },
+  {
+    "quote": "September-quarter iPhone 18 upgrade rates at her former employer and at one other national carrier are running roughly 15-20% below the internal plan set in July.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "iPhone 18 upgrade rates vs internal plan",
+    "period": "September quarter",
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000001.c1",
+    "email_id": "synthetic_000001"
+  },
+  {
+    "quote": "Her read is that the carriers have already added richer trade-in credits (up to $800 on select models, 36-month terms) to hold activation volumes.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "carrier trade-in credits on iPhone models",
+    "period": null,
+    "value": 800.0,
+    "unit": "usd",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000001.c2",
+    "email_id": "synthetic_000001"
+  },
+  {
+    "quote": "The sell-side notes I have seen assume a September-quarter upgrade rate up 40-60bp y/y.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "upgrade rate",
+    "period": "September quarter",
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000001.c3",
+    "email_id": "synthetic_000001"
+  },
+  {
+    "quote": "Integrators reported Q3 Google Cloud bookings up 35-40% y/y, led by Vertex/Gemini enterprise deals that bundle TPU capacity.",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Google Cloud bookings growth",
+    "period": "Q3",
+    "value": null,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000009.c1",
+    "email_id": "synthetic_000009"
+  },
+  {
+    "quote": "Four of six said the deal size of AI workloads has roughly doubled since spring.",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "deal size of AI workloads",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000009.c2",
+    "email_id": "synthetic_000009"
+  },
+  {
+    "quote": "Committed backlog: our tracker of disclosed multi-year commitments rose by about $9bn in the quarter.",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "committed backlog change",
+    "period": null,
+    "value": 9.0,
+    "unit": "usd_bn",
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000009.c3",
+    "email_id": "synthetic_000009"
+  },
+  {
+    "quote": "Three partners said customers were asked to accept staggered start dates.",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "capacity constraint",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000009.c4",
+    "email_id": "synthetic_000009"
+  },
+  {
+    "quote": "Cloud revenue growth: 32% (from 27%)",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "Cloud revenue growth",
+    "period": "FY2026",
+    "value": 32.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000009.c5",
+    "email_id": "synthetic_000009"
+  },
+  {
+    "quote": "Capex: $104bn (from $96bn)",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "capex",
+    "period": "FY2026",
+    "value": 104.0,
+    "unit": "usd_bn",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000009.c6",
+    "email_id": "synthetic_000009"
+  },
+  {
+    "quote": "we think the capacity comments imply spend stays above the current run rate into Q4",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "capex",
+    "period": "Q4",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000009.c7",
+    "email_id": "synthetic_000009"
+  },
+  {
+    "quote": "Operating margin: 31% (unchanged; Cloud margin gains offset higher depreciation)",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "operating margin",
+    "period": "FY2026",
+    "value": 31.0,
+    "unit": "pct",
+    "direction": "flat",
+    "first_hand": false,
+    "id": "synthetic_000009.c8",
+    "email_id": "synthetic_000009"
+  },
+  {
+    "quote": "EPS: $9.40 (from $9.35)",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "EPS",
+    "period": "FY2026",
+    "value": 9.4,
+    "unit": "usd",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000009.c9",
+    "email_id": "synthetic_000009"
+  },
+  {
+    "quote": "GOOGL (Neutral, PT $205)",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "target price",
+    "period": null,
+    "value": 205.0,
+    "unit": "usd",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000009.c10",
+    "email_id": "synthetic_000009"
+  },
+  {
+    "quote": "Heading into the Oct 29 print, our operating forecasts are little changed.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "operating forecasts",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "flat",
+    "first_hand": false,
+    "id": "synthetic_000284.c1",
+    "email_id": "synthetic_000284"
+  },
+  {
+    "quote": "Net sales: $186.2bn (guide $182-187bn; cons. $185.4bn)",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "net sales",
+    "period": "3Q26",
+    "value": 186.2,
+    "unit": "usd_bn",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000284.c2",
+    "email_id": "synthetic_000284"
+  },
+  {
+    "quote": "AWS revenue: $41.3bn, +21% y/y (cons. $41.0bn)",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "AWS revenue",
+    "period": "3Q26",
+    "value": 41.3,
+    "unit": "usd_bn",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000284.c3",
+    "email_id": "synthetic_000284"
+  },
+  {
+    "quote": "AWS revenue: $41.3bn, +21% y/y (cons. $41.0bn)",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "AWS revenue growth",
+    "period": "3Q26",
+    "value": 21.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000284.c4",
+    "email_id": "synthetic_000284"
+  },
+  {
+    "quote": "Operating income: $21.4bn (guide $19.0-23.5bn; cons. $21.1bn)",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "operating income",
+    "period": "3Q26",
+    "value": 21.4,
+    "unit": "usd_bn",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000284.c5",
+    "email_id": "synthetic_000284"
+  },
+  {
+    "quote": "North America segment margin: 6.4%; International: 3.7%",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "North America segment margin",
+    "period": "3Q26",
+    "value": 6.4,
+    "unit": "pct",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000284.c6",
+    "email_id": "synthetic_000284"
+  },
+  {
+    "quote": "North America segment margin: 6.4%; International: 3.7%",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "International segment margin",
+    "period": "3Q26",
+    "value": 3.7,
+    "unit": "pct",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000284.c7",
+    "email_id": "synthetic_000284"
+  },
+  {
+    "quote": "Advertising: $17.9bn, +20% y/y",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "advertising revenue",
+    "period": "3Q26",
+    "value": 17.9,
+    "unit": "usd_bn",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000284.c8",
+    "email_id": "synthetic_000284"
+  },
+  {
+    "quote": "Advertising: $17.9bn, +20% y/y",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "advertising revenue growth",
+    "period": "3Q26",
+    "value": 20.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000284.c9",
+    "email_id": "synthetic_000284"
+  },
+  {
+    "quote": "Based on the disclosed note amount and the implied step-up, we model a pre-tax non-operating gain of about $7.4bn in 3Q, which is roughly $0.54 per share after tax.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "pre-tax non-operating gain",
+    "period": "3Q26",
+    "value": 7.4,
+    "unit": "usd_bn",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000284.c10",
+    "email_id": "synthetic_000284"
+  },
+  {
+    "quote": "Based on the disclosed note amount and the implied step-up, we model a pre-tax non-operating gain of about $7.4bn in 3Q, which is roughly $0.54 per share after tax.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "after-tax non-operating gain per share",
+    "period": "3Q26",
+    "value": 0.54,
+    "unit": "usd",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000284.c11",
+    "email_id": "synthetic_000284"
+  },
+  {
+    "quote": "On that basis our GAAP EPS is $2.46, against a consensus of $1.92.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "GAAP EPS",
+    "period": "3Q26",
+    "value": 2.46,
+    "unit": "usd",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000284.c12",
+    "email_id": "synthetic_000284"
+  },
+  {
+    "quote": "Nothing in our checks this month moves AWS growth, retail unit trends or the cost lines.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "flat",
+    "first_hand": true,
+    "id": "synthetic_000284.c13",
+    "email_id": "synthetic_000284"
+  },
+  {
+    "quote": "Operating income, AWS growth and the 4Q guide are what should drive the stock.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000284.c14",
+    "email_id": "synthetic_000284"
   },
   {
     "quote": "The supplier said its customer, a rack integrator, rejected one lot of QD couplings for the first Rubin NVL144 pilot racks after leak testing at the integrator's facility.",
@@ -431,13 +3285,29 @@
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "QD coupling lot rejection for Rubin NVL144 pilot racks",
+    "metric": "QD coupling lot acceptance for Rubin NVL144 pilot racks",
     "period": null,
     "value": null,
     "unit": null,
     "direction": null,
-    "first_hand": true,
+    "first_hand": false,
     "id": "synthetic_000071.c1",
+    "email_id": "synthetic_000071"
+  },
+  {
+    "quote": "The contact said that the destination for the pilot racks is a Microsoft AI campus.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "destination of pilot racks",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000071.c2",
     "email_id": "synthetic_000071"
   },
   {
@@ -447,29 +3317,12 @@
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "QD coupling replacement lot timing",
+    "metric": "replacement QD coupling lot delivery timing",
     "period": null,
     "value": null,
     "unit": null,
     "direction": null,
-    "first_hand": true,
-    "id": "synthetic_000071.c2",
-    "email_id": "synthetic_000071"
-  },
-  {
-    "quote": "The contact said that the destination for the pilot racks is a Microsoft AI campus.",
-    "tickers": [
-      "MSFT",
-      "NVDA"
-    ],
-    "entities": [],
-    "kind": "channel_check",
-    "metric": "Rubin NVL144 pilot rack destination",
-    "period": null,
-    "value": null,
-    "unit": null,
-    "direction": null,
-    "first_hand": true,
+    "first_hand": false,
     "id": "synthetic_000071.c3",
     "email_id": "synthetic_000071"
   },
@@ -497,7 +3350,7 @@
     ],
     "entities": [],
     "kind": "opinion",
-    "metric": "impact on quarterly numbers",
+    "metric": "January-quarter numbers impact",
     "period": "January-quarter",
     "value": null,
     "unit": null,
@@ -507,14 +3360,13 @@
     "email_id": "synthetic_000071"
   },
   {
-    "quote": "Our document-capture panel (9 corporate customers and 3 reseller partners across the EU) shows that an EU member-state competition authority has sent questionnaires to enterprise buyers of cloud productivity suites.",
+    "quote": "Microsoft (M365 / Copilot): 5 of 7",
     "tickers": [
-      "MSFT",
-      "GOOGL"
+      "MSFT"
     ],
     "entities": [],
-    "kind": "channel_check",
-    "metric": "regulatory questionnaires on AI-assistant bundling",
+    "kind": "reported_fact",
+    "metric": "documents naming company (of 7 reviewed)",
     "period": null,
     "value": null,
     "unit": null,
@@ -524,13 +3376,13 @@
     "email_id": "synthetic_000196"
   },
   {
-    "quote": "Microsoft (M365 / Copilot): 5 of 7",
+    "quote": "Google (Workspace / Gemini): 5 of 7",
     "tickers": [
-      "MSFT"
+      "GOOGL"
     ],
     "entities": [],
-    "kind": "channel_check",
-    "metric": "questionnaire documents naming company",
+    "kind": "reported_fact",
+    "metric": "documents naming company (of 7 reviewed)",
     "period": null,
     "value": null,
     "unit": null,
@@ -540,68 +3392,547 @@
     "email_id": "synthetic_000196"
   },
   {
-    "quote": "Google (Workspace / Gemini): 5 of 7",
+    "quote": "In roughly six of the renewals he has seen since July, the customer cut the number of paid Copilot seats at renewal by 30-50% versus the original commitment.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "paid Copilot seats at renewal versus original commitment",
+    "period": null,
+    "value": null,
+    "unit": "pct",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000041.c1",
+    "email_id": "synthetic_000041"
+  },
+  {
+    "quote": "The stated reasons were CFO-led cost reviews and weak usage data",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000041.c2",
+    "email_id": "synthetic_000041"
+  },
+  {
+    "quote": "Microsoft account teams offered bundled discounts on M365 E5 and Azure commitments to hold the total contract value. In two cases the total went up.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "total contract value",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000041.c3",
+    "email_id": "synthetic_000041"
+  },
+  {
+    "quote": "he is not seeing any pullback among digital-native or government customers. He does not think it is broad yet.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000041.c4",
+    "email_id": "synthetic_000041"
+  },
+  {
+    "quote": "AWS-affiliated entities increased contracted peak load by about 1.8GW for energy start dates between Q2 2027 and Q4 2028.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "contracted peak load",
+    "period": "Q2 2027 to Q4 2028",
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000003.c1",
+    "email_id": "synthetic_000003"
+  },
+  {
+    "quote": "2027 capex raised to $188bn from $172bn (Street ~$170bn)",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "capex",
+    "period": "2027",
+    "value": 188.0,
+    "unit": "usd_bn",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000003.c2",
+    "email_id": "synthetic_000003"
+  },
+  {
+    "quote": "2027 capex raised to $188bn from $172bn (Street ~$170bn)",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "capex (Street consensus)",
+    "period": "2027",
+    "value": 170.0,
+    "unit": "usd_bn",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000003.c3",
+    "email_id": "synthetic_000003"
+  },
+  {
+    "quote": "2027 free cash flow cut to $22bn from $31bn",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "free cash flow",
+    "period": "2027",
+    "value": 22.0,
+    "unit": "usd_bn",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000003.c4",
+    "email_id": "synthetic_000003"
+  },
+  {
+    "quote": "2027 AWS revenue unchanged for now",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "AWS revenue",
+    "period": "2027",
+    "value": null,
+    "unit": null,
+    "direction": "flat",
+    "first_hand": false,
+    "id": "synthetic_000003.c5",
+    "email_id": "synthetic_000003"
+  },
+  {
+    "quote": "2027 depreciation up about $2.4bn, roughly 45bp of AWS operating margin",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "depreciation",
+    "period": "2027",
+    "value": 2.4,
+    "unit": "usd_bn",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000003.c6",
+    "email_id": "synthetic_000003"
+  },
+  {
+    "quote": "2027 depreciation up about $2.4bn, roughly 45bp of AWS operating margin",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "AWS operating margin impact",
+    "period": "2027",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000003.c7",
+    "email_id": "synthetic_000003"
+  },
+  {
+    "quote": "Our rule of thumb, roughly $35-40bn of all-in capex per GW including servers and networking, implies $60-70bn of incremental spend across 2027-28",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "incremental capex",
+    "period": "2027-28",
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000003.c8",
+    "email_id": "synthetic_000003"
+  },
+  {
+    "quote": "consensus +21% y/y in Q3",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "AWS revenue growth (consensus)",
+    "period": "Q3",
+    "value": 21.0,
+    "unit": "pct",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000003.c9",
+    "email_id": "synthetic_000003"
+  },
+  {
+    "quote": "AMZN (Buy, PT $285)",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "target price",
+    "period": null,
+    "value": 285.0,
+    "unit": "usd",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000003.c10",
+    "email_id": "synthetic_000003"
+  },
+  {
+    "quote": "Median partner reported Azure consumption up ~41% y/y for the September quarter",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Azure consumption growth",
+    "period": "September quarter",
+    "value": 41.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000027.c1",
+    "email_id": "synthetic_000027"
+  },
+  {
+    "quote": "versus ~36% they described for the June quarter",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Azure consumption growth",
+    "period": "June quarter",
+    "value": 36.0,
+    "unit": "pct",
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000027.c2",
+    "email_id": "synthetic_000027"
+  },
+  {
+    "quote": "Street is around 37-38% in constant currency, from what I can tell.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "Azure consumption growth (street estimate)",
+    "period": null,
+    "value": null,
+    "unit": "pct",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000027.c3",
+    "email_id": "synthetic_000027"
+  },
+  {
+    "quote": "Eight of the 11 said they saw acceleration through September, led by AI inference workloads and Foundry usage.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Azure consumption acceleration",
+    "period": "September quarter",
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000027.c4",
+    "email_id": "synthetic_000027"
+  },
+  {
+    "quote": "Four partners said Microsoft told them directly that certain regions (US East 2, West Europe) are capacity-constrained through at least the first half of 2027.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "regional capacity constraint",
+    "period": "first half of 2027",
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000027.c5",
+    "email_id": "synthetic_000027"
+  },
+  {
+    "quote": "Seat attach at partner accounts is still modest (around 9% of eligible M365 seats)",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Copilot seat attach",
+    "period": null,
+    "value": 9.0,
+    "unit": "pct",
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000027.c6",
+    "email_id": "synthetic_000027"
+  },
+  {
+    "quote": "two partners said Microsoft is bundling Copilot credits into renewals at heavy discounts.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Copilot pricing",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000027.c7",
+    "email_id": "synthetic_000027"
+  },
+  {
+    "quote": "A partner who works closely with Microsoft's field finance team said the company is accelerating lease commitments on third-party capacity",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "lease commitments on third-party capacity",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000027.c8",
+    "email_id": "synthetic_000027"
+  },
+  {
+    "quote": "which he expects to push FY27 capex above the figure Microsoft indicated in July by a mid-single-digit percentage.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "capex",
+    "period": "FY27",
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000027.c9",
+    "email_id": "synthetic_000027"
+  },
+  {
+    "quote": "My read: revenue upside to Azure, with the risk that gross margin and capex expectations are too low.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000027.c10",
+    "email_id": "synthetic_000027"
+  },
+  {
+    "quote": "In our pre-screen, he said two former colleagues, both still at AI labs, told him in recent weeks that their organizations are asking for committed TPU capacity from Google Cloud for 2027 inference.",
+    "tickers": [
+      "GOOGL",
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "committed TPU capacity demand for inference",
+    "period": "2027",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000144.c1",
+    "email_id": "synthetic_000144"
+  },
+  {
+    "quote": "All three reported paid click volume on those query groups down 9-12% vs. the prior four weeks at flat bids.",
     "tickers": [
       "GOOGL"
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "questionnaire documents naming company",
+    "metric": "paid click volume on commercial-intent queries",
     "period": null,
     "value": null,
-    "unit": null,
-    "direction": null,
-    "first_hand": true,
-    "id": "synthetic_000196.c3",
-    "email_id": "synthetic_000196"
+    "unit": "pct",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000055.c1",
+    "email_id": "synthetic_000055"
   },
   {
-    "quote": "Stage: preliminary market inquiry. This is NOT a formal proceeding and no statement of objections has been issued.",
+    "quote": "CPCs on the affected groups are up 6-8% as advertisers bid more for the remaining slots.",
     "tickers": [
-      "MSFT",
       "GOOGL"
     ],
     "entities": [],
-    "kind": "opinion",
-    "metric": "regulatory process stage",
+    "kind": "channel_check",
+    "metric": "CPC on commercial-intent query groups",
+    "period": null,
+    "value": null,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000055.c2",
+    "email_id": "synthetic_000055"
+  },
+  {
+    "quote": "Two agencies said they have moved 5-8% of budget on those groups to Performance Max and shopping placements, where volume looks stable.",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "advertiser budget shift to Performance Max and shopping placements",
+    "period": null,
+    "value": null,
+    "unit": "pct",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000055.c3",
+    "email_id": "synthetic_000055"
+  },
+  {
+    "quote": "One rep reportedly described it as \"a test in a limited set of markets.\"",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "management_comment",
+    "metric": null,
     "period": null,
     "value": null,
     "unit": null,
     "direction": null,
     "first_hand": false,
-    "id": "synthetic_000196.c4",
-    "email_id": "synthetic_000196"
+    "id": "synthetic_000055.c4",
+    "email_id": "synthetic_000055"
   },
   {
-    "quote": "We put the probability of a formal case within 6 months at roughly 25-30%.",
-    "tickers": [
-      "MSFT",
-      "GOOGL"
-    ],
-    "entities": [],
-    "kind": "opinion",
-    "metric": "probability of formal case within 6 months",
-    "period": null,
-    "value": null,
-    "unit": null,
-    "direction": null,
-    "first_hand": false,
-    "id": "synthetic_000196.c5",
-    "email_id": "synthetic_000196"
-  },
-  {
-    "quote": "One New Jersey-based broker, which places short-term capacity for startups and research labs, said quotes for 8-GPU Blackwell nodes on one-to-three-month terms rose about 9-11% over the past two weeks, after having drifted lower since June.",
+    "quote": "He named GB300 and Rubin-class substrates as the products being prioritized",
     "tickers": [
       "NVDA"
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "Blackwell 8-GPU node spot rental quotes",
+    "metric": "substrate allocation priority",
     "period": null,
     "value": null,
     "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000112.c1",
+    "email_id": "synthetic_000112"
+  },
+  {
+    "quote": "said some Apple Mac (M-series) and modem-related packages \"may get pushed.\"",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Mac and modem package supply",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000112.c2",
+    "email_id": "synthetic_000112"
+  },
+  {
+    "quote": "Rubin early-ramp volumes would be protected by the priority order, but any slip in glass cloth supply would constrain upside to FQ4 shipments.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "FQ4 shipments",
+    "period": "FQ4",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000112.c3",
+    "email_id": "synthetic_000112"
+  },
+  {
+    "quote": "Lower-priority Mac and modem packages could slip into the March quarter.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "Mac and modem package shipments",
+    "period": "March quarter",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000112.c4",
+    "email_id": "synthetic_000112"
+  },
+  {
+    "quote": "said quotes for 8-GPU Blackwell nodes on one-to-three-month terms rose about 9-11% over the past two weeks",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "spot rental quotes for 8-GPU Blackwell nodes",
+    "period": null,
+    "value": null,
+    "unit": "pct",
     "direction": "up",
-    "first_hand": true,
+    "first_hand": false,
     "id": "synthetic_000269.c1",
     "email_id": "synthetic_000269"
   },
@@ -612,28 +3943,28 @@
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "Blackwell spot instance availability",
+    "metric": "availability of Blackwell-class capacity",
     "period": null,
     "value": null,
     "unit": null,
     "direction": null,
-    "first_hand": true,
+    "first_hand": false,
     "id": "synthetic_000269.c2",
     "email_id": "synthetic_000269"
   },
   {
-    "quote": "A second broker, based in Singapore, said it had seen \"a few\" inbound requests it could not fill from AI labs that had previously sourced from large cloud providers on-demand.",
+    "quote": "said it had seen \"a few\" inbound requests it could not fill from AI labs",
     "tickers": [
       "NVDA"
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "unfilled inbound GPU rental requests",
+    "metric": "inbound requests the broker could not fill",
     "period": null,
     "value": null,
     "unit": null,
     "direction": null,
-    "first_hand": true,
+    "first_hand": false,
     "id": "synthetic_000269.c3",
     "email_id": "synthetic_000269"
   },
@@ -644,17 +3975,17 @@
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "GPU spot rental quotes",
+    "metric": "spot rental quotes for Blackwell-class instances",
     "period": null,
     "value": null,
     "unit": null,
     "direction": "flat",
-    "first_hand": true,
+    "first_hand": false,
     "id": "synthetic_000269.c4",
     "email_id": "synthetic_000269"
   },
   {
-    "quote": "He says Amazon purchase orders for Oct-Nov have reportedly been trimmed by about 20% vs. the original plan, and the replenishment algorithm has been \"tightening weeks-of-cover targets\" on slower-selling categories since August.",
+    "quote": "He says Amazon purchase orders for Oct-Nov have reportedly been trimmed by about 20% vs. the original plan",
     "tickers": [
       "AMZN"
     ],
@@ -662,7 +3993,7 @@
       "Hearthgrove Appliances"
     ],
     "kind": "channel_check",
-    "metric": "Amazon purchase orders to Hearthgrove vs. original plan",
+    "metric": "Amazon purchase orders vs. original plan",
     "period": "Oct-Nov",
     "value": 20.0,
     "unit": "pct",
@@ -670,6 +4001,130 @@
     "first_hand": false,
     "id": "synthetic_000208.c1",
     "email_id": "synthetic_000208"
+  },
+  {
+    "quote": "the replenishment algorithm has been \"tightening weeks-of-cover targets\" on slower-selling categories since August.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [
+      "Hearthgrove Appliances"
+    ],
+    "kind": "channel_check",
+    "metric": "replenishment weeks-of-cover targets on slower-selling categories",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000208.c2",
+    "email_id": "synthetic_000208"
+  },
+  {
+    "quote": "Amazon was roughly 35-40% of Hearthgrove's sales during his tenure, mostly through first-party vendor orders.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [
+      "Hearthgrove Appliances"
+    ],
+    "kind": "channel_check",
+    "metric": "Amazon share of Hearthgrove sales",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000208.c3",
+    "email_id": "synthetic_000208"
+  },
+  {
+    "quote": "Two panel customers raised their December-quarter orders with us by roughly 9-12% versus the plan we had in early September, and one asked for expedited shipment of the October lot.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [
+      "panel makers"
+    ],
+    "kind": "channel_check",
+    "metric": "panel purchase orders versus plan",
+    "period": "December quarter",
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000261.c1",
+    "email_id": "synthetic_000261"
+  },
+  {
+    "quote": "The increase is on the Pro Max in particular, and the larger-size tooling lines are running close to full.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [
+      "panel makers"
+    ],
+    "kind": "channel_check",
+    "metric": "Pro Max-class panel orders",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000261.c2",
+    "email_id": "synthetic_000261"
+  },
+  {
+    "quote": "Base model orders were flat.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [
+      "panel makers"
+    ],
+    "kind": "channel_check",
+    "metric": "base model panel orders",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "flat",
+    "first_hand": true,
+    "id": "synthetic_000261.c3",
+    "email_id": "synthetic_000261"
+  },
+  {
+    "quote": "One customer told us the upward revision came from Apple's side after strong pre-order conversion in the U.S. and Japan, with fewer cancellations than last year.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [
+      "panel makers"
+    ],
+    "kind": "channel_check",
+    "metric": "pre-order conversion and cancellations",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000261.c4",
+    "email_id": "synthetic_000261"
+  },
+  {
+    "quote": "From where we sit, builds look firmer, not softer.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "iPhone 18 Pro / Pro Max builds",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000261.c5",
+    "email_id": "synthetic_000261"
   },
   {
     "quote": "Pro Max allocation: +14% y/y in units.",
@@ -680,8 +4135,8 @@
       "Brightmoor Electronics Distribution"
     ],
     "kind": "channel_check",
-    "metric": "iPhone 18 Pro Max allocation units y/y",
-    "period": null,
+    "metric": "Pro Max allocation units",
+    "period": "October",
     "value": 14.0,
     "unit": "pct",
     "direction": "up",
@@ -698,8 +4153,8 @@
       "Brightmoor Electronics Distribution"
     ],
     "kind": "channel_check",
-    "metric": "iPhone 18 Pro allocation units y/y",
-    "period": null,
+    "metric": "Pro allocation units",
+    "period": "October",
     "value": 9.0,
     "unit": "pct",
     "direction": "up",
@@ -716,8 +4171,8 @@
       "Brightmoor Electronics Distribution"
     ],
     "kind": "channel_check",
-    "metric": "iPhone 18 base model allocation units y/y",
-    "period": null,
+    "metric": "Base model allocation units",
+    "period": "October",
     "value": 4.0,
     "unit": "pct",
     "direction": "down",
@@ -726,7 +4181,7 @@
     "email_id": "synthetic_000295"
   },
   {
-    "quote": "Our own reorder requests in the first 8 days of October were 31% above our September forecast, and Apple filled about 70% of the incremental ask.",
+    "quote": "Our own reorder requests in the first 8 days of October were 31% above our September forecast",
     "tickers": [
       "AAPL"
     ],
@@ -734,8 +4189,8 @@
       "Brightmoor Electronics Distribution"
     ],
     "kind": "channel_check",
-    "metric": "reorder requests vs September forecast",
-    "period": "first 8 days of October",
+    "metric": "reorder requests versus September forecast",
+    "period": "October",
     "value": 31.0,
     "unit": "pct",
     "direction": "up",
@@ -744,7 +4199,7 @@
     "email_id": "synthetic_000295"
   },
   {
-    "quote": "Our own reorder requests in the first 8 days of October were 31% above our September forecast, and Apple filled about 70% of the incremental ask.",
+    "quote": "Apple filled about 70% of the incremental ask.",
     "tickers": [
       "AAPL"
     ],
@@ -752,8 +4207,8 @@
       "Brightmoor Electronics Distribution"
     ],
     "kind": "channel_check",
-    "metric": "share of incremental reorder request filled by Apple",
-    "period": "first 8 days of October",
+    "metric": "share of incremental reorder ask filled by Apple",
+    "period": "October",
     "value": 70.0,
     "unit": "pct",
     "direction": null,
@@ -780,15 +4235,15 @@
     "email_id": "synthetic_000295"
   },
   {
-    "quote": "First, trade-in credit funding from Apple to our retailers was increased for the Pro models and not the base.",
+    "quote": "trade-in credit funding from Apple to our retailers was increased for the Pro models and not the base.",
     "tickers": [
       "AAPL"
     ],
     "entities": [
       "Brightmoor Electronics Distribution"
     ],
-    "kind": "channel_check",
-    "metric": "trade-in credit funding for Pro models",
+    "kind": "reported_fact",
+    "metric": "trade-in credit funding",
     "period": null,
     "value": null,
     "unit": null,
@@ -798,7 +4253,7 @@
     "email_id": "synthetic_000295"
   },
   {
-    "quote": "Second, our carrier-affiliate stores report that upgrade-eligible customers are asking about the Pro Max directly, which they didn't do last year.",
+    "quote": "our carrier-affiliate stores report that upgrade-eligible customers are asking about the Pro Max directly, which they didn't do last year.",
     "tickers": [
       "AAPL"
     ],
@@ -806,7 +4261,7 @@
       "Brightmoor Electronics Distribution"
     ],
     "kind": "channel_check",
-    "metric": "customer inquiries about Pro Max",
+    "metric": "upgrade-eligible customer demand for Pro Max",
     "period": null,
     "value": null,
     "unit": null,
@@ -816,7 +4271,7 @@
     "email_id": "synthetic_000295"
   },
   {
-    "quote": "But it's the first time in three years we've been told to expect a Pro Max shortage into the holidays.",
+    "quote": "it's the first time in three years we've been told to expect a Pro Max shortage into the holidays.",
     "tickers": [
       "AAPL"
     ],
@@ -824,14 +4279,480 @@
       "Brightmoor Electronics Distribution"
     ],
     "kind": "channel_check",
-    "metric": "expected Pro Max supply",
+    "metric": "Pro Max supply expectation",
+    "period": "holidays",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000295.c9",
+    "email_id": "synthetic_000295"
+  },
+  {
+    "quote": "Bookings with Amazon FBA-linked consignees on trans-Pacific lanes into the Pacific Northwest rose 14% w/w in the week ending Oct 9, and are 22% above the same week last year.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "bookings with FBA-linked consignees, trans-Pacific lanes into Pacific Northwest, week-on-week change",
+    "period": "week ending Oct 9",
+    "value": 14.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000056.c1",
+    "email_id": "synthetic_000056"
+  },
+  {
+    "quote": "Bookings with Amazon FBA-linked consignees on trans-Pacific lanes into the Pacific Northwest rose 14% w/w in the week ending Oct 9, and are 22% above the same week last year.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "bookings with FBA-linked consignees, trans-Pacific lanes into Pacific Northwest, year-on-year change",
+    "period": "week ending Oct 9",
+    "value": 22.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000056.c2",
+    "email_id": "synthetic_000056"
+  },
+  {
+    "quote": "Two Shenzhen-based sourcing agents told our Asia desk that several large FBA sellers were asked by Amazon vendor managers to have inventory \"in position by early November\" for a promotional event.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "inventory positioning requests to FBA sellers for promotional event",
+    "period": "early November",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000056.c3",
+    "email_id": "synthetic_000056"
+  },
+  {
+    "quote": "Two planned issues were pulled last week, and a third was repriced 75bp wider with a tighter advance rate (down to 72% from 80% of GPU purchase price).",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "advance rate on GPU-backed financing",
+    "period": null,
+    "value": 72.0,
+    "unit": "pct",
+    "direction": "down",
+    "first_hand": true,
+    "id": "synthetic_000162.c1",
+    "email_id": "synthetic_000162"
+  },
+  {
+    "quote": "We estimate non-hyperscaler buyers (neoclouds, sovereign programs and enterprise) at about 24% of Nvidia data center revenue this fiscal year",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "non-hyperscaler share of Data Center revenue",
+    "period": "this fiscal year",
+    "value": 24.0,
+    "unit": "pct",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000162.c2",
+    "email_id": "synthetic_000162"
+  },
+  {
+    "quote": "of which independent GPU clouds are roughly 11-13 points.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "independent GPU cloud share of Data Center revenue",
+    "period": "this fiscal year",
+    "value": null,
+    "unit": "pct",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000162.c3",
+    "email_id": "synthetic_000162"
+  },
+  {
+    "quote": "Higher spreads and lower advance rates raise the equity check required per rack, which in our view could delay or shrink some orders booked for FQ4 and FQ1.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "Nvidia orders for FQ4 and FQ1",
+    "period": "FQ4 and FQ1",
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000162.c4",
+    "email_id": "synthetic_000162"
+  },
+  {
+    "quote": "If financing stays at these levels through November, we would expect management to be more cautious about the non-hyperscaler mix.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "management caution on non-hyperscaler mix",
     "period": null,
     "value": null,
     "unit": null,
     "direction": null,
     "first_hand": false,
-    "id": "synthetic_000295.c9",
-    "email_id": "synthetic_000295"
+    "id": "synthetic_000162.c5",
+    "email_id": "synthetic_000162"
+  },
+  {
+    "quote": "We estimate every 10% reduction in neocloud orders is worth about $0.7bn of quarterly revenue.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "quarterly revenue per 10% reduction in neocloud orders",
+    "period": null,
+    "value": 0.7,
+    "unit": "usd_bn",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000162.c6",
+    "email_id": "synthetic_000162"
+  },
+  {
+    "quote": "No change to our NVDA rating or estimates today.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "NVDA estimates",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "flat",
+    "first_hand": false,
+    "id": "synthetic_000162.c7",
+    "email_id": "synthetic_000162"
+  },
+  {
+    "quote": "Four of five partners said their account teams have become noticeably more flexible on multi-year commits in recent weeks.",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "multi-year commit terms flexibility",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000107.c1",
+    "email_id": "synthetic_000107"
+  },
+  {
+    "quote": "Three of four partners said AWS reps are pushing earlier renewals of Enterprise Discount Programs, with extra discount tiers offered to customers who agree to extend terms.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Enterprise Discount Program renewals",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000107.c2",
+    "email_id": "synthetic_000107"
+  },
+  {
+    "quote": "Two said AWS was more willing than usual to match proposed Google Cloud commit sizes.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "willingness to match commit sizes",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000107.c3",
+    "email_id": "synthetic_000107"
+  },
+  {
+    "quote": "Partners report that customers are using the other cloud's quotes as leverage and are stretching AI workloads across both providers instead of consolidating.",
+    "tickers": [
+      "GOOGL",
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000107.c4",
+    "email_id": "synthetic_000107"
+  },
+  {
+    "quote": "Both vendors may be defending share in large enterprise deals ahead of earnings (GOOGL Oct 27, AMZN Oct 29).",
+    "tickers": [
+      "GOOGL",
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000107.c5",
+    "email_id": "synthetic_000107"
+  },
+  {
+    "quote": "A meaningful share of enterprises that bought Microsoft 365 Copilot in first-wave deals in late 2025 are now negotiating down seat counts at renewal, with discounts of 25-35% being offered to hold the logo",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Copilot seat renewal discounts",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000036.c1",
+    "email_id": "synthetic_000036"
+  },
+  {
+    "quote": "Azure AI consumption commitments are still growing, but several customers are asking for flexibility to shift committed spend between Azure OpenAI and third-party models",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Azure AI consumption commitments",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000036.c2",
+    "email_id": "synthetic_000036"
+  },
+  {
+    "quote": "Fiscal Q1 pipeline looked healthy, but he believes some large deals slipped into October",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "deal pipeline",
+    "period": "Fiscal Q1",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000036.c3",
+    "email_id": "synthetic_000036"
+  },
+  {
+    "quote": "Over the last two to three weeks, three of her enterprise accounts asked to cut or restructure their Vertex AI provisioned-throughput commitments.",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Vertex AI provisioned-throughput commitments",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000280.c1",
+    "email_id": "synthetic_000280"
+  },
+  {
+    "quote": "One of the three is a large insurer that, she says, had committed to roughly $20m annualized.",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "annualized commitment of one affected account",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000280.c2",
+    "email_id": "synthetic_000280"
+  },
+  {
+    "quote": "Her team has not seen similar requests from the rest of the book.",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "similar commitment change requests",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000280.c3",
+    "email_id": "synthetic_000280"
+  },
+  {
+    "quote": "MSFT - Outperform maintained, PT $560 (from $590)",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "target price",
+    "period": null,
+    "value": 560.0,
+    "unit": "usd",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000045.c1",
+    "email_id": "synthetic_000045"
+  },
+  {
+    "quote": "Intelligent Cloud growth    20.5%   (prior 24.0%)",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "Intelligent Cloud growth",
+    "period": "FY2027",
+    "value": 20.5,
+    "unit": "pct",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000045.c2",
+    "email_id": "synthetic_000045"
+  },
+  {
+    "quote": "Capex incl. finance leases  $121bn  (prior $112bn)",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "capex",
+    "period": "FY2027",
+    "value": 121.0,
+    "unit": "usd_bn",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000045.c3",
+    "email_id": "synthetic_000045"
+  },
+  {
+    "quote": "Operating margin            43.5%   (prior 45.0%)",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "operating margin",
+    "period": "FY2027",
+    "value": 43.5,
+    "unit": "pct",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000045.c4",
+    "email_id": "synthetic_000045"
+  },
+  {
+    "quote": "EPS                         $18.10  (prior $18.70)",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "EPS",
+    "period": "FY2027",
+    "value": 18.1,
+    "unit": "usd",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000045.c5",
+    "email_id": "synthetic_000045"
+  },
+  {
+    "quote": "But the Street sits at about 21.5% for Intelligent Cloud and we think risk is to the downside into the January print.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "Intelligent Cloud growth (Street consensus)",
+    "period": null,
+    "value": 21.5,
+    "unit": "pct",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000045.c6",
+    "email_id": "synthetic_000045"
+  },
+  {
+    "quote": "our data center construction tracker showed four of Microsoft's announced US campuses slipping energization by one to two quarters.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "data center energization timing",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": true,
+    "id": "synthetic_000045.c7",
+    "email_id": "synthetic_000045"
+  },
+  {
+    "quote": "Two electrical contractors confirmed delays on switchgear deliveries for sites originally slated for spring 2027.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "switchgear delivery timing",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000045.c8",
+    "email_id": "synthetic_000045"
   },
   {
     "quote": "Two of the three colo operators and one neocloud contact independently described Google-managed TPU pods being installed, or contracted for installation, in third-party facilities.",
@@ -840,7 +4761,7 @@
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "Google-managed TPU pods in third-party facilities",
+    "metric": "Google-managed TPU pod installations in third-party facilities",
     "period": null,
     "value": null,
     "unit": null,
@@ -850,14 +4771,14 @@
     "email_id": "synthetic_000049"
   },
   {
-    "quote": "Aggregate scale across the three sites is roughly 150-250MW of critical IT load.",
+    "quote": "Delivery timing was described as \"Q1 2027 onward.\"",
     "tickers": [
       "GOOGL"
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "critical IT load across three third-party TPU sites",
-    "period": null,
+    "metric": "TPU pod delivery timing",
+    "period": "Q1 2027 onward",
     "value": null,
     "unit": null,
     "direction": null,
@@ -866,13 +4787,13 @@
     "email_id": "synthetic_000049"
   },
   {
-    "quote": "One operator said the contract has a take-or-pay structure with a 5-year term.",
+    "quote": "Aggregate scale across the three sites is roughly 150-250MW of critical IT load.",
     "tickers": [
       "GOOGL"
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "TPU hosting contract terms",
+    "metric": "critical IT load across three sites",
     "period": null,
     "value": null,
     "unit": null,
@@ -882,13 +4803,13 @@
     "email_id": "synthetic_000049"
   },
   {
-    "quote": "The former Google contact said the purpose is to serve external customers who want TPU capacity inside their own preferred regions or near existing GPU clusters, rather than to relieve Google's internal capacity.",
+    "quote": "One operator said the contract has a take-or-pay structure with a 5-year term.",
     "tickers": [
       "GOOGL"
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "purpose of third-party TPU capacity",
+    "metric": "contract structure (take-or-pay, 5-year term)",
     "period": null,
     "value": null,
     "unit": null,
@@ -898,13 +4819,13 @@
     "email_id": "synthetic_000049"
   },
   {
-    "quote": "The contractor said a fourth site, with higher-density liquid-cooling specs, is in permitting.",
+    "quote": "The former Google contact said the purpose is to serve external customers who want TPU capacity inside their own preferred regions or near existing GPU clusters, rather than to relieve Google's internal capacity.",
     "tickers": [
       "GOOGL"
     ],
     "entities": [],
     "kind": "channel_check",
-    "metric": "fourth TPU site in permitting",
+    "metric": "purpose of TPU capacity (external customers)",
     "period": null,
     "value": null,
     "unit": null,
@@ -914,7 +4835,23 @@
     "email_id": "synthetic_000049"
   },
   {
-    "quote": "that is roughly $1.8-2.2bn of annualized run-rate, or about 2% of 2027 Cloud revenue consensus (~$98bn)",
+    "quote": "If 200MW is representative and Google earns $9-11m of annual revenue per MW at blended pricing, that is roughly $1.8-2.2bn of annualized run-rate, or about 2% of 2027 Cloud revenue consensus (~$98bn).",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "annualized run-rate revenue from third-party TPU capacity",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000049.c6",
+    "email_id": "synthetic_000049"
+  },
+  {
+    "quote": "about 2% of 2027 Cloud revenue consensus (~$98bn)",
     "tickers": [
       "GOOGL"
     ],
@@ -926,33 +4863,17 @@
     "unit": "usd_bn",
     "direction": null,
     "first_hand": false,
-    "id": "synthetic_000049.c6",
-    "email_id": "synthetic_000049"
-  },
-  {
-    "quote": "If 200MW is representative and Google earns $9-11m of annual revenue per MW at blended pricing, that is roughly $1.8-2.2bn of annualized run-rate, or about 2% of 2027 Cloud revenue consensus (~$98bn).",
-    "tickers": [
-      "GOOGL"
-    ],
-    "entities": [],
-    "kind": "opinion",
-    "metric": "annualized run-rate revenue from third-party TPU sites",
-    "period": null,
-    "value": null,
-    "unit": null,
-    "direction": null,
-    "first_hand": false,
     "id": "synthetic_000049.c7",
     "email_id": "synthetic_000049"
   },
   {
-    "quote": "It would show TPUs becoming a merchant-style product, which changes the competitive framing against GPU-based clouds and could raise capex beyond the ~$185bn Street 2027 figure if the hardware sits on Google's balance sheet.",
+    "quote": "could raise capex beyond the ~$185bn Street 2027 figure",
     "tickers": [
       "GOOGL"
     ],
     "entities": [],
     "kind": "opinion",
-    "metric": "capex",
+    "metric": "capex (Street figure)",
     "period": "2027",
     "value": 185.0,
     "unit": "usd_bn",
@@ -962,6 +4883,214 @@
     "email_id": "synthetic_000049"
   },
   {
+    "quote": "Three CIOs/procurement leads (a retailer, an insurer and a pharma company) told us in separate calls that their Google Cloud account teams have been unusually willing to talk about price flexibility on 3-year committed-use agreements in the last two to three weeks.",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "price flexibility on 3-year committed-use agreements",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000058.c1",
+    "email_id": "synthetic_000058"
+  },
+  {
+    "quote": "One of them said their rep volunteered an additional 6-8 points of discount in exchange for a commitment to expand Vertex AI and BigQuery usage, and mentioned \"end-of-quarter flexibility.\"",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "additional discount for Vertex AI and BigQuery usage commitment",
+    "period": null,
+    "value": null,
+    "unit": "pct",
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000058.c2",
+    "email_id": "synthetic_000058"
+  },
+  {
+    "quote": "A fourth client, a media company, said the opposite: Google would not move on pricing and warned about GPU availability in Q1.",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "GPU availability",
+    "period": "Q1",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000058.c3",
+    "email_id": "synthetic_000058"
+  },
+  {
+    "quote": "Two of the three HBM suppliers told us their 1H27 HBM4 output committed to Nvidia is 15-20% above the plan they described in July.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "HBM4 output committed to Nvidia versus supplier plan",
+    "period": "1H27",
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000002.c1",
+    "email_id": "synthetic_000002"
+  },
+  {
+    "quote": "ABF substrate lead times for large-body packages have come in to roughly 22 weeks from 30, per two distributors.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "ABF substrate lead time for large-body packages",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": true,
+    "id": "synthetic_000002.c2",
+    "email_id": "synthetic_000002"
+  },
+  {
+    "quote": "One ODM contact said rack build plans for the January and April quarters were revised up in late September, not down.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "rack build plans",
+    "period": "January and April quarters",
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000002.c3",
+    "email_id": "synthetic_000002"
+  },
+  {
+    "quote": "Revenue: $302bn (from $288bn)",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "revenue",
+    "period": "FY2027",
+    "value": 302.0,
+    "unit": "usd_bn",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000002.c4",
+    "email_id": "synthetic_000002"
+  },
+  {
+    "quote": "Revenue: $302bn (from $288bn); Street ~$284bn",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "revenue consensus (Street)",
+    "period": "FY2027",
+    "value": 284.0,
+    "unit": "usd_bn",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000002.c5",
+    "email_id": "synthetic_000002"
+  },
+  {
+    "quote": "Data Center growth: 41% y/y (from 36%)",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "Data Center revenue growth",
+    "period": "FY2027",
+    "value": 41.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000002.c6",
+    "email_id": "synthetic_000002"
+  },
+  {
+    "quote": "Operating margin: 63% (from 62%), on better fixed-cost absorption",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "operating margin",
+    "period": "FY2027",
+    "value": 63.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000002.c7",
+    "email_id": "synthetic_000002"
+  },
+  {
+    "quote": "EPS: $6.55 (from $6.12)",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "EPS",
+    "period": "FY2027",
+    "value": 6.55,
+    "unit": "usd",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000002.c8",
+    "email_id": "synthetic_000002"
+  },
+  {
+    "quote": "EPS: $6.55 (from $6.12); Street ~$6.09",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "EPS consensus (Street)",
+    "period": "FY2027",
+    "value": 6.09,
+    "unit": "usd",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000002.c9",
+    "email_id": "synthetic_000002"
+  },
+  {
+    "quote": "Our PT moves to $215, about 33x FY2027 EPS, in line with the stock's two-year average forward multiple.",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "target price",
+    "period": null,
+    "value": 215.0,
+    "unit": "usd",
+    "direction": "up",
+    "first_hand": false,
+    "id": "synthetic_000002.c10",
+    "email_id": "synthetic_000002"
+  },
+  {
     "quote": "Under the current framework, the multi-year payments from Google to Apple for Safari default status come up for renegotiation in the first half of 2027.",
     "tickers": [
       "AAPL",
@@ -969,7 +5098,7 @@
     ],
     "entities": [],
     "kind": "reported_fact",
-    "metric": "Safari default payment renegotiation timing",
+    "metric": "renewal timing of Safari default payments",
     "period": "first half of 2027",
     "value": null,
     "unit": null,
@@ -979,37 +5108,70 @@
     "email_id": "synthetic_000243"
   },
   {
-    "quote": "Following the remedies ruling last year, she says both sides have been working on a revised structure that is non-exclusive and shorter in term, with annual renewal and a per-device choice-screen option.",
-    "tickers": [
-      "AAPL",
-      "GOOGL"
-    ],
-    "entities": [],
-    "kind": "channel_check",
-    "metric": "Safari default renewal structure",
-    "period": null,
-    "value": null,
-    "unit": null,
-    "direction": null,
-    "first_hand": false,
-    "id": "synthetic_000243.c2",
-    "email_id": "synthetic_000243"
-  },
-  {
-    "quote": "Her view is that Apple is likely to keep a large share of the payments, but that the revenue-share rate could move down by several points in exchange for more flexibility.",
+    "quote": "We estimate the payments at roughly $20bn a year",
     "tickers": [
       "AAPL",
       "GOOGL"
     ],
     "entities": [],
     "kind": "opinion",
-    "metric": "Safari default revenue-share rate",
+    "metric": "Google payments to Apple for Safari default",
+    "period": null,
+    "value": 20.0,
+    "unit": "usd_bn",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000243.c2",
+    "email_id": "synthetic_000243"
+  },
+  {
+    "quote": "around 4-5% of Apple's operating profit",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "Google payments to Apple as share of Apple operating profit",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000243.c3",
+    "email_id": "synthetic_000243"
+  },
+  {
+    "quote": "most Street models hold them flat through 2028.",
+    "tickers": [
+      "AAPL",
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "Google payments to Apple",
+    "period": "through 2028",
+    "value": null,
+    "unit": null,
+    "direction": "flat",
+    "first_hand": false,
+    "id": "synthetic_000243.c4",
+    "email_id": "synthetic_000243"
+  },
+  {
+    "quote": "the revenue-share rate could move down by several points in exchange for more flexibility",
+    "tickers": [
+      "AAPL",
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": "revenue-share rate",
     "period": null,
     "value": null,
     "unit": null,
     "direction": "down",
     "first_hand": false,
-    "id": "synthetic_000243.c3",
+    "id": "synthetic_000243.c5",
     "email_id": "synthetic_000243"
   },
   {
@@ -1019,40 +5181,7 @@
     ],
     "entities": [],
     "kind": "opinion",
-    "metric": "Safari default floor payment",
-    "period": null,
-    "value": null,
-    "unit": null,
-    "direction": null,
-    "first_hand": false,
-    "id": "synthetic_000243.c4",
-    "email_id": "synthetic_000243"
-  },
-  {
-    "quote": "We estimate the payments at roughly $20bn a year, around 4-5% of Apple's operating profit, and most Street models hold them flat through 2028.",
-    "tickers": [
-      "AAPL",
-      "GOOGL"
-    ],
-    "entities": [],
-    "kind": "opinion",
-    "metric": "Google payments to Apple for Safari default, annual",
-    "period": null,
-    "value": 20.0,
-    "unit": "usd_bn",
-    "direction": null,
-    "first_hand": false,
-    "id": "synthetic_000243.c5",
-    "email_id": "synthetic_000243"
-  },
-  {
-    "quote": "We estimate the payments at roughly $20bn a year, around 4-5% of Apple's operating profit, and most Street models hold them flat through 2028.",
-    "tickers": [
-      "AAPL"
-    ],
-    "entities": [],
-    "kind": "opinion",
-    "metric": "Safari default payments as share of Apple operating profit",
+    "metric": "floor payment from Google",
     "period": null,
     "value": null,
     "unit": null,
@@ -1062,36 +5191,339 @@
     "email_id": "synthetic_000243"
   },
   {
-    "quote": "We estimate the payments at roughly $20bn a year, around 4-5% of Apple's operating profit, and most Street models hold them flat through 2028.",
-    "tickers": [
-      "AAPL",
-      "GOOGL"
-    ],
-    "entities": [],
-    "kind": "opinion",
-    "metric": "Street models of Safari default payments",
-    "period": "through 2028",
-    "value": null,
-    "unit": null,
-    "direction": "flat",
-    "first_hand": false,
-    "id": "synthetic_000243.c7",
-    "email_id": "synthetic_000243"
-  },
-  {
-    "quote": "For Alphabet, we think a lower rev-share rate would be a modest tailwind to traffic acquisition costs, but the reduced exclusivity matters more for long-term query share.",
+    "quote": "For Alphabet, we think a lower rev-share rate would be a modest tailwind to traffic acquisition costs",
     "tickers": [
       "GOOGL"
     ],
     "entities": [],
     "kind": "opinion",
-    "metric": "impact of lower rev-share rate on traffic acquisition costs",
+    "metric": "traffic acquisition costs",
     "period": null,
     "value": null,
     "unit": null,
     "direction": null,
     "first_hand": false,
-    "id": "synthetic_000243.c8",
+    "id": "synthetic_000243.c7",
     "email_id": "synthetic_000243"
+  },
+  {
+    "quote": "In our intro chat he said AWS offered his company a steep discount, which he put \"north of 40% off list\" on Trainium-based training capacity, in exchange for a three-year commit with a minimum annual spend.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Trainium-based training capacity discount",
+    "period": null,
+    "value": 40.0,
+    "unit": "pct",
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000136.c1",
+    "email_id": "synthetic_000136"
+  },
+  {
+    "quote": "He said the account team described it as \"the program we're pushing this quarter\" and that a second startup in his investor network got a similar offer.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "AWS Trainium discount program",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000136.c2",
+    "email_id": "synthetic_000136"
+  },
+  {
+    "quote": "He also said GPU capacity on AWS was \"available but not cheap,\" which he contrasted with the Trainium offer.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "GPU capacity pricing on AWS",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000136.c3",
+    "email_id": "synthetic_000136"
+  },
+  {
+    "quote": "GOOGL - DOWNGRADE to HOLD from BUY",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "rating_change",
+    "metric": "rating",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000214.c1",
+    "email_id": "synthetic_000214"
+  },
+  {
+    "quote": "Price target: $200 (from $240)",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "target price",
+    "period": null,
+    "value": 200.0,
+    "unit": "usd",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000214.c2",
+    "email_id": "synthetic_000214"
+  },
+  {
+    "quote": "shows that the share of commercial queries ending in an AI answer with no paid click rose to 31% in September from 22% in June.",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "share of commercial queries ending in an AI answer with no paid click",
+    "period": "September",
+    "value": 31.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": true,
+    "id": "synthetic_000214.c3",
+    "email_id": "synthetic_000214"
+  },
+  {
+    "quote": "shows that the share of commercial queries ending in an AI answer with no paid click rose to 31% in September from 22% in June.",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "share of commercial queries ending in an AI answer with no paid click",
+    "period": "June",
+    "value": 22.0,
+    "unit": "pct",
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000214.c4",
+    "email_id": "synthetic_000214"
+  },
+  {
+    "quote": "Paid clicks per commercial query fell 6% over the same period.",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": "paid clicks per commercial query",
+    "period": null,
+    "value": 6.0,
+    "unit": "pct",
+    "direction": "down",
+    "first_hand": true,
+    "id": "synthetic_000214.c5",
+    "email_id": "synthetic_000214"
+  },
+  {
+    "quote": "Our checks with three large search agencies say ad units inside AI answers are still a low-single-digit share of their search budgets.",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "ad units inside AI answers, share of search budgets",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "synthetic_000214.c6",
+    "email_id": "synthetic_000214"
+  },
+  {
+    "quote": "Google Services growth: 8.0% (from 9.0%)",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "Google Services growth",
+    "period": "FY2026",
+    "value": 8.0,
+    "unit": "pct",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000214.c7",
+    "email_id": "synthetic_000214"
+  },
+  {
+    "quote": "Operating margin: 31.0% (from 32.5%)",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "operating margin",
+    "period": "FY2026",
+    "value": 31.0,
+    "unit": "pct",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000214.c8",
+    "email_id": "synthetic_000214"
+  },
+  {
+    "quote": "EPS: $9.20 (from $9.75)",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "estimate_change",
+    "metric": "EPS",
+    "period": "FY2026",
+    "value": 9.2,
+    "unit": "usd",
+    "direction": "down",
+    "first_hand": false,
+    "id": "synthetic_000214.c9",
+    "email_id": "synthetic_000214"
+  },
+  {
+    "quote": "Cloud remains a bright spot and is why we are at Hold, not Sell.",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "opinion",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000214.c10",
+    "email_id": "synthetic_000214"
+  },
+  {
+    "quote": "Microsoft informed top-tier partners in September that, starting with the January 2027 program year, partner-sourced deals will be required to include consumption-metered Copilot agent usage in place of the flat per-seat Copilot bundle for Dynamics and Power Platform.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": null,
+    "period": "January 2027 program year",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000125.c1",
+    "email_id": "synthetic_000125"
+  },
+  {
+    "quote": "the expert said they have been advised internally that field compensation will tilt toward metered deals.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "field compensation",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000125.c2",
+    "email_id": "synthetic_000125"
+  },
+  {
+    "quote": "In the expert's current role, 6 of the 9 largest accounts being discussed pushed back, arguing metered pricing makes budgeting harder.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "customer pushback on metered pricing",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000125.c3",
+    "email_id": "synthetic_000125"
+  },
+  {
+    "quote": "Two said they would delay Copilot expansion until the pricing was clearer.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Copilot expansion",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000125.c4",
+    "email_id": "synthetic_000125"
+  },
+  {
+    "quote": "One account of roughly 40,000 seats had planned a 12,000-seat expansion in Q4 and has now deferred it to the March quarter.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Copilot seat expansion",
+    "period": "March quarter",
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000125.c5",
+    "email_id": "synthetic_000125"
+  },
+  {
+    "quote": "some customers are asking to reallocate Azure committed spend to cover metered agent usage",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Azure committed spend reallocation",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000125.c6",
+    "email_id": "synthetic_000125"
+  },
+  {
+    "quote": "several said they would cap the usage with quotas until they understand costs.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "metered agent usage quotas",
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "synthetic_000125.c7",
+    "email_id": "synthetic_000125"
   }
 ]

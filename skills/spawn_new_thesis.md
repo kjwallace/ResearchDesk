@@ -61,6 +61,8 @@ Rules for this skill:
   4. What evidence would prove it wrong, consistent with `wrong_if`.
   Repeat a figure only as a claim states it.
 
+**Skeptical reading of monitor emails.** Claims that come only from emails labeled `monitor` are early or unconfirmed signals; they cannot carry a new thesis on their own. Code rejects a candidate backed only by monitor emails. When monitor claims point to something new, return no candidate, and say in `no_change_reason` what was noticed and what confirmation would be needed.
+
 ## Worked examples
 Pillar IDs, drivers and people below are invented. Only relevant fields are shown.
 

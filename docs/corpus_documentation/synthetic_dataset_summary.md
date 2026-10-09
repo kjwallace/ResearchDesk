@@ -108,28 +108,28 @@ The generator wrote 18 email types. They were consolidated in place to 11 (see `
 
 ## How it was generated
 
-1. **Label plan** — `scripts/generate_email_plan.py` turns the prompt's distribution section into a randomized plan (seed 1101 for day 1, 2202 for day 2, 3303 for tuning). Absolute counts in the prompt (human attention, macro/government/sector, systemic) scale with `--count`. Each slot fixes the triage label, email type, tickers, additional labels, `human_attention`, `systemic` flag and a content angle.
-2. **Email writing** — `scripts/generate_emails_llm.py` sends `docs/corpus_documentation/synthetic_data_prompt.md`, a scene-setting context block, and five hand-written style examples (`scripts/style_examples.json`) to Claude Sonnet 5.5 through the Anthropic API. The model writes only the sender, subject, body and reason for each slot. The plan's labels are attached in code afterwards, so the labels on every email are exactly the ones it was written for. The tuning set was given day 1 and day 2 subjects as already seen, so it does not repeat those scenarios.
+1. **Label plan** — `scripts/corpus_generation/generate_email_plan.py` turns the prompt's distribution section into a randomized plan (seed 1101 for day 1, 2202 for day 2, 3303 for tuning). Absolute counts in the prompt (human attention, macro/government/sector, systemic) scale with `--count`. Each slot fixes the triage label, email type, tickers, additional labels, `human_attention`, `systemic` flag and a content angle.
+2. **Email writing** — `scripts/corpus_generation/generate_emails_llm.py` sends `docs/corpus_documentation/synthetic_data_prompt.md`, a scene-setting context block, and five hand-written style examples (`scripts/style_examples.json`) to Claude Sonnet 5.5 through the Anthropic API. The model writes only the sender, subject, body and reason for each slot. The plan's labels are attached in code afterwards, so the labels on every email are exactly the ones it was written for. The tuning set was given day 1 and day 2 subjects as already seen, so it does not repeat those scenarios.
 3. **Checks before saving** — each response must return the right email IDs in order with no empty fields, and must name every ticker in `affected_tickers`. An email that names an untagged target company three or more times is rejected. Failed batches are retried up to five times.
 4. **Diversity** — batches run in waves; each wave sees the subjects already written that day so scenarios aren't repeated. Day 2 also sees day 1's subjects as "yesterday's" inbox, so its redundant emails can rehash day 1 news.
-5. **Assembly** — `scripts/build_email_jsonl.py` merges the generator's temporary batch files into a single `emails.jsonl` per day, confirms all 300 slots are present, and prints the distribution above. The batch files are then removed so each day folder holds only the plan and the merged emails.
+5. **Assembly** — `scripts/corpus_generation/build_email_jsonl.py` merges the generator's temporary batch files into a single `emails.jsonl` per day, confirms all 300 slots are present, and prints the distribution above. The batch files are then removed so each day folder holds only the plan and the merged emails.
 
 ## Regenerating
 
 From the repository root:
 
 ```bash
-python3 scripts/generate_email_plan.py --day 1 --seed 1101 --start-id 1
-python3 scripts/generate_emails_llm.py --day 1 --out-dir "data/corpus/day 1"
-python3 scripts/build_email_jsonl.py --dir "data/corpus/day 1"
+python3 scripts/corpus_generation/generate_email_plan.py --day 1 --seed 1101 --start-id 1
+python3 scripts/corpus_generation/generate_emails_llm.py --day 1 --out-dir "data/corpus/day 1"
+python3 scripts/corpus_generation/build_email_jsonl.py --dir "data/corpus/day 1"
 
-python3 scripts/generate_email_plan.py --day 2 --seed 2202 --start-id 301
-python3 scripts/generate_emails_llm.py --day 2 --out-dir "data/corpus/day 2" --prior-dir "data/corpus/day 1"
-python3 scripts/build_email_jsonl.py --dir "data/corpus/day 2"
+python3 scripts/corpus_generation/generate_email_plan.py --day 2 --seed 2202 --start-id 301
+python3 scripts/corpus_generation/generate_emails_llm.py --day 2 --out-dir "data/corpus/day 2" --prior-dir "data/corpus/day 1"
+python3 scripts/corpus_generation/build_email_jsonl.py --dir "data/corpus/day 2"
 
-python3 scripts/generate_email_plan.py --day tuning --seed 3303 --start-id 601 --count 100 --out-dir data/corpus/tuning
-python3 scripts/generate_emails_llm.py --day tuning --out-dir data/corpus/tuning --prior-dir "data/corpus/day 1" --prior-dir "data/corpus/day 2"
-python3 scripts/build_email_jsonl.py --dir data/corpus/tuning
+python3 scripts/corpus_generation/generate_email_plan.py --day tuning --seed 3303 --start-id 601 --count 100 --out-dir data/corpus/tuning
+python3 scripts/corpus_generation/generate_emails_llm.py --day tuning --out-dir data/corpus/tuning --prior-dir "data/corpus/day 1" --prior-dir "data/corpus/day 2"
+python3 scripts/corpus_generation/build_email_jsonl.py --dir data/corpus/tuning
 ```
 
 The generator reads `ANTHROPIC_API_KEY` from `.env`. After a successful run, each split folder should contain only `email_plan.jsonl` and `emails.jsonl`. Use `--dry-run` to print the request without calling the API.

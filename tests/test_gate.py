@@ -6,8 +6,7 @@ import pytest
 
 from fakes import FIXTURE_EMAILS
 
-from triage_app import thresholds
-from triage_app import config
+from triage_app import config, thresholds
 from triage_app.pipeline import gate
 from triage_app.pipeline.context import RunContext
 from triage_app.pipeline.io import read_list
@@ -92,15 +91,26 @@ def test_flagged_repeat_already_redundant_stays_jev() -> None:
 
 
 def test_redundancy_check_relabels_a_flagged_repeat_below_the_gate() -> None:
-    r = gate.process(triage(triage_probs=probs(0.1, 0.45, 0.3, 0.15)), REPEAT, T)
+    r = gate.process(triage(triage_probs=probs(0.1, 0.45, 0.0, 0.45)), REPEAT, T)
     assert (r.triage, r.decided_by, r.redundant_of, r.gate) == ("redundant", "redundancy_check", "e0", "stop")
-    assert r.reason == ("redundant: repeat of e0 (content 0.91, subject 0.70); jev monitor 0.45; "
-                        "signal score 0.55 is below 0.60")
+    assert r.reason == ("redundant: repeat of e0 (content 0.91, subject 0.70); jev monitor 0.45 is below 0.70, "
+                        "so low_value 0.45; signal score 0.55 is below 0.60")
 
 
 def test_flagged_repeat_that_clears_the_gate_keeps_its_label() -> None:
-    r = gate.process(triage(triage_probs=probs(0.3, 0.4, 0.2, 0.1)), REPEAT, T)
+    r = gate.process(triage(triage_probs=probs(0.15, 0.75, 0.05, 0.05)), REPEAT, T)
     assert (r.triage, r.decided_by, r.redundant_of, r.gate) == ("monitor", "jev", None, "pass")
+
+
+def test_weak_monitor_takes_the_next_label_and_the_gate_still_reads_the_signal() -> None:
+    r = gate.process(triage(triage_probs=probs(0.3, 0.5, 0.0, 0.2)), NO_REPEAT, T)
+    assert (r.triage, r.gate) == ("thesis_relevant", "pass")
+    assert r.reason.startswith(f"monitor 0.50 is below {thresholds.MONITOR_LABEL_MIN:.2f}, so thesis_relevant 0.30")
+
+
+def test_monitor_at_the_minimum_keeps_its_label() -> None:
+    r = gate.process(triage(triage_probs=probs(0.1, thresholds.MONITOR_LABEL_MIN, 0.1, 0.1)), NO_REPEAT, T)
+    assert r.triage == "monitor"
 
 
 def test_tickers_and_topics_at_their_thresholds() -> None:

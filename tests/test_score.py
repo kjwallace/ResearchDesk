@@ -43,8 +43,8 @@ def test_score_writes_valid_eval_and_sheets(out_dir: Path) -> None:
     assert [(r["id"], r["kind"]) for r in notes] == [("fixture_007", "note")]
     assert list(notes[0]) == list(score.NOTE_COLUMNS)
     suggestions = rows(out_dir / score.SUGGESTIONS_SHEET)
-    assert {r["kind"] for r in suggestions} == {"existing_thesis", "new_thesis"}
-    assert len(suggestions) == 4
+    assert {r["kind"] for r in suggestions} == {"existing_thesis", "new_thesis", "projection_change"}
+    assert len(suggestions) == 5
 
 
 def test_filled_sheets_are_kept_and_read(out_dir: Path) -> None:
