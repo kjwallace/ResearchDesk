@@ -39,3 +39,4 @@ addopts = "-q"
 strict = true
 plugins = ["pydantic.mypy"]
 ignore_missing_imports = true
+mypy_path = ["src", "tests"]

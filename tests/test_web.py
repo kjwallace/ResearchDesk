@@ -7,11 +7,13 @@ import sys
 import types
 from collections.abc import Iterator
 from pathlib import Path
-from typing import Any
+from typing import Any, TypeVar
 
 import pytest
 from fastapi.testclient import TestClient
 from fakes import FIXTURE_EMAILS, FakeChat, FakeEmbedder, fixture_emails
+
+from pydantic import BaseModel
 
 from triage_app import config, thresholds
 from triage_app.llm import Message
@@ -70,7 +72,10 @@ def eps_cells(page: str) -> list[str]:
 
 # ---- Fakes for other packages' stage functions ----
 
-def _swap(email_id: str, obj: Any) -> Any:
+M = TypeVar("M", bound=BaseModel)
+
+
+def _swap(email_id: str, obj: M) -> M:
     return type(obj).model_validate_json(obj.model_dump_json().replace("fixture_001", email_id))
 
 

@@ -7,8 +7,8 @@ SEC = [LinkedSection(email_id="e1", quote="q")]
 
 
 def entry(i: str, change: str, item: str, **kw: object) -> LogEntry:
-    return LogEntry(id=i, at=datetime.now(UTC), suggestion_id="s", change=change, item_id=item,  # type: ignore[arg-type]
-                    sections=SEC, **kw)  # type: ignore[arg-type]
+    return LogEntry(id=i, at=datetime.now(UTC), suggestion_id="s", change=change, item_id=item,
+                    sections=SEC, **kw)
 
 
 def test_empty_log_returns_seed() -> None:

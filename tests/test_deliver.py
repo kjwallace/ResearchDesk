@@ -1,3 +1,4 @@
+from typing import Any
 import shutil
 from datetime import date
 from pathlib import Path
@@ -61,7 +62,7 @@ def test_missing_optional_files(tmp_path: Path) -> None:
 
 
 @pytest.fixture
-def inputs() -> dict[str, object]:
+def inputs() -> dict[str, Any]:
     return {
         "parsed": fixture_emails(),
         "results": read_list(OUT / "results.json", EmailResult),
@@ -70,7 +71,7 @@ def inputs() -> dict[str, object]:
     }
 
 
-def assemble(inputs: dict[str, object], suggestions: list[Suggestion] | None = None,
+def assemble(inputs: dict[str, Any], suggestions: list[Suggestion] | None = None,
              triage: dict[str, TriageRecord] | None = None) -> Brief:
     return deliver.assemble(
         date(2026, 10, 13), inputs["parsed"], inputs["results"], triage or inputs["triage"],
@@ -78,8 +79,8 @@ def assemble(inputs: dict[str, object], suggestions: list[Suggestion] | None = N
         sizes=deliver.position_sizes())
 
 
-def test_order_by_position_size_then_strength(inputs: dict[str, object]) -> None:
-    sugg: list[Suggestion] = inputs["suggestions"]  # type: ignore[assignment]
+def test_order_by_position_size_then_strength(inputs: dict[str, Any]) -> None:
+    sugg: list[Suggestion] = inputs["suggestions"]
     msft = next(s for s in sugg if s.id == "MSFT.p1.supports")
     weak = msft.model_copy(update={"id": "MSFT.p3.contradicts", "body": msft.body.model_copy(
         update={"pillar_id": "MSFT.p3", "stance": "contradicts", "strength": 1})})
@@ -88,8 +89,8 @@ def test_order_by_position_size_then_strength(inputs: dict[str, object]) -> None
     assert brief.thesis_changes == ["MSFT.p1.supports", "MSFT.p3.contradicts", "AAPL.p1.supports"]
 
 
-def test_wrong_if_alerts_come_first_and_respect_budget(inputs: dict[str, object]) -> None:
-    sugg: list[Suggestion] = inputs["suggestions"]  # type: ignore[assignment]
+def test_wrong_if_alerts_come_first_and_respect_budget(inputs: dict[str, Any]) -> None:
+    sugg: list[Suggestion] = inputs["suggestions"]
     base = next(s for s in sugg if s.id == "MSFT.p1.supports")
     assert isinstance(base.body, ExistingThesis)
 
@@ -106,13 +107,13 @@ def test_wrong_if_alerts_come_first_and_respect_budget(inputs: dict[str, object]
         ("wrong_if_met", "GOOGL.p3.contradicts"), ("human_attention", "fixture_007")]
 
 
-def test_human_attention_alert_threshold(inputs: dict[str, object]) -> None:
-    triage = dict(inputs["triage"])  # type: ignore[call-overload]
+def test_human_attention_alert_threshold(inputs: dict[str, Any]) -> None:
+    triage = dict(inputs["triage"])
     triage["fixture_007"] = triage["fixture_007"].model_copy(update={"human_attention": thresholds.ALERT_HUMAN_ATTENTION - 0.01})
     assert assemble(inputs, triage=triage).alerts == []
 
 
-def test_worth_watching_when_every_linked_email_is_monitor(inputs: dict[str, object]) -> None:
+def test_worth_watching_when_every_linked_email_is_monitor(inputs: dict[str, Any]) -> None:
     brief = assemble(inputs)
     assert brief.worth_watching == ["NVDA.p2.supports"]
     assert "NVDA.p2.supports" not in brief.thesis_changes

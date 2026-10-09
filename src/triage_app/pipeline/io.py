@@ -11,7 +11,8 @@ M = TypeVar("M", bound=BaseModel)
 
 
 def read_list(path: Path, model: type[M]) -> list[M]:
-    return TypeAdapter(list[model]).validate_json(path.read_text())  # type: ignore[valid-type]
+    items: list[M] = TypeAdapter(list[model]).validate_json(path.read_text())  # type: ignore[valid-type]
+    return items
 
 
 def write_list(path: Path, items: list[M]) -> None:

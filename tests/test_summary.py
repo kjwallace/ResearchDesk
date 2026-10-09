@@ -50,7 +50,7 @@ def test_partial_run_still_summarizes(tmp_path: Path) -> None:
 
 def test_run_reads_the_corpus_file_and_writes_only_its_outputs(tmp_path: Path) -> None:
     assert "parse" not in run.STAGES and "human_attention" in run.STAGES
-    ctx = RunContext("day_1", embedder=FakeEmbedder(), use_cache=False)  # type: ignore[arg-type]
+    ctx = RunContext("day_1", embedder=FakeEmbedder(), use_cache=False)
     run.run_set("day_1", ["redundancy"], ctx, emails_path=FIXTURE_EMAILS, out=tmp_path)
     assert ctx.emails_path == FIXTURE_EMAILS
     assert sorted(p.name for p in tmp_path.iterdir()) == ["SUMMARY.md", "metrics.json", "redundancy.json"]

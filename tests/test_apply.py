@@ -5,7 +5,7 @@ import pytest
 
 from triage_app import thresholds
 from triage_app.pipeline.io import read_list
-from triage_app.schema import ExistingThesis, LinkedSection, LogEntry, Suggestion
+from triage_app.schema import ExistingThesis, LinkedSection, LogEntry, Suggestion, NewThesis
 from triage_app.state import apply
 from triage_app.state.compute import compute
 from triage_app.state.fold import Seed, fold, load_seed, net_contradicting
@@ -52,7 +52,8 @@ def test_accept_new_thesis_adds_next_pillar(seed: Seed, sugg: dict[str, Suggesti
     entry = apply.accept(seed, [], sugg["AMZN.new1"], statement="  Edited statement. ", wrong_if="")
     assert entry.change == "pillar_added" and entry.item_id == "AMZN.p4"
     assert entry.pillar is not None and entry.pillar.statement == "Edited statement."
-    assert entry.pillar.wrong_if == sugg["AMZN.new1"].body.wrong_if
+    body = sugg["AMZN.new1"].body
+    assert isinstance(body, NewThesis) and entry.pillar.wrong_if == body.wrong_if
     state = fold(seed, [entry])
     assert [p.id for p in state.theses["AMZN"].pillars][-1] == "AMZN.p4"
 

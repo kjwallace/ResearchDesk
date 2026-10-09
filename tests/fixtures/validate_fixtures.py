@@ -4,6 +4,7 @@ Run from the repo root:  uv run python tests/fixtures/validate_fixtures.py
 Exits 1 and lists every failure when any check fails.
 """
 
+from typing import Any
 import json
 import re
 import sys
@@ -40,7 +41,7 @@ def check(ok: bool, msg: str) -> None:
         failures.append(msg)
 
 
-def load_list(name: str, model: type[BaseModel]) -> list:
+def load_list(name: str, model: type[BaseModel]) -> list[Any]:
     try:
         return TypeAdapter(list[model]).validate_json((OUT / name).read_text())  # type: ignore[valid-type]
     except Exception as e:  # noqa: BLE001
@@ -48,7 +49,7 @@ def load_list(name: str, model: type[BaseModel]) -> list:
         return []
 
 
-def load_one(name: str, model: type[BaseModel]):
+def load_one(name: str, model: type[BaseModel]) -> Any:
     try:
         return model.model_validate_json((OUT / name).read_text())
     except Exception as e:  # noqa: BLE001
@@ -56,7 +57,7 @@ def load_one(name: str, model: type[BaseModel]):
         return None
 
 
-def by_id(items: list) -> dict:
+def by_id(items: list[Any]) -> dict[str, Any]:
     return {i.email_id: i for i in items}
 
 
@@ -258,7 +259,7 @@ def check_suggestion(where: str, s: Suggestion, may_mismatch: bool) -> None:
             if d:
                 check(a.book_value == d.analyst and a.consensus_value == d.consensus, f"{where}: book or consensus value not from models.json")
                 check(d.min <= a.stated_value <= d.max, f"{where}: stated value out of bounds")
-                fy = models[a.driver_id.split(".")[0]].fiscal_year
+                fy = models[a.driver_id.split(".")[0]].fiscal_year  # type: ignore[index]
                 check(any(CLAIM[c].period == fy and CLAIM[c].value == a.stated_value for c in s.claim_ids if c in CLAIM),
                       f"{where}: stated figure needs a claim with period {fy} and the same value")
     elif isinstance(b, NewThesis):

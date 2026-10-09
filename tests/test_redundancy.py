@@ -128,7 +128,7 @@ class CountingEmbedder(FakeEmbedder):
         super().__init__()
         self.batches: list[list[str]] = []
 
-    def embed(self, texts: list[str]) -> np.ndarray:  # type: ignore[override]
+    def embed(self, texts: list[str]) -> np.ndarray:
         self.batches.append(list(texts))
         return super().embed(texts)
 
