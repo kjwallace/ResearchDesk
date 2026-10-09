@@ -1118,7 +1118,7 @@ The loader does five things, in order:
 
 1. Splits each row into an Email and an EmailLabel.
 2. Normalizes label spellings, using the table below. Version 3 of the prompt removes these inconsistencies; the table stays as a safety net.
-3. Checks that IDs increase in file order, and assigns each row a `received_at` in that order within its day.
+3. Takes file order as arrival order, assigning each row a `received_at` in that order within its day, and checks that every `email_id` is unique (IDs are identifiers only and need not increase).
 4. Validates every row against the schema and lists failures for hand fixing.
 5. Prints a distribution report against the prompt's targets.
 

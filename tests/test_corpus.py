@@ -113,9 +113,16 @@ def test_duplicate_subject_and_body_keeps_first(tmp_path: Path) -> None:
 
 # ---- Checks and validation ----
 
-def test_ids_out_of_order_are_reported(tmp_path: Path) -> None:
-    r = corpus.load_with_report(write(tmp_path, [row("synthetic_000002"), row("synthetic_000001")]))
-    assert len(r.emails) == 2 and any("does not increase" in w for w in r.warnings)
+def test_file_order_is_arrival_order_and_ids_need_not_increase(tmp_path: Path) -> None:
+    r = corpus.load_with_report(write(tmp_path, [row("synthetic_000002", body="b"), row("synthetic_000001", body="a")]))
+    assert [e.email_id for e in r.emails] == ["synthetic_000002", "synthetic_000001"] and not r.warnings
+    assert r.emails[0].received_at < r.emails[1].received_at
+
+
+def test_duplicate_ids_go_to_hand_fixing(tmp_path: Path) -> None:
+    r = corpus.load_with_report(write(tmp_path, [row("synthetic_000001", body="a"), row("synthetic_000001", body="b")]))
+    assert [e.email_id for e in r.emails] == ["synthetic_000001"]
+    assert r.hand_fix == [("synthetic_000001", "duplicate email_id")]
 
 
 def test_invalid_rows_are_listed_not_kept(tmp_path: Path) -> None:

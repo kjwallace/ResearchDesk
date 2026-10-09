@@ -4,6 +4,8 @@ Two days of synthetic inbound email (300 per day, 600 total) plus a 100-email tu
 
 All people, firms, research, datasets and figures are fictional. Real company names appear only for the five target companies and for well-known public companies used as context.
 
+> **Day 1 after hand edits (2026-10-09).** Day 1 now holds **288 emails in shuffled arrival order**. Eleven redundant emails were replaced: ten became analyst estimate or rating changes, and one became an insider offering non-public results, which should be quarantined. Then seven thesis_relevant and five monitor emails were removed without replacement. Triage counts are now: thesis_relevant 30, monitor 45, redundant 19, low_value 105, irrelevant 89; human_attention 19. Email IDs are unchanged and no longer follow arrival order. Where the per-day tables below differ, these counts are current for day 1.
+
 ## Files
 
 | Path | Contents |
