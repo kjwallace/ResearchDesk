@@ -350,3 +350,42 @@ MEASURE_EXPLAINERS: dict[str, str] = {
     "suggestion_review": "Share of suggestions a reviewer judged to have the right pillar, stance and evidence.",
     "new_thesis_review": "Share of new-thesis candidates a reviewer judged new to the book and well supported.",
 }
+
+
+# ---- Glossary: what each label on the site means (section, [(term, css class, meaning)]) ----
+
+GLOSSARY: list[tuple[str, list[tuple[str, str, str]]]] = [
+    ("Email categories (every email gets one)", [
+        ("Actionable", "pill thesis_relevant", "New, specific information that could change a view on one of the five companies."),
+        ("Worth watching", "pill monitor", "A credible signal worth tracking, but not enough to act on yet."),
+        ("Already known", "pill redundant", "Repeats what is already known or what an earlier email said; adds nothing new."),
+        ("Low priority", "pill low_value", "Some link to a covered company, but not material or differentiated."),
+        ("Not relevant", "pill irrelevant", "No meaningful connection to the five companies."),
+    ]),
+    ("Flags", [
+        ("Attention required", "pill attention", "A credible request that needs a person to act: a meeting, a call or a reply."),
+        ("Quarantined", "pill quarantine", "May hold inside information or text aimed at an AI; shown by sender and subject only."),
+        ("Passed / Stopped", "pill pass", "Whether the email went on to analysis against the book, or stopped at the gate."),
+    ]),
+    ("Suggestions", [
+        ("Supports / Contradicts", "pill supports", "Whether the email's evidence backs a pillar of the thesis or cuts against it."),
+        ("Strength 1–3", "tag", "How strong the evidence is: 1 is a hint, 3 is direct and first-hand."),
+        ("New thesis", "tag info", "A candidate pillar for an idea the book does not yet hold."),
+        ("Projection change", "tag info", "An email's figure (growth, EPS, target price) set against the book's own."),
+        ("Second look", "pill second", "No linked email was labeled actionable or worth watching; check it with care."),
+        ("Open / Accepted / Dismissed", "pill open", "Where the suggestion stands in this session; only an accept changes the book."),
+    ]),
+    ("The book", [
+        ("Pillar", "tag", "One belief the position rests on, such as “Azure growth stays above consensus”."),
+        ("Assumption", "tag", "A model input the analyst sets, such as revenue growth or margin; EPS follows from them."),
+        ("Analyst rating", "rating buy", "The Street's buy, hold or sell view on the stock."),
+        ("Toward buy / Toward sell", "rating hold", "An email that moves the Street's rating one way or the other."),
+        ("Street target", "tag", "The Street's published target price, beside the desk's own."),
+    ]),
+    ("Topics", [
+        ("Macro", "tag soft", "Economy-wide: rates, inflation, currencies, global demand."),
+        ("Sector", "tag soft", "Affects the industry, not just one company."),
+        ("Government", "tag soft", "Regulation, policy, courts or other public bodies."),
+        ("Other", "tag soft", "A material driver that fits none of the above."),
+    ]),
+]

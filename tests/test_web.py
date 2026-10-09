@@ -387,6 +387,17 @@ def test_eval_explains_measures_collapses_detail_and_shows_example_feedback(clie
     assert "<details class=\"panel\" open>" not in client.get("/criteria").text
 
 
+def test_glossary_is_on_every_page(client: TestClient) -> None:
+    for url in ("/", "/inbox", "/book", "/eval"):
+        text = client.get(url).text
+        assert 'class="hood glossary"' in text and "Glossary" in text
+    text = client.get("/").text
+    for section, terms in labels.GLOSSARY:
+        assert str(escape(section)) in text
+        for term, _, meaning in terms:
+            assert str(escape(term)) in text and str(escape(meaning)) in text
+
+
 def test_brief_lists_every_section(client: TestClient) -> None:
     text = client.get("/").text
     for heading in ("Suggested thesis changes", "New thesis candidates", "Worth watching", "Needs your attention",

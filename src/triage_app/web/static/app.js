@@ -262,3 +262,11 @@ document.addEventListener("click", function (e) {
   steps.forEach(function (d) { d.open = open; });
   b.textContent = open ? "Collapse all" : "Expand all";
 });
+
+// Header dropdowns (Glossary, Under the hood) close on a click elsewhere or on Escape.
+document.addEventListener("click", function (e) {
+  document.querySelectorAll("details.hood[open]").forEach(function (d) { if (!d.contains(e.target)) d.open = false; });
+});
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") document.querySelectorAll("details.hood[open]").forEach(function (d) { d.open = false; });
+});

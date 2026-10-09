@@ -44,6 +44,16 @@
       </nav>
       {%- set hood = path.startswith('/audit') or path.startswith('/criteria') or path.startswith('/live')
                      or path.startswith('/eval') or path.startswith('/monitor') %}
+      <details class="hood glossary">
+        <summary>{{ icon('book') }}Glossary {{ icon('chev') }}</summary>
+        <div class="hood-menu glossary-menu" role="dialog" aria-label="Glossary">
+          {% for section, terms in labels.GLOSSARY %}
+          <div class="gl-section"><div class="gl-h">{{ section }}</div>
+            <dl>{% for term, cls, meaning in terms %}<dt><span class="{{ cls }}">{{ term }}</span></dt><dd>{{ meaning }}</dd>{% endfor %}</dl>
+          </div>
+          {% endfor %}
+        </div>
+      </details>
       <details class="hood {{ 'on' if hood else '' }}">
         <summary>{{ icon('sliders') }}Under the hood {{ icon('chev') }}</summary>
         <div class="hood-menu" role="menu">
