@@ -11,3 +11,6 @@ dist/
 .DS_Store
 .claude/worktrees/
 .cursor/
+.vercel/
+.env.local
+.env.*.local

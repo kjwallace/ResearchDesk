@@ -1,0 +1,12 @@
+# Runtime for the Vercel function only. The full project (uv.lock) also installs
+# the local embedding model and the classifier clients; those are omitted here so
+# the function stays within Vercel's bundle limit. Pages read the built day_1 files.
+fastapi==0.143.0
+uvicorn==0.54.0
+jinja2==3.1.6
+python-multipart==0.0.32
+itsdangerous==2.2.0
+python-dotenv==1.2.4
+pydantic==2.14.0
+numpy==2.5.3
+httpx==0.28.1

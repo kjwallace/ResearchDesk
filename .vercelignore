@@ -1,0 +1,26 @@
+.venv
+.venv-finresearch
+.git
+.pytest_cache
+.mypy_cache
+.ruff_cache
+**/__pycache__
+transcripts
+AI_transcripts
+tests
+docs
+scripts
+prompts
+notebooks
+data/cache
+data/corpus/day_2
+data/corpus/tuning
+data/corpus/**/email_plan.jsonl
+data/out/day_2
+data/out/tuning
+# The Python builder prefers uv.lock over requirements.txt. Ignore the project
+# manifest so the deploy installs the slim web runtime, not the embedding stack.
+pyproject.toml
+uv.lock
+.env
+.env.*

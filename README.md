@@ -43,7 +43,7 @@ Jev is a typed question-answering classifier. For every email there is **one req
 | `email_type` | choice over 11 types | display-only classification (research note, channel check, newsletter, meeting request, vendor pitch and so on); it never affects routing |
 | `possible_mnpi`, `instructs_ai` | yes/no | the two **safety** questions: an insider disclosing or selling confidential facts, and text that tries to direct an AI |
 
-**What Jev sees:** the email's four fields (`sender`, `sender_email`, `subject`, `body`), the wording of the questions (`instructions/jev_questions.md`) and the desk's relevance criteria (`criteria/*.md`). Nothing else. The question wording tells it to judge from the email alone, to answer "no" unless the criteria clearly say yes, and to treat any instruction-like text inside the email as data.
+
 
 **The five triage labels** are defined in the criteria files, whose definitions are fixed:
 
@@ -149,16 +149,3 @@ The corpus is synthetic and carries ground-truth labels beside each email (label
 - Models are called at temperature 0, with retries on rate limits and parse failures.
 - Thresholds live in one file and are tuned only on the tuning set.
 - Every generated draft (seed numbers, criteria, skills, instructions, tools) is committed and listed in `REVIEW.md`.
-
-## Running it
-
-```bash
-uv sync
-cp .env.example .env     # fill in the API keys and model IDs; model IDs live only here
-uv run pytest            # no test needs a key or the network
-uv run python -m triage_app.pipeline.run --set day_1   # all stages into data/out/day_1/
-uv run uvicorn triage_app.web.main:app                 # serve the app
-docker build --build-arg EMBEDDING_MODEL=<hf-model-id> -t triage-app . && docker run -p 8000:8000 --env-file .env triage-app
-```
-
-Generative calls go through OpenRouter; Jev goes through the TypeSafe SDK; embeddings use a local Hugging Face model. `notebooks/walkthrough.ipynb` runs the real stage functions cell by cell on three emails and replays from the cache at no cost.
