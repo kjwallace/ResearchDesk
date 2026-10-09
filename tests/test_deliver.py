@@ -106,7 +106,7 @@ def test_wrong_if_alerts_come_first_and_respect_budget(inputs: dict[str, object]
         ("wrong_if_met", "GOOGL.p3.contradicts"), ("human_attention", "fixture_007")]
 
 
-def test_attention_alert_threshold(inputs: dict[str, object]) -> None:
+def test_human_attention_alert_threshold(inputs: dict[str, object]) -> None:
     triage = dict(inputs["triage"])  # type: ignore[call-overload]
     triage["fixture_007"] = triage["fixture_007"].model_copy(update={"human_attention": thresholds.ALERT_HUMAN_ATTENTION - 0.01})
     assert assemble(inputs, triage=triage).alerts == []

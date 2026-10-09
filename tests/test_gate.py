@@ -115,7 +115,7 @@ def test_tickers_and_topics_at_their_thresholds() -> None:
     assert r.affected_tickers == ["AMZN", "GOOGL"] and r.additional_labels == ["other"]
 
 
-def test_attention_threshold() -> None:
+def test_human_attention_threshold() -> None:
     assert gate.process(triage(human_attention=0.6), None, T).human_attention is True
     assert gate.process(triage(human_attention=0.59), None, T).human_attention is False
 
