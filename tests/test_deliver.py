@@ -4,6 +4,8 @@ from pathlib import Path
 
 import pytest
 
+from fakes import FIXTURE_EMAILS, fixture_emails
+
 from triage_app import thresholds
 from triage_app.pipeline import deliver
 from triage_app.pipeline.context import RunContext
@@ -14,7 +16,7 @@ OUT = Path(__file__).parent / "fixtures" / "out"
 
 
 def ctx() -> RunContext:
-    return RunContext(use_cache=False)
+    return RunContext(use_cache=False, emails_path=FIXTURE_EMAILS)
 
 
 def placed(brief: Brief, suggestions: dict[str, Suggestion]) -> list[str]:
@@ -31,7 +33,7 @@ def test_matches_the_fixture_brief() -> None:
 
 def test_every_email_appears_exactly_once() -> None:
     brief = deliver.process(OUT, ctx())
-    emails = [e.email_id for e in read_list(OUT / "parsed.json", Email)]
+    emails = [e.email_id for e in fixture_emails()]
     sugg = {s.id: s for s in read_list(OUT / "suggestions.json", Suggestion)}
     assert sorted(placed(brief, sugg)) == sorted(emails)
     assert set(brief.needs_attention) <= set(emails)
@@ -50,7 +52,7 @@ def test_run_writes_brief(tmp_path: Path) -> None:
 
 
 def test_missing_optional_files(tmp_path: Path) -> None:
-    for name in ("parsed.json", "results.json"):
+    for name in ("results.json",):
         shutil.copy(OUT / name, tmp_path / name)
     brief = deliver.process(tmp_path, ctx())
     assert brief.thesis_changes == [] and brief.alerts == []
@@ -61,7 +63,7 @@ def test_missing_optional_files(tmp_path: Path) -> None:
 @pytest.fixture
 def inputs() -> dict[str, object]:
     return {
-        "parsed": read_list(OUT / "parsed.json", Email),
+        "parsed": fixture_emails(),
         "results": read_list(OUT / "results.json", EmailResult),
         "triage": {t.email_id: t for t in read_list(OUT / "triage.json", TriageRecord)},
         "suggestions": read_list(OUT / "suggestions.json", Suggestion),
@@ -106,7 +108,7 @@ def test_wrong_if_alerts_come_first_and_respect_budget(inputs: dict[str, object]
 
 def test_attention_alert_threshold(inputs: dict[str, object]) -> None:
     triage = dict(inputs["triage"])  # type: ignore[call-overload]
-    triage["fixture_007"] = triage["fixture_007"].model_copy(update={"attention": thresholds.ALERT_ATTENTION - 0.01})
+    triage["fixture_007"] = triage["fixture_007"].model_copy(update={"human_attention": thresholds.ALERT_HUMAN_ATTENTION - 0.01})
     assert assemble(inputs, triage=triage).alerts == []
 
 

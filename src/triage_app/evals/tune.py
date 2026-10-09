@@ -90,8 +90,8 @@ def fit_thresholds(triage: Iterable[TriageRecord], labels: Mapping[str, EmailLab
         [signal_score(t) for t, lab in gated if lab.triage == "thesis_relevant"],
         [signal_score(t) for t, lab in gated if lab.triage == "monitor"],
         start.pass_signal)
-    attention = fit_f1_threshold([t.attention for t, _ in live], [lab.human_attention for _, lab in live],
-                                 start.attention)
+    attention = fit_f1_threshold([t.human_attention for t, _ in live], [lab.human_attention for _, lab in live],
+                                 start.human_attention)
     ticker = {k: fit_f1_threshold([t.ticker_probs.get(k, 0.0) for t, _ in live],
                                   [k in lab.affected_tickers for _, lab in live], start.ticker.get(k, limits.TICKER_THRESHOLD))
               for k in config.TICKERS}
@@ -99,7 +99,7 @@ def fit_thresholds(triage: Iterable[TriageRecord], labels: Mapping[str, EmailLab
                                  [k in lab.additional_labels for _, lab in live], start.topic.get(k, limits.TOPIC_THRESHOLD))
              for k in config.TOPICS}
     return Thresholds(
-        pass_signal=pass_signal, attention=attention, ticker=ticker, topic=topic,
+        pass_signal=pass_signal, human_attention=attention, ticker=ticker, topic=topic,
         content_similarity=limits.CONTENT_SIMILARITY,
         content_similarity_with_subject=limits.CONTENT_SIMILARITY_WITH_SUBJECT,
         subject_match=limits.SUBJECT_MATCH,
@@ -136,7 +136,8 @@ def describe(th: Thresholds, triage: list[TriageRecord], labels: Mapping[str, Em
             cells.append(f"{part} F1 {'-' if f1 is None else f'{f1:.3f}'}")
         return f"  {name:<12} {value:.4f}  " + "  ".join(cells)
 
-    lines.append(row("attention", th.attention, lambda t: t.attention, lambda lab: lab.human_attention))
+    lines.append(row("human_attention", th.human_attention, lambda t: t.human_attention,
+                     lambda lab: lab.human_attention))
     for k, v in th.ticker.items():
         lines.append(row(k, v, lambda t, k=k: t.ticker_probs.get(k, 0.0), lambda lab, k=k: k in lab.affected_tickers))
     for k, v in th.topic.items():

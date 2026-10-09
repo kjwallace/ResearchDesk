@@ -3,12 +3,12 @@ import shutil
 from pathlib import Path
 
 import pytest
-from fakes import FakeChat
+from fakes import FIXTURE_EMAILS, FakeChat, fixture_emails
 
 from triage_app import config
 from triage_app.llm import Message
 from triage_app.modules.attention import FALLBACK_INSTRUCTIONS, load_instructions
-from triage_app.pipeline import attention
+from triage_app.pipeline import human_attention as attention
 from triage_app.pipeline.context import RunContext
 from triage_app.pipeline.io import read_list
 from triage_app.schema import AttentionNote, Email, EmailResult
@@ -35,16 +35,16 @@ def reply(*quotes: str) -> str:
 
 
 def ctx_with(chat: FakeChat) -> RunContext:
-    return RunContext(corpus_set="day_1", chat=chat, use_cache=False)
+    return RunContext(corpus_set="day_1", chat=chat, use_cache=False, emails_path=FIXTURE_EMAILS)
 
 
 def fixture_inputs() -> tuple[dict[str, Email], list[EmailResult]]:
-    emails = {e.email_id: e for e in read_list(OUT / "parsed.json", Email)}
+    emails = {e.email_id: e for e in fixture_emails()}
     return emails, read_list(OUT / "results.json", EmailResult)
 
 
 def stage_dir(tmp_path: Path) -> Path:
-    for name in ("parsed.json", "results.json"):
+    for name in ("results.json",):
         shutil.copy(OUT / name, tmp_path / name)
     return tmp_path
 

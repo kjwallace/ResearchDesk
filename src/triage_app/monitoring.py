@@ -9,6 +9,7 @@ See SPEC.md, "Monitoring: token use and latency".
   StageTiming and tells `cached_call` which stage and email a call belongs to.
 - `build_report` turns the records into a UsageReport. It is a pure function.
 
+The records stay in memory; a run writes only the run-level UsageReport (metrics.json).
 Records hold IDs, counts and times only: never prompt text, email text or keys.
 """
 
@@ -74,12 +75,8 @@ class Recorder:
         return build_report(corpus, self.calls, self.timings, emails)
 
     def write(self, out_dir: Path, corpus: ReportCorpus, emails: int) -> UsageReport:
+        """Write metrics.json, the run-level report; per-call records are not written."""
         out_dir.mkdir(parents=True, exist_ok=True)
-        usage = {
-            "calls": [c.model_dump(mode="json") for c in self.calls],
-            "timings": [t.model_dump(mode="json") for t in self.timings],
-        }
-        (out_dir / "usage.json").write_text(json.dumps(usage, indent=2))
         report = self.report(corpus, emails)
         (out_dir / "metrics.json").write_text(report.model_dump_json(indent=2))
         return report

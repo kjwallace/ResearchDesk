@@ -18,7 +18,7 @@ from triage_app.schema import Thresholds, Ticker, Topic
 # ---- Stage 4: label and gate ----------------------------------------------------------
 
 PASS_SIGNAL = 0.6            # sweep  signal score P(thesis_relevant)+P(monitor) that passes the gate
-ATTENTION = 0.6              # sweep  attention probability that flags human attention
+HUMAN_ATTENTION = 0.6        # sweep  human_attention probability that flags human attention
 TICKER_THRESHOLD = 0.5       # sweep  per-ticker probability that lists a company (each ticker tuned)
 TOPIC_THRESHOLD = 0.5        # sweep  per-topic probability that lists a topic (each topic tuned)
 QUARANTINE = 0.65            # fixed  either safety probability (possible_mnpi, instructs_ai) that quarantines
@@ -46,7 +46,7 @@ NEW_THESIS_MERGE = 0.8            # fixed  cosine at which two new-thesis candid
 # ---- Delivery, alerts and the book --------------------------------------------------------
 
 ALERTS_PER_DAY = 3                # fixed  alert budget; overflow stays in the brief
-ALERT_ATTENTION = 0.8             # fixed  attention probability that raises an alert
+ALERT_HUMAN_ATTENTION = 0.8       # fixed  human_attention probability that raises an alert
 ALERT_WRONG_IF_MIN_BPS = 150      # fixed  position size at which a met "wrong if" test raises an alert
 CONVICTION_REVIEW_STRENGTH = 4    # fixed  net contradicting strength on a pillar that raises a conviction review
 
@@ -69,7 +69,6 @@ MAX_SESSIONS = 1000               # fixed  sessions held in memory; the least re
 
 # ---- App screens ----------------------------------------------------------------------------
 
-MONITOR_TOP_EMAILS = 10           # fixed  rows in the Monitor screen's costliest and slowest email lists
 
 # ---- Model calls --------------------------------------------------------------------------
 
@@ -107,7 +106,7 @@ def starting_thresholds() -> Thresholds:
     topics: tuple[Topic, ...] = TOPICS
     return Thresholds(
         pass_signal=PASS_SIGNAL,
-        attention=ATTENTION,
+        human_attention=HUMAN_ATTENTION,
         ticker={t: TICKER_THRESHOLD for t in tickers},
         topic={t: TOPIC_THRESHOLD for t in topics},
         content_similarity=CONTENT_SIMILARITY,

@@ -14,7 +14,7 @@ Deterministic assembly, no model. Placement:
 `needs_attention` is an overlay: every email with a note, by attention probability, whatever
 else applies to it. Alerts: met "wrong if" tests on positions of at least
 `thresholds.ALERT_WRONG_IF_MIN_BPS`, by size, then attention probabilities of at least
-`thresholds.ALERT_ATTENTION`, up to `thresholds.ALERTS_PER_DAY`. Conviction reviews are raised in the
+`thresholds.ALERT_HUMAN_ATTENTION`, up to `thresholds.ALERTS_PER_DAY`. Conviction reviews are raised in the
 session and join the alerts in the app.
 """
 
@@ -48,15 +48,15 @@ def _optional_list[M: BaseModel](path: Path, model: type[M]) -> list[M]:
 
 def process(out_dir: Path, ctx: RunContext) -> Brief:
     """Deterministic assembly of the brief from the stage files in `out_dir`."""
-    parsed = read_list(out_dir / "parsed.json", Email)
+    emails = ctx.emails
     results = read_list(out_dir / "results.json", EmailResult)
     triage = {t.email_id: t for t in _optional_list(out_dir / "triage.json", TriageRecord)}
     notes = _optional_list(out_dir / "notes.json", AttentionNote)
     suggestions = [s for s in _optional_list(out_dir / "suggestions.json", Suggestion) if s.status == "open"]
     checked = _optional_list(out_dir / "suggestions_checked.json", Suggestion)
     day = (date.fromisoformat(config.SET_DATES[ctx.corpus_set]) if ctx.corpus_set
-           else parsed[0].received_at.date() if parsed else date.today())
-    return assemble(day, parsed, results, triage, notes, suggestions, checked, sizes=position_sizes())
+           else emails[0].received_at.date() if emails else date.today())
+    return assemble(day, emails, results, triage, notes, suggestions, checked, sizes=position_sizes())
 
 
 def position_sizes() -> dict[str, int]:
@@ -68,11 +68,11 @@ def suggestion_ticker(s: Suggestion) -> str:
     return b.pillar_id.split(".")[0] if isinstance(b, ExistingThesis) else b.ticker
 
 
-def assemble(day: date, parsed: list[Email], results: list[EmailResult], triage: dict[str, TriageRecord],
+def assemble(day: date, emails: list[Email], results: list[EmailResult], triage: dict[str, TriageRecord],
              notes: list[AttentionNote], suggestions: list[Suggestion], checked: list[Suggestion],
              sizes: dict[str, int]) -> Brief:
     res = {r.email_id: r for r in results}
-    order = {e.email_id: i for i, e in enumerate(parsed)}
+    order = {e.email_id: i for i, e in enumerate(emails)}
     for r in results:
         order.setdefault(r.email_id, len(order))
 
@@ -109,7 +109,7 @@ def assemble(day: date, parsed: list[Email], results: list[EmailResult], triage:
 
     def attention(email_id: str) -> float:
         t = triage.get(email_id)
-        return t.attention if t else 0.0
+        return t.human_attention if t else 0.0
 
     noted = [n.email_id for n in notes if n.email_id not in quarantined]
     needs_attention = sorted(noted, key=lambda e: (-attention(e), order.get(e, 0)))
@@ -145,9 +145,9 @@ def brief_alerts(suggestions: list[Suggestion], res: dict[str, EmailResult], tri
            and sizes.get(suggestion_ticker(s), 0) >= thresholds.ALERT_WRONG_IF_MIN_BPS]
     met.sort(key=lambda s: -sizes.get(suggestion_ticker(s), 0))
     flagged = [t for t in triage.values()
-               if t.attention >= thresholds.ALERT_ATTENTION and t.email_id in res
+               if t.human_attention >= thresholds.ALERT_HUMAN_ATTENTION and t.email_id in res
                and res[t.email_id].human_attention and res[t.email_id].gate != "quarantine"]
-    flagged.sort(key=lambda t: -t.attention)
+    flagged.sort(key=lambda t: -t.human_attention)
     alerts = [Alert(kind="wrong_if_met", ref_id=s.id) for s in met]
     alerts += [Alert(kind="human_attention", ref_id=t.email_id) for t in flagged]
     return alerts[:thresholds.ALERTS_PER_DAY]

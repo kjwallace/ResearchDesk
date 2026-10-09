@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from fakes import FakeChat
+from fakes import FIXTURE_EMAILS, FakeChat
 
 from triage_app import thresholds
 from triage_app import config
@@ -74,7 +74,7 @@ class Script:
 
 def run_one(script: Script, email_id: str = "fixture_001") -> tuple[AnalysisRecord, list[Suggestion], FakeChat]:
     chat = FakeChat(script)
-    ctx = RunContext(corpus_set="day_1", chat=chat, use_cache=False)
+    ctx = RunContext(corpus_set="day_1", chat=chat, use_cache=False, emails_path=FIXTURE_EMAILS)
     record, made = analyze.process(email_id, claims_of(email_id), result_of(email_id), ctx, book=BOOK)
     return record, made, chat
 
@@ -253,7 +253,7 @@ def test_run_on_fixtures_writes_valid_files(tmp_path: Path) -> None:
         return json.dumps({"reasoning": "", "summary": "No skill applies."})
 
     chat = FakeChat(answer)
-    analyze.run(tmp_path, tmp_path, RunContext(corpus_set="day_1", chat=chat, use_cache=False))
+    analyze.run(tmp_path, tmp_path, RunContext(corpus_set="day_1", chat=chat, use_cache=False, emails_path=FIXTURE_EMAILS))
     records = read_list(tmp_path / "analysis.json", AnalysisRecord)
     raw = read_list(tmp_path / "suggestions_raw.json", Suggestion)
     passed = [r.email_id for r in read_list(OUT / "results.json", EmailResult) if r.gate == "pass"]

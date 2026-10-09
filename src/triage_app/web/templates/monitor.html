@@ -25,15 +25,5 @@
 {% endmacro %}
 <h2>Per stage</h2>{{ usage_table(m.stages, 'Stage') }}
 <h2>Per model</h2>{{ usage_table(m.by_model, 'Model') }}
-<div class="grid2">
-<section><h2>Costliest emails</h2>
-  <table><tr><th>Email</th><th class="num">Tokens</th><th class="num">Spent</th></tr>
-  {% for eid, t in costliest %}<tr><td><a href="/email/{{ eid }}">{{ v.email(eid).subject if v.email(eid) else eid }}</a></td><td class="num">{{ t[0] | num(0) }}</td><td class="num">{{ t[1] | num(0) }}</td></tr>{% endfor %}
-  </table></section>
-<section><h2>Slowest emails</h2>
-  <table><tr><th>Email</th><th class="num">ms, all stages</th></tr>
-  {% for eid, ms in slowest %}<tr><td><a href="/email/{{ eid }}">{{ v.email(eid).subject if v.email(eid) else eid }}</a></td><td class="num">{{ ms | num(0) }}</td></tr>{% endfor %}
-  </table></section>
-</div>
 {% endif %}
 {% endblock %}

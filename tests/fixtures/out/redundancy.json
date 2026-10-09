@@ -1,72 +1,9 @@
 [
   {
-    "email_id": "fixture_001",
-    "nearest": null,
-    "content_similarity": null,
-    "subject_score": null,
-    "flagged": false
-  },
-  {
-    "email_id": "fixture_002",
-    "nearest": "fixture_001",
-    "content_similarity": -0.0083,
-    "subject_score": 0.0,
-    "flagged": false
-  },
-  {
-    "email_id": "fixture_003",
-    "nearest": "fixture_002",
-    "content_similarity": 0.0016,
-    "subject_score": 0.0,
-    "flagged": false
-  },
-  {
-    "email_id": "fixture_004",
-    "nearest": "fixture_002",
-    "content_similarity": 0.0023,
-    "subject_score": 0.0,
-    "flagged": false
-  },
-  {
-    "email_id": "fixture_005",
-    "nearest": "fixture_002",
-    "content_similarity": -0.0559,
-    "subject_score": 0.0417,
-    "flagged": false
-  },
-  {
     "email_id": "fixture_006",
     "nearest": "fixture_005",
     "content_similarity": 0.9631,
     "subject_score": 0.8571,
     "flagged": true
-  },
-  {
-    "email_id": "fixture_007",
-    "nearest": "fixture_005",
-    "content_similarity": 0.0789,
-    "subject_score": 0.0,
-    "flagged": false
-  },
-  {
-    "email_id": "fixture_008",
-    "nearest": "fixture_002",
-    "content_similarity": 0.0501,
-    "subject_score": 0.0,
-    "flagged": false
-  },
-  {
-    "email_id": "fixture_009",
-    "nearest": "fixture_003",
-    "content_similarity": 0.1146,
-    "subject_score": 0.0,
-    "flagged": false
-  },
-  {
-    "email_id": "fixture_010",
-    "nearest": "fixture_007",
-    "content_similarity": 0.6613,
-    "subject_score": 0.0,
-    "flagged": false
   }
 ]

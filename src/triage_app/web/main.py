@@ -124,7 +124,7 @@ class View:
 
 
 def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory | None = None,
-               presets_dir: Path | None = None) -> FastAPI:
+               presets_dir: Path | None = None, emails_path: Path | None = None) -> FastAPI:
     app = FastAPI(title="Email triage (synthetic)", docs_url=None, redoc_url=None, openapi_url=None)
     app.add_middleware(
         SessionMiddleware, secret_key=os.environ.get("TRIAGE_SESSION_SECRET") or secrets.token_hex(32),
@@ -136,7 +136,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
     templates.env.filters["num"] = lambda v, d=1: "" if v is None else f"{v:,.{d}f}"
     templates.env.filters["pct"] = lambda v: "n/a" if v is None else f"{v * 100:.1f}%"
 
-    store = DataStore(data_dir or data_dir_from_env())
+    store = DataStore(data_dir or data_dir_from_env(), emails_path)
     sessions = SessionStore()
     seed = load_seed()
     ctx_factory = make_ctx or runner.default_context
@@ -198,8 +198,8 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         if v.data.brief is not None:
             return v.data.brief
         d = v.data
-        day = d.parsed[0].received_at.date() if d.parsed else datetime.now(UTC).date()
-        return deliver.assemble(day, d.parsed, list(d.results.values()), d.triage, list(d.notes.values()),
+        day = d.inbox[0].received_at.date() if d.inbox else datetime.now(UTC).date()
+        return deliver.assemble(day, d.inbox, list(d.results.values()), d.triage, list(d.notes.values()),
                                 list(d.suggestions.values()), d.checked,
                                 sizes={t.ticker: t.size_bps for t in seed.theses})
 
@@ -313,7 +313,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
     @app.get("/inbox", response_class=HTMLResponse)
     def inbox_page(request: Request) -> HTMLResponse:
         v = view(request)
-        return page(request, "inbox.html", v, emails=v.data.raw or v.data.parsed)
+        return page(request, "inbox.html", v, emails=v.data.inbox)
 
     @app.get("/email/{email_id}", response_class=HTMLResponse)
     def email_page(request: Request, email_id: str) -> HTMLResponse:
@@ -329,12 +329,11 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
             if (n := v.sess.notes.get(email_id)) is not None:
                 quotes += [x.quote for x in n.sections]
         linked = [s for s in v.suggestions().values() if any(x.email_id == email_id for x in s.sections)]
-        raw = v.data.raw_by_id.get(email_id)
         return page(
             request, "email.html", v, email=email, quarantined=quarantined, quotes=quotes,
             result=v.result(email_id), triage=v.data.triage.get(email_id),
             redundancy=v.data.redundancy.get(email_id), note=v.data.notes.get(email_id) or v.sess.notes.get(email_id),
-            linked=linked, raw=None if quarantined else raw, no_change=v.data.no_change_reason(email_id),
+            linked=linked, no_change=v.data.no_change_reason(email_id),
         )
 
     @app.get("/live", response_class=HTMLResponse)
@@ -399,20 +398,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
     @app.get("/monitor", response_class=HTMLResponse)
     def monitor_page(request: Request) -> HTMLResponse:
         v = view(request)
-        tokens: dict[str, list[int]] = defaultdict(lambda: [0, 0])
-        for c in v.data.calls:
-            if c.email_id is None:
-                continue
-            tokens[c.email_id][0] += c.input_tokens + c.output_tokens
-            if not c.cache_hit:
-                tokens[c.email_id][1] += c.input_tokens + c.output_tokens
-        latency: dict[str, float] = defaultdict(float)
-        for t in v.data.timings:
-            if t.email_id is not None:
-                latency[t.email_id] += t.latency_ms
-        costliest = sorted(tokens.items(), key=lambda kv: -kv[1][0])[:thresholds.MONITOR_TOP_EMAILS]
-        slowest = sorted(latency.items(), key=lambda kv: -kv[1])[:thresholds.MONITOR_TOP_EMAILS]
-        return page(request, "monitor.html", v, m=v.data.metrics, costliest=costliest, slowest=slowest)
+        return page(request, "monitor.html", v, m=v.data.metrics)
 
     # ---------------- Actions ----------------
 

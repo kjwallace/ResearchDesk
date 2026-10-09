@@ -11,7 +11,7 @@ from typing import Any
 
 import pytest
 from fastapi.testclient import TestClient
-from fakes import FakeChat, FakeEmbedder
+from fakes import FIXTURE_EMAILS, FakeChat, FakeEmbedder, fixture_emails
 
 from triage_app import config, thresholds
 from triage_app.llm import Message
@@ -30,22 +30,21 @@ from triage_app.web.main import create_app
 OUT = Path(__file__).parent / "fixtures" / "out"
 HX = {"HX-Request": "true"}
 BANNER = "Synthetic data."
-PARSED = {e.email_id: e for e in read_list(OUT / "parsed.json", Email)}
-RAW = {e.email_id: e for e in read_list(OUT / "raw.json", Email)}
+CORPUS = {e.email_id: e for e in fixture_emails()}   # the emails as the app reads them
 RESULTS = {r.email_id: r for r in read_list(OUT / "results.json", EmailResult)}
 QUARANTINED = [i for i, r in RESULTS.items() if r.gate == "quarantine"]
 SECRET = "ZEBRA-QUARANTINE-BODY do not show this sentence anywhere at all"
 
 
 def fake_ctx(recorder: Recorder) -> RunContext:
-    return RunContext(None, recorder=recorder, use_cache=False, chat=FakeChat("{}"), embedder=FakeEmbedder())
+    return RunContext(None, recorder=recorder, use_cache=False, chat=FakeChat("{}"), embedder=FakeEmbedder(), emails_path=FIXTURE_EMAILS)
 
 
 @pytest.fixture
 def presets(tmp_path: Path) -> Path:
     d = tmp_path / "presets"
     d.mkdir()
-    e = PARSED["fixture_001"].model_copy(update={"email_id": "preset_01"})
+    e = CORPUS["fixture_001"].model_copy(update={"email_id": "preset_01"})
     (d / "preset_01.json").write_text(e.model_dump_json())
     return d
 
@@ -86,7 +85,7 @@ def fake_stages(monkeypatch: pytest.MonkeyPatch) -> dict[str, bool]:
     claims = [c for c in read_list(OUT / "claims.json", Claim) if c.email_id == "fixture_001"]
     sugg = {s.id: s for s in read_list(OUT / "suggestions.json", Suggestion)}["MSFT.p1.supports"]
     mods = {name: __import__(f"triage_app.pipeline.{name}", fromlist=["process"])
-            for name in ("parse", "redundancy", "classify", "gate", "attention", "extract", "analyze",
+            for name in ("redundancy", "classify", "gate", "human_attention", "extract", "analyze",
                          "validate", "merge")}
 
     def classify(email: Email, ctx: RunContext) -> TriageRecord:
@@ -103,8 +102,7 @@ def fake_stages(monkeypatch: pytest.MonkeyPatch) -> dict[str, bool]:
         s = _swap(email_id, sugg).model_copy(update={"id": f"{email_id}.s1"})
         return AnalysisRecord(email_id=email_id, skills_called=["existing_thesis"], suggestion_ids=[s.id]), [s]
 
-    monkeypatch.setattr(mods["parse"], "process", lambda e: e)
-    monkeypatch.setattr(runner, "day_cache", lambda data: None)
+    monkeypatch.setattr(runner, "day_cache", lambda data, ctx: None)
     monkeypatch.setattr(mods["redundancy"], "process", lambda e, day, ctx: RedundancyRecord(
         email_id=e.email_id, nearest=None, content_similarity=None, subject_score=None, flagged=False))
     monkeypatch.setattr(mods["classify"], "process", classify)
@@ -130,13 +128,13 @@ GET_ROUTES = [
     "/", "/suggestion/MSFT.p1.supports", "/suggestion/AMZN.new1", "/suggestion/NVDA.p2.supports",
     "/suggestion/AAPL.p1.supports", "/suggestion/fixture_001.s2", *(f"/company/{t}" for t in config.TICKERS),
     "/criteria", *(f"/criteria/{label}" for label in config.CRITERIA_FILES), "/audit", "/inbox",
-    *(f"/email/{i}" for i in PARSED), "/live", "/eval", "/monitor",
+    *(f"/email/{i}" for i in CORPUS), "/live", "/eval", "/monitor",
 ]
 
 
 def assert_no_quarantined_body(text: str) -> None:
     for eid in QUARANTINED:
-        for body in (PARSED[eid].body, RAW[eid].body):
+        for body in (CORPUS[eid].body,):
             words = body.split()
             for i in range(0, max(1, len(words) - 6), 4):
                 chunk = " ".join(words[i:i + 6])
@@ -176,14 +174,14 @@ def test_audit_and_quarantine_list(client: TestClient) -> None:
     assert "Repeat of" in text and "fixture_005" in text
     assert "quote mismatch" in text  # the rejected suggestion, under its email
     for eid in QUARANTINED:
-        assert html.escape(PARSED[eid].subject) in text and html.escape(PARSED[eid].sender) in text
+        assert html.escape(CORPUS[eid].subject) in text and html.escape(CORPUS[eid].sender) in text
 
 
 def test_email_view_highlights_quotes(client: TestClient) -> None:
     text = client.get("/email/fixture_001").text
     assert "<mark" in text and "Our checks with four Azure resellers" in text
     q = client.get("/email/fixture_003").text
-    assert "Quarantined" in q and PARSED["fixture_003"].subject in q
+    assert "Quarantined" in q and CORPUS["fixture_003"].subject in q
 
 
 def test_suggestion_page_shows_figure_book_consensus_and_effect(client: TestClient) -> None:
@@ -198,14 +196,14 @@ def test_eval_shows_pending_reviews(client: TestClient) -> None:
     assert text.count("pending hand review") == 3 and "gate_recall" in text
 
 
-def test_monitor_shows_stages_models_and_emails(client: TestClient) -> None:
+def test_monitor_shows_stages_and_models_only(client: TestClient) -> None:
     text = client.get("/monitor").text
     metrics = json.loads((OUT / "metrics.json").read_text())
     for stage in metrics["stages"]:
         assert f"<td>{stage}</td>" in text
     for model in metrics["by_model"]:
         assert model in text
-    assert "Costliest emails" in text and "Slowest emails" in text and "/email/fixture_" in text
+    assert "Costliest emails" not in text and "Slowest emails" not in text and "/email/fixture_" not in text
 
 
 # ---- Build step 5: accept, update, reset, undo ----
@@ -346,11 +344,12 @@ def test_mattered_with_fakes(client: TestClient, fake_stages: dict[str, Any]) ->
 
 
 def test_live_with_fakes_traces_every_stage(client: TestClient, fake_stages: dict[str, Any]) -> None:
-    body = PARSED["fixture_001"].body
+    body = CORPUS["fixture_001"].body
     r = client.post("/live", headers=HX, data={"sender": "A", "subject": "Live check", "body": body})
     assert r.status_code == 200
-    for stage in ("parse", "redundancy", "classify", "gate", "attention", "extract", "analyze", "validate", "merge"):
+    for stage in ("redundancy", "classify", "gate", "human_attention", "extract", "analyze", "validate", "merge"):
         assert f"<td>{stage}</td>" in r.text
+    assert "<td>parse</td>" not in r.text
     assert "100" in r.text  # FakeChat's input tokens, shown beside a stage
     sid = re.search(r"/suggestion/(live_\d+\.MSFT\.p1\.supports)", r.text)
     assert sid is not None
@@ -415,7 +414,7 @@ def test_responses_never_hold_quarantined_bodies_after_actions(client: TestClien
 def test_sections_from_quarantined_emails_are_dropped(client: TestClient) -> None:
     data = client.app.state.store.get()  # type: ignore[attr-defined]
     s = data.suggestions["MSFT.p1.supports"]
-    leak = LinkedSection(email_id="fixture_004", quote=" ".join(PARSED["fixture_004"].body.split()[:8]))
+    leak = LinkedSection(email_id="fixture_004", quote=" ".join(CORPUS["fixture_004"].body.split()[:8]))
     data.suggestions["MSFT.p1.supports"] = s.model_copy(update={"sections": [*s.sections, leak]})
     for url in ("/", "/suggestion/MSFT.p1.supports", "/email/fixture_004"):
         assert_no_quarantined_body(client.get(url).text)
@@ -433,7 +432,7 @@ def test_mattered_extracts_claims_from_a_stopped_email(presets: Path, monkeypatc
     chat = FakeChat(lambda _messages: next(replies, "{}"))
 
     def ctx(recorder: Recorder) -> RunContext:
-        return RunContext(None, recorder=recorder, use_cache=False, chat=chat, embedder=FakeEmbedder())
+        return RunContext(None, recorder=recorder, use_cache=False, chat=chat, embedder=FakeEmbedder(), emails_path=FIXTURE_EMAILS)
 
     with TestClient(create_app(OUT, make_ctx=ctx, presets_dir=presets)) as c:
         assert RESULTS["fixture_010"].gate == "stop"
@@ -447,8 +446,33 @@ def test_mattered_on_quarantined_spends_nothing(client: TestClient) -> None:
     assert client.post("/audit/fixture_003/mattered", headers=HX).status_code == 403
     assert client.app.state.global_runs.left() == thresholds.LIVE_RUNS_PER_HOUR_GLOBAL  # type: ignore[attr-defined]
     with pytest.raises(ValueError):
-        runner.run_mattered(PARSED["fixture_003"], RESULTS["fixture_003"], client.app.state.store.get(),  # type: ignore[attr-defined]
+        runner.run_mattered(CORPUS["fixture_003"], RESULTS["fixture_003"], client.app.state.store.get(),  # type: ignore[attr-defined]
                             fake_ctx, load_seed(), [])
+
+
+def test_day_cache_is_built_through_the_embedder_once(client: TestClient) -> None:
+    data = client.app.state.store.get()  # type: ignore[attr-defined]
+    embedder = FakeEmbedder()
+    ctx = RunContext(None, use_cache=False, embedder=embedder)
+    first = runner.day_cache(data, ctx)
+    assert first.ids == [e.email_id for e in data.inbox] and len(first.ids) == 10
+    first.add("live_001", "x", first.vectors[0])  # a run's own copy; the kept cache is unchanged
+    again = runner.day_cache(data, RunContext(None, use_cache=False, embedder=FakeEmbedder()))
+    assert len(again.ids) == 10
+
+
+def test_emails_come_from_the_corpus_file(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    from triage_app.web import data as web_data
+    assert web_data.emails_file_for(config.OUT_DIR / "day_2") == config.corpus_file("day_2")
+    assert web_data.emails_file_for(OUT) == FIXTURE_EMAILS
+    monkeypatch.setenv("TRIAGE_EMAILS_FILE", str(tmp_path / "x.jsonl"))
+    assert web_data.emails_file_for(OUT) == tmp_path / "x.jsonl"
+    assert web_data.load_emails(tmp_path / "x.jsonl") == []
+
+
+def test_email_page_shows_email_type(client: TestClient) -> None:
+    assert "primary_research" in client.get("/email/fixture_001").text
+    assert "email_type news_alert" in client.get("/audit").text  # fixture_006, in the audit view
 
 
 def test_earlier_email_is_never_quarantined(client: TestClient) -> None:
@@ -459,7 +483,7 @@ def test_earlier_email_is_never_quarantined(client: TestClient) -> None:
                                 flagged=True)
 
     assert runner.earlier_email(record("fixture_004"), data) is None
-    assert runner.earlier_email(record("fixture_005"), data) == PARSED["fixture_005"]
+    assert runner.earlier_email(record("fixture_005"), data) == CORPUS["fixture_005"]
     assert runner.earlier_email(record("fixture_005").model_copy(update={"flagged": False}), data) is None
 
 
@@ -516,5 +540,5 @@ def test_audit_shows_every_flagged_repeat(client: TestClient) -> None:
         email_id="fixture_010", nearest="fixture_004", content_similarity=0.81, subject_score=0.7, flagged=True)
     text = client.get("/audit").text
     assert "Flagged as a possible repeat of" in text and "0.81" in text and "0.70" in text
-    assert html.escape(PARSED["fixture_004"].subject) in text
+    assert html.escape(CORPUS["fixture_004"].subject) in text
     assert_no_quarantined_body(text)

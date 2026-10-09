@@ -1,11 +1,15 @@
-"""Stage 2 Check for repeats: parsed.json -> redundancy.json, vectors.npy.
+"""Stage 2 Check for repeats: the corpus emails -> redundancy.json (flagged emails only).
 
 Owned by work package 3 (Redundancy). See SPEC.md: Redundancy check; Starting values.
 
-For each email, in arrival order: embed the cleaned body (chunked mean, L2-normalized),
+For each email, in arrival order: embed the body (chunked mean, L2-normalized),
 find the most similar earlier email of the same day by cosine, score the two subjects by
 token-set similarity, flag a potential repeat, and add the email to the day cache. The flag
 is a hint only; stage 4 decides the label. No generative model is called here.
+
+`process` returns the comparison for every email (the live route shows it); `run` writes only
+the flagged records, and every reader treats an email absent from the file as not flagged.
+No vectors are saved: the live route rebuilds the day cache through the (disk-cached) embedder.
 """
 
 import re
@@ -18,7 +22,7 @@ from rapidfuzz import fuzz
 from triage_app import thresholds
 from triage_app.embed import Embedder, Vector
 from triage_app.pipeline.context import RunContext
-from triage_app.pipeline.io import read_list, write_list
+from triage_app.pipeline.io import write_list
 from triage_app.schema import Email, RedundancyRecord
 
 STAGE = "redundancy"
@@ -42,6 +46,9 @@ class DayCache:
         self.ids.append(email_id)
         self.subjects.append(subject)
         self.vectors.append(vector)
+
+    def copy(self) -> "DayCache":
+        return DayCache(ids=list(self.ids), subjects=list(self.subjects), vectors=list(self.vectors))
 
     def nearest(self, vector: Vector) -> tuple[str, float, str] | None:
         """(email_id, cosine, normalized subject) of the most similar earlier email, if any."""
@@ -132,20 +139,21 @@ def process(email: Email, day: DayCache, ctx: RunContext) -> RedundancyRecord:
                             subject_score=subject_score, flagged=flagged)
 
 
+def build_day_cache(emails: list[Email], ctx: RunContext) -> DayCache:
+    """The day cache over `emails`, in arrival order, without comparing them."""
+    day = DayCache()
+    for email in sorted(emails, key=lambda e: e.received_at):
+        day.add(email.email_id, normalize_subject(email.subject), email_vector(email.body, ctx.embedder))
+    return day
+
+
 def run(in_dir: Path, out_dir: Path, ctx: RunContext) -> None:
-    emails = read_list(in_dir / "parsed.json", Email)
+    emails = ctx.emails
     order = sorted(range(len(emails)), key=lambda i: (emails[i].received_at, i))
     day = DayCache()
     records: dict[int, RedundancyRecord] = {}
-    vectors: dict[int, Vector] = {}
     for i in order:
         email = emails[i]
         with ctx.recorder.stage(STAGE, email.email_id):
             records[i] = process(email, day, ctx)
-        vectors[i] = day.vectors[-1]
-    write_list(out_dir / "redundancy.json", [records[i] for i in range(len(emails))])
-    dim = vectors[0].shape[0] if vectors else 0
-    matrix = (np.vstack([vectors[i] for i in range(len(emails))]) if emails
-              else np.zeros((0, dim), dtype=np.float32))
-    out_dir.mkdir(parents=True, exist_ok=True)
-    np.save(out_dir / "vectors.npy", matrix.astype(np.float32))
+    write_list(out_dir / "redundancy.json", [records[i] for i in range(len(emails)) if records[i].flagged])

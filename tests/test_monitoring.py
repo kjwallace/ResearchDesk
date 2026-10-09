@@ -21,15 +21,15 @@ def test_fake_calls_aggregate_into_report(tmp_path: Path) -> None:
     chat = FakeChat("ok", input_tokens=100, output_tokens=20)
     with recording(rec):
         for eid in ("e1", "e2"):
-            with rec.stage("attention", eid):
+            with rec.stage("human_attention", eid):
                 chat.complete(model="m", messages=[Message(role="user", content=eid)])
             with rec.stage("redundancy", eid):
                 FakeEmbedder().embed([f"text {eid}"])
     report = rec.write(tmp_path, "day_1", emails=2)
     UsageReport.model_validate_json((tmp_path / "metrics.json").read_text())
-    usage = json.loads((tmp_path / "usage.json").read_text())
-    assert len(usage["calls"]) == 4 and len(usage["timings"]) == 4
-    att = report.stages["attention"]
+    assert sorted(p.name for p in tmp_path.iterdir()) == ["metrics.json"]  # no per-call file
+    assert len(rec.calls) == 4 and len(rec.timings) == 4
+    att = report.stages["human_attention"]
     assert (att.calls, att.input_tokens, att.output_tokens) == (2, 200, 40)
     assert report.by_model["m"].calls == 2 and report.emails == 2
     assert report.tokens_per_email_mean == pytest.approx((240 + 4) / 2)

@@ -3,7 +3,7 @@ import shutil
 from pathlib import Path
 
 import pytest
-from fakes import FakeChat
+from fakes import FIXTURE_EMAILS, FakeChat, fixture_emails
 
 from triage_app import config
 from triage_app.llm import Message
@@ -40,7 +40,7 @@ def reply(*claims: dict[str, object]) -> str:
 
 
 def ctx_with(chat: FakeChat) -> RunContext:
-    return RunContext(corpus_set="day_1", chat=chat, use_cache=False)
+    return RunContext(corpus_set="day_1", chat=chat, use_cache=False, emails_path=FIXTURE_EMAILS)
 
 
 def text(messages: list[Message]) -> str:
@@ -48,7 +48,7 @@ def text(messages: list[Message]) -> str:
 
 
 def emails() -> dict[str, Email]:
-    return {e.email_id: e for e in read_list(OUT / "parsed.json", Email)}
+    return {e.email_id: e for e in fixture_emails()}
 
 
 def results() -> dict[str, EmailResult]:
@@ -56,7 +56,7 @@ def results() -> dict[str, EmailResult]:
 
 
 def stage_dir(tmp_path: Path) -> Path:
-    for name in ("parsed.json", "results.json", "redundancy.json"):
+    for name in ("results.json", "redundancy.json"):
         shutil.copy(OUT / name, tmp_path / name)
     return tmp_path
 
@@ -119,7 +119,7 @@ def test_repeat_of_quarantined_email_gets_no_earlier_context() -> None:
     assert extract.earlier_context(red["fixture_006"], em, res) is None
     res = results()
     assert extract.earlier_context(red["fixture_006"], em, res) == em["fixture_005"]
-    assert extract.earlier_context(red["fixture_001"], em, res) is None  # first email: no nearest
+    assert extract.earlier_context(red.get("fixture_001"), em, res) is None  # not flagged: absent from the file
 
 
 def test_stopped_email_is_not_sent() -> None:

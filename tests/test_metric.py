@@ -89,15 +89,15 @@ def test_ticker_f1_micro() -> None:
 
 def test_topic_f1_and_attention() -> None:
     assert metric.topic_f1(RESULTS, LABELS).value == 1.0
-    assert metric.attention_precision(RESULTS, LABELS).value == 0.5
-    assert metric.attention_recall(RESULTS, LABELS).value == 1.0
+    assert metric.human_attention_precision(RESULTS, LABELS).value == 0.5
+    assert metric.human_attention_recall(RESULTS, LABELS).value == 1.0
 
 
 def test_quarantine_misses_attention_recall() -> None:
     labels = by_id([label("x", "monitor", attention=True)])
     results = by_id([result("x", None, gate="quarantine")])
-    assert metric.attention_recall(results, labels).value == 0.0
-    assert metric.attention_precision(results, labels).value is None
+    assert metric.human_attention_recall(results, labels).value == 0.0
+    assert metric.human_attention_precision(results, labels).value is None
 
 
 def test_missing_result_is_a_miss() -> None:
@@ -138,15 +138,31 @@ def test_quote_faithfulness_over_notes_and_suggestions() -> None:
     assert metric.quote_faithfulness([], [], bodies).value is None
 
 
-def triage_record(email_id: str, kind: str) -> TriageRecord:
-    return TriageRecord(email_id=email_id, criteria_version="v", triage_probs={}, ticker_probs={}, attention=0.0,
-                        topic_probs={}, kind=kind, kind_probs={}, safety={}, truncated=False)
+def triage_record(email_id: str, email_type: str) -> TriageRecord:
+    return TriageRecord(email_id=email_id, criteria_version="v", triage_probs={}, ticker_probs={},
+                        human_attention=0.0, topic_probs={}, email_type=email_type, email_type_probs={},
+                        safety={}, truncated=False)
 
 
 def test_meetings_share() -> None:
-    records = [triage_record("a", "invitation"), triage_record("b", "newsletter"),
-               triage_record("c", "research"), triage_record("d", "news")]
+    records = [triage_record("a", "meeting_request"), triage_record("b", "newsletter"),
+               triage_record("c", "event_invitation"), triage_record("d", "news_alert"),
+               triage_record("e", "sell_side_research"), triage_record("f", "vendor_pitch")]
     assert metric.meetings_share(records).value == 0.5
+
+
+def test_email_type_accuracy_counts_quarantine_as_miss() -> None:
+    records = [triage_record("a", "primary_research"), triage_record("b", "news_alert"),
+               triage_record("c", "newsletter"), triage_record("d", "newsletter")]
+    labels = by_id([label("a", "thesis_relevant"), label("b", "monitor"), label("c", "irrelevant"),
+                    label("d", "irrelevant")])
+    types = {"a": "primary_research", "b": "sell_side_research", "c": "newsletter", "d": None}
+    labels = {i: lab.model_copy(update={"email_type": types[i]}) for i, lab in labels.items()}
+    results = by_id([result("a", "thesis_relevant"), result("b", "monitor"), result("c", None, gate="quarantine"),
+                     result("d", "irrelevant")])
+    s = metric.email_type_accuracy(records, labels, results)
+    assert s.value == pytest.approx(0.3333)  # d has no corpus type and is left out
+    assert {(m.email_id, m.got) for m in s.misses} == {("b", "news_alert"), ("c", "quarantined")}
 
 
 def test_review_keys() -> None:

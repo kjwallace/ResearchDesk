@@ -1,11 +1,11 @@
-"""Stage 5 Extract: parsed.json, results.json, redundancy.json -> claims.json.
+"""Stage 5 Extract: the corpus emails, results.json, redundancy.json -> claims.json.
 
 Owned by work package 6 (Analysis). See SPEC.md: Data flow; Analysis agent.
 
 Runs only for emails whose gate is "pass", in arrival order. When an email's redundancy record
-is flagged, the nearest earlier email's parsed body goes along as context and only claims it
+is flagged, the nearest earlier email's body goes along as context and only claims it
 did not make are kept; that context is skipped when the earlier email was quarantined. Every
-quote is checked verbatim (after whitespace collapse) against the parsed body; failures are
+quote is checked verbatim (after whitespace collapse) against the email body; failures are
 dropped and counted. Code assigns claim IDs `<email_id>.c<n>`.
 """
 
@@ -28,9 +28,9 @@ class Extraction:
 
 
 def run(in_dir: Path, out_dir: Path, ctx: RunContext) -> None:
-    emails = read_list(in_dir / "parsed.json", Email)
+    emails = ctx.emails
     results = {r.email_id: r for r in read_list(in_dir / "results.json", EmailResult)}
-    redundancy = {r.email_id: r for r in read_list(in_dir / "redundancy.json", RedundancyRecord)}
+    redundancy = {r.email_id: r for r in read_list(in_dir / "redundancy.json", RedundancyRecord)}  # flagged only
     by_id = {e.email_id: e for e in emails}
     extractor = ClaimExtractor(ctx.chat)
 

@@ -2,7 +2,8 @@
 
     uv run python -m triage_app.evals.score --set day_1
 
-Reads the set's stage files in data/out/<set>/, writes eval.json (an EvalReport with every
+Reads the set's stage files in data/out/<set>/ and its emails and labels from the corpus
+file through the loader, and writes eval.json (an EvalReport with every
 miss listed) and the two hand-review sheets, review_notes.csv and review_suggestions.csv.
 A sheet is rewritten on each run until a person fills any check in it; from then on it is
 kept and read for the three review keys. See SPEC.md, "Evaluation and guardrails".
@@ -67,13 +68,13 @@ def criteria_version(triage: list[TriageRecord]) -> str:
     return counts.most_common(1)[0][0] if counts else ""
 
 
-def evaluate(corpus_set: CorpusSet, out_dir: Path, labels: list[EmailLabel]) -> EvalReport:
+def evaluate(corpus_set: CorpusSet, out_dir: Path, labels: list[EmailLabel], emails: list[Email]) -> EvalReport:
     """Every measure in the eval table, from the set's stage files. Review keys come from the sheets."""
     by_id = {lab.email_id: lab for lab in labels}
     results = {r.email_id: r for r in read_list(out_dir / "results.json", EmailResult)}
     triage = read_list(out_dir / "triage.json", TriageRecord)
-    redundancy = read_list(out_dir / "redundancy.json", RedundancyRecord)
-    bodies = {e.email_id: e.body for e in read_list(out_dir / "parsed.json", Email)}
+    redundancy = read_list(out_dir / "redundancy.json", RedundancyRecord)  # flagged emails only
+    bodies = {e.email_id: e.body for e in emails}
     notes = _optional(out_dir / "notes.json", AttentionNote)
     suggestions = _optional(out_dir / "suggestions.json", Suggestion)
 
@@ -84,6 +85,7 @@ def evaluate(corpus_set: CorpusSet, out_dir: Path, labels: list[EmailLabel]) -> 
                                    else metric.Score(None))
     scores["quote_faithfulness"] = metric.quote_faithfulness(notes or [], suggestions or [], bodies)
     scores["meetings_share"] = metric.meetings_share(triage)
+    scores["email_type_accuracy"] = metric.email_type_accuracy(triage, by_id, results)
 
     measures: dict[str, float | None] = {k: s.value for k, s in scores.items()}
     measures.update(read_reviews(out_dir))
@@ -147,9 +149,9 @@ def read_reviews(out_dir: Path) -> dict[str, float | None]:
 
 # ---- Command ----
 
-def score_set(corpus_set: CorpusSet, out_dir: Path, labels: list[EmailLabel]) -> EvalReport:
+def score_set(corpus_set: CorpusSet, out_dir: Path, labels: list[EmailLabel], emails: list[Email]) -> EvalReport:
     write_sheets(out_dir)
-    report = evaluate(corpus_set, out_dir, labels)
+    report = evaluate(corpus_set, out_dir, labels, emails)
     write_one(out_dir / "eval.json", report)
     return report
 
@@ -165,13 +167,17 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--set", dest="corpus_set", required=True, choices=config.CORPUS_SETS)
     parser.add_argument("--out", type=Path, help="stage-file directory (default data/out/<set>)")
+    parser.add_argument("--emails", type=Path, help="corpus file (default data/corpus/<set>/emails.jsonl)")
     parser.add_argument("--labels", type=Path, help="labels already in EmailLabel form, instead of the corpus loader")
     args = parser.parse_args()
     out_dir = args.out or config.out_dir(args.corpus_set)
     if not (out_dir / "results.json").exists():
         print(f"no pipeline output in {out_dir}; run the pipeline on {args.corpus_set} first")
         return
-    report = score_set(args.corpus_set, out_dir, load_labels(args.corpus_set, args.labels))
+    from triage_app import corpus
+    emails, corpus_labels = corpus.load(args.emails or config.corpus_file(args.corpus_set), args.corpus_set)
+    labels = read_labels_file(args.labels) if args.labels else corpus_labels
+    report = score_set(args.corpus_set, out_dir, labels, emails)
     print(format_report(report))
     print(f"wrote {out_dir / 'eval.json'} and the review sheets")
 

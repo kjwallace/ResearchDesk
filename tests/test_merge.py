@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 import pytest
-from fakes import FakeEmbedder
+from fakes import FIXTURE_EMAILS, FakeEmbedder
 
 from triage_app.config import FIXTURES_DIR
 from triage_app.pipeline import merge
@@ -23,7 +23,7 @@ OUT = FIXTURES_DIR / "out"
 
 @pytest.fixture
 def ctx() -> RunContext:
-    return RunContext(embedder=FakeEmbedder(), use_cache=False)
+    return RunContext(embedder=FakeEmbedder(), use_cache=False, emails_path=FIXTURE_EMAILS)
 
 
 @pytest.fixture

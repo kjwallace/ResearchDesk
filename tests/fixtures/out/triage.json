@@ -16,21 +16,26 @@
       "AAPL": 0.02,
       "GOOGL": 0.02
     },
-    "attention": 0.12,
+    "human_attention": 0.12,
     "topic_probs": {
       "macro": 0.03,
       "sector": 0.18,
       "government": 0.03,
       "other": 0.03
     },
-    "kind": "research",
-    "kind_probs": {
-      "research": 0.75,
-      "news": 0.05,
-      "company_release": 0.05,
-      "invitation": 0.05,
-      "newsletter": 0.05,
-      "other": 0.05
+    "email_type": "primary_research",
+    "email_type_probs": {
+      "sell_side_research": 0.04,
+      "primary_research": 0.6,
+      "news_alert": 0.04,
+      "newsletter": 0.04,
+      "data_report": 0.04,
+      "company_release": 0.04,
+      "meeting_request": 0.04,
+      "event_invitation": 0.04,
+      "vendor_pitch": 0.04,
+      "internal_forward": 0.04,
+      "administrative": 0.04
     },
     "safety": {
       "possible_mnpi": 0.03,
@@ -55,21 +60,26 @@
       "AAPL": 0.02,
       "GOOGL": 0.02
     },
-    "attention": 0.08,
+    "human_attention": 0.08,
     "topic_probs": {
       "macro": 0.03,
       "sector": 0.66,
       "government": 0.03,
       "other": 0.03
     },
-    "kind": "news",
-    "kind_probs": {
-      "research": 0.05,
-      "news": 0.75,
-      "company_release": 0.05,
-      "invitation": 0.05,
-      "newsletter": 0.05,
-      "other": 0.05
+    "email_type": "news_alert",
+    "email_type_probs": {
+      "sell_side_research": 0.04,
+      "primary_research": 0.04,
+      "news_alert": 0.6,
+      "newsletter": 0.04,
+      "data_report": 0.04,
+      "company_release": 0.04,
+      "meeting_request": 0.04,
+      "event_invitation": 0.04,
+      "vendor_pitch": 0.04,
+      "internal_forward": 0.04,
+      "administrative": 0.04
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -94,21 +104,26 @@
       "AAPL": 0.02,
       "GOOGL": 0.02
     },
-    "attention": 0.35,
+    "human_attention": 0.35,
     "topic_probs": {
       "macro": 0.03,
       "sector": 0.03,
       "government": 0.03,
       "other": 0.12
     },
-    "kind": "newsletter",
-    "kind_probs": {
-      "research": 0.05,
-      "news": 0.05,
-      "company_release": 0.05,
-      "invitation": 0.05,
-      "newsletter": 0.75,
-      "other": 0.05
+    "email_type": "newsletter",
+    "email_type_probs": {
+      "sell_side_research": 0.04,
+      "primary_research": 0.04,
+      "news_alert": 0.04,
+      "newsletter": 0.6,
+      "data_report": 0.04,
+      "company_release": 0.04,
+      "meeting_request": 0.04,
+      "event_invitation": 0.04,
+      "vendor_pitch": 0.04,
+      "internal_forward": 0.04,
+      "administrative": 0.04
     },
     "safety": {
       "possible_mnpi": 0.06,
@@ -133,21 +148,26 @@
       "AAPL": 0.93,
       "GOOGL": 0.02
     },
-    "attention": 0.55,
+    "human_attention": 0.55,
     "topic_probs": {
       "macro": 0.03,
       "sector": 0.03,
       "government": 0.03,
       "other": 0.03
     },
-    "kind": "other",
-    "kind_probs": {
-      "research": 0.05,
-      "news": 0.05,
-      "company_release": 0.05,
-      "invitation": 0.05,
-      "newsletter": 0.05,
-      "other": 0.75
+    "email_type": "primary_research",
+    "email_type_probs": {
+      "sell_side_research": 0.04,
+      "primary_research": 0.6,
+      "news_alert": 0.04,
+      "newsletter": 0.04,
+      "data_report": 0.04,
+      "company_release": 0.04,
+      "meeting_request": 0.04,
+      "event_invitation": 0.04,
+      "vendor_pitch": 0.04,
+      "internal_forward": 0.04,
+      "administrative": 0.04
     },
     "safety": {
       "possible_mnpi": 0.91,
@@ -172,21 +192,26 @@
       "AAPL": 0.02,
       "GOOGL": 0.88
     },
-    "attention": 0.07,
+    "human_attention": 0.07,
     "topic_probs": {
       "macro": 0.03,
       "sector": 0.71,
       "government": 0.03,
       "other": 0.03
     },
-    "kind": "news",
-    "kind_probs": {
-      "research": 0.05,
-      "news": 0.75,
-      "company_release": 0.05,
-      "invitation": 0.05,
-      "newsletter": 0.05,
-      "other": 0.05
+    "email_type": "news_alert",
+    "email_type_probs": {
+      "sell_side_research": 0.04,
+      "primary_research": 0.04,
+      "news_alert": 0.6,
+      "newsletter": 0.04,
+      "data_report": 0.04,
+      "company_release": 0.04,
+      "meeting_request": 0.04,
+      "event_invitation": 0.04,
+      "vendor_pitch": 0.04,
+      "internal_forward": 0.04,
+      "administrative": 0.04
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -211,21 +236,26 @@
       "AAPL": 0.02,
       "GOOGL": 0.86
     },
-    "attention": 0.05,
+    "human_attention": 0.05,
     "topic_probs": {
       "macro": 0.03,
       "sector": 0.69,
       "government": 0.03,
       "other": 0.03
     },
-    "kind": "research",
-    "kind_probs": {
-      "research": 0.75,
-      "news": 0.05,
-      "company_release": 0.05,
-      "invitation": 0.05,
-      "newsletter": 0.05,
-      "other": 0.05
+    "email_type": "news_alert",
+    "email_type_probs": {
+      "sell_side_research": 0.04,
+      "primary_research": 0.04,
+      "news_alert": 0.6,
+      "newsletter": 0.04,
+      "data_report": 0.04,
+      "company_release": 0.04,
+      "meeting_request": 0.04,
+      "event_invitation": 0.04,
+      "vendor_pitch": 0.04,
+      "internal_forward": 0.04,
+      "administrative": 0.04
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -250,21 +280,26 @@
       "AAPL": 0.02,
       "GOOGL": 0.02
     },
-    "attention": 0.86,
+    "human_attention": 0.86,
     "topic_probs": {
       "macro": 0.03,
       "sector": 0.03,
       "government": 0.03,
       "other": 0.03
     },
-    "kind": "invitation",
-    "kind_probs": {
-      "research": 0.05,
-      "news": 0.05,
-      "company_release": 0.05,
-      "invitation": 0.75,
-      "newsletter": 0.05,
-      "other": 0.05
+    "email_type": "meeting_request",
+    "email_type_probs": {
+      "sell_side_research": 0.04,
+      "primary_research": 0.04,
+      "news_alert": 0.04,
+      "newsletter": 0.04,
+      "data_report": 0.04,
+      "company_release": 0.04,
+      "meeting_request": 0.6,
+      "event_invitation": 0.04,
+      "vendor_pitch": 0.04,
+      "internal_forward": 0.04,
+      "administrative": 0.04
     },
     "safety": {
       "possible_mnpi": 0.09,
@@ -289,21 +324,26 @@
       "AAPL": 0.77,
       "GOOGL": 0.02
     },
-    "attention": 0.1,
+    "human_attention": 0.1,
     "topic_probs": {
       "macro": 0.21,
       "sector": 0.03,
       "government": 0.03,
       "other": 0.03
     },
-    "kind": "newsletter",
-    "kind_probs": {
-      "research": 0.05,
-      "news": 0.05,
-      "company_release": 0.05,
-      "invitation": 0.05,
-      "newsletter": 0.75,
-      "other": 0.05
+    "email_type": "newsletter",
+    "email_type_probs": {
+      "sell_side_research": 0.04,
+      "primary_research": 0.04,
+      "news_alert": 0.04,
+      "newsletter": 0.6,
+      "data_report": 0.04,
+      "company_release": 0.04,
+      "meeting_request": 0.04,
+      "event_invitation": 0.04,
+      "vendor_pitch": 0.04,
+      "internal_forward": 0.04,
+      "administrative": 0.04
     },
     "safety": {
       "possible_mnpi": 0.04,
@@ -328,21 +368,26 @@
       "AAPL": 0.02,
       "GOOGL": 0.02
     },
-    "attention": 0.14,
+    "human_attention": 0.14,
     "topic_probs": {
       "macro": 0.03,
       "sector": 0.03,
       "government": 0.03,
       "other": 0.03
     },
-    "kind": "research",
-    "kind_probs": {
-      "research": 0.75,
-      "news": 0.05,
-      "company_release": 0.05,
-      "invitation": 0.05,
-      "newsletter": 0.05,
-      "other": 0.05
+    "email_type": "primary_research",
+    "email_type_probs": {
+      "sell_side_research": 0.04,
+      "primary_research": 0.6,
+      "news_alert": 0.04,
+      "newsletter": 0.04,
+      "data_report": 0.04,
+      "company_release": 0.04,
+      "meeting_request": 0.04,
+      "event_invitation": 0.04,
+      "vendor_pitch": 0.04,
+      "internal_forward": 0.04,
+      "administrative": 0.04
     },
     "safety": {
       "possible_mnpi": 0.03,
@@ -367,21 +412,26 @@
       "AAPL": 0.02,
       "GOOGL": 0.02
     },
-    "attention": 0.04,
+    "human_attention": 0.04,
     "topic_probs": {
       "macro": 0.22,
       "sector": 0.03,
       "government": 0.31,
       "other": 0.03
     },
-    "kind": "invitation",
-    "kind_probs": {
-      "research": 0.05,
-      "news": 0.05,
-      "company_release": 0.05,
-      "invitation": 0.75,
-      "newsletter": 0.05,
-      "other": 0.05
+    "email_type": "event_invitation",
+    "email_type_probs": {
+      "sell_side_research": 0.04,
+      "primary_research": 0.04,
+      "news_alert": 0.04,
+      "newsletter": 0.04,
+      "data_report": 0.04,
+      "company_release": 0.04,
+      "meeting_request": 0.04,
+      "event_invitation": 0.6,
+      "vendor_pitch": 0.04,
+      "internal_forward": 0.04,
+      "administrative": 0.04
     },
     "safety": {
       "possible_mnpi": 0.01,
