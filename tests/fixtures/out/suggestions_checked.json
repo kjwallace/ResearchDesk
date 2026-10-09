@@ -70,6 +70,31 @@
     "reject_reason": "quote mismatch: section not found in fixture_001"
   },
   {
+    "id": "fixture_001.s3",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "MSFT",
+      "metric": "MSFT.intelligent_cloud_growth",
+      "period": "FY2027",
+      "stated_value": 26.0,
+      "book_value": 24.0,
+      "consensus_value": 21.5
+    },
+    "rationale": "Reseller checks put FY2027 Intelligent Cloud growth at 26%, above both the desk's assumption and consensus.",
+    "claim_ids": [
+      "fixture_001.c1"
+    ],
+    "sections": [
+      {
+        "email_id": "fixture_001",
+        "quote": "Our checks with four Azure resellers point to Intelligent Cloud revenue growth of 26% in FY2027, versus the 21.5% the Street models."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
     "id": "fixture_002.s1",
     "body": {
       "kind": "existing_thesis",

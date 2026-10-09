@@ -29,7 +29,7 @@ Quarantined (held unsummarized): `fixture_003`, `fixture_004`.
 
 - `fixture_007` Wed 8:00am ET call: former packaging engineer on Nvidia supply - confirm by 4pm today: reply, by 2026-10-13 16:00. Seats are released to other clients unless someone confirms by 4:00pm ET today, so a person must decide whether to take one.
 
-## Suggestions (4)
+## Suggestions (5)
 
 **Thesis changes** (2)
 
@@ -40,9 +40,9 @@ Quarantined (held unsummarized): `fixture_003`, `fixture_004`.
 
 - `AMZN.new1` (new AMZN thesis): Partner checks show most new internal inference moving to Amazon's own chips at a steep price discount, which no AMZN pillar covers.
 
-**Projection changes** (0)
+**Projection changes** (1)
 
-None.
+- `MSFT.intelligent_cloud_growth.proj1` (MSFT MSFT.intelligent_cloud_growth FY2027: email 26, book 24.00, consensus 21.50): Reseller checks put FY2027 Intelligent Cloud growth at 26%, above both the desk's assumption and consensus.
 
 **Worth watching** (1)
 
@@ -56,6 +56,6 @@ None.
 
 - Tokens spent: 45,391 (uncached cost 51,433); 4,539 per email
 - Cache hits: 6 of 39 calls
-- Estimated cost: not priced spent this run, not priced if uncached, not priced per email
+- Estimated cost: $0.0052 spent this run, $0.0052 if uncached, $0.0005 per email (excludes unpriced: fixture/jev)
 - Email latency: p50 5.7 s, p95 8.0 s
 - Total time: 44.0 s

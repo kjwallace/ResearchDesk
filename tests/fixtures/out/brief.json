@@ -10,7 +10,7 @@
     "passed": 6,
     "stopped": 2,
     "notes": 1,
-    "suggestions": 4,
+    "suggestions": 5,
     "rejected": 1
   },
   "thesis_changes": [
@@ -20,7 +20,9 @@
   "new_theses": [
     "AMZN.new1"
   ],
-  "projection_changes": [],
+  "projection_changes": [
+    "MSFT.intelligent_cloud_growth.proj1"
+  ],
   "worth_watching": [
     "NVDA.p2.supports"
   ],

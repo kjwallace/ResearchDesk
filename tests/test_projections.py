@@ -248,7 +248,7 @@ def test_projection_order_and_place(ctx: RunContext) -> None:
 
 def test_merge_validates_on_fixture_output(ctx: RunContext) -> None:
     out = merge.process(read_list(OUT / "suggestions_checked.json", Suggestion), ctx, results(), SEED)
-    assert not any(isinstance(s.body, ProjectionChange) for s in out)
+    assert [s.id for s in out if isinstance(s.body, ProjectionChange)] == ["MSFT.intelligent_cloud_growth.proj1"]
 
 
 # ---- Evals ----

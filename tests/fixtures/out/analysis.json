@@ -2,11 +2,13 @@
   {
     "email_id": "fixture_001",
     "skills_called": [
-      "existing_thesis"
+      "existing_thesis",
+      "projection_change"
     ],
     "suggestion_ids": [
       "fixture_001.s1",
-      "fixture_001.s2"
+      "fixture_001.s2",
+      "fixture_001.s3"
     ],
     "no_change_reason": null
   },
