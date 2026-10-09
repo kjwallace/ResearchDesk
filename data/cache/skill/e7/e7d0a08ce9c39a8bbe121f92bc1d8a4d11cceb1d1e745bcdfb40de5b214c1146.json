@@ -1,0 +1,1 @@
+{"estimated": false, "input_tokens": 6817, "output_tokens": 234, "value": {"input_tokens": 6817, "model": "anthropic/claude-haiku-5.5", "output_tokens": 234, "text": "```json\n{\"result\": {\"suggestions\": [], \"no_change_reason\": \"The email states Amazon capex for 2027 of $176bn, while the book models FY2026, so the stated figure does not match the modeled year.\"}}\n```"}}

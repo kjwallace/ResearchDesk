@@ -1,0 +1,1 @@
+{"estimated": false, "input_tokens": 4549, "output_tokens": 990, "value": {"input_tokens": 4549, "model": "anthropic/claude-haiku-5.5", "output_tokens": 990, "text": "\n<invoke_args>\n{\"claim_ids\": [\"synthetic_000423.c1\", \"synthetic_000423.c3\"], \"ticker\": \"GOOGL\"}\n</invoke_args>"}}

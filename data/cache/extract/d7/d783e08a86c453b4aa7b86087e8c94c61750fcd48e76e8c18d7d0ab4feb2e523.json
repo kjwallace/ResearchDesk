@@ -1,0 +1,1 @@
+{"estimated": false, "input_tokens": 4652, "output_tokens": 506, "value": {"input_tokens": 4652, "model": "anthropic/claude-haiku-5.5", "output_tokens": 506, "text": "```json\n{\n  \"claims\": []\n}\n```"}}

@@ -3,7 +3,7 @@
 Synthetic data. Pipeline output only; no corpus label appears here.
 
 - Set: day_2, day 2026-10-14
-- Criteria version: 1f44a2faac8e
+- Criteria version: 0b34df14dec8
 - Thresholds: tuned (tuned/thresholds.json)
 
 ## Emails
@@ -12,13 +12,13 @@ Synthetic data. Pipeline output only; no corpus label appears here.
 
 | Label | Emails |
 | --- | --- |
-| thesis_relevant | 20 |
-| monitor | 66 |
-| redundant | 57 |
-| low_value | 28 |
-| irrelevant | 128 |
+| thesis_relevant | 25 |
+| monitor | 52 |
+| redundant | 58 |
+| low_value | 30 |
+| irrelevant | 134 |
 
-Gate: 62 pass, 237 stop, 1 quarantine.
+Gate: 64 pass, 235 stop, 1 quarantine.
 Quarantined (held unsummarized): `synthetic_000407`.
 
 ## Flagged repeats (43)
@@ -67,20 +67,54 @@ Quarantined (held unsummarized): `synthetic_000407`.
 - `synthetic_000594` Amazon logistics - latest numbers I'm seeing (air hubs, delivery stations): repeats `synthetic_000477` Fri 8:00am ET: ex-Amazon fulfillment network planning VP (left Jul 2026) - cost-to-serve implies 3Q NA margin ~60-70bp above Street (3 seats, confirm by 5pm Thurs) (content 0.85, subject 0.37)
 - `synthetic_000597` Fwd: Jassy fireside at Ashford Tech Week (webcast) - my notes, nothing new vs. Q2 call: repeats `synthetic_000520` Fwd: AWS leadership at Thornbury Tech conference - Kessler Partners recap (checked vs. Q2 call, nothing new) (content 0.92, subject 0.62)
 
-## Attention notes (2)
+## Attention notes (21)
 
-- `synthetic_000380` Invitation: Investor lunch with Brightstream Car Wash Group (BSCW) CFO - Tue Nov 3, 12:00pm, Midtown: reply, by 2026-10-23 23:59. Replying secures a seat for the desk in a small group with BSCW management, which is limited to 12 buy-side seats. The RSVP closes on a stated date. The company is not one of the five covered names.
-- `synthetic_000383` Thurs 8:00pm ET call: Taiwan OSAT business development VP on Microsoft Cobalt 200 packaging pull-in (3 seats, confirm by noon tomorrow): attend, by 2026-10-15 12:00. Attending gives the desk a direct line to someone who sees Cobalt 200 packaging demand first-hand, which the sender says few people do. Only three seats are offered and confirmation closes at noon the day after the email was sent.
+- `synthetic_000305` Fri 8:30am ET: Valdora Interactive CFO call after guide-down - web-store share of mobile bookings (iOS/Android fee read-through), 6 seats: reply, by 2026-10-15 17:00. Attending gives the desk first-hand management commentary on platform fee economics, which bears on how app store steering affects Apple and Alphabet. Seats are limited to six and the reply is requested by a stated time. The sender notes this is one publisher in one category, so the call would not show wider ecosystem effects.
+- `synthetic_000324` Fri 10:30am ET call: ex-VP Product, enterprise endpoint-management vendor - Windows 11 fleet data and Mac share of new enrollments (4 seats; confirm by 5pm Thurs): attend, by 2026-10-15 17:00. Attending gives the desk access to a former senior product executive who can share what she saw through September, including fleet-level data on Windows 11 adoption and Mac share of new enrollments. Only four seats are offered and unused seats will be released, so access is scarce and time-limited.
+- `synthetic_000330` Fri 7:30am ET call: Taiwan high-speed cable assembly sales director on Rubin rack backplane spec revision (3 seats, confirm by Thursday noon): attend, by 2026-10-15 12:00. Attending gives the desk a supplier-side view of Rubin ramp timing ahead of NVDA's November report, which is useful for sizing timing risk. The slot is time-constrained because the expert travels on Friday afternoon, and the expert has confirmed he will not discuss non-public financials or customer-confidential information.
+- `synthetic_000332` Fri 7:45am ET call: ex-Azure GPU fleet planning lead - revised CY27 order plan (2 seats): reply, by 2026-10-15 17:00. Attending gives the desk first-hand access to someone who worked on Azure GPU fleet forecasting until recently, on planning practices and industry dynamics. Only two seats are open, and the sender has set a reply deadline. The expert has said he will not discuss non-public Microsoft financials.
+- `synthetic_000341` Time-sensitive: Thurs 8:00am ET call w/ chief economist of a card-data analytics firm - Sept/Oct Amazon share of wallet and consumer trade-down (5 seats, confirm by 5pm today): attend, by 2026-10-14 17:00. Attending gives the desk access to panel data the presenter says has not yet been distributed beyond her subscribers, ahead of the 29 October print the sender refers to. Seats are scarce (5 in total, 3 already held), and the sender needs confirmation by a stated time today.
+- `synthetic_000365` Brief call w/ ex-Amazon Apple-category director? Thursday 3:00pm ET only: reply, by 2026-10-15 12:00. The call gives the desk first-hand access to a former insider on Apple's supply allocation to Amazon, which is hard to obtain elsewhere. The only slot offered is Thursday at 3:00pm ET, and the sender's reply deadline is tomorrow at noon.
+- `synthetic_000380` Invitation: Investor lunch with Brightstream Car Wash Group (BSCW) CFO - Tue Nov 3, 12:00pm, Midtown: reply, by 2026-10-23 23:59. Attending gives the desk direct access to the CFO and head of IR in a small buy-side group, with a discussion planned on weather-adjusted volumes, cost outlook and acquisitions of single-site operators. Seats are limited to 12 and the RSVP closes on a stated date.
+- `synthetic_000383` Thurs 8:00pm ET call: Taiwan OSAT business development VP on Microsoft Cobalt 200 packaging pull-in (3 seats, confirm by noon tomorrow): reply, by 2026-10-15 12:00. Attending gives the desk first-hand market observations from a supplier-side executive with 14 years in role, who has been pre-screened and compliance-cleared, though he will not discuss his employer's non-public financials. Seats are limited to three and the sender needs an answer by a stated time.
+- `synthetic_000385` Fri 9:00am ET: Marrowgate Media (MRGT) CFO + platform partnerships head after pre-announcement - search referral drop and AI licensing deal (5 seats, confirm by 5pm Thurs): attend, by 2026-10-15 17:00. Attending gives the desk direct access to management of a company that has just cut guidance and reported falling search referrals, with compliance on the line. Management will stay within public disclosure, so the edge lies in the questions on referral granularity and licensing economics. Seats are limited to five and confirmation is due by a stated time.
+- `synthetic_000404` Thurs 10:30am ET: ex-Treasury international tax counsel on Microsoft's Tax Court transfer-pricing case and Pillar Two (4 seats, confirm by 5pm today): attend, by 2026-10-14 17:00. Attending gives the desk a first-hand view of how a settlement or judgment could be timed and sized, and what would show in the 28 October print. Only four seats are available, and the sender says the guest will discuss public information only, with compliance pre-cleared. The guest's views are her own, and the sender says none of this is in the MSFT numbers.
+- `synthetic_000410` Invitation: Investor dinner with Harwick Seeds & Traits (HWSD) CEO and CFO - Tue Nov 10, NYC + our latest channel work: reply, by 2026-10-30 23:59. Attending gives the desk direct access to HWSD's CEO and CFO in a small group, and seats are capped. The invitation comes from a broker's corporate access team and is tied to its own research note, so the desk should weigh it as a broker-hosted event promoting that research.
+- `synthetic_000411` Thu 1:45pm ET: Global alliances head at a Big-4-scale systems integrator on Nvidia + Azure account-team tone shift (3 seats, confirm by 10am tomorrow): attend, by 2026-10-15 10:00. Attending gives the desk a first-hand view from an integrator that co-sells joint Nvidia and Microsoft programs, on whether vendor delivery terms have eased. The sender calls this an early signal rather than a confirmed trend, and the guest's limited availability and the three seats make access scarce.
+- `synthetic_000438` Thu Oct 15, 4:30pm ET: ex-FTC Bureau of Competition deputy on the reported Microsoft cloud-licensing/AI inquiry - what the CID timeline implies (4 seats, confirm by 6pm tonight): attend, by 2026-10-14 18:00. Attending gives the desk direct access to a former FTC deputy on the process and precedent of cloud and software-licensing inquiries, ahead of the 28th print. Seats are limited to four and the sender needs confirmation by 6pm tonight, so the access is time-limited.
+- `synthetic_000442` Thurs 2:00pm ET: ex-VP Sales, 800V power-shelf supplier - rack power spec revisions hitting both Nvidia Rubin and Trainium programs (2 seats): reply, by 2026-10-15 11:00. Attending gives the desk a first-hand view of rack power spec changes and possible timing slips for Nvidia and Amazon programs, which the sender says it has not yet seen in the market. Only two seats are offered and the expert starts a new advisory role next week, so the access is time-limited.
+- `synthetic_000450` Invitation (Thu Oct 15, 5:30pm ET): Infrastructure fund MD on ~$18bn off-balance-sheet JV to hold Microsoft-leased AI campuses - 4 seats, confirm by noon tomorrow: attend, by 2026-10-15 12:00. Attending gives the desk direct access to the lender-side view of a proposed roughly $18bn joint venture, which the sender says could affect how Microsoft's reported capex and free cash flow look. The seats are few and the confirmation window closes at noon on 15 October, and the speaker is limited to syndication process terms and will not discuss non-public Microsoft financial information.
+- `synthetic_000477` Fri 8:00am ET: ex-Amazon fulfillment network planning VP (left Jul 2026) - cost-to-serve implies 3Q NA margin ~60-70bp above Street (3 seats, confirm by 5pm Thurs): attend, by 2026-10-15 17:00. Attending gives the desk direct access to a former Amazon planner's view of North American cost-to-serve, including how much of any saving may be reinvested, which the email names as the main uncertainty. Seats are limited to three and the sender sets a confirmation deadline.
+- `synthetic_000486` Time-sensitive: Thu 8:00am ET call w/ former TSMC account director (Apple team) - A20/N2 allocation cut and cost absorption (3 seats, confirm by 6pm tonight): attend, by 2026-10-14 18:00. Attending gives the desk first-hand access to a former Apple customer-team insider on A20 allocation and cost absorption, ahead of Apple's stated 29 October gross margin guide. Seats are limited to three and must be confirmed tonight. The sender's claims about the expert's views are the sender's account and are not verified in the email.
+- `synthetic_000515` Request: 15 min to confirm floor warden coverage for Tue Oct 20 evacuation drill (41st floor): reply, by 2026-10-16 23:59. This is an internal building-safety request with no market access, information or edge for the desk. Attending or replying keeps the firm compliant with the mandatory drill and avoids building management assigning a temporary warden from another tenant.
+- `synthetic_000525` Time-sensitive: call w/ former Apple component procurement director on LPDDR contract lock-ins - Thu 9:30am ET (4 seats, confirm by 6pm tonight): attend, by 2026-10-14 18:00. Attending gives the desk first-hand expert detail on the terms and timing of Apple's memory supply contracts, which the sender links to the AAPL margin debate. Seats are limited to four and the sender needs confirmation by a stated time.
+- `synthetic_000558` Request: 15 min to confirm desk seating plan for the 41st floor reconfiguration (Oct 26-30): attend. The email is an internal logistics request, not a sales pitch. Confirming the plan affects equipment, market-data connectivity and the timing of the move for the desk, so the request needs a person.
+- `synthetic_000577` Call Thu 8:30am ET: ex-Nvidia packaging engineering manager (now at Taiwan test-socket supplier) on Rubin final-test socket order revisions - 3 seats: attend, by 2026-10-14 17:00. Attending gives the desk a supplier-side view of whether a socket re-spec signals a stepping change on the Rubin package and how quickly it would show in shipments, ahead of the November print and Rubin timing questions. Three seats are held, the guest's window is narrow, and compliance has pre-cleared him and he has confirmed he holds no MNPI.
 
-## Suggestions (0)
+## Suggestions (17)
 
-**Thesis changes** (0)
+**Thesis changes** (12)
 
-None.
+- `NVDA.p3.contradicts` (NVDA.p3 contradicts, strength 2): The claims report in-house chip share gains at AWS, a large Nvidia customer, which the pillar's statement says should grow alongside Nvidia rather than replace it, and the lower per-job cost bears on the pillar's pricing claim; the wrong-if test is not met because Trainium holds only a minority of new hours.
+- `MSFT.p1.contradicts` (MSFT.p1 contradicts, strength 2): The email's Azure growth view speaks directly to the pillar's claim of above-consensus Azure growth, and it says growth is in line rather than above.
+- `MSFT.p3.contradicts` (MSFT.p3 contradicts, strength 2): The depreciation step-up and the cut to Microsoft Cloud gross margin bear on whether operating margin holds through peak capital intensity, though the metric is gross margin rather than operating margin.
+- `AMZN.p2.supports` (AMZN.p2 supports, strength 2): The channel check reports the fulfillment cost-per-unit trend that the pillar names as its driver of retail margin expansion; the wrong-if test, fulfillment costs rising faster than revenue, is not met because the reported cost trend is falling.
+- `AMZN.p1.supports` (AMZN.p1 supports, strength 1): The analyst's forecast of AWS growth accelerating to +25.8% bears on the pillar's subject, though it is an estimate rather than a reported result.
+- `AMZN.p2.contradicts` (AMZN.p2 contradicts, strength 1): The analyst's estimate of higher Q4 operating expense from regionalization costs bears on the fulfillment-efficiency mechanism in the pillar's statement, and the note's view that revenue will not offset it is consistent with the pillar's wrong-if test on costs outrunning revenue, though it does not report that outcome.
+- `AMZN.p3.supports` (AMZN.p3 supports, strength 1): Partner reports of larger renewal commitments speak to the signed-commitment step the pillar relies on, though they are not a direct backlog measure.
+- `AAPL.p3.supports` (AAPL.p3 supports, strength 1): The expert's comments on modem component cost savings and the gross margin benefit from the modem swap bear on the pillar's component-cost mechanism, though they address gross margin rather than operating margin and are not first-hand.
+- `AAPL.p3.contradicts` (AAPL.p3 contradicts, strength 1): The channel check reports fixed memory pricing on most CY27 volume, which lowers the component-cost risk the pillar describes, though the period falls outside the model year.
+- `GOOGL.p2.supports` (GOOGL.p2 supports, strength 3): The company's own guidance reports the depreciation step-up and says Cloud margin is affected more than Services, which speaks directly to the pillar's statement and its Cloud-offset wrong-if test.
+- `GOOGL.p1.contradicts` (GOOGL.p1 contradicts, strength 2): The channel check reports no change in commercial query behavior despite rising AI answer usage, which speaks directly to the pillar's claim that AI answers reduce commercial clicks.
+- `GOOGL.p3.contradicts` (GOOGL.p3 contradicts, strength 2): The claims report early uptake of the search remedy, which speaks directly to whether remedies restrict distribution, though the evidence is partial and early.
 
-**New thesis candidates** (0)
+**New thesis candidates** (5)
 
-None.
+- `MSFT.new1` (new MSFT thesis): A first-hand channel check reports that E5 or E5 Security add-on penetration rose to 31% of the panel, that 44% of recent upgraders retired at least one third-party endpoint or identity product within 6 months, and that upgraders' average revenue per user rose 19-24% before discounts. The nearest pillar, MSFT.p2, concerns paid AI assistants raising revenue per seat, but these upgrades are driven by security bundling and vendor displacement, and Security Copilot entitlements are active in only 9% of E5 tenants, so no existing pillar addresses security suite consolidation. For the statement to hold, upgraders would need to keep retiring third-party security products and keep paying more per user while renewal discounting stays flat. Evidence that retirements stall, per-user revenue gains fade, or EA renewal discounting widens would prove it wrong.
+- `AMZN.new1` (new AMZN thesis): A thesis-relevant email reports first-hand that average basket size among bottom-tercile Amazon shoppers fell ~6% y/y in September, while the share of their orders made up of Prime-eligible items under $25 rose to 44% from 38%. Over the same period top-tercile Amazon spend rose +5.2% y/y. The nearest existing pillar, AMZN.p2, concerns retail operating margin through fulfillment efficiency and advertising, not where retail demand comes from by shopper income, so this debate is not covered. For the statement to hold, higher-spending shoppers would need to keep carrying retail growth while lower-income baskets stay smaller and trade down. Reports that bottom-tercile basket size recovers, or that top-tercile spend growth stalls, would prove it wrong.
+- `AMZN.new2` (new AMZN thesis): A report marked first-hand states that Trainium's share of total accelerated hours rose while Nvidia's fell, and that 62% of incremental Trainium hours came from accounts outside the top 20 by spend. The same report says median per-job cost on Trainium was 34-41% lower than on comparable Nvidia instances. The nearest pillar, AMZN.p1, concerns AWS growth re-accelerating as power and chip capacity is added, and it does not address which silicon supplies that capacity or how the mix shifts between in-house and Nvidia hardware. For the statement to hold, Trainium would need to keep gaining hours share and win new accounts beyond the largest spenders. A reported stall or decline in Trainium's share, or the cost advantage disappearing, would prove it wrong.
+- `AAPL.new1` (new AAPL thesis): A former Apple employee, speaking second-hand in one email, says the internal target was to carry the in-house modem C2 in roughly half of iPhone units, and that the target was under review. The nearest pillar, AAPL.p3, covers tariffs and component costs, and AAPL.p1 covers upgrade demand and China share, so neither addresses a shift in modem sourcing from Qualcomm. For the statement to hold, the in-house modem would need to reach Pro-tier models and ramp past the current supply and certification problems. Reported Pro-tier modems staying with Qualcomm, or a confirmed cut to the in-house share target, would prove it wrong.
+- `GOOGL.new1` (new GOOGL thesis): A channel check, reported first-hand, puts the median Shorts CPM at 58% of in-stream CPM against 44% in March, and the same email notes rising Shorts time-share. The YouTube ads estimate lines are not first-hand. The nearest pillar, GOOGL.p1, concerns AI answers reducing search clicks, and GOOGL.p2 and GOOGL.p3 cover margin and regulation, so none addresses YouTube Shorts monetization. For the statement to hold, Shorts would need to keep monetizing at a rising share of in-stream pricing while its time-share grows. A reported narrowing reversing, or YouTube ads landing below the street figure, would prove it wrong.
 
 **Projection changes** (0)
 
@@ -93,13 +127,13 @@ None.
 ## Alerts (3)
 
 - human_attention: `synthetic_000305` Fri 8:30am ET: Valdora Interactive CFO call after guide-down - web-store share of mobile bookings (iOS/Android fee read-through), 6 seats
-- human_attention: `synthetic_000577` Call Thu 8:30am ET: ex-Nvidia packaging engineering manager (now at Taiwan test-socket supplier) on Rubin final-test socket order revisions - 3 seats
 - human_attention: `synthetic_000324` Fri 10:30am ET call: ex-VP Product, enterprise endpoint-management vendor - Windows 11 fleet data and Mac share of new enrollments (4 seats; confirm by 5pm Thurs)
+- human_attention: `synthetic_000341` Time-sensitive: Thurs 8:00am ET call w/ chief economist of a card-data analytics firm - Sept/Oct Amazon share of wallet and consumer trade-down (5 seats, confirm by 5pm today)
 
 ## Monitoring
 
-- Tokens spent: 22,589 (uncached cost 22,589); 75 per email
-- Cache hits: 0 of 4 calls
-- Estimated cost: $0.0783 spent this run, $0.0783 if uncached, $0.0003 per email
-- Email latency: p50 3.0 s, p95 8.2 s
-- Total time: 282.4 s
+- Tokens spent: 2,830,661 (uncached cost 3,133,733); 9,436 per email
+- Cache hits: 58 of 434 calls
+- Estimated cost: $0.4269 spent this run, $0.4915 if uncached, $0.0014 per email
+- Email latency: p50 0 ms, p95 38.2 s
+- Total time: 1968.8 s

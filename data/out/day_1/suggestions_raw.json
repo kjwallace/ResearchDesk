@@ -1,1 +1,1847 @@
-[]
+[
+  {
+    "id": "synthetic_000124.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "NVDA.p1",
+      "stance": "contradicts",
+      "strength": 2,
+      "relevance": 0.85,
+      "wrong_if_met": false,
+      "assumptions": [
+        {
+          "driver_id": "NVDA.data_center_growth",
+          "stated_value": 29.0,
+          "book_value": 38.0,
+          "consensus_value": 34.0
+        }
+      ],
+      "street_view_shift": "toward_sell",
+      "street_view_note": "The desk is long while the street rates NVDA a buy; this rating cut to hold and the lower Data Center estimate move the street away from the desk's long.",
+      "assumption_impact": "The sell-side note cuts its FY2027 Data Center growth estimate to 29%, which is the pillar's own subject and the linked driver. That points below the desk's assumption and below consensus, so it challenges the base case that spending keeps growth above the street. Two first-hand channel checks add weight: procurement contacts describe 1H27 accelerator budgets as flat with 2H26, and two hyperscalers are planning a digestion quarter in 1H27. These are checks and a forecast rather than company guidance, so the evidence is relayed and partly unconfirmed.",
+      "if_accepted": "Accepting logs strength-2 contradicting evidence against NVDA.p1 without meeting its wrong-if test, since the digestion plan is not capex guidance from two named hyperscalers. The desk would hold the above-consensus growth view with less confidence. Because the email states a figure for the linked Data Center growth driver, the analyst could update that assumption and see EPS and the target price recompute."
+    },
+    "rationale": "The sell-side estimate cut and the two channel checks bear on the pillar's premise that cloud and sovereign budgets keep Data Center growth above consensus, though the digestion plan is not the guidance cut the wrong-if test names.",
+    "claim_ids": [
+      "synthetic_000124.c3",
+      "synthetic_000124.c6",
+      "synthetic_000124.c8"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000124",
+        "quote": "Data Center growth: 29% (from 37%)"
+      },
+      {
+        "email_id": "synthetic_000124",
+        "quote": "Two hyperscaler procurement contacts described 1H27 accelerator budgets as flat with 2H26, with incremental dollars going to in-house accelerators and power infrastructure."
+      },
+      {
+        "email_id": "synthetic_000124",
+        "quote": "our checks say at least two of them are planning a digestion quarter in 1H27."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000124.s2",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "NVDA.p3",
+      "stance": "contradicts",
+      "strength": 2,
+      "relevance": 0.75,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates NVDA a buy on the same side as the desk's long, and a supply-chain check does not move the street's view.",
+      "assumption_impact": "The channel check reports custom ASIC tape-outs at the two largest design-services houses up about 60% year over year, which speaks to in-house chips growing. The source adds that this is share Nvidia does not get, which reads against the pillar's premise that in-house chips grow alongside Nvidia rather than replacing it. The evidence is first-hand supply-chain reporting that no customer has confirmed. The email states no figure for the operating margin or Data Center growth drivers, so no assumption is directly tested.",
+      "if_accepted": "Accepting logs strength-2 contradicting evidence against NVDA.p3 that does not meet its wrong-if test, since no customer is shown moving most new capacity to in-house chips and no pricing cut is reported. The desk would hold the pricing and margin view with somewhat less confidence. No driver figure is stated, so no assumption needs updating."
+    },
+    "rationale": "A rise in custom-chip tape-outs reported by supply-chain contacts speaks to in-house chips growing as share Nvidia does not get, which cuts against the pillar's claim that they grow alongside Nvidia rather than replacing it.",
+    "claim_ids": [
+      "synthetic_000124.c7"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000124",
+        "quote": "Custom ASIC tape-outs at the two largest design-services houses are up about 60% y/y, according to our supply-chain contacts. That is share Nvidia does not get."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000124.s3",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "NVDA",
+      "metric": "NVDA.data_center_growth",
+      "period": "FY2027",
+      "stated_value": 29.0,
+      "book_value": 38.0,
+      "consensus_value": 34.0
+    },
+    "rationale": "The email reports FY2027 Data Center revenue growth at 29%, below both the desk's driver and consensus. The figure is secondhand and not first-hand, so it is unconfirmed until the source is verified.",
+    "claim_ids": [
+      "synthetic_000124.c3"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000124",
+        "quote": "Data Center growth: 29% (from 37%)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000124.s4",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "NVDA",
+      "metric": "revenue",
+      "period": "FY2027",
+      "stated_value": 268.0,
+      "book_value": 291.5805,
+      "consensus_value": 283.83101999999997
+    },
+    "rationale": "The email reports FY2027 revenue of $268bn, below both the desk's projection and consensus. The figure is secondhand and not first-hand, so it is unconfirmed until the source is verified.",
+    "claim_ids": [
+      "synthetic_000124.c4"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000124",
+        "quote": "Revenue: $268bn (from $289bn)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000124.s5",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "NVDA",
+      "metric": "eps",
+      "period": "FY2027",
+      "stated_value": 5.7,
+      "book_value": 6.259524663783959,
+      "consensus_value": 6.093162162891408
+    },
+    "rationale": "The email reports FY2027 EPS of $5.70, below both the desk's projection and consensus. The figure is secondhand and not first-hand, so it is unconfirmed until the source is verified.",
+    "claim_ids": [
+      "synthetic_000124.c5"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000124",
+        "quote": "EPS: $5.70 (from $6.20)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000270.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AAPL.p2",
+      "stance": "supports",
+      "strength": 2,
+      "relevance": 0.8,
+      "wrong_if_met": false,
+      "assumptions": [
+        {
+          "driver_id": "AAPL.services_growth",
+          "stated_value": 10.5,
+          "book_value": 9.0,
+          "consensus_value": 12.0
+        }
+      ],
+      "street_view_shift": "toward_sell",
+      "street_view_note": "The street rates AAPL a buy while the desk is short; a sell-side cut to Services growth moves the street toward the desk's side.",
+      "assumption_impact": "The email reports softer September App Store downloads and spending, mainly gaming in the US and Japan. That bears on the pillar's Services slowdown but does not address the regulatory cause the pillar names. The same email cuts FY2026 Services growth to 10.5%, which is the pillar's own metric. The stated figure sits below consensus and above the desk's own Services assumption, so it does not yet challenge the desk's base case. The estimate is an analyst forecast and the App Store data is third-party, so the evidence is credible but not confirmed by company disclosure.",
+      "if_accepted": "Accepting logs strength-2 supporting evidence against AAPL.p2 and records that the street is moving toward the desk's side. The wrong-if test is not met. Because the email states a figure for the linked Services growth driver, the analyst could update that assumption and see EPS and the target price recompute."
+    },
+    "rationale": "The App Store data and the Services estimate cut speak to the pillar's Services slowdown, though neither attributes the slowdown to regulation or fee pressure.",
+    "claim_ids": [
+      "synthetic_000270.c1",
+      "synthetic_000270.c2"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000270",
+        "quote": "Third-party App Store download and spending data for September came in a bit softer than we expected, mainly gaming in the US and Japan."
+      },
+      {
+        "email_id": "synthetic_000270",
+        "quote": "FY2026: Services growth 10.5% (from 12.0%); EPS $7.80 (from $7.92)."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000270.s2",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "AAPL",
+      "metric": "AAPL.services_growth",
+      "period": "FY2026",
+      "stated_value": 10.5,
+      "book_value": 9.0,
+      "consensus_value": 12.0
+    },
+    "rationale": "The email reports FY2026 Services growth of 10.5%, which sits above the desk's Services driver and below consensus.",
+    "claim_ids": [
+      "synthetic_000270.c2"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000270",
+        "quote": "FY2026: Services growth 10.5% (from 12.0%); EPS $7.80 (from $7.92)."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000270.s3",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "AAPL",
+      "metric": "eps",
+      "period": "FY2026",
+      "stated_value": 7.8,
+      "book_value": 7.272054573828723,
+      "consensus_value": 7.947813013283571
+    },
+    "rationale": "The email reports FY2026 EPS of $7.80, which sits above the desk's projection and below consensus.",
+    "claim_ids": [
+      "synthetic_000270.c3"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000270",
+        "quote": "FY2026: Services growth 10.5% (from 12.0%); EPS $7.80 (from $7.92)."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000064.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AAPL.p1",
+      "stance": "contradicts",
+      "strength": 3,
+      "relevance": 0.9,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "toward_buy",
+      "street_view_note": "The street rates AAPL a buy against the desk's short, and this upgrade moves the street further toward buy, away from the desk's side.",
+      "assumption_impact": "The first-hand channel check reports iPhone 18 Pro sell-through running ahead of the prior model at the same point, which addresses the pillar's upgrade-cycle subject and the sell-through evidence its wrong-if test names. A third-party activation figure showing Apple's premium share in China rising is relayed rather than first-hand, but it challenges the pillar's view that China share stays under pressure. Together they point against the desk's below-consensus iPhone growth assumption, so the view that the cycle disappoints looks less secure. The evidence rests on a four-week survey of stores and a single data provider, so it needs confirmation from later sell-through or company guidance.",
+      "if_accepted": "Accepting logs strength-3 contradicting evidence against AAPL.p1 and moves the pillar toward its wrong-if test, so the desk can hold the short on this pillar with less firmness. The sell-through figure is for units rather than iPhone revenue growth, so no linked driver assumption is proposed."
+    },
+    "rationale": "The channel check reports sell-through data, the evidence the pillar's wrong-if test names, and the China activation figure speaks to the pillar's statement on share, while the upgrade is cited as the street's view.",
+    "claim_ids": [
+      "synthetic_000064.c1",
+      "synthetic_000064.c3",
+      "synthetic_000064.c4"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000064",
+        "quote": "AAPL: Upgrade to BUY from HOLD | PT $235 (from $190)"
+      },
+      {
+        "email_id": "synthetic_000064",
+        "quote": "Our survey of 140 US and European carrier stores shows iPhone 18 Pro units in the first four weeks running 9% ahead of the iPhone 17 Pro at the same point, with the higher-storage mix up again."
+      },
+      {
+        "email_id": "synthetic_000064",
+        "quote": "Weekly activation data from our third-party provider has Apple's share of premium (>$600) smartphones in China at 61% in September, up from 55% a year ago."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000064.s2",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AAPL.p2",
+      "stance": "contradicts",
+      "strength": 2,
+      "relevance": 0.75,
+      "wrong_if_met": false,
+      "assumptions": [
+        {
+          "driver_id": "AAPL.services_growth",
+          "stated_value": 12.0,
+          "book_value": 9.0,
+          "consensus_value": 12.0
+        }
+      ],
+      "street_view_shift": "toward_buy",
+      "street_view_note": "The street rates AAPL a buy against the desk's short, and this estimate raise moves the street further toward buy, away from the desk's side.",
+      "assumption_impact": "The sell-side note raises FY2026 Services growth to 12% from 10%, a forecast rather than a reported result. It runs against the pillar's expectation that Services growth slows, but it does not discuss the regulatory pressure on App Store fees and search payments that the pillar names, so the match is only partial. The stated figure is in line with consensus and above the desk's Services growth assumption, which puts the desk's base case of slower Services growth under pressure. The evidence comes from one analyst's estimate and has not been tested against any ruling or settlement.",
+      "if_accepted": "Accepting logs strength-2 contradicting evidence against AAPL.p2 and moves the pillar modestly toward its wrong-if test, so the desk can hold the view on Services with less firmness. Because the note states a Services growth figure for FY2026, the analyst could update that assumption and see EPS and the target price recompute."
+    },
+    "rationale": "The estimate raise addresses the pillar's subject, Services growth, in the opposite direction to the pillar's expected slowdown, though it does not speak to the regulatory cause the pillar names.",
+    "claim_ids": [
+      "synthetic_000064.c6"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000064",
+        "quote": "Services growth: 12% (from 10%)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000064.s3",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "AAPL",
+      "metric": "AAPL.services_growth",
+      "period": "FY2026",
+      "stated_value": 12.0,
+      "book_value": 9.0,
+      "consensus_value": 12.0
+    },
+    "rationale": "The email reports Services revenue growth of 12% for FY2026, which sits above the desk's driver and in line with consensus.",
+    "claim_ids": [
+      "synthetic_000064.c6"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000064",
+        "quote": "Services growth: 12% (from 10%)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000064.s4",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "AAPL",
+      "metric": "eps",
+      "period": "FY2026",
+      "stated_value": 8.1,
+      "book_value": 7.272054573828723,
+      "consensus_value": 7.947813013283571
+    },
+    "rationale": "The email states FY2026 EPS of $8.10, which sits above both the desk's projection and consensus.",
+    "claim_ids": [
+      "synthetic_000064.c7"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000064",
+        "quote": "EPS: $8.10 (from $7.70); consensus $7.95"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000018.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "NVDA.p1",
+      "stance": "contradicts",
+      "strength": 1,
+      "relevance": 0.72,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates NVDA a buy, on the same side as the desk's long, and an unnamed expert's view on order timing does not move that view.",
+      "assumption_impact": "The expert says buyers may pause or slow GB300 orders in Q2 2027 while they wait for Rubin, and that some are already asking to swap Q2 allocations. The pillar holds that buyer spending keeps Data Center growth above consensus, so an order pause in a single quarter cuts against that as a forecast, though it is a timing gap rather than a fall in budgets. The linked driver, NVDA.data_center_growth, has no figure stated in the email, so the email does not show whether it sits above or below the desk's 38% or the 34% consensus. The evidence is relayed from an unnamed Taiwan-based ODM expert, is opinion about the future, and rests on one source, so it is not confirmed.",
+      "if_accepted": "Accepting logs strength-1 contradicting evidence against NVDA.p1 as a weak, unconfirmed signal that order timing may soften ahead of Rubin. The wrong-if test is not met, so the desk could hold the view with somewhat less confidence for the coming model year. No assumption changes, because the email states no figure for a linked driver."
+    },
+    "rationale": "The expert's opinion that GB300 orders may pause in Q2 2027 bears on whether buyer spending keeps growth above consensus, but it is a relayed forecast and does not meet the capex-guidance wrong-if test.",
+    "claim_ids": [
+      "synthetic_000018.c4",
+      "synthetic_000018.c5"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000018",
+        "quote": "He believes there will be limited overlap with GB300, meaning customers may pause or slow GB300 orders in the second quarter of 2027 while waiting for Rubin availability."
+      },
+      {
+        "email_id": "synthetic_000018",
+        "quote": "\"Some customers are already asking whether they can swap their Q2 allocations.\""
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000075.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AAPL.p3",
+      "stance": "supports",
+      "strength": 2,
+      "relevance": 0.72,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "toward_sell",
+      "street_view_note": "The street rates AAPL a buy while the desk is short; this sell-side estimate cut moves the street toward the desk's side.",
+      "assumption_impact": "The sell-side estimate change cuts Apple's gross margin and says the hit builds in the second fiscal quarter, which bears on the pillar's premise that margin is under pressure. The email does not name tariffs or component costs as the cause, and it reports gross margin rather than the operating margin the pillar and its linked driver use. The desk's below-consensus operating margin view is directionally consistent with this cut, but the email gives no operating margin figure, so that assumption cannot be tested from it. The evidence is a single sell-side estimate, not company results.",
+      "if_accepted": "Accepting logs strength-2 supporting evidence against AAPL.p3, a further step away from its wrong-if test, and records that the street is moving toward the desk's side. No assumption changes, because the email states no operating margin figure for the linked driver."
+    },
+    "rationale": "A sell-side estimate cut lowers Apple's gross margin and expects the pressure to build in the second fiscal quarter, which is related to the pillar's margin-at-risk statement but does not name tariffs or component costs as the cause.",
+    "claim_ids": [
+      "synthetic_000075.c1",
+      "synthetic_000075.c3"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000075",
+        "quote": "Our FQ1 (Dec) gross margin falls to 46.2% from 46.9%, and our FQ1 EPS goes to $2.71 from $2.78 (consensus $2.76)."
+      },
+      {
+        "email_id": "synthetic_000075",
+        "quote": "We think Apple is only partly hedged through its supply agreements, so the hit builds in FQ2 (GM 45.6%)."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000231.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "NVDA.p3",
+      "stance": "supports",
+      "strength": 1,
+      "relevance": 0.85,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates NVDA a buy, in line with the desk's long, and this channel check does not move that view.",
+      "assumption_impact": "The email concerns Microsoft's second-generation Maia accelerator, a large customer's in-house chip, which is the mechanism NVDA.p3 tests. The reported 30-35% cut to planned 2027 volumes, with units moved toward merchant GPU racks, points away from in-house chips replacing Nvidia, so it supports the pillar. It bears on the operating margin and Data Center growth drivers only indirectly, and it stays untested against the desk's 62% margin and 38% growth assumptions, which sit in line with or above consensus. The evidence is a single relayed channel check that is still early and unconfirmed, so it should be checked against a second source or a company statement before it counts for more.",
+      "if_accepted": "Accepting logs this as a weak, unconfirmed signal against NVDA.p3, worth watching rather than acting on. It moves the pillar slightly away from its wrong-if test, and no assumption changes because the email states no figure for a linked NVDA driver."
+    },
+    "rationale": "The Maia volume cut at Microsoft, a top customer, speaks directly to whether in-house chips take share from Nvidia, which is the subject of NVDA.p3 and its wrong-if test; the claims concern MSFT, so the link is cross-company.",
+    "claim_ids": [
+      "synthetic_000231.c1",
+      "synthetic_000231.c2",
+      "synthetic_000231.c3"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000231",
+        "quote": "told us that Microsoft has informally indicated lower 2027 volumes for its second-generation Maia accelerator than the planning numbers shared in the spring."
+      },
+      {
+        "email_id": "synthetic_000231",
+        "quote": "The number he gave was roughly 30-35% below the earlier plan, with units re-allocated toward merchant GPU racks."
+      },
+      {
+        "email_id": "synthetic_000231",
+        "quote": "purchase orders for a Maia-related package have been \"paused, not cancelled\" since late September."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000241.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AMZN.p1",
+      "stance": "supports",
+      "strength": 2,
+      "relevance": 0.75,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates AMZN a hold while the desk is long; this email is a grid partner's tracking and read, not a sell-side view, so the street's position does not move.",
+      "assumption_impact": "The pillar says AWS growth re-accelerates as power and chip capacity is added. The email's tally of announced and filed AWS power commitments through 2028 is first-hand and specific, and it bears on the power half of that mechanism. A separate, unnamed 2.4GW block phased from 2027 to 2029 is reported by a third party, and the sender's opinion that AWS is the customer is unconfirmed. Neither claim states a growth figure, so the desk's above-consensus AWS growth assumption is not tested by this email. Commitments are not yet capacity in service, so the evidence supports the premise without confirming the growth outcome.",
+      "if_accepted": "Accepting logs strength-2 supporting evidence against AMZN.p1 and moves the pillar slightly further from its wrong-if test. No figure is stated for the linked AWS growth driver, so no assumption changes and EPS and the target price would not recompute from this email."
+    },
+    "rationale": "The email reports power commitment totals and a large dedicated power block, which bear on the capacity that the pillar says will lift AWS growth, though they do not report growth itself.",
+    "claim_ids": [
+      "synthetic_000241.c1",
+      "synthetic_000241.c2",
+      "synthetic_000241.c4"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000241",
+        "quote": "The filing describes a roughly 2.4GW dedicated block, phased 2027-2029, for a single \"hyperscale customer\" at a site adjacent to existing Amazon data center land holdings."
+      },
+      {
+        "email_id": "synthetic_000241",
+        "quote": "Our read, which the VP is prepared to discuss in general terms, is that the customer is AWS."
+      },
+      {
+        "email_id": "synthetic_000241",
+        "quote": "Our tracking of announced and filed AWS power commitments adds up to about 5.1GW through 2028."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000241.s2",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AMZN.p3",
+      "stance": "contradicts",
+      "strength": 1,
+      "relevance": 0.7,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates AMZN a hold while the desk is long; this email is an opinion from a non-sell-side source, so the street's view does not move.",
+      "assumption_impact": "The pillar holds that capital spending converts into AWS backlog rather than a lasting drag on free cash flow, and the desk models capex in line with consensus. The email's opinion that the Delmarre block is absent from Street 2027 capex and free cash flow estimates bears on that cash flow half. It points to capex that the street has not yet modeled, which would weigh on the base case rather than support it. The claim is an unconfirmed opinion with no figure and does not show whether the spending converts to backlog, so the desk's capex assumption is not tested directly here.",
+      "if_accepted": "Accepting logs weak, strength-1 contradicting evidence against AMZN.p3, unconfirmed and worth watching rather than acting on. No figure is stated for the linked capex driver, so no assumption changes and EPS and the target price would not recompute from this email."
+    },
+    "rationale": "The email's opinion that the block is missing from Street capex and free cash flow estimates touches the pillar's cash flow half, though it does not address backlog conversion.",
+    "claim_ids": [
+      "synthetic_000241.c6"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000241",
+        "quote": "We do not believe that is in Street 2027 capex or free cash flow estimates."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000096.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AMZN.p1",
+      "stance": "supports",
+      "strength": 1,
+      "relevance": 0.75,
+      "wrong_if_met": false,
+      "assumptions": [
+        {
+          "driver_id": "AMZN.aws_growth",
+          "stated_value": 21.0,
+          "book_value": 22.0,
+          "consensus_value": 19.0
+        }
+      ],
+      "street_view_shift": "toward_buy",
+      "street_view_note": "The street rates AMZN a hold while the desk is long; this upward estimate revision, which the email's Overweight rating suggests comes from the sell side, moves the street toward the desk's side.",
+      "assumption_impact": "The email raises its FY2026 AWS revenue growth estimate, which is the pillar's own subject, but it does not tie the revision to power or chip capacity, so it addresses the pillar only in part. The figure sits below the desk's AWS growth assumption and above consensus, which suggests the street is moving toward the desk's view without yet reaching the desk's level. The source is a forecast from a single analyst rather than reported results, so the evidence is credible but unconfirmed.",
+      "if_accepted": "Accepting logs weak, unconfirmed supporting evidence at strength 1 against AMZN.p1, a small step away from its wrong-if test. Because the email states a figure for the linked AWS growth driver, the analyst could update that assumption and see EPS and the target price recompute."
+    },
+    "rationale": "The email's AWS growth estimate speaks to the pillar's subject as a forecast, though it does not address the capacity mechanism the pillar names.",
+    "claim_ids": [
+      "synthetic_000096.c5"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000096",
+        "quote": "AWS growth 21% (was 18.5%)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000096.s2",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "AMZN",
+      "metric": "AMZN.aws_growth",
+      "period": "FY2026",
+      "stated_value": 21.0,
+      "book_value": 22.0,
+      "consensus_value": 19.0
+    },
+    "rationale": "The email states FY2026 AWS revenue growth of 21%, which sits below the desk's driver and above consensus.",
+    "claim_ids": [
+      "synthetic_000096.c5"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000096",
+        "quote": "AWS growth 21% (was 18.5%)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000096.s3",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "AMZN",
+      "metric": "AMZN.operating_margin",
+      "period": "FY2026",
+      "stated_value": 12.8,
+      "book_value": 13.5,
+      "consensus_value": 12.0
+    },
+    "rationale": "The email states FY2026 consolidated operating margin of 12.8%, which sits below the desk's driver and above consensus.",
+    "claim_ids": [
+      "synthetic_000096.c6"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000096",
+        "quote": "Consolidated operating margin 12.8% (was 12.2%)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000096.s4",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "AMZN",
+      "metric": "eps",
+      "period": "FY2026",
+      "stated_value": 7.45,
+      "book_value": 8.016951388591023,
+      "consensus_value": 7.091771022887229
+    },
+    "rationale": "The email states FY2026 EPS of $7.45, which sits below the desk's projection and above consensus.",
+    "claim_ids": [
+      "synthetic_000096.c7"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000096",
+        "quote": "EPS $7.45 (was $7.10)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000202.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AMZN.p2",
+      "stance": "supports",
+      "strength": 2,
+      "relevance": 0.8,
+      "wrong_if_met": false,
+      "assumptions": [
+        {
+          "driver_id": "AMZN.operating_margin",
+          "stated_value": 12.5,
+          "book_value": 13.5,
+          "consensus_value": 12.0
+        }
+      ],
+      "street_view_shift": "toward_buy",
+      "street_view_note": "The street rates AMZN a hold, below the desk's long; the upgrade to buy moves the street toward the desk's side.",
+      "assumption_impact": "The pillar relies on advertising adding high-margin revenue and on retail margin expanding. The sell-side estimate raises advertising revenue growth for FY2026, and the channel check reports Amazon's rising share of planned retail-media budgets, both supporting the advertising mechanism. The operating margin estimate for FY2026 rises to 12.5%, which points above consensus but below the desk's operating margin driver, so the margin assumption looks reasonable rather than stretched. The advertising and margin figures are sell-side estimates, and the channel check comes from a panel of 85 advertisers, so the evidence is credible but not company-confirmed.",
+      "if_accepted": "Accepting logs strength-2 supporting evidence against AMZN.p2 and moves the pillar further from its advertising-slowdown test. The stated operating margin figure is for a linked driver, so the analyst could update that assumption and see EPS and the target price recompute. The street's upgrade is recorded as moving toward the desk's long."
+    },
+    "rationale": "The estimate and channel check address the advertising half of the pillar's statement, and the margin estimate touches the company-level margin the pillar lists as a driver, though it is not the retail segment itself. The upgrade is a sell-side signal that moves the street's view toward the desk.",
+    "claim_ids": [
+      "synthetic_000202.c1",
+      "synthetic_000202.c3",
+      "synthetic_000202.c4",
+      "synthetic_000202.c7"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000202",
+        "quote": "AMZN: UPGRADE to BUY from HOLD. PT $255 (from $215)."
+      },
+      {
+        "email_id": "synthetic_000202",
+        "quote": "Advertising revenue growth: 23% (from 19%)"
+      },
+      {
+        "email_id": "synthetic_000202",
+        "quote": "Operating margin: 12.5% (from 11.9%)"
+      },
+      {
+        "email_id": "synthetic_000202",
+        "quote": "Our panel of 85 brand advertisers shows Amazon's share of planned Q4 retail-media budgets at 58%, up from 51% last year, with Prime Video ad loads now priced at a premium to the CTV market."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000202.s2",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "AMZN",
+      "metric": "AMZN.operating_margin",
+      "period": "FY2026",
+      "stated_value": 12.5,
+      "book_value": 13.5,
+      "consensus_value": 12.0
+    },
+    "rationale": "The email reports FY2026 operating margin of 12.5%, which sits below the desk's projection and above consensus.",
+    "claim_ids": [
+      "synthetic_000202.c4"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000202",
+        "quote": "Operating margin: 12.5% (from 11.9%)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000202.s3",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "AMZN",
+      "metric": "eps",
+      "period": "FY2026",
+      "stated_value": 7.6,
+      "book_value": 8.016951388591023,
+      "consensus_value": 7.091771022887229
+    },
+    "rationale": "The email reports FY2026 EPS of $7.60, which sits below the desk's projection and above consensus.",
+    "claim_ids": [
+      "synthetic_000202.c5"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000202",
+        "quote": "EPS: $7.60 (from $7.05)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000001.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AAPL.p1",
+      "stance": "supports",
+      "strength": 2,
+      "relevance": 0.9,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates AAPL a buy while the desk is short, and this channel check does not move the street's view.",
+      "assumption_impact": "The email reports that September-quarter iPhone upgrade rates at two national carriers are running below the internal plan, which is the pillar's exact subject: an upgrade cycle that disappoints. The reading is relayed second-hand from one carrier contact and covers only two carriers, so it is specific but not confirmed. It points below consensus on iPhone growth and supports the desk's below-consensus view. Company-reported unit or sell-through data would be needed to confirm the gap.",
+      "if_accepted": "Accepting logs strength-2 supporting evidence against AAPL.p1 as a specific channel signal, not yet confirmed. The email states no figure for a linked driver, so no assumption changes and the desk's conviction in the view is not raised beyond that evidence."
+    },
+    "rationale": "The channel check reports upgrade rates below plan, which speaks directly to the pillar's statement that the upgrade cycle disappoints, though it is relayed from carrier contacts rather than confirmed.",
+    "claim_ids": [
+      "synthetic_000001.c1"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000001",
+        "quote": "September-quarter iPhone 18 upgrade rates at her former employer and at one other national carrier are running roughly 15-20% below the internal plan set in July."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000009.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "GOOGL.p2",
+      "stance": "contradicts",
+      "strength": 2,
+      "relevance": 0.8,
+      "wrong_if_met": false,
+      "assumptions": [
+        {
+          "driver_id": "GOOGL.operating_margin",
+          "stated_value": 31.0,
+          "book_value": 30.0,
+          "consensus_value": 33.0
+        },
+        {
+          "driver_id": "GOOGL.cloud_growth",
+          "stated_value": 32.0,
+          "book_value": 28.0,
+          "consensus_value": 28.0
+        }
+      ],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates GOOGL a hold while the desk is short; these estimate revisions raise Cloud growth but leave operating margin unchanged, so they do not clearly move that view.",
+      "assumption_impact": "The estimate revision credits Cloud margin gains with offsetting higher depreciation, which is the mechanism the pillar's wrong-if test names. It tests GOOGL.operating_margin: the stated 31% sits above the desk's margin assumption and below consensus, so margin compression looks less certain than the desk's base case. The Cloud growth revision to 32% is also above the desk's assumption and consensus, which strengthens the offset. These are one sell-side analyst's forecasts rather than reported results, so the evidence is not yet confirmed.",
+      "if_accepted": "Accepting logs strength-2 contradicting evidence against GOOGL.p2, moving it toward its wrong-if test while the estimate remains unconfirmed. Because figures are stated for linked drivers, the analyst could update operating margin and Cloud growth and see EPS and the target price recompute."
+    },
+    "rationale": "The estimate revision says Cloud margin gains offset higher depreciation, which addresses the pillar's compression conclusion and its wrong-if test, though it is a forecast.",
+    "claim_ids": [
+      "synthetic_000009.c8",
+      "synthetic_000009.c5"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000009",
+        "quote": "Operating margin: 31% (unchanged; Cloud margin gains offset higher depreciation)"
+      },
+      {
+        "email_id": "synthetic_000009",
+        "quote": "Cloud revenue growth: 32% (from 27%)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000009.s2",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "GOOGL.p2",
+      "stance": "supports",
+      "strength": 2,
+      "relevance": 0.75,
+      "wrong_if_met": false,
+      "assumptions": [
+        {
+          "driver_id": "GOOGL.capex",
+          "stated_value": 104.0,
+          "book_value": 100.0,
+          "consensus_value": 93.0
+        }
+      ],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates GOOGL a hold while the desk is short; these estimate revisions raise capex and Cloud growth but leave operating margin unchanged, so they do not clearly move that view.",
+      "assumption_impact": "The email raises FY2026 capital expenditure to $104bn, which is the rising capex premise the pillar relies on. It tests GOOGL.capex: the stated figure is above the desk's capex assumption and above consensus, pointing to a heavier depreciation load than the street models. The comment that spend stays above the current run rate into Q4 is an opinion, so the evidence is a sell-side forecast rather than a reported result.",
+      "if_accepted": "Accepting logs strength-2 supporting evidence against GOOGL.p2, toward the desk's side of the pillar. Because the email states a capex figure, the analyst could update the capital expenditure assumption and see EPS and the target price recompute."
+    },
+    "rationale": "The estimate revision reports a higher capex figure, which addresses the pillar's rising-capex premise, though it is a forecast and not a reported result.",
+    "claim_ids": [
+      "synthetic_000009.c6",
+      "synthetic_000009.c7"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000009",
+        "quote": "Capex: $104bn (from $96bn)"
+      },
+      {
+        "email_id": "synthetic_000009",
+        "quote": "we think the capacity comments imply spend stays above the current run rate into Q4"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000009.s3",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "GOOGL",
+      "metric": "GOOGL.cloud_growth",
+      "period": "FY2026",
+      "stated_value": 32.0,
+      "book_value": 28.0,
+      "consensus_value": 28.0
+    },
+    "rationale": "The email states Google Cloud revenue growth of 32% for FY2026, which sits above both the desk's driver and consensus.",
+    "claim_ids": [
+      "synthetic_000009.c5"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000009",
+        "quote": "Cloud revenue growth: 32% (from 27%)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000009.s4",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "GOOGL",
+      "metric": "GOOGL.capex",
+      "period": "FY2026",
+      "stated_value": 104.0,
+      "book_value": 100.0,
+      "consensus_value": 93.0
+    },
+    "rationale": "The email states FY2026 capital expenditure of $104bn, which sits above both the desk's driver and consensus.",
+    "claim_ids": [
+      "synthetic_000009.c6"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000009",
+        "quote": "Capex: $104bn (from $96bn)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000009.s5",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "GOOGL",
+      "metric": "GOOGL.operating_margin",
+      "period": "FY2026",
+      "stated_value": 31.0,
+      "book_value": 30.0,
+      "consensus_value": 33.0
+    },
+    "rationale": "The email states an FY2026 operating margin of 31%, which sits above the desk's driver but below consensus.",
+    "claim_ids": [
+      "synthetic_000009.c8"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000009",
+        "quote": "Operating margin: 31% (unchanged; Cloud margin gains offset higher depreciation)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000009.s6",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "GOOGL",
+      "metric": "eps",
+      "period": "FY2026",
+      "stated_value": 9.4,
+      "book_value": 9.055970868127554,
+      "consensus_value": 10.23092228095094
+    },
+    "rationale": "The email states FY2026 EPS of $9.40, which sits above the desk's projection but below consensus. The email is not first-hand, so the figure would need confirmation from the source.",
+    "claim_ids": [
+      "synthetic_000009.c9"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000009",
+        "quote": "EPS: $9.40 (from $9.35)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000041.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "MSFT.p2",
+      "stance": "contradicts",
+      "strength": 1,
+      "relevance": 0.88,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates MSFT a buy, in line with the desk's long; this channel check is not a sell-side signal and does not move that view.",
+      "assumption_impact": "The channel check reports that about six Copilot renewals since July saw paid seat counts cut by 30-50% against the original commitment, with the stated reasons being CFO-led cost reviews and weak usage data. This goes to the pillar's own subject, paid AI assistants raising revenue per seat, and points the other way: seats are shrinking at renewal rather than broadening. It bears on the desk's linked productivity growth driver, where the desk sits above consensus, so the email points below that assumption and the above-consensus base case looks less secure. The evidence is relayed second-hand, covers a small sample of renewals, and is not confirmed. A second independent renewal check or reported seat data from the company would be needed to confirm or refute it.",
+      "if_accepted": "Accepting would log weak, unconfirmed strength-1 contradicting evidence against MSFT.p2, moving the pillar somewhat closer to its wrong-if test. It is worth watching rather than acting on. The email states no revenue figure for the linked driver, so no assumption update is suggested."
+    },
+    "rationale": "The channel check reports seat cuts at renewal, which is close to the renewal data the pillar's wrong-if test names, though it covers a small set of renewals and is relayed second-hand.",
+    "claim_ids": [
+      "synthetic_000041.c1",
+      "synthetic_000041.c2"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000041",
+        "quote": "In roughly six of the renewals he has seen since July, the customer cut the number of paid Copilot seats at renewal by 30-50% versus the original commitment."
+      },
+      {
+        "email_id": "synthetic_000041",
+        "quote": "The stated reasons were CFO-led cost reviews and weak usage data"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000003.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AMZN.p3",
+      "stance": "contradicts",
+      "strength": 2,
+      "relevance": 0.8,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates AMZN a hold while the desk is long; the email's estimate cuts do not record a move in the street's rating, so no shift is logged.",
+      "assumption_impact": "The email cuts 2027 free cash flow while raising 2027 capex above the Street figure it cites. That is the lasting drag on free cash flow that AMZN.p3 says capex should not become, so it contradicts the pillar's statement. The linked drivers are capex and AWS growth, but the figure here is for 2027 and the desk's capex driver is set for a different period, so no assumption is recorded. The evidence is a sell-side estimate change rather than reported results, and the email does not report backlog, so the wrong-if test is not shown to be met.",
+      "if_accepted": "Accepting logs strength-2 contradicting evidence against AMZN.p3 and moves the pillar toward the reading that capex is a drag on cash flow. No assumption is updated, because the stated figures are for 2027 and do not match the driver's period. The desk would hold the conversion view less firmly until backlog data confirms that spending turns into commitments."
+    },
+    "rationale": "The email's cut to 2027 free cash flow, alongside higher capex, speaks directly to the pillar's claim that capex does not become a lasting drag on free cash flow.",
+    "claim_ids": [
+      "synthetic_000003.c4",
+      "synthetic_000003.c2"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000003",
+        "quote": "2027 free cash flow cut to $22bn from $31bn"
+      },
+      {
+        "email_id": "synthetic_000003",
+        "quote": "2027 capex raised to $188bn from $172bn (Street ~$170bn)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000003.s2",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AMZN.p1",
+      "stance": "supports",
+      "strength": 2,
+      "relevance": 0.75,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates AMZN a hold while the desk is long; the email's Buy rating and estimate changes do not move that view.",
+      "assumption_impact": "The email reports that AWS-affiliated entities increased contracted peak load for energy starts between Q2 2027 and Q4 2028. This is contracted power, which is the capacity input AMZN.p1 relies on for AWS growth to re-accelerate, so it supports the pillar in part. It is a forward-dated commitment rather than capacity already added, and the entities are affiliates rather than AWS itself. No AWS growth figure is stated, so the desk's AWS growth driver is not tested here.",
+      "if_accepted": "Accepting logs strength-2 supporting evidence against AMZN.p1, a partial step away from its wrong-if test. No assumption changes, because the email states no AWS growth figure."
+    },
+    "rationale": "The reported increase in contracted peak load bears on the power-capacity half of the pillar's statement, though it is a future commitment rather than capacity already added.",
+    "claim_ids": [
+      "synthetic_000003.c1"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000003",
+        "quote": "AWS-affiliated entities increased contracted peak load by about 1.8GW for energy start dates between Q2 2027 and Q4 2028."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000027.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "MSFT.p1",
+      "stance": "supports",
+      "strength": 2,
+      "relevance": 0.85,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates MSFT a buy, in line with the desk's long; the partner's remark on the street's estimate is not a rating or estimate change, so the street's view does not move.",
+      "assumption_impact": "The email reports partner-channel figures for Azure consumption growth, which is the pillar's own subject: Azure growth running ahead of consensus. The reported rate is up on the prior quarter and points above the desk's Intelligent Cloud growth assumption and the street's figure. The metric is Azure consumption rather than the Intelligent Cloud revenue line the desk models, so the linked driver is not tested directly. The evidence is relayed through a median partner and eight of eleven partners describing acceleration, not company guidance, so it is credible but not confirmed.",
+      "if_accepted": "Accepting logs strength-2 supporting evidence against MSFT.p1 and moves the pillar further from its wrong-if test. No assumption changes, because the figure is for a metric other than the linked driver."
+    },
+    "rationale": "Partner channel checks report Azure consumption growth accelerating, which bears directly on the pillar's statement that Azure growth stays above consensus.",
+    "claim_ids": [
+      "synthetic_000027.c1",
+      "synthetic_000027.c2",
+      "synthetic_000027.c4"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000027",
+        "quote": "Median partner reported Azure consumption up ~41% y/y for the September quarter"
+      },
+      {
+        "email_id": "synthetic_000027",
+        "quote": "versus ~36% they described for the June quarter"
+      },
+      {
+        "email_id": "synthetic_000027",
+        "quote": "Eight of the 11 said they saw acceleration through September, led by AI inference workloads and Foundry usage."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000027.s2",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "MSFT.p1",
+      "stance": "contradicts",
+      "strength": 2,
+      "relevance": 0.8,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates MSFT a buy, in line with the desk's long, and this partner account does not move that view.",
+      "assumption_impact": "The pillar assumes new data-center capacity comes online and lets Azure growth catch up with backlog, with capacity front-loaded into the first half of the model year. Four partners say Microsoft told them directly that certain regions remain capacity-constrained through at least the first half of 2027. That runs against the timing the desk relies on, so it weighs against the premise that capacity loosens early enough to lift growth. The evidence is second-hand, relayed from partners, and not confirmed by company disclosure. A company statement or regional capacity data would confirm or refute it.",
+      "if_accepted": "Accepting logs strength-2 contradicting evidence against MSFT.p1 and moves the pillar closer to its wrong-if test on capacity constraints. The desk could hold the view less firmly until the timing is confirmed. No assumption changes, because the email states no figure for the linked driver."
+    },
+    "rationale": "The claim reports Microsoft's own statement, relayed by partners, that certain regions stay capacity-constrained into 2027, which bears on the pillar's premise that new capacity comes online to lift growth. It falls short of the wrong-if test, which requires two further quarters of constraints confirmed by the company.",
+    "claim_ids": [
+      "synthetic_000027.c5"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000027",
+        "quote": "Four partners said Microsoft told them directly that certain regions (US East 2, West Europe) are capacity-constrained through at least the first half of 2027."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000261.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AAPL.p1",
+      "stance": "contradicts",
+      "strength": 2,
+      "relevance": 0.75,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates AAPL a buy while the desk is short, and this email is channel data rather than a rating or estimate change, so the street's view does not move.",
+      "assumption_impact": "The email reports that two panel customers raised December-quarter orders by roughly 9-12% against plan, with the increase concentrated on the Pro Max. Panel orders are an upstream build signal, not sell-through or lead-time data, so the evidence bears on the pillar's subject, the strength of the iPhone cycle, but not on the test the pillar names. The base model orders were flat, which partly supports the pillar, and one relayed comment attributes the revision to strong pre-order conversion in the U.S. and Japan. The signal points above the desk's iPhone revenue growth assumption and in the direction of consensus, although panel orders are not a revenue figure and the desk's base case is untested by this data alone.",
+      "if_accepted": "Accepting logs strength-2 contradicting evidence against AAPL.p1, which moves the pillar toward its wrong-if test without meeting it, so the desk can hold the view less firmly. The email states no figure for the iPhone growth driver, so no assumption should be updated from it."
+    },
+    "rationale": "The email reports panel order increases that bear on the pillar's claim of a disappointing upgrade cycle, though the wrong-if test names sell-through or lead-time data rather than build orders.",
+    "claim_ids": [
+      "synthetic_000261.c1",
+      "synthetic_000261.c2",
+      "synthetic_000261.c4"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000261",
+        "quote": "Two panel customers raised their December-quarter orders with us by roughly 9-12% versus the plan we had in early September, and one asked for expedited shipment of the October lot."
+      },
+      {
+        "email_id": "synthetic_000261",
+        "quote": "The increase is on the Pro Max in particular, and the larger-size tooling lines are running close to full."
+      },
+      {
+        "email_id": "synthetic_000261",
+        "quote": "One customer told us the upward revision came from Apple's side after strong pre-order conversion in the U.S. and Japan, with fewer cancellations than last year."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000295.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AAPL.p1",
+      "stance": "contradicts",
+      "strength": 2,
+      "relevance": 0.85,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates AAPL a buy while the desk is short; this distributor channel check does not move the street's view.",
+      "assumption_impact": "The distributor reports stronger allocation and reorder activity for the Pro Max than for the base model, and expects a Pro Max shortage into the holidays. That bears on the pillar's upgrade-cycle premise, which the pillar says will disappoint, so it cuts against the desk's short. The figures are unit allocations and reorder volumes, not iPhone revenue growth, so the linked iPhone growth driver is not stated directly. Directionally the evidence points above the desk's iPhone growth assumption and toward consensus. The source is first-hand but from a single distributor, so it is strong for one channel rather than confirmed sell-through.",
+      "if_accepted": "Accepting logs strength-2 contradicting evidence against AAPL.p1, moving the pillar away from its statement without reaching its wrong-if test. The desk could hold the short with less confidence until sell-through or lead-time data from other channels confirm or refute this. No assumption changes, because the email gives no iPhone revenue growth figure."
+    },
+    "rationale": "The distributor's Pro Max allocation, reorder and shortage data speak to whether the upgrade cycle disappoints and to lead times, though they come from one channel and are not sell-through.",
+    "claim_ids": [
+      "synthetic_000295.c1",
+      "synthetic_000295.c2",
+      "synthetic_000295.c3",
+      "synthetic_000295.c4",
+      "synthetic_000295.c6",
+      "synthetic_000295.c8",
+      "synthetic_000295.c9"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000295",
+        "quote": "Pro Max allocation: +14% y/y in units."
+      },
+      {
+        "email_id": "synthetic_000295",
+        "quote": "Pro (6.3-inch): +9% y/y"
+      },
+      {
+        "email_id": "synthetic_000295",
+        "quote": "Base model: -4% y/y"
+      },
+      {
+        "email_id": "synthetic_000295",
+        "quote": "Our own reorder requests in the first 8 days of October were 31% above our September forecast"
+      },
+      {
+        "email_id": "synthetic_000295",
+        "quote": "Deep-orange and silver Pro Max are already showing 4-5 week ship windows on our portal."
+      },
+      {
+        "email_id": "synthetic_000295",
+        "quote": "our carrier-affiliate stores report that upgrade-eligible customers are asking about the Pro Max directly, which they didn't do last year."
+      },
+      {
+        "email_id": "synthetic_000295",
+        "quote": "it's the first time in three years we've been told to expect a Pro Max shortage into the holidays."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000036.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "MSFT.p2",
+      "stance": "contradicts",
+      "strength": 1,
+      "relevance": 0.8,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates MSFT a buy, in line with the desk's long, and a channel check does not move that view.",
+      "assumption_impact": "The channel check reports that some enterprises which bought Copilot in the first wave are now negotiating seat counts down at renewal, with discounts offered to keep the logo. This speaks to the pillar's premise that the paid assistant raises revenue per seat, so it cuts against the pillar. The source is second-hand and does not say how many customers are affected, so the evidence is early. It points below the desk's above-consensus Productivity growth view, but the email states no figure for MSFT.productivity_growth, so the assumption itself is untouched.",
+      "if_accepted": "Accepting logs a strength-1 contradicting signal against MSFT.p2, unconfirmed and worth watching rather than acting on. It moves the pillar only modestly toward its wrong-if test, and the desk's confidence in seat expansion would be reduced until renewal data confirm or refute the discounts. No driver figure is stated, so no assumption would be updated."
+    },
+    "rationale": "The channel check reports renewal seat reductions and discounting among first-wave Copilot buyers, which bears directly on the pillar's claim that the assistant raises revenue per seat, though it falls short of the broad renewal data the wrong-if test names.",
+    "claim_ids": [
+      "synthetic_000036.c1"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000036",
+        "quote": "A meaningful share of enterprises that bought Microsoft 365 Copilot in first-wave deals in late 2025 are now negotiating down seat counts at renewal, with discounts of 25-35% being offered to hold the logo"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000045.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "MSFT.p1",
+      "stance": "contradicts",
+      "strength": 3,
+      "relevance": 0.9,
+      "wrong_if_met": false,
+      "assumptions": [
+        {
+          "driver_id": "MSFT.intelligent_cloud_growth",
+          "stated_value": 20.5,
+          "book_value": 24.0,
+          "consensus_value": 21.5
+        }
+      ],
+      "street_view_shift": "toward_sell",
+      "street_view_note": "The street rates MSFT a buy, on the same side as the desk's long, and this target cut moves the street toward the desk's opposing side, away from the long.",
+      "assumption_impact": "The email's first-hand channel check reports four named US campuses slipping energization by one to two quarters, and two electrical contractors confirm switchgear delays for sites slated for spring 2027. This bears directly on the pillar's premise that new data-center capacity comes online through the model year and lets Azure growth outrun consensus. The sell-side estimate for Intelligent Cloud growth is cut to 20.5%, which points below both the desk's assumption and consensus, so the desk's above-consensus growth base case is under pressure. The channel check is first-hand and specific, while the estimate cut is one analyst's forecast.",
+      "if_accepted": "Accepting logs strength-3 contradicting evidence against MSFT.p1 and moves the pillar toward its wrong-if test, though the email does not show constraints persisting. Because the email states a figure for the linked Intelligent Cloud driver, the analyst could update that assumption and see EPS and the target price recompute. The desk's conviction on this pillar would be reduced, not settled."
+    },
+    "rationale": "The channel check speaks directly to whether data-center capacity comes online as the pillar states, and the contractor delays corroborate it; the sell-side estimate cut touches the same growth driver.",
+    "claim_ids": [
+      "synthetic_000045.c7",
+      "synthetic_000045.c8",
+      "synthetic_000045.c2",
+      "synthetic_000045.c1"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000045",
+        "quote": "our data center construction tracker showed four of Microsoft's announced US campuses slipping energization by one to two quarters."
+      },
+      {
+        "email_id": "synthetic_000045",
+        "quote": "Two electrical contractors confirmed delays on switchgear deliveries for sites originally slated for spring 2027."
+      },
+      {
+        "email_id": "synthetic_000045",
+        "quote": "Intelligent Cloud growth    20.5%   (prior 24.0%)"
+      },
+      {
+        "email_id": "synthetic_000045",
+        "quote": "MSFT - Outperform maintained, PT $560 (from $590)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000045.s2",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "MSFT.p3",
+      "stance": "contradicts",
+      "strength": 2,
+      "relevance": 0.85,
+      "wrong_if_met": false,
+      "assumptions": [
+        {
+          "driver_id": "MSFT.capex",
+          "stated_value": 121.0,
+          "book_value": 110.0,
+          "consensus_value": 110.0
+        },
+        {
+          "driver_id": "MSFT.operating_margin",
+          "stated_value": 43.5,
+          "book_value": 45.0,
+          "consensus_value": 45.0
+        }
+      ],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates MSFT a buy, the same side as the desk's long, and this capex increase and margin cut do not by themselves change that rating.",
+      "assumption_impact": "The sell-side estimates raise FY2027 capital expenditure and cut operating margin, which bears on the pillar's premise that capital intensity peaks within the model year and margin holds. A higher capex figure suggests the step-up is still rising rather than levelling off, and a lower margin suggests the depreciation load is not being absorbed. The capex figure sits above the desk's and consensus assumption, and the margin figure sits below both, so the base case that intensity peaks and margin holds looks less secure. This is a sell-side forecast rather than company guidance, so it adds weight without settling the question.",
+      "if_accepted": "Accepting logs strength-2 contradicting evidence against MSFT.p3, moving the pillar somewhat toward its wrong-if test without meeting it, since no backlog comparison is stated. Because the email states figures for the linked capex and operating margin drivers, the analyst could update those assumptions and see EPS and the target price recompute. The desk's conviction on this pillar would be reduced, not settled."
+    },
+    "rationale": "The capex raise and margin cut are sell-side forecasts that address whether capital intensity peaks and margin holds, but they state no backlog comparison, so the wrong-if test is not met.",
+    "claim_ids": [
+      "synthetic_000045.c3",
+      "synthetic_000045.c4"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000045",
+        "quote": "Capex incl. finance leases  $121bn  (prior $112bn)"
+      },
+      {
+        "email_id": "synthetic_000045",
+        "quote": "Operating margin            43.5%   (prior 45.0%)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000045.s3",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "MSFT",
+      "metric": "MSFT.intelligent_cloud_growth",
+      "period": "FY2027",
+      "stated_value": 20.5,
+      "book_value": 24.0,
+      "consensus_value": 21.5
+    },
+    "rationale": "The email states FY2027 Intelligent Cloud revenue growth of 20.5%, which sits below both the desk's driver and consensus.",
+    "claim_ids": [
+      "synthetic_000045.c2"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000045",
+        "quote": "Intelligent Cloud growth    20.5%   (prior 24.0%)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000045.s4",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "MSFT",
+      "metric": "MSFT.capex",
+      "period": "FY2027",
+      "stated_value": 121.0,
+      "book_value": 110.0,
+      "consensus_value": 110.0
+    },
+    "rationale": "The email states FY2027 capital expenditure including finance leases of $121bn, which sits above both the desk's driver and consensus.",
+    "claim_ids": [
+      "synthetic_000045.c3"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000045",
+        "quote": "Capex incl. finance leases  $121bn  (prior $112bn)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000045.s5",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "MSFT",
+      "metric": "MSFT.operating_margin",
+      "period": "FY2027",
+      "stated_value": 43.5,
+      "book_value": 45.0,
+      "consensus_value": 45.0
+    },
+    "rationale": "The email states FY2027 operating margin of 43.5%, which sits below both the desk's driver and consensus.",
+    "claim_ids": [
+      "synthetic_000045.c4"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000045",
+        "quote": "Operating margin            43.5%   (prior 45.0%)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000045.s6",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "MSFT",
+      "metric": "eps",
+      "period": "FY2027",
+      "stated_value": 18.1,
+      "book_value": 18.790995970481685,
+      "consensus_value": 18.487098093586475
+    },
+    "rationale": "The email states FY2027 EPS of $18.10, which sits below both the desk's projection and consensus.",
+    "claim_ids": [
+      "synthetic_000045.c5"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000045",
+        "quote": "EPS                         $18.10  (prior $18.70)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000049.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "GOOGL.p2",
+      "stance": "supports",
+      "strength": 1,
+      "relevance": 0.72,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates GOOGL a hold while the desk is short; this opinion does not show the street moving toward the desk's side.",
+      "assumption_impact": "The email says capex could rise beyond the Street's 2027 figure, which bears on the pillar's mechanism: higher capital spending feeding depreciation and compressing operating margin. The statement is an opinion about a possible future move rather than a reported result, and it cites a 2027 Street figure rather than the period of the linked capex driver, so no driver value is taken from it. The direction points above consensus, in line with the desk's view that capex runs ahead of the street. The evidence is one unattributed, non-first-hand view, so it needs company guidance or a second source before it can firm up the base case.",
+      "if_accepted": "Accepting logs weak, unconfirmed supporting evidence against GOOGL.p2 at strength 1, worth watching rather than acting on. It does not move the pillar meaningfully toward its wrong-if test, and no assumption changes because the figure is a 2027 Street number rather than a driver value for the modeled period."
+    },
+    "rationale": "The email's view that capex could exceed the Street figure speaks to the capex step-up the pillar names, though only as an unconfirmed opinion; the wrong-if test is not addressed.",
+    "claim_ids": [
+      "synthetic_000049.c8"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000049",
+        "quote": "could raise capex beyond the ~$185bn Street 2027 figure"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000049.s2",
+    "body": {
+      "kind": "new_thesis",
+      "ticker": "GOOGL",
+      "statement": "Google-managed TPU capacity placed in third-party facilities for external customers becomes a separate cloud revenue line.",
+      "wrong_if": "Reported third-party TPU pod installations are cancelled, stall past their delivery timing, or are reported as carrying Google's internal workloads rather than external customer contracts.",
+      "driver_ids": [
+        "GOOGL.cloud_growth"
+      ]
+    },
+    "rationale": "Two of three colo operators and a neocloud contact independently report Google-managed TPU pods being installed or contracted in third-party facilities, and one operator describes a take-or-pay contract with a 5-year term. A former Google contact says the purpose is to serve external customers rather than relieve internal capacity. The nearest pillar, GOOGL.p2, concerns capital expenditure compressing operating margin, whereas this idea concerns a new external revenue line from hosted TPU capacity, which no existing pillar addresses. For the statement to hold, these contracts would need to convert into recognised revenue from external customers as delivery proceeds. Reported cancellations, stalled installations, or evidence that the capacity serves Google's own workloads would prove it wrong.",
+    "claim_ids": [
+      "synthetic_000049.c1",
+      "synthetic_000049.c4",
+      "synthetic_000049.c5"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000049",
+        "quote": "Two of the three colo operators and one neocloud contact independently described Google-managed TPU pods being installed, or contracted for installation, in third-party facilities."
+      },
+      {
+        "email_id": "synthetic_000049",
+        "quote": "One operator said the contract has a take-or-pay structure with a 5-year term."
+      },
+      {
+        "email_id": "synthetic_000049",
+        "quote": "The former Google contact said the purpose is to serve external customers who want TPU capacity inside their own preferred regions or near existing GPU clusters, rather than to relieve Google's internal capacity."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000002.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "NVDA.p1",
+      "stance": "supports",
+      "strength": 2,
+      "relevance": 0.8,
+      "wrong_if_met": false,
+      "assumptions": [
+        {
+          "driver_id": "NVDA.data_center_growth",
+          "stated_value": 41.0,
+          "book_value": 38.0,
+          "consensus_value": 34.0
+        }
+      ],
+      "street_view_shift": "toward_buy",
+      "street_view_note": "The street rates NVDA a buy, on the same side as the desk's long; this estimate raise moves the street further toward the desk's side.",
+      "assumption_impact": "A sell-side estimate raises FY2027 Data Center growth to 41% from 36%. This is a forecast that bears directly on the pillar's claim that Data Center growth stays above consensus, and it supports that claim. The figure points above both the desk's value and consensus, so the above-consensus growth assumption has support from the street side. It is one analyst's estimate rather than reported results or first-hand data, so it confirms the direction without settling the level. The email's revenue and EPS changes are total-company figures and are not used here.",
+      "if_accepted": "Accepting logs strength-2 supporting evidence against NVDA.p1 as a forecast rather than a result. Because the email states a figure for the linked Data Center growth driver, the analyst could update that assumption and see EPS and the target price recompute. The desk could hold the above-consensus growth view with somewhat more support, though the evidence rests on a single estimate."
+    },
+    "rationale": "The sell-side estimate addresses the pillar's subject, Data Center growth above consensus, but as a forecast rather than a reported result.",
+    "claim_ids": [
+      "synthetic_000002.c6"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000002",
+        "quote": "Data Center growth: 41% y/y (from 36%)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000002.s2",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "NVDA.p2",
+      "stance": "supports",
+      "strength": 2,
+      "relevance": 0.75,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": "The street rates NVDA a buy, on the same side as the desk's long; these supply channel checks do not move the street's view.",
+      "assumption_impact": "Two first-hand channel checks bear on the supply half of this pillar. Two of three HBM suppliers report output committed to Nvidia running above the plan described in July, and two distributors report substrate lead times for large-body packages falling. Together they point to packaging and memory supply loosening, which supports the view that the newest platform can ship on schedule. Neither reports a shipment date, so the evidence is indirect on on-time delivery and comes from suppliers and distributors rather than the company. The email states no figure for a linked driver, so the desk's data center growth assumption is unchanged.",
+      "if_accepted": "Accepting logs strength-2 supporting evidence against NVDA.p2 and moves the pillar further from its wrong-if test of a quarter-long delay, though no delay has been reported. The desk could hold the supply view somewhat more firmly, but the evidence is channel data rather than company disclosure, and no assumption changes."
+    },
+    "rationale": "The two channel checks address HBM and packaging supply, which the pillar's statement covers, but they do not report on-schedule shipments, so the match is partial.",
+    "claim_ids": [
+      "synthetic_000002.c1",
+      "synthetic_000002.c2"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000002",
+        "quote": "Two of the three HBM suppliers told us their 1H27 HBM4 output committed to Nvidia is 15-20% above the plan they described in July."
+      },
+      {
+        "email_id": "synthetic_000002",
+        "quote": "ABF substrate lead times for large-body packages have come in to roughly 22 weeks from 30, per two distributors."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000002.s3",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "NVDA",
+      "metric": "revenue",
+      "period": "FY2027",
+      "stated_value": 302.0,
+      "book_value": 291.5805,
+      "consensus_value": 283.83101999999997
+    },
+    "rationale": "The email reports FY2027 revenue of $302bn, which sits above both the desk's projection and consensus.",
+    "claim_ids": [
+      "synthetic_000002.c4"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000002",
+        "quote": "Revenue: $302bn (from $288bn)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000002.s4",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "NVDA",
+      "metric": "NVDA.data_center_growth",
+      "period": "FY2027",
+      "stated_value": 41.0,
+      "book_value": 38.0,
+      "consensus_value": 34.0
+    },
+    "rationale": "The email reports FY2027 Data Center revenue growth of 41%, which sits above both the desk's driver and consensus.",
+    "claim_ids": [
+      "synthetic_000002.c6"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000002",
+        "quote": "Data Center growth: 41% y/y (from 36%)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000002.s5",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "NVDA",
+      "metric": "NVDA.operating_margin",
+      "period": "FY2027",
+      "stated_value": 63.0,
+      "book_value": 62.0,
+      "consensus_value": 62.0
+    },
+    "rationale": "The email reports FY2027 operating margin of 63%, which sits above both the desk's driver and consensus.",
+    "claim_ids": [
+      "synthetic_000002.c7"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000002",
+        "quote": "Operating margin: 63% (from 62%), on better fixed-cost absorption"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000002.s6",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "NVDA",
+      "metric": "eps",
+      "period": "FY2027",
+      "stated_value": 6.55,
+      "book_value": 6.259524663783959,
+      "consensus_value": 6.093162162891408
+    },
+    "rationale": "The email reports FY2027 EPS of $6.55, which sits above both the desk's projection and consensus.",
+    "claim_ids": [
+      "synthetic_000002.c8"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000002",
+        "quote": "EPS: $6.55 (from $6.12)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000214.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "GOOGL.p1",
+      "stance": "supports",
+      "strength": 3,
+      "relevance": 0.95,
+      "wrong_if_met": false,
+      "assumptions": [],
+      "street_view_shift": "toward_sell",
+      "street_view_note": "The street rates GOOGL a hold while the desk is short; the downgrade from buy to hold moves the street toward the desk's side.",
+      "assumption_impact": "The email reports that the share of commercial queries ending in an AI answer with no paid click rose from 22% in June to 31% in September, and that paid clicks per commercial query fell 6% over the same period. This is the pillar's own mechanism: AI answers taking clicks away from paid results on commercial queries, which is what the desk expects to pull Search revenue growth below consensus. The data is first-hand and reported rather than forecast, so it is material evidence. The claims do not state a figure for the Services growth driver, so that assumption is not changed by this email alone.",
+      "if_accepted": "Accepting logs strength-3 supporting evidence against GOOGL.p1 and moves the pillar further from its wrong-if test, which asks for paid-click and pricing data showing monetization holding or improving. The desk can hold the view more firmly on this evidence. No driver figure is stated, so no assumption would change from this email."
+    },
+    "rationale": "The claims report AI answers taking commercial-query clicks from paid results, which is the pillar's own mechanism for Search revenue growth falling below consensus. The downgrade is cited only for the street's shift.",
+    "claim_ids": [
+      "synthetic_000214.c1",
+      "synthetic_000214.c3",
+      "synthetic_000214.c4",
+      "synthetic_000214.c5"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000214",
+        "quote": "GOOGL - DOWNGRADE to HOLD from BUY"
+      },
+      {
+        "email_id": "synthetic_000214",
+        "quote": "shows that the share of commercial queries ending in an AI answer with no paid click rose to 31% in September from 22% in June."
+      },
+      {
+        "email_id": "synthetic_000214",
+        "quote": "Paid clicks per commercial query fell 6% over the same period."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000214.s2",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "GOOGL.p2",
+      "stance": "supports",
+      "strength": 1,
+      "relevance": 0.72,
+      "wrong_if_met": false,
+      "assumptions": [
+        {
+          "driver_id": "GOOGL.operating_margin",
+          "stated_value": 31.0,
+          "book_value": 30.0,
+          "consensus_value": 33.0
+        }
+      ],
+      "street_view_shift": "toward_sell",
+      "street_view_note": "The street rates GOOGL a hold while the desk is short; this cut to the operating margin estimate moves the street's view toward the desk's side.",
+      "assumption_impact": "The email cuts the FY2026 operating margin estimate. It is a sell-side forecast rather than reported results, and it addresses the margin-compression part of the pillar. The email does not tie the cut to capital expenditure or depreciation, so that link is inferred. The new estimate sits above the desk's operating margin assumption and below consensus, so it points partly toward the desk's view without confirming it. As a single analyst's estimate it adds only modest weight.",
+      "if_accepted": "Accepting logs strength-1 supporting evidence against GOOGL.p2 as an early estimate signal, with little movement toward its wrong-if test. The email states a figure for the linked operating margin driver, so the analyst could update that assumption and see EPS and the target price recompute."
+    },
+    "rationale": "The cut to the operating margin estimate speaks to the pillar's margin compression, though the email does not tie it to capital expenditure or depreciation.",
+    "claim_ids": [
+      "synthetic_000214.c8"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000214",
+        "quote": "Operating margin: 31.0% (from 32.5%)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000214.s3",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "GOOGL",
+      "metric": "GOOGL.services_growth",
+      "period": "FY2026",
+      "stated_value": 8.0,
+      "book_value": 7.0,
+      "consensus_value": 10.5
+    },
+    "rationale": "The email reports FY2026 Google Services revenue growth of 8.0%, which sits above the desk's projection and below consensus.",
+    "claim_ids": [
+      "synthetic_000214.c7"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000214",
+        "quote": "Google Services growth: 8.0% (from 9.0%)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000214.s4",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "GOOGL",
+      "metric": "GOOGL.operating_margin",
+      "period": "FY2026",
+      "stated_value": 31.0,
+      "book_value": 30.0,
+      "consensus_value": 33.0
+    },
+    "rationale": "The email reports FY2026 operating margin of 31.0%, which sits above the desk's projection and below consensus.",
+    "claim_ids": [
+      "synthetic_000214.c8"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000214",
+        "quote": "Operating margin: 31.0% (from 32.5%)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "synthetic_000214.s5",
+    "body": {
+      "kind": "projection_change",
+      "ticker": "GOOGL",
+      "metric": "eps",
+      "period": "FY2026",
+      "stated_value": 9.2,
+      "book_value": 9.055970868127554,
+      "consensus_value": 10.23092228095094
+    },
+    "rationale": "The email reports FY2026 EPS of $9.20, which sits above the desk's projection and below consensus.",
+    "claim_ids": [
+      "synthetic_000214.c9"
+    ],
+    "sections": [
+      {
+        "email_id": "synthetic_000214",
+        "quote": "EPS: $9.20 (from $9.75)"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  }
+]

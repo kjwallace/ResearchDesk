@@ -1,16 +1,144 @@
 [
   {
-    "summary": "The email names none of the five covered stocks; it concerns Brightstream Car Wash Group (BSCW). Whitlock & Rowe Securities is offering one of 12 buy-side seats at a lunch with the BSCW CFO and head of IR on Tuesday, November 3, hosted by its consumer services analyst. The email also includes highlights from a 22-page research report on BSCW.",
-    "why_attention": "Replying secures a seat for the desk in a small group with BSCW management, which is limited to 12 buy-side seats. The RSVP closes on a stated date. The company is not one of the five covered names.",
+    "summary": "The email bears on AAPL and GOOGL. Brightwell Capital Partners is offering one of six seats on a small-group call with the CFO of Valdora Interactive (VLDI), a mobile game publisher that Brightwell does not cover, on web-store share of mobile bookings and app store economics. The sender reports that VLDI's web-store share rose to 31% of mobile bookings in Q3 from 19% a year earlier.",
+    "why_attention": "Attending gives the desk first-hand management commentary on platform fee economics, which bears on how app store steering affects Apple and Alphabet. Seats are limited to six and the reply is requested by a stated time. The sender notes this is one publisher in one category, so the call would not show wider ecosystem effects.",
+    "action": "reply",
+    "follow_up": "",
+    "deadline": "2026-10-15T17:00:00",
+    "email_id": "synthetic_000305",
+    "sections": [
+      {
+        "email_id": "synthetic_000305",
+        "quote": "Brightwell is not covering the name, but your AAPL and GOOGL work may benefit from what the call can add on app store economics."
+      },
+      {
+        "email_id": "synthetic_000305",
+        "quote": "Only six seats, and VLDI is on the restricted list at no one's desk we know of, but please confirm with Compliance."
+      },
+      {
+        "email_id": "synthetic_000305",
+        "quote": "Please reply by 5pm tomorrow so I can hold your seat."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on MSFT and AAPL. Halvorsen & Pike Securities is offering one of four seats on a small-group call on Friday, 10:30-11:15am ET, with a former VP of Product at a mid-sized enterprise endpoint-management vendor. The sender says the call covers Windows 11 fleet data, Copilot and Apple Intelligence buying decisions, and Mac share of new enrollments.",
+    "why_attention": "Attending gives the desk access to a former senior product executive who can share what she saw through September, including fleet-level data on Windows 11 adoption and Mac share of new enrollments. Only four seats are offered and unused seats will be released, so access is scarce and time-limited.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-15T17:00:00",
+    "email_id": "synthetic_000324",
+    "sections": [
+      {
+        "email_id": "synthetic_000324",
+        "quote": "Only four slots; confirmation needed by 5pm Thursday so I can release unused seats."
+      },
+      {
+        "email_id": "synthetic_000324",
+        "quote": "She retains read access to aggregated, anonymized fleet-level benchmarks as a consultant and can share what she saw through September."
+      },
+      {
+        "email_id": "synthetic_000324",
+        "quote": "Windows 11 reached roughly 79% of managed Windows endpoints by end-September, vs. about 64% a year ago."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on NVDA. Halyard Expert Network is offering a 45-minute call on Friday 16 October 2026 with a Sales Director, Americas, at a Taiwan-listed high-speed cable assembler. The expert reports a revised Rubin rack backplane cable cartridge drawing with tighter signal-integrity tolerances and a failed first-article sample, and says a supply delay could push initial Rubin rack volume from late Q1 into Q2 2027. These points are unverified and come from a single source.",
+    "why_attention": "Attending gives the desk a supplier-side view of Rubin ramp timing ahead of NVDA's November report, which is useful for sizing timing risk. The slot is time-constrained because the expert travels on Friday afternoon, and the expert has confirmed he will not discuss non-public financials or customer-confidential information.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-15T12:00:00",
+    "email_id": "synthetic_000330",
+    "sections": [
+      {
+        "email_id": "synthetic_000330",
+        "quote": "His firm received a revised drawing for the Rubin rack backplane cable cartridge about three weeks ago, with tighter signal-integrity tolerances than the prior spec."
+      },
+      {
+        "email_id": "synthetic_000330",
+        "quote": "a delay in cable cartridge supply could push initial Rubin rack volume from late Q1 into Q2 2027"
+      },
+      {
+        "email_id": "synthetic_000330",
+        "quote": "Please let me know by noon Thursday to hold your seat."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on NVDA and MSFT. Dunmere Expert Network is offering one of two seats on a 45-minute call on Friday 7:45-8:30am ET with a former Principal Program Manager for Azure AI infrastructure capacity planning. The sender reports that a CY27 accelerator plan was revised up by roughly 18-20%, with most of the increment going to Nvidia rack-scale systems. This is the sender's account from a pre-screen, not verified data.",
+    "why_attention": "Attending gives the desk first-hand access to someone who worked on Azure GPU fleet forecasting until recently, on planning practices and industry dynamics. Only two seats are open, and the sender has set a reply deadline. The expert has said he will not discuss non-public Microsoft financials.",
+    "action": "reply",
+    "follow_up": "",
+    "deadline": "2026-10-15T17:00:00",
+    "email_id": "synthetic_000332",
+    "sections": [
+      {
+        "email_id": "synthetic_000332",
+        "quote": "By his account, almost all of the increment went to Nvidia rack-scale systems, and the in-house silicon allocation was left unchanged."
+      },
+      {
+        "email_id": "synthetic_000332",
+        "quote": "He was clear he does not know how much has since been placed with suppliers or what has been disclosed to investors."
+      },
+      {
+        "email_id": "synthetic_000332",
+        "quote": "Please let me know by 5pm tomorrow if you want a seat."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on AMZN. Pemberly Reid & Co. is offering a 45-minute small-group dial-in call on Thursday 15 October, 8:00-8:45am ET, with the chief economist of Brantley Card Analytics. The call covers the firm's de-identified card panel and Amazon's share of wallet and consumer trade-down. The sender reports pre-screened panel figures, including a rise of about 140bp y/y in Amazon's share of panel e-commerce card spend in September.",
+    "why_attention": "Attending gives the desk access to panel data the presenter says has not yet been distributed beyond her subscribers, ahead of the 29 October print the sender refers to. Seats are scarce (5 in total, 3 already held), and the sender needs confirmation by a stated time today.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-14T17:00:00",
+    "email_id": "synthetic_000341",
+    "sections": [
+      {
+        "email_id": "synthetic_000341",
+        "quote": "She will present data she has not yet distributed beyond her subscribers."
+      },
+      {
+        "email_id": "synthetic_000341",
+        "quote": "Only 5 seats and 3 are already held."
+      },
+      {
+        "email_id": "synthetic_000341",
+        "quote": "Please confirm by 5pm today so I can lock your line."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on AMZN and AAPL. Fenmoor Advisory Network is offering a 30-minute call with a former Amazon retail director who ran the Apple and consumer-electronics vendor relationship until August. The sender reports that Apple told Amazon's first-party team holiday-quarter iPhone and Mac allocations would be cut by roughly 20%. The sender says this is uncorroborated.",
+    "why_attention": "The call gives the desk first-hand access to a former insider on Apple's supply allocation to Amazon, which is hard to obtain elsewhere. The only slot offered is Thursday at 3:00pm ET, and the sender's reply deadline is tomorrow at noon.",
+    "action": "reply",
+    "follow_up": "",
+    "deadline": "2026-10-15T12:00:00",
+    "email_id": "synthetic_000365",
+    "sections": [
+      {
+        "email_id": "synthetic_000365",
+        "quote": "He said Apple told Amazon's first-party team that holiday-quarter allocations of iPhone and Mac would be cut by roughly 20% versus last year."
+      },
+      {
+        "email_id": "synthetic_000365",
+        "quote": "Thursday at 3:00pm ET is the only time he has before traveling."
+      },
+      {
+        "email_id": "synthetic_000365",
+        "quote": "If Thursday at 3:00pm ET works, reply by tomorrow noon and I'll send the dial-in."
+      }
+    ]
+  },
+  {
+    "summary": "The email names none of the five covered stocks. It bears on Brightstream Car Wash Group (BSCW), offering a 12-seat lunch with its CFO and head of IR on Tuesday, November 3, 12:00-1:30pm, in a private dining room in Midtown, hosted by Whitlock & Rowe's consumer services analyst.",
+    "why_attention": "Attending gives the desk direct access to the CFO and head of IR in a small buy-side group, with a discussion planned on weather-adjusted volumes, cost outlook and acquisitions of single-site operators. Seats are limited to 12 and the RSVP closes on a stated date.",
     "action": "reply",
     "follow_up": "",
     "deadline": "2026-10-23T23:59:59",
     "email_id": "synthetic_000380",
     "sections": [
-      {
-        "email_id": "synthetic_000380",
-        "quote": "We would like to invite you and your team to a small investor lunch with the CFO and head of IR of Brightstream Car Wash Group (BSCW)"
-      },
       {
         "email_id": "synthetic_000380",
         "quote": "Attendance: 12 buy-side seats"
@@ -22,16 +150,16 @@
     ]
   },
   {
-    "summary": "The email bears on MSFT. Kensington Vale Securities is offering one of three seats on a 40-minute call with a VP of Business Development at a Taiwanese chip packaging and test house (OSAT). The guest says his company was asked to pull in Q1 packaging and test slots for what he believes is Microsoft's Cobalt 200, at about 25-30% above the summer volume. The sender describes this as unconfirmed and as the guest's own read of the supply chain.",
-    "why_attention": "Attending gives the desk a direct line to someone who sees Cobalt 200 packaging demand first-hand, which the sender says few people do. Only three seats are offered and confirmation closes at noon the day after the email was sent.",
-    "action": "attend",
+    "summary": "The email bears on MSFT. Kensington Vale Securities is offering one of three seats on a 40-minute call with a business development VP at a Taiwanese OSAT, on what the sender describes as an unconfirmed pull-in of Q1 test and packaging slots for an Arm-based server CPU that he believes is Microsoft's Cobalt 200. The call is set for 8:00-8:40pm ET on Thursday, 15 October 2026.",
+    "why_attention": "Attending gives the desk first-hand market observations from a supplier-side executive with 14 years in role, who has been pre-screened and compliance-cleared, though he will not discuss his employer's non-public financials. Seats are limited to three and the sender needs an answer by a stated time.",
+    "action": "reply",
     "follow_up": "",
     "deadline": "2026-10-15T12:00:00",
     "email_id": "synthetic_000383",
     "sections": [
       {
         "email_id": "synthetic_000383",
-        "quote": "His company has been asked to pull in Q1 test and packaging slots for an Arm-based server CPU that he believes is Microsoft's Cobalt 200."
+        "quote": "He described the pull-in as about 25-30% above the volume he was given in the summer."
       },
       {
         "email_id": "synthetic_000383",
@@ -40,6 +168,280 @@
       {
         "email_id": "synthetic_000383",
         "quote": "Please let me know by noon tomorrow."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on GOOGL and AMZN. Brannock Hale Securities is offering a five-seat, 45-minute call on Friday 16 October 2026 (9:00-9:45am ET) with the CFO and the head of platform partnerships of Marrowgate Media Group (MRGT), following its pre-announcement. The sender says the call touches GOOGL and AMZN indirectly.",
+    "why_attention": "Attending gives the desk direct access to management of a company that has just cut guidance and reported falling search referrals, with compliance on the line. Management will stay within public disclosure, so the edge lies in the questions on referral granularity and licensing economics. Seats are limited to five and confirmation is due by a stated time.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-15T17:00:00",
+    "email_id": "synthetic_000385",
+    "sections": [
+      {
+        "email_id": "synthetic_000385",
+        "quote": "our analyst Colm Reyes has secured a small-group call with the CFO and the head of platform partnerships."
+      },
+      {
+        "email_id": "synthetic_000385",
+        "quote": "the counterparty description fits Amazon, and Alexa-related use is the obvious application."
+      },
+      {
+        "email_id": "synthetic_000385",
+        "quote": "Please confirm by 5pm Thursday."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on MSFT. Whitmore Lane Advisory is offering a small-group call on Thursday 15 October 2026, 10:30-11:15am ET, with a former Treasury and IRS international tax counsel. The call covers Microsoft's long-running Tax Court transfer-pricing dispute and Pillar Two exposure for U.S. software and cloud groups. The sender says the guest reads a late-November status conference as a sign the case may be close to settlement or a decision.",
+    "why_attention": "Attending gives the desk a first-hand view of how a settlement or judgment could be timed and sized, and what would show in the 28 October print. Only four seats are available, and the sender says the guest will discuss public information only, with compliance pre-cleared. The guest's views are her own, and the sender says none of this is in the MSFT numbers.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-14T17:00:00",
+    "email_id": "synthetic_000404",
+    "sections": [
+      {
+        "email_id": "synthetic_000404",
+        "quote": "A status conference in the long-running Microsoft transfer-pricing dispute (the matter disclosed in its 10-K) was calendared on the Tax Court docket for late November."
+      },
+      {
+        "email_id": "synthetic_000404",
+        "quote": "Four seats; please confirm by 5pm today."
+      },
+      {
+        "email_id": "synthetic_000404",
+        "quote": "Thursday 10:30-11:15am ET, dial-in on confirmation."
+      }
+    ]
+  },
+  {
+    "summary": "The email names none of the five covered stocks. It bears on Harwick Seeds & Traits (HWSD), and Brennick Capital Partners is offering a small investor dinner on Tuesday, November 10, at 6:30pm in a private dining room in Midtown, with the company's CEO and CFO. Attendance is capped at 14 investors.",
+    "why_attention": "Attending gives the desk direct access to HWSD's CEO and CFO in a small group, and seats are capped. The invitation comes from a broker's corporate access team and is tied to its own research note, so the desk should weigh it as a broker-hosted event promoting that research.",
+    "action": "reply",
+    "follow_up": "",
+    "deadline": "2026-10-30T23:59:59",
+    "email_id": "synthetic_000410",
+    "sections": [
+      {
+        "email_id": "synthetic_000410",
+        "quote": "Brennick's agribusiness team would like to invite you to a small investor dinner with the CEO and CFO of Harwick Seeds & Traits (HWSD)."
+      },
+      {
+        "email_id": "synthetic_000410",
+        "quote": "Attendance capped at 14 investors."
+      },
+      {
+        "email_id": "synthetic_000410",
+        "quote": "To RSVP, reply by Friday, Oct 30."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on NVDA and MSFT. Halvorsen & Pike Securities is offering one of three seats on a short-notice call on Thursday 15 October 2026, 1:45-2:30pm ET, with the Global Head of Cloud and AI Alliances at a large systems integrator. The call covers how Nvidia and Azure account-team tone and delivery terms have changed over the past six weeks.",
+    "why_attention": "Attending gives the desk a first-hand view from an integrator that co-sells joint Nvidia and Microsoft programs, on whether vendor delivery terms have eased. The sender calls this an early signal rather than a confirmed trend, and the guest's limited availability and the three seats make access scarce.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-15T10:00:00",
+    "email_id": "synthetic_000411",
+    "sections": [
+      {
+        "email_id": "synthetic_000411",
+        "quote": "Her team co-sells joint Nvidia and Microsoft \"AI factory\" programs to enterprise and public-sector clients and has run roughly 40 such engagements this year."
+      },
+      {
+        "email_id": "synthetic_000411",
+        "quote": "Only three seats are open and our guest has limited availability before travel."
+      },
+      {
+        "email_id": "synthetic_000411",
+        "quote": "Please confirm by 10am tomorrow."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on MSFT. Lindenhurst Policy & Markets is offering a small-group call on Thursday 15 October 2026, 4:30-5:15pm ET, with a former FTC Bureau of Competition deputy on the reported follow-up civil investigative demands tied to Microsoft cloud-licensing and AI product bundling. The subject line lists four seats. The sender says the reported demands are unconfirmed.",
+    "why_attention": "Attending gives the desk direct access to a former FTC deputy on the process and precedent of cloud and software-licensing inquiries, ahead of the 28th print. Seats are limited to four and the sender needs confirmation by 6pm tonight, so the access is time-limited.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-14T18:00:00",
+    "email_id": "synthetic_000438",
+    "sections": [
+      {
+        "email_id": "synthetic_000438",
+        "quote": "Former Deputy Director, FTC Bureau of Competition (left 2025, now in private practice, no current Microsoft engagement)."
+      },
+      {
+        "email_id": "synthetic_000438",
+        "quote": "We have not independently confirmed this, and Microsoft hasn't commented."
+      },
+      {
+        "email_id": "synthetic_000438",
+        "quote": "Please confirm by 6pm tonight so I can hold your seat."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on NVDA and AMZN. Ketterman Expert Network is offering a 45-minute call on Thursday 15 October 2026 with a former VP of Global Sales at a mid-cap 800V power-shelf supplier. The expert reports a September spec revision for a next-generation Nvidia rack and a roughly doubled order volume for shelves destined for Amazon's custom-silicon racks, and says this reflects one supplier's order book only.",
+    "why_attention": "Attending gives the desk a first-hand view of rack power spec changes and possible timing slips for Nvidia and Amazon programs, which the sender says it has not yet seen in the market. Only two seats are offered and the expert starts a new advisory role next week, so the access is time-limited.",
+    "action": "reply",
+    "follow_up": "",
+    "deadline": "2026-10-15T11:00:00",
+    "email_id": "synthetic_000442",
+    "sections": [
+      {
+        "email_id": "synthetic_000442",
+        "quote": "In our pre-screen he made two points that touch Nvidia and Amazon."
+      },
+      {
+        "email_id": "synthetic_000442",
+        "quote": "He was clear that this is one supplier's order book and that he does not have direct visibility on Nvidia or Amazon plans."
+      },
+      {
+        "email_id": "synthetic_000442",
+        "quote": "Please confirm by 11:00am tomorrow so we can reserve the seats."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on MSFT. Fenmoor & Associates is offering one of four seats on a small-group call on Thursday 15 October 2026, 5:30-6:15pm ET, with a managing director at Ostwick Infrastructure Partners. She leads lender syndication for a proposed joint venture that would own four AI data center campuses leased to Microsoft.",
+    "why_attention": "Attending gives the desk direct access to the lender-side view of a proposed roughly $18bn joint venture, which the sender says could affect how Microsoft's reported capex and free cash flow look. The seats are few and the confirmation window closes at noon on 15 October, and the speaker is limited to syndication process terms and will not discuss non-public Microsoft financial information.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-15T12:00:00",
+    "email_id": "synthetic_000450",
+    "sections": [
+      {
+        "email_id": "synthetic_000450",
+        "quote": "We have arranged a small-group call tomorrow evening that I think is directly relevant to your MSFT book and the capex debate into the Oct 28 print."
+      },
+      {
+        "email_id": "synthetic_000450",
+        "quote": "Please confirm by noon tomorrow so I can hold your seat."
+      },
+      {
+        "email_id": "synthetic_000450",
+        "quote": "she will speak only to terms of the syndication process and not to any non-public Microsoft financial information received under NDA."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on AMZN. Tercel Expert Network is offering one of three remaining seats on a 45-minute small-group call on Friday, 8:00-8:45am ET, with a former VP of Fulfillment Network Planning at Amazon who left in July 2026. The sender reports her view that North American cost-to-serve fell about 4.5% y/y through July, against a Street model near 2%.",
+    "why_attention": "Attending gives the desk direct access to a former Amazon planner's view of North American cost-to-serve, including how much of any saving may be reinvested, which the email names as the main uncertainty. Seats are limited to three and the sender sets a confirmation deadline.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-15T17:00:00",
+    "email_id": "synthetic_000477",
+    "sections": [
+      {
+        "email_id": "synthetic_000477",
+        "quote": "Three seats remain."
+      },
+      {
+        "email_id": "synthetic_000477",
+        "quote": "She says the Street models closer to a 2% y/y improvement in the fulfillment line."
+      },
+      {
+        "email_id": "synthetic_000477",
+        "quote": "Please confirm by 5pm tomorrow so I can release the seat."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on AAPL. Highpoint Expert Network is offering three seats on an 8:00-8:45am ET call on Thursday 15 October 2026 with a former Account Director on the Apple customer team at a leading foundry. The topics include the size and timing of the A20 allocation change on the N2 node and how much wafer cost Apple is absorbing.",
+    "why_attention": "Attending gives the desk first-hand access to a former Apple customer-team insider on A20 allocation and cost absorption, ahead of Apple's stated 29 October gross margin guide. Seats are limited to three and must be confirmed tonight. The sender's claims about the expert's views are the sender's account and are not verified in the email.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-14T18:00:00",
+    "email_id": "synthetic_000486",
+    "sections": [
+      {
+        "email_id": "synthetic_000486",
+        "quote": "I am holding three seats for Larchmont Ridge given your AAPL coverage, and I would like to confirm them by 6pm tonight."
+      },
+      {
+        "email_id": "synthetic_000486",
+        "quote": "Apple's initial A20 allocation on the leading-edge (N2) node for the 2027 iPhone cycle was cut by roughly 25-30% from the plan discussed in spring."
+      }
+    ]
+  },
+  {
+    "summary": "The email names none of the five covered stocks. Larchmont Ridge Capital's Office Operations Manager is asking the 41st-floor tenants to fill vacant floor warden roles before the mandatory fire and evacuation drill on Tuesday, October 20 at 10:15am.",
+    "why_attention": "This is an internal building-safety request with no market access, information or edge for the desk. Attending or replying keeps the firm compliant with the mandatory drill and avoids building management assigning a temporary warden from another tenant.",
+    "action": "reply",
+    "follow_up": "",
+    "deadline": "2026-10-16T23:59:59",
+    "email_id": "synthetic_000515",
+    "sections": [
+      {
+        "email_id": "synthetic_000515",
+        "quote": "the floor warden roster for the 41st floor needs to be confirmed by this Friday."
+      },
+      {
+        "email_id": "synthetic_000515",
+        "quote": "Could one of you take the deputy warden role, or nominate someone from the trading floor?"
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on AAPL. Wexler Dunn Securities Corporate Access is offering one of four seats on a Thursday 9:30-10:15am ET call with a former Apple Director, Component Procurement (memory and storage), on how Apple's memory contracts are structured. The sender reports the guest's view that Apple had fixed pricing on roughly 70% of its CY27 LPDDR5X volume.",
+    "why_attention": "Attending gives the desk first-hand expert detail on the terms and timing of Apple's memory supply contracts, which the sender links to the AAPL margin debate. Seats are limited to four and the sender needs confirmation by a stated time.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-14T18:00:00",
+    "email_id": "synthetic_000525",
+    "sections": [
+      {
+        "email_id": "synthetic_000525",
+        "quote": "In our pre-screen she said that, as of her exit, Apple had fixed pricing on roughly 70% of its CY27 LPDDR5X volume through the end of June 2027."
+      },
+      {
+        "email_id": "synthetic_000525",
+        "quote": "Four seats only. Please confirm by 6pm tonight so I can hold yours."
+      }
+    ]
+  },
+  {
+    "summary": "The email names none of the five covered stocks. Office Operations at Larchmont Ridge Capital is asking for 15 minutes to confirm the TMT desk's seating plan for the 41st floor reconfiguration, when the desk moves from Monday 26 to Friday 30 October. It offers no research access, information or edge.",
+    "why_attention": "The email is an internal logistics request, not a sales pitch. Confirming the plan affects equipment, market-data connectivity and the timing of the move for the desk, so the request needs a person.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": null,
+    "email_id": "synthetic_000558",
+    "sections": [
+      {
+        "email_id": "synthetic_000558",
+        "quote": "facilities will be moving the TMT desk to the east side of the floor from Monday Oct 26 through Friday Oct 30."
+      },
+      {
+        "email_id": "synthetic_000558",
+        "quote": "We'd like 15 minutes with one of you to confirm the seating plan before the movers' sheet is finalized."
+      },
+      {
+        "email_id": "synthetic_000558",
+        "quote": "IT will do a final market-data connectivity check on Friday Oct 30 at 6:00pm."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on NVDA. Kerrigan Lowe Securities is offering a call on Thursday 15 October 2026, 8:30-9:15am ET, with a former Nvidia Senior Manager of Advanced Packaging Engineering, now at a Taiwan-based test-socket supplier. The call covers a revised socket spec and re-sequenced orders for the Rubin final-test package, and the sender reports a 3-5 week push-out in early final-test volumes, which is not confirmed.",
+    "why_attention": "Attending gives the desk a supplier-side view of whether a socket re-spec signals a stepping change on the Rubin package and how quickly it would show in shipments, ahead of the November print and Rubin timing questions. Three seats are held, the guest's window is narrow, and compliance has pre-cleared him and he has confirmed he holds no MNPI.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-14T17:00:00",
+    "email_id": "synthetic_000577",
+    "sections": [
+      {
+        "email_id": "synthetic_000577",
+        "quote": "he said his company received a revised socket spec and a re-sequenced order schedule from an OSAT customer last week"
+      },
+      {
+        "email_id": "synthetic_000577",
+        "quote": "volumes for the first two months of final-test capacity were pushed out by roughly 3-5 weeks"
+      },
+      {
+        "email_id": "synthetic_000577",
+        "quote": "Please confirm by 5pm today so I can release the third seat if needed."
       }
     ]
   }
