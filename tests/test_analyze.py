@@ -359,13 +359,16 @@ def test_per_email_cap_keeps_the_most_relevant() -> None:
 
 def test_relevance_and_street_view_shift_carried_into_the_suggestion() -> None:
     draft = existing("MSFT.p1", "fixture_001.c1", relevance=0.85)
-    draft.update(street_view_shift="toward_buy", street_view_note="Analysts raised targets.")
+    draft.update(street_view_shift="toward_buy", street_view_note="Analysts raised targets.",
+                 assumption_impact="The email points above the desk's Intelligent Cloud growth assumption.",
+                 if_accepted="Accepting logs strength-2 supporting evidence against MSFT.p1.")
     script = Script([step("alter_existing_thesis", claim_ids=["fixture_001.c1"])], alter=[{"suggestions": [draft]}])
     _, made, _ = run_one(script)
     body = made[0].body
     assert isinstance(body, ExistingThesis)
     assert (body.relevance, body.street_view_shift, body.street_view_note) == (
         0.85, "toward_buy", "Analysts raised targets.")
+    assert body.assumption_impact.startswith("The email points above") and body.if_accepted.startswith("Accepting logs")
     Suggestion.model_validate(made[0].model_dump())
 
 

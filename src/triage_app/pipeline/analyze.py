@@ -142,6 +142,7 @@ def existing_body(draft: ExistingThesisDraft, book: BookState) -> ExistingThesis
                                       consensus_value=drivers[a.driver_id].consensus)
                      for a in draft.assumptions if a.driver_id in drivers],
         street_view_shift=draft.street_view_shift, street_view_note=draft.street_view_note,
+        assumption_impact=draft.assumption_impact, if_accepted=draft.if_accepted,
     )
 
 

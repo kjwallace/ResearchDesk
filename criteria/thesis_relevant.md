@@ -10,3 +10,4 @@ New, specific information that would support, challenge or change a reasonable i
 - R4: A reported figure, guidance change, order, ruling or decision that differs from what is widely known qualifies; careful analysis that only restates widely known figures or guidance belongs in redundant.
 - R5: Judge only the information itself, not sender prestige, writing quality, length or formatting; a short informal note with one material specific fact qualifies.
 - R6: When one material item sits inside promotional or unrelated material, judge the email by that item and ignore the rest.
+- R7: A figure reported as steady, unchanged or in line with a widely tracked level adds nothing new; choose redundant, not thesis_relevant.

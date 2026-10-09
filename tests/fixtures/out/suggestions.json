@@ -10,7 +10,9 @@
       "wrong_if_met": false,
       "assumptions": [],
       "street_view_shift": "none",
-      "street_view_note": ""
+      "street_view_note": "",
+      "assumption_impact": "",
+      "if_accepted": ""
     },
     "rationale": "A supplier report that memory for the next platform is booked and on schedule supports the supply pillar.",
     "claim_ids": [
@@ -49,7 +51,9 @@
         }
       ],
       "street_view_shift": "none",
-      "street_view_note": ""
+      "street_view_note": "",
+      "assumption_impact": "",
+      "if_accepted": ""
     },
     "rationale": "Reseller checks put Azure growth above consensus and show capacity arriving early, which supports the Azure pillar.",
     "claim_ids": [
@@ -81,7 +85,9 @@
       "wrong_if_met": false,
       "assumptions": [],
       "street_view_shift": "none",
-      "street_view_note": ""
+      "street_view_note": "",
+      "assumption_impact": "",
+      "if_accepted": ""
     },
     "rationale": "A distributor report of trimmed iPhone build orders supports the view that the upgrade cycle disappoints.",
     "claim_ids": [
