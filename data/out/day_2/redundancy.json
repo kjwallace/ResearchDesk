@@ -1,0 +1,303 @@
+[
+  {
+    "email_id": "synthetic_000325",
+    "nearest": "synthetic_000307",
+    "content_similarity": 0.8259373903274536,
+    "subject_score": 0.6372549019607843,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000342",
+    "nearest": "synthetic_000316",
+    "content_similarity": 0.7941375970840454,
+    "subject_score": 0.6496350364963505,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000346",
+    "nearest": "synthetic_000340",
+    "content_similarity": 0.863810658454895,
+    "subject_score": 0.5538461538461539,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000355",
+    "nearest": "synthetic_000332",
+    "content_similarity": 0.8595259785652161,
+    "subject_score": 0.44705882352941173,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000372",
+    "nearest": "synthetic_000313",
+    "content_similarity": 0.8892809152603149,
+    "subject_score": 0.4487179487179487,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000383",
+    "nearest": "synthetic_000332",
+    "content_similarity": 0.8682482242584229,
+    "subject_score": 0.4392523364485982,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000403",
+    "nearest": "synthetic_000370",
+    "content_similarity": 0.7986667156219482,
+    "subject_score": 0.6265060240963856,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000411",
+    "nearest": "synthetic_000332",
+    "content_similarity": 0.8900343179702759,
+    "subject_score": 0.4493392070484582,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000412",
+    "nearest": "synthetic_000380",
+    "content_similarity": 0.8009740114212036,
+    "subject_score": 0.6031746031746031,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000435",
+    "nearest": "synthetic_000411",
+    "content_similarity": 0.867282509803772,
+    "subject_score": 0.4715447154471545,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000438",
+    "nearest": "synthetic_000411",
+    "content_similarity": 0.877242922782898,
+    "subject_score": 0.5194805194805194,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000439",
+    "nearest": "synthetic_000407",
+    "content_similarity": 0.8734291195869446,
+    "subject_score": 0.35294117647058826,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000440",
+    "nearest": "synthetic_000339",
+    "content_similarity": 0.8528801798820496,
+    "subject_score": 0.36458333333333337,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000441",
+    "nearest": "synthetic_000313",
+    "content_similarity": 0.8529360890388489,
+    "subject_score": 0.4761904761904762,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000442",
+    "nearest": "synthetic_000332",
+    "content_similarity": 0.8625506162643433,
+    "subject_score": 0.4095238095238095,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000443",
+    "nearest": "synthetic_000357",
+    "content_similarity": 0.7569354176521301,
+    "subject_score": 0.6702702702702703,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000450",
+    "nearest": "synthetic_000438",
+    "content_similarity": 0.8713120222091675,
+    "subject_score": 0.5930599369085173,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000454",
+    "nearest": "synthetic_000309",
+    "content_similarity": 0.8658798933029175,
+    "subject_score": 0.47161572052401746,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000462",
+    "nearest": "synthetic_000372",
+    "content_similarity": 0.8745273947715759,
+    "subject_score": 0.36666666666666664,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000470",
+    "nearest": "synthetic_000433",
+    "content_similarity": 0.7787785530090332,
+    "subject_score": 0.6086956521739131,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000472",
+    "nearest": "synthetic_000453",
+    "content_similarity": 0.8677686452865601,
+    "subject_score": 0.4233576642335766,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000475",
+    "nearest": "synthetic_000367",
+    "content_similarity": 0.8272531032562256,
+    "subject_score": 0.7387387387387387,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000476",
+    "nearest": "synthetic_000458",
+    "content_similarity": 0.8940608501434326,
+    "subject_score": 0.6495726495726495,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000477",
+    "nearest": "synthetic_000408",
+    "content_similarity": 0.8795343041419983,
+    "subject_score": 0.3983739837398374,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000479",
+    "nearest": "synthetic_000365",
+    "content_similarity": 0.8610972166061401,
+    "subject_score": 0.4292237442922374,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000486",
+    "nearest": "synthetic_000479",
+    "content_similarity": 0.864361047744751,
+    "subject_score": 0.531986531986532,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000488",
+    "nearest": "synthetic_000332",
+    "content_similarity": 0.8608217239379883,
+    "subject_score": 0.41379310344827586,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000493",
+    "nearest": "synthetic_000411",
+    "content_similarity": 0.8645364046096802,
+    "subject_score": 0.5659163987138264,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000505",
+    "nearest": "synthetic_000407",
+    "content_similarity": 0.8850329518318176,
+    "subject_score": 0.4807692307692308,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000507",
+    "nearest": "synthetic_000388",
+    "content_similarity": 0.7752925157546997,
+    "subject_score": 0.7256637168141593,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000509",
+    "nearest": "synthetic_000313",
+    "content_similarity": 0.8619979619979858,
+    "subject_score": 0.7675675675675676,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000516",
+    "nearest": "synthetic_000453",
+    "content_similarity": 0.8585460186004639,
+    "subject_score": 0.4838709677419355,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000520",
+    "nearest": "synthetic_000446",
+    "content_similarity": 0.8761247396469116,
+    "subject_score": 0.4577114427860697,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000521",
+    "nearest": "synthetic_000346",
+    "content_similarity": 0.7778459787368774,
+    "subject_score": 0.6086956521739131,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000525",
+    "nearest": "synthetic_000486",
+    "content_similarity": 0.8736019730567932,
+    "subject_score": 0.7719298245614036,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000535",
+    "nearest": "synthetic_000497",
+    "content_similarity": 0.8511501550674438,
+    "subject_score": 0.3495145631067962,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000549",
+    "nearest": "synthetic_000361",
+    "content_similarity": 0.8602827191352844,
+    "subject_score": 0.39473684210526316,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000556",
+    "nearest": "synthetic_000411",
+    "content_similarity": 0.8598706722259521,
+    "subject_score": 0.41379310344827586,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000559",
+    "nearest": "synthetic_000525",
+    "content_similarity": 0.8580495119094849,
+    "subject_score": 0.4315352697095436,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000577",
+    "nearest": "synthetic_000350",
+    "content_similarity": 0.8647965788841248,
+    "subject_score": 0.39834024896265563,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000588",
+    "nearest": "synthetic_000355",
+    "content_similarity": 0.8508914113044739,
+    "subject_score": 0.4954954954954955,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000594",
+    "nearest": "synthetic_000477",
+    "content_similarity": 0.8528621196746826,
+    "subject_score": 0.36771300448430494,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000597",
+    "nearest": "synthetic_000520",
+    "content_similarity": 0.9224026799201965,
+    "subject_score": 0.6162790697674418,
+    "flagged": true
+  }
+]

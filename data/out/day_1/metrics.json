@@ -1,145 +1,79 @@
 {
   "corpus": "day_1",
-  "run_at": "2026-10-09T05:48:00.963014Z",
+  "run_at": "2026-10-09T07:09:11.929860Z",
   "emails": 300,
   "stages": {
     "analyze": {
-      "calls": 257,
-      "cache_hits": 223,
-      "input_tokens": 153200,
-      "output_tokens": 11438,
-      "uncached_input_tokens": 1155606,
-      "uncached_output_tokens": 96993,
-      "latency_p50_ms": 56.379166431725025,
-      "latency_p95_ms": 17560.867531923577,
-      "latency_max_ms": 22846.469750162214
-    },
-    "classify": {
-      "calls": 300,
-      "cache_hits": 0,
-      "input_tokens": 1218005,
-      "output_tokens": 119658,
-      "uncached_input_tokens": 1218005,
-      "uncached_output_tokens": 119658,
-      "latency_p50_ms": 106.70914547517896,
-      "latency_p95_ms": 154.05321882572025,
-      "latency_max_ms": 561.9909157976508
+      "calls": 266,
+      "cache_hits": 266,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "uncached_input_tokens": 1189562,
+      "uncached_output_tokens": 201435,
+      "latency_p50_ms": 28.09306257404387,
+      "latency_p95_ms": 33.962874906137586,
+      "latency_max_ms": 38.109791930764914
     },
     "extract": {
       "calls": 66,
-      "cache_hits": 64,
-      "input_tokens": 7993,
-      "output_tokens": 2612,
+      "cache_hits": 66,
+      "input_tokens": 0,
+      "output_tokens": 0,
       "uncached_input_tokens": 262472,
-      "uncached_output_tokens": 96064,
-      "latency_p50_ms": 13.435583095997572,
-      "latency_p95_ms": 27.519844006747007,
-      "latency_max_ms": 13252.248749602586
-    },
-    "gate": {
-      "calls": 0,
-      "cache_hits": 0,
-      "input_tokens": 0,
-      "output_tokens": 0,
-      "uncached_input_tokens": 0,
-      "uncached_output_tokens": 0,
-      "latency_p50_ms": 0.00537489540874958,
-      "latency_p95_ms": 0.008424255065619947,
-      "latency_max_ms": 0.1444169320166111
-    },
-    "human_attention": {
-      "calls": 20,
-      "cache_hits": 20,
-      "input_tokens": 0,
-      "output_tokens": 0,
-      "uncached_input_tokens": 48521,
-      "uncached_output_tokens": 6879,
-      "latency_p50_ms": 12.462145881727338,
-      "latency_p95_ms": 33.80898497998743,
-      "latency_max_ms": 416.1757919937372
+      "uncached_output_tokens": 144368,
+      "latency_p50_ms": 6.0503745917230844,
+      "latency_p95_ms": 7.071135682053864,
+      "latency_max_ms": 474.1662088781595
     },
     "merge": {
-      "calls": 6,
-      "cache_hits": 6,
+      "calls": 3,
+      "cache_hits": 3,
       "input_tokens": 0,
       "output_tokens": 0,
-      "uncached_input_tokens": 208,
+      "uncached_input_tokens": 69,
       "uncached_output_tokens": 0,
       "latency_p50_ms": 0.0,
       "latency_p95_ms": 0.0,
       "latency_max_ms": 0.0
     },
-    "redundancy": {
-      "calls": 309,
-      "cache_hits": 309,
+    "validate": {
+      "calls": 18,
+      "cache_hits": 18,
       "input_tokens": 0,
       "output_tokens": 0,
-      "uncached_input_tokens": 109382,
+      "uncached_input_tokens": 341,
       "uncached_output_tokens": 0,
-      "latency_p50_ms": 2.6855419855564833,
-      "latency_p95_ms": 3.8022606400772934,
-      "latency_max_ms": 9276.05833299458
-    },
-    "validate": {
-      "calls": 21,
-      "cache_hits": 0,
-      "input_tokens": 480,
-      "output_tokens": 0,
-      "uncached_input_tokens": 480,
-      "uncached_output_tokens": 0,
-      "latency_p50_ms": 0.14035403728485107,
-      "latency_p95_ms": 9.106489713303745,
-      "latency_max_ms": 403.4617920406163
+      "latency_p50_ms": 0.15975022688508034,
+      "latency_p95_ms": 0.36764126271009456,
+      "latency_max_ms": 5027.904499787837
     }
   },
   "by_model": {
     "BAAI/bge-small-en-v1.5": {
-      "calls": 336,
-      "cache_hits": 315,
-      "input_tokens": 480,
-      "output_tokens": 0,
-      "uncached_input_tokens": 110070,
-      "uncached_output_tokens": 0,
-      "latency_p50_ms": 0.12772902846336365,
-      "latency_p95_ms": 7.516010431572795,
-      "latency_max_ms": 162.451374810189
-    },
-    "anthropic/claude-haiku-4.5": {
-      "calls": 20,
-      "cache_hits": 20,
+      "calls": 21,
+      "cache_hits": 21,
       "input_tokens": 0,
       "output_tokens": 0,
-      "uncached_input_tokens": 48521,
-      "uncached_output_tokens": 6879,
-      "latency_p50_ms": 0.08554127998650074,
-      "latency_p95_ms": 0.09504312183707952,
-      "latency_max_ms": 0.0966670922935009
+      "uncached_input_tokens": 410,
+      "uncached_output_tokens": 0,
+      "latency_p50_ms": 0.12429198250174522,
+      "latency_p95_ms": 0.18329080194234848,
+      "latency_max_ms": 0.29900018125772476
     },
-    "anthropic/claude-sonnet-5.5": {
-      "calls": 323,
-      "cache_hits": 287,
-      "input_tokens": 161193,
-      "output_tokens": 14050,
-      "uncached_input_tokens": 1418078,
-      "uncached_output_tokens": 193057,
-      "latency_p50_ms": 0.08583301678299904,
-      "latency_p95_ms": 3674.3747500237073,
-      "latency_max_ms": 13235.289583913982
-    },
-    "jev-1.13.0": {
-      "calls": 300,
-      "cache_hits": 0,
-      "input_tokens": 1218005,
-      "output_tokens": 119658,
-      "uncached_input_tokens": 1218005,
-      "uncached_output_tokens": 119658,
-      "latency_p50_ms": 104.31064618751407,
-      "latency_p95_ms": 150.8889058372006,
-      "latency_max_ms": 558.4080829285085
+    "anthropic/claude-haiku-5.5": {
+      "calls": 332,
+      "cache_hits": 332,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "uncached_input_tokens": 1452034,
+      "uncached_output_tokens": 345803,
+      "latency_p50_ms": 0.08193752728402615,
+      "latency_p95_ms": 0.1642582705244422,
+      "latency_max_ms": 0.3987089730799198
     }
   },
-  "tokens_per_email_mean": 5044.62,
-  "email_latency_p50_ms": 115.74187525548041,
-  "email_latency_p95_ms": 247.73476959671845,
-  "total_latency_ms": 213190.83329150453
+  "tokens_per_email_mean": 0.0,
+  "email_latency_p50_ms": 34.065687796100974,
+  "email_latency_p95_ms": 43.075552326627076,
+  "total_latency_ms": 8342.661957722157
 }

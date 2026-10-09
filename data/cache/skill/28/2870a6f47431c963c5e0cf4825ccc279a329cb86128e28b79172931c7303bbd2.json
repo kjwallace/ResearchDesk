@@ -1,0 +1,1 @@
+{"estimated": false, "input_tokens": 5051, "output_tokens": 207, "value": {"input_tokens": 5051, "model": "anthropic/claude-haiku-5.5", "output_tokens": 207, "text": "```json\n{\"result\": {\"suggestions\": [], \"no_change_reason\": \"Both claims come from synthetic_000419, which is labelled monitor, and a monitor email is not enough alone to support a new thesis.\"}}\n```"}}

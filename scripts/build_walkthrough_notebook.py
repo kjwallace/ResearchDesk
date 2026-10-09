@@ -48,8 +48,9 @@ show_email(email)
 The email is embedded with the Hugging Face model and compared with every **earlier** email of the same day (cosine similarity), plus a token-set comparison of subjects. A flag is only a hint; stage 4 decides what to do with it.
 """),
         code("""
-day = redundancy.build_day_cache(earlier_than(email), ctx)
-repeat = redundancy.process(email, day, ctx)
+with stage("redundancy"):
+    day = redundancy.build_day_cache(earlier_than(email), ctx)
+    repeat = redundancy.process(email, day, ctx)
 show(repeat)
 flagged = repeat if repeat.flagged else None
 """),
@@ -59,7 +60,8 @@ flagged = repeat if repeat.flagged else None
 One request with all 14 questions. Jev receives the email and the desk's relevance criteria (`criteria/*.md`) and nothing else: no book, no positions, no other emails, no repeat flag. It returns probabilities, not decisions.
 """),
         code("""
-triage = classify.process(email, ctx)
+with stage("classify"):
+    triage = classify.process(email, ctx)
 show_triage(triage)
 """),
         md("""
@@ -68,7 +70,8 @@ show_triage(triage)
 Thresholds from `thresholds.py` (or `tuned/thresholds.json`) turn the probabilities into the label of record, the companies and topics, the human-attention flag and the gate. The one-line reason is composed by code.
 """),
         code("""
-result = gate.process(triage, flagged, ctx.thresholds)
+with stage("gate"):
+    result = gate.process(triage, flagged, ctx.thresholds)
 show(result)
 """),
     ]
@@ -92,6 +95,9 @@ Models recommend; only the analyst changes the book. Every model call goes throu
         md("## Setup"),
         code(f"""
 import json
+import os
+
+os.environ["TQDM_DISABLE"] = "1"                   # no model-loading progress bars in the outputs
 from IPython.display import Markdown, display
 
 from triage_app import config, thresholds
@@ -137,6 +143,11 @@ def show_triage(t):
     print("criteria version:", t.criteria_version, "| truncated:", t.truncated)
 
 
+def stage(name):
+    \"\"\"Time a cell as one stage for the current email, so the token table below is per stage.\"\"\"
+    return ctx.recorder.stage(name, email.email_id)
+
+
 def earlier_than(email):
     \"\"\"The day's emails that arrived before this one: the repeat check's day cache.\"\"\"
     return [e for e in ctx.emails if e.received_at < email.received_at]
@@ -165,7 +176,8 @@ A schema-constrained call to the analysis model. Each claim carries a verbatim q
 """),
         code("""
 earlier = EMAILS.get(repeat.nearest) if repeat.flagged and repeat.nearest else None
-claims = extract.process(email, result, earlier, ctx)
+with stage("extract"):
+    claims = extract.process(email, result, earlier, ctx)
 show(claims)
 """),
         md("""
@@ -175,7 +187,8 @@ Code picks the candidate pillars (the claims' companies plus the read-through li
 """),
         code("""
 book = fold(SEED, [])
-record, raw_suggestions = analyze.process(email.email_id, claims, result, ctx, book=book)
+with stage("analyze"):
+    record, raw_suggestions = analyze.process(email.email_id, claims, result, ctx, book=book)
 print("skills called:", record.skills_called, "| no-change reason:", record.no_change_reason)
 show(raw_suggestions)
 """),
@@ -186,16 +199,18 @@ Validation rejects unknown IDs, quotes that are not in the email, and duplicate 
 """),
         code("""
 inputs = validate.ValidationInputs(claims, list(ctx.emails), [result], SEED)
-checked = [validate.process(s, ctx, inputs) for s in raw_suggestions]
+with stage("validate"):
+    checked = [validate.process(s, ctx, inputs) for s in raw_suggestions]
 for s in checked:
     print(s.id, "->", s.status, s.reject_reason or "")
-suggestions = merge.process(checked, ctx, [result], SEED)
+with stage("merge"):
+    suggestions = merge.process(checked, ctx, [result], SEED)
 show(suggestions)
 """),
         md("""
 ### The analyst decides
 
-Only an accepted suggestion changes the book, through the change log. Accepting logs the evidence against the pillar with its quoted sections. When the suggestion shows a stated figure for a linked driver, the analyst can also update the assumption, and code recomputes EPS and the target price.
+Only an accepted suggestion changes the book, through the change log. Accepting logs the evidence against the pillar with its quoted sections. When the suggestion shows a figure the email states for a linked driver, the analyst can also update that assumption, and code recomputes EPS and the target price.
 """),
         code("""
 suggestion = suggestions[0]
@@ -218,8 +233,13 @@ if assumptions:
     a = assumptions[0]
     print(f"email states {a.driver_id} = {a.stated_value} (book {a.book_value}, consensus {a.consensus_value})")
     log.append(apply.update_driver(SEED, log, a.driver_id, a.stated_value, suggestion_id=suggestion.id))
-after = compute(fold(SEED, log).models[ticker])["analyst"]
-print(f"{ticker} EPS {before.eps:.2f} -> {after.eps:.2f}; target price {before.target_price:.0f} -> {after.target_price:.0f}")
+    after = compute(fold(SEED, log).models[ticker])["analyst"]
+    print(f"{ticker} EPS {before.eps:.2f} -> {after.eps:.2f}; "
+          f"target price {before.target_price:.0f} -> {after.target_price:.0f}")
+else:
+    print(f"The email states no figure for a driver linked to this pillar, so no assumption changes: "
+          f"{ticker} EPS stays {before.eps:.2f}, target price {before.target_price:.0f}. "
+          f"The book changed only by the logged evidence, which counts toward a conviction review.")
 """),
         code("corpus_label(THESIS_EMAIL)"),
         # ---- Case 2 ----
@@ -237,7 +257,8 @@ Jev's human-attention probability clears its threshold, so the email takes the a
 The note explains the flag; it cannot remove it, and it never recommends an investment action.
 """),
         code("""
-note = human_attention.process(email, result, ctx)
+with stage("human_attention"):
+    note = human_attention.process(email, result, ctx)
 display(Markdown(f"**Summary.** {note.summary}\\n\\n**Why it needs a person.** {note.why_attention}\\n\\n"
                  f"**Action:** {note.action}  \\n**Deadline:** {note.deadline or 'none stated'}"))
 for s in note.sections:

@@ -26,3 +26,12 @@ uv run uvicorn triage_app.web.main:app                 # serve the app
 ```
 
 Every stage reads the set's emails from `data/corpus/<set>/emails.jsonl` through the corpus loader (labels dropped, bodies as in the corpus); no stage writes the emails out. Every run writes `metrics.json` (run-level tokens and latency per stage and per model) and `SUMMARY.md` (a short Markdown summary of the run) beside its stage files, and prints a summary. `data/out/README.md` lists every output file. After a key rename, `uv run python scripts/rename_output_keys.py` rewrites existing output files in place.
+
+## Walkthrough notebook
+
+`notebooks/walkthrough.ipynb` runs the real stage functions cell by cell on three `day_1` emails: a thesis-relevant email that leads the analysis agent to suggest a thesis change (accepted into the book), an email flagged for human attention with its note, and an irrelevant email stopped at the gate. It is saved with its outputs and replays from the cache at no cost. Rebuild and re-execute it with:
+
+```bash
+uv run --group notebook python scripts/build_walkthrough_notebook.py --set day_1 --thesis synthetic_000261 --attention synthetic_000144 --irrelevant synthetic_000007 --execute
+```
+

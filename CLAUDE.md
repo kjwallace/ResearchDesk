@@ -23,6 +23,8 @@ uv run python -m triage_app.evals.criteria_check            # rerun Jev on tunin
 uv run python -m triage_app.evals.score --set day_1         # writes data/out/day_1/eval.json
 uv run uvicorn triage_app.web.main:app                      # FastAPI + Jinja + HTMX, server-rendered
 docker build -t triage-app . && docker run -p 8000:8000 --env-file .env triage-app
+uv run --group notebook python scripts/build_walkthrough_notebook.py --set day_1 --thesis <id> --attention <id> --irrelevant <id> --execute   # notebooks/walkthrough.ipynb
+uv run python scripts/purge_unparseable_cache.py   # drop cached replies that can never parse, so a rerun retries them
 ```
 
 Corpus generation scripts (already run, they produced the existing corpus): `scripts/generate_email_plan.py`, `scripts/generate_emails_llm.py` (Anthropic API), `scripts/build_email_jsonl.py`. See each script's docstring for usage.

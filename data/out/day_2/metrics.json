@@ -1,0 +1,79 @@
+{
+  "corpus": "day_2",
+  "run_at": "2026-10-09T07:09:37.842010Z",
+  "emails": 300,
+  "stages": {
+    "analyze": {
+      "calls": 246,
+      "cache_hits": 241,
+      "input_tokens": 21064,
+      "output_tokens": 2030,
+      "uncached_input_tokens": 1105201,
+      "uncached_output_tokens": 188101,
+      "latency_p50_ms": 24.676395347341895,
+      "latency_p95_ms": 36.91128958016634,
+      "latency_max_ms": 16433.32345923409
+    },
+    "extract": {
+      "calls": 62,
+      "cache_hits": 62,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "uncached_input_tokens": 244861,
+      "uncached_output_tokens": 135836,
+      "latency_p50_ms": 5.916437599807978,
+      "latency_p95_ms": 7.470095995813608,
+      "latency_max_ms": 431.20737513527274
+    },
+    "merge": {
+      "calls": 2,
+      "cache_hits": 2,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "uncached_input_tokens": 58,
+      "uncached_output_tokens": 0,
+      "latency_p50_ms": 0.0,
+      "latency_p95_ms": 0.0,
+      "latency_max_ms": 0.0
+    },
+    "validate": {
+      "calls": 17,
+      "cache_hits": 17,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "uncached_input_tokens": 330,
+      "uncached_output_tokens": 0,
+      "latency_p50_ms": 0.14064554125070572,
+      "latency_p95_ms": 0.33682701177895075,
+      "latency_max_ms": 5222.278957720846
+    }
+  },
+  "by_model": {
+    "BAAI/bge-small-en-v1.5": {
+      "calls": 19,
+      "cache_hits": 19,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "uncached_input_tokens": 388,
+      "uncached_output_tokens": 0,
+      "latency_p50_ms": 0.13870839029550552,
+      "latency_p95_ms": 0.2077666111290456,
+      "latency_max_ms": 0.2720407210290432
+    },
+    "anthropic/claude-haiku-5.5": {
+      "calls": 308,
+      "cache_hits": 303,
+      "input_tokens": 21064,
+      "output_tokens": 2030,
+      "uncached_input_tokens": 1350062,
+      "uncached_output_tokens": 323937,
+      "latency_p50_ms": 0.0902712345123291,
+      "latency_p95_ms": 0.1879060408100485,
+      "latency_max_ms": 5243.773584254086
+    }
+  },
+  "tokens_per_email_mean": 76.98,
+  "email_latency_p50_ms": 31.89116669818759,
+  "email_latency_p95_ms": 56.25507871154699,
+  "total_latency_ms": 24764.843333046883
+}

@@ -1,0 +1,1 @@
+{"estimated": false, "input_tokens": 5055, "output_tokens": 138, "value": {"input_tokens": 5055, "model": "anthropic/claude-haiku-5.5", "output_tokens": 138, "text": "```json\n{\"result\": {\"suggestions\": [], \"no_change_reason\": \"The only claims come from a monitor email, and the rule requires at least one claim from a non-monitor label to carry a new thesis.\"}}\n```"}}

@@ -1,0 +1,4783 @@
+[
+  {
+    "email_id": "synthetic_000001",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 0.97,
+    "gate": "stop",
+    "reason": "thesis_relevant 0.80; signal score 0.97 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000002",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "NVDA",
+      "MSFT"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.87,
+    "gate": "stop",
+    "reason": "monitor 0.63; signal score 0.87 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000003",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.99; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000004",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.12,
+    "gate": "stop",
+    "reason": "low_value 0.56; signal score 0.12 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000005",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "NVDA",
+      "MSFT",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.98; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000006",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.27,
+    "gate": "stop",
+    "reason": "irrelevant 0.70; signal score 0.27 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000007",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.08,
+    "gate": "stop",
+    "reason": "irrelevant 0.91; signal score 0.08 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000008",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "redundant 0.95; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000009",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.46,
+    "gate": "stop",
+    "reason": "redundant 0.54; signal score 0.46 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000010",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 0.83; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000011",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 1.00; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000012",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.06,
+    "gate": "stop",
+    "reason": "irrelevant 0.84; signal score 0.06 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000013",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000014",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.96,
+    "gate": "stop",
+    "reason": "monitor 0.95; signal score 0.96 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000015",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "MSFT",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "redundant 0.97; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000016",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "irrelevant 0.91; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000017",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "irrelevant 0.97; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000018",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "NVDA",
+      "MSFT",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.98,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.59; signal score 0.98 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000019",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.85,
+    "gate": "stop",
+    "reason": "monitor 0.85; signal score 0.85 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000020",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 0.92; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000021",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.06,
+    "gate": "stop",
+    "reason": "irrelevant 0.71; signal score 0.06 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000022",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 0.99; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000023",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "NVDA",
+      "MSFT",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.08,
+    "gate": "stop",
+    "reason": "redundant 0.92; signal score 0.08 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000024",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "irrelevant 0.98; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000025",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.05,
+    "gate": "stop",
+    "reason": "irrelevant 0.94; signal score 0.05 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000026",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000016",
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.13,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000016 (content 0.86, subject 0.52); jev irrelevant 0.60; signal score 0.13 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000027",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.98; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000028",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000029",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "irrelevant 0.99; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000030",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "NVDA",
+      "MSFT",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.07,
+    "gate": "stop",
+    "reason": "redundant 0.93; signal score 0.07 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000031",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "low_value 0.53; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000032",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "low_value 0.73; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000033",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.09,
+    "gate": "stop",
+    "reason": "irrelevant 0.74; signal score 0.09 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000034",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.19,
+    "gate": "stop",
+    "reason": "low_value 0.74; signal score 0.19 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000035",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.14,
+    "gate": "stop",
+    "reason": "low_value 0.82; signal score 0.14 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000036",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "monitor 0.52; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000037",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "low_value 0.66; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000038",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000039",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "government"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "irrelevant 0.97; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000040",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.06,
+    "gate": "stop",
+    "reason": "irrelevant 0.81; signal score 0.06 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000041",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "monitor 0.88; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000042",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 1.00; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000043",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.12,
+    "gate": "stop",
+    "reason": "irrelevant 0.87; signal score 0.12 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000044",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000045",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "MSFT",
+      "AAPL",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.06,
+    "gate": "stop",
+    "reason": "redundant 0.51; signal score 0.06 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000046",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "monitor 0.92; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000047",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 0.99; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000048",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.81,
+    "gate": "stop",
+    "reason": "monitor 0.70; signal score 0.81 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000049",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "NVDA",
+      "MSFT",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.78; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000050",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "irrelevant 0.99; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000051",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.23,
+    "gate": "stop",
+    "reason": "irrelevant 0.65; signal score 0.23 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000052",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "irrelevant 0.97; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000053",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 0.52,
+    "gate": "stop",
+    "reason": "monitor 0.38; signal score 0.52 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000054",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 0.08,
+    "gate": "stop",
+    "reason": "irrelevant 0.85; signal score 0.08 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000055",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 0.76; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000056",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "monitor 0.96; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000057",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.98; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000058",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 0.97; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000059",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "MSFT",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.04,
+    "gate": "stop",
+    "reason": "redundant 0.96; signal score 0.04 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000060",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000061",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.96,
+    "gate": "stop",
+    "reason": "monitor 0.95; signal score 0.96 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000062",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.11,
+    "gate": "stop",
+    "reason": "irrelevant 0.88; signal score 0.11 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000063",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.04,
+    "gate": "stop",
+    "reason": "irrelevant 0.95; signal score 0.04 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000064",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "redundant 0.90; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000065",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000066",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 0.87; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000067",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 0.98; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000068",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.26,
+    "gate": "stop",
+    "reason": "low_value 0.58; signal score 0.26 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000069",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.22,
+    "gate": "stop",
+    "reason": "low_value 0.43; signal score 0.22 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000070",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000041",
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.94,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000041 (content 0.86, subject 0.34); jev monitor 0.92; signal score 0.94 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000071",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "monitor 0.99; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000072",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 0.53; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000073",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "NVDA"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.8,
+    "gate": "stop",
+    "reason": "monitor 0.65; signal score 0.80 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000074",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 0.98,
+    "gate": "pass",
+    "reason": "monitor 0.91; signal score 0.98 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000075",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "AAPL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.98; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000076",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 0.91; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000077",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "redundant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000078",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.88; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000079",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 0.91; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000080",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT",
+      "AAPL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 0.93; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000081",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.98,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.98; signal score 0.98 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000082",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "irrelevant 0.94; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000083",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.07,
+    "gate": "stop",
+    "reason": "irrelevant 0.63; signal score 0.07 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000084",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "irrelevant 0.67; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000085",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000086",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.04,
+    "gate": "stop",
+    "reason": "irrelevant 0.55; signal score 0.04 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000087",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "monitor 0.94; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000088",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.19,
+    "gate": "stop",
+    "reason": "irrelevant 0.78; signal score 0.19 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000089",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "low_value 0.59; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000090",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.15,
+    "gate": "stop",
+    "reason": "irrelevant 0.84; signal score 0.15 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000091",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000041",
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.94,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000041 (content 0.89, subject 0.61); jev monitor 0.91; signal score 0.94 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000092",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "irrelevant 0.86; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000093",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "irrelevant 0.75; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000094",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "irrelevant 0.96; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000095",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.26,
+    "gate": "stop",
+    "reason": "irrelevant 0.73; signal score 0.26 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000096",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "irrelevant 0.80; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000097",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000089",
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000089 (content 0.85, subject 0.46); jev low_value 0.63; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000098",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.07,
+    "gate": "stop",
+    "reason": "redundant 0.80; signal score 0.07 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000099",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.11,
+    "gate": "stop",
+    "reason": "irrelevant 0.50; signal score 0.11 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000100",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "irrelevant 0.67; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000101",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 0.99; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000102",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "low_value 0.56; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000103",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.07,
+    "gate": "stop",
+    "reason": "irrelevant 0.80; signal score 0.07 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000104",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "redundant 0.57; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000105",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "NVDA"
+    ],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 0.99; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000106",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.13,
+    "gate": "stop",
+    "reason": "irrelevant 0.86; signal score 0.13 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000107",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 0.97; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000108",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.07,
+    "gate": "stop",
+    "reason": "irrelevant 0.92; signal score 0.07 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000109",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.58,
+    "gate": "stop",
+    "reason": "thesis_relevant 0.51; signal score 0.58 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000110",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000111",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 0.68; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000112",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "NVDA",
+      "AAPL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 0.99; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000113",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.04,
+    "gate": "stop",
+    "reason": "irrelevant 0.87; signal score 0.04 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000114",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.08,
+    "gate": "stop",
+    "reason": "low_value 0.67; signal score 0.08 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000115",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.05,
+    "gate": "stop",
+    "reason": "irrelevant 0.93; signal score 0.05 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000116",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.08,
+    "gate": "stop",
+    "reason": "irrelevant 0.90; signal score 0.08 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000117",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.88,
+    "gate": "stop",
+    "reason": "monitor 0.77; signal score 0.88 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000118",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.68,
+    "gate": "stop",
+    "reason": "monitor 0.52; signal score 0.68 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000119",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "NVDA",
+      "MSFT",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 0.98; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000120",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "irrelevant 0.93; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000121",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "irrelevant 0.59; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000122",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.1,
+    "gate": "stop",
+    "reason": "low_value 0.72; signal score 0.10 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000123",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000108",
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.05,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000108 (content 0.78, subject 0.62); jev irrelevant 0.76; signal score 0.05 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000124",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "redundant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000125",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.98,
+    "gate": "pass",
+    "reason": "monitor 0.76; signal score 0.98 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000126",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.07,
+    "gate": "stop",
+    "reason": "irrelevant 0.74; signal score 0.07 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000127",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "MSFT",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.64; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000128",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.05,
+    "gate": "stop",
+    "reason": "low_value 0.49; signal score 0.05 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000129",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "irrelevant 0.67; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000130",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "low_value 0.55; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000131",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "irrelevant 0.85; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000132",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "redundant 0.84; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000133",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "MSFT",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.08,
+    "gate": "stop",
+    "reason": "redundant 0.87; signal score 0.08 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000134",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 1.00; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000135",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "NVDA"
+    ],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.9,
+    "gate": "stop",
+    "reason": "monitor 0.87; signal score 0.90 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000136",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "NVDA"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "monitor 0.86; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000137",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "low_value 0.53; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000138",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.05,
+    "gate": "stop",
+    "reason": "irrelevant 0.94; signal score 0.05 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000139",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.39,
+    "gate": "stop",
+    "reason": "irrelevant 0.39; signal score 0.39 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000140",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "irrelevant 0.73; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000141",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 0.98; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000142",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.5,
+    "gate": "stop",
+    "reason": "monitor 0.48; signal score 0.50 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000143",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "irrelevant 0.98; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000144",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "NVDA",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "monitor 0.98; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000145",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "irrelevant 0.99; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000146",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.47,
+    "gate": "stop",
+    "reason": "irrelevant 0.51; signal score 0.47 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000147",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.68,
+    "gate": "stop",
+    "reason": "monitor 0.67; signal score 0.68 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000148",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.09,
+    "gate": "stop",
+    "reason": "irrelevant 0.90; signal score 0.09 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000149",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.04,
+    "gate": "stop",
+    "reason": "irrelevant 0.82; signal score 0.04 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000150",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 0.98,
+    "gate": "pass",
+    "reason": "monitor 0.97; signal score 0.98 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000151",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.2,
+    "gate": "stop",
+    "reason": "irrelevant 0.73; signal score 0.20 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000152",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "irrelevant 0.92; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000153",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000023",
+    "affected_tickers": [
+      "NVDA"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.41,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000023 (content 0.85, subject 0.39); jev low_value 0.44; signal score 0.41 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000154",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.98; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000155",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.27,
+    "gate": "stop",
+    "reason": "irrelevant 0.59; signal score 0.27 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000156",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "irrelevant 0.83; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000157",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.1,
+    "gate": "stop",
+    "reason": "redundant 0.75; signal score 0.10 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000158",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.2,
+    "gate": "stop",
+    "reason": "irrelevant 0.40; signal score 0.20 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000159",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 0.1,
+    "gate": "stop",
+    "reason": "irrelevant 0.86; signal score 0.10 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000160",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.06,
+    "gate": "stop",
+    "reason": "irrelevant 0.86; signal score 0.06 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000161",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.25,
+    "gate": "stop",
+    "reason": "irrelevant 0.73; signal score 0.25 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000162",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "NVDA"
+    ],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 0.62; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000163",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.1,
+    "gate": "stop",
+    "reason": "irrelevant 0.80; signal score 0.10 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000164",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000165",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "redundant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000166",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "irrelevant 0.96; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000167",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.04,
+    "gate": "stop",
+    "reason": "redundant 0.67; signal score 0.04 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000168",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "irrelevant 0.56; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000169",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "irrelevant 0.85; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000170",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "irrelevant 0.67; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000171",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "irrelevant 0.99; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000172",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "low_value 0.70; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000173",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.29,
+    "gate": "stop",
+    "reason": "irrelevant 0.68; signal score 0.29 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000174",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "NVDA",
+      "MSFT"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 0.82; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000175",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 0.76; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000176",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000177",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 0.98,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.68; signal score 0.98 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000178",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.04,
+    "gate": "stop",
+    "reason": "low_value 0.61; signal score 0.04 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000179",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000149",
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.18,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000149 (content 0.86, subject 0.43); jev irrelevant 0.66; signal score 0.18 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000180",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.35,
+    "gate": "stop",
+    "reason": "redundant 0.61; signal score 0.35 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000181",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000056",
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000056 (content 0.86, subject 0.46); jev irrelevant 0.87; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000182",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 0.92; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000183",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "irrelevant 0.97; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000184",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.12,
+    "gate": "stop",
+    "reason": "irrelevant 0.79; signal score 0.12 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000185",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "low_value 0.65; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000186",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 1.00; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000187",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.77,
+    "gate": "stop",
+    "reason": "monitor 0.71; signal score 0.77 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000188",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000041",
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.38,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000041 (content 0.85, subject 0.34); jev low_value 0.32; signal score 0.38 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000189",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "NVDA"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.96,
+    "gate": "stop",
+    "reason": "monitor 0.95; signal score 0.96 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000190",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.1,
+    "gate": "stop",
+    "reason": "irrelevant 0.84; signal score 0.10 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000191",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "irrelevant 0.55; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000192",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.38,
+    "gate": "stop",
+    "reason": "monitor 0.37; signal score 0.38 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000193",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "redundant 0.97; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000194",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.15,
+    "gate": "stop",
+    "reason": "irrelevant 0.84; signal score 0.15 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000195",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.04,
+    "gate": "stop",
+    "reason": "irrelevant 0.95; signal score 0.04 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000196",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 0.99; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000197",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000144",
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 0.92,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000144 (content 0.86, subject 0.53); jev monitor 0.76; signal score 0.92 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000198",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 0.85; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000199",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.12,
+    "gate": "stop",
+    "reason": "irrelevant 0.87; signal score 0.12 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000200",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "monitor 0.99; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000201",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "irrelevant 0.99; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000202",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "redundant 0.98; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000203",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "redundant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000204",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000205",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000206",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "irrelevant 0.99; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000207",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000157",
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000157 (content 0.80, subject 0.73); jev irrelevant 0.59; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000208",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 0.98,
+    "gate": "pass",
+    "reason": "monitor 0.77; signal score 0.98 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000209",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.05,
+    "gate": "stop",
+    "reason": "irrelevant 0.93; signal score 0.05 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000210",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.89,
+    "gate": "stop",
+    "reason": "thesis_relevant 0.72; signal score 0.89 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000211",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000197",
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000197 (content 0.85, subject 0.36); jev irrelevant 0.93; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000212",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "low_value 0.88; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000213",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.13,
+    "gate": "stop",
+    "reason": "redundant 0.87; signal score 0.13 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000214",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.23,
+    "gate": "stop",
+    "reason": "redundant 0.74; signal score 0.23 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000215",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.05,
+    "gate": "stop",
+    "reason": "redundant 0.94; signal score 0.05 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000216",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.38,
+    "gate": "stop",
+    "reason": "redundant 0.60; signal score 0.38 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000217",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.39,
+    "gate": "stop",
+    "reason": "irrelevant 0.49; signal score 0.39 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000218",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.59,
+    "gate": "stop",
+    "reason": "monitor 0.57; signal score 0.59 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000219",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "redundant 0.86; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000220",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "irrelevant 0.96; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000221",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "monitor 0.96; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000222",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "monitor 0.97; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000223",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 1.00; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000224",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "redundant 0.96; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000225",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "low_value 0.87; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000226",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.41,
+    "gate": "stop",
+    "reason": "low_value 0.54; signal score 0.41 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000227",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.14,
+    "gate": "stop",
+    "reason": "irrelevant 0.85; signal score 0.14 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000228",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "irrelevant 0.98; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000229",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 1.00; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000230",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 0.98; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000231",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "NVDA",
+      "MSFT"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "monitor 0.94; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000232",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "irrelevant 0.99; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000233",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.08,
+    "gate": "stop",
+    "reason": "low_value 0.53; signal score 0.08 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000234",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "NVDA",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 0.98,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.87; signal score 0.98 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000235",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.04,
+    "gate": "stop",
+    "reason": "low_value 0.96; signal score 0.04 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000236",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.06,
+    "gate": "stop",
+    "reason": "irrelevant 0.67; signal score 0.06 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000237",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "NVDA",
+      "MSFT"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 0.79; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000238",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "redundant 0.51; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000239",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "NVDA",
+      "MSFT",
+      "AAPL",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.07,
+    "gate": "stop",
+    "reason": "redundant 0.93; signal score 0.07 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000240",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "NVDA"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.99; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000241",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.51; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000242",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000208",
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.58,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000208 (content 0.85, subject 0.36); jev monitor 0.57; signal score 0.58 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000243",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "monitor 0.64; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000244",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "redundant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000245",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "low_value 0.57; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000246",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000109",
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.94,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000109 (content 0.89, subject 0.47); jev thesis_relevant 0.81; signal score 0.94 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000247",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "irrelevant 0.75; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000248",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.98,
+    "gate": "pass",
+    "reason": "monitor 0.92; signal score 0.98 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000249",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "irrelevant 0.97; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000250",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "NVDA",
+      "MSFT",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "monitor 0.98; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000251",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "monitor 0.92; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000252",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000098",
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.04,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000098 (content 0.87, subject 0.57); jev low_value 0.75; signal score 0.04 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000253",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.11,
+    "gate": "stop",
+    "reason": "irrelevant 0.88; signal score 0.11 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000254",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "irrelevant 0.74; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000255",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000256",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "low_value 0.57; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000257",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 0.65; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000258",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 0.98; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000259",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "AAPL",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.05,
+    "gate": "stop",
+    "reason": "irrelevant 0.92; signal score 0.05 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000260",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000021",
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.06,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000021 (content 0.85, subject 0.62); jev irrelevant 0.82; signal score 0.06 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000261",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.98,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.81; signal score 0.98 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000262",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.09,
+    "gate": "stop",
+    "reason": "irrelevant 0.89; signal score 0.09 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000263",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000141",
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000141 (content 0.77, subject 0.61); jev irrelevant 0.89; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000264",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "irrelevant 0.85; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000265",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "NVDA",
+      "MSFT",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 1.00; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000266",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000267",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000217",
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.07,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000217 (content 0.86, subject 0.48); jev irrelevant 0.91; signal score 0.07 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000268",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000141",
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000141 (content 0.78, subject 0.62); jev irrelevant 0.99; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000269",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "monitor 0.97; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000270",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "redundant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000271",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000272",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.15,
+    "gate": "stop",
+    "reason": "redundant 0.84; signal score 0.15 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000273",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.75,
+    "gate": "stop",
+    "reason": "monitor 0.74; signal score 0.75 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000274",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "irrelevant 0.43; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000275",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "irrelevant 0.99; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000276",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000033",
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.1,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000033 (content 0.77, subject 0.79); jev irrelevant 0.76; signal score 0.10 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000277",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 0.73; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000278",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.05,
+    "gate": "stop",
+    "reason": "irrelevant 0.83; signal score 0.05 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000279",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.37,
+    "gate": "stop",
+    "reason": "irrelevant 0.53; signal score 0.37 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000280",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 0.93; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000281",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "irrelevant 0.70; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000282",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.12,
+    "gate": "stop",
+    "reason": "irrelevant 0.87; signal score 0.12 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000283",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "redundant 0.98; signal score 0.01 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000284",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.98,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.96; signal score 0.98 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000285",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000026",
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000026 (content 0.83, subject 0.61); jev irrelevant 0.84; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000286",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "NVDA"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "monitor 0.91; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000287",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "NVDA",
+      "MSFT",
+      "AAPL",
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.95,
+    "gate": "stop",
+    "reason": "monitor 0.95; signal score 0.95 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000288",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.08,
+    "gate": "stop",
+    "reason": "irrelevant 0.90; signal score 0.08 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000289",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.06,
+    "gate": "stop",
+    "reason": "irrelevant 0.85; signal score 0.06 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000290",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.08,
+    "gate": "stop",
+    "reason": "irrelevant 0.88; signal score 0.08 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000291",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.06,
+    "gate": "stop",
+    "reason": "irrelevant 0.71; signal score 0.06 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000292",
+    "triage": "redundant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.14,
+    "gate": "stop",
+    "reason": "redundant 0.86; signal score 0.14 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000293",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.0,
+    "gate": "stop",
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000294",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "synthetic_000200",
+    "affected_tickers": [
+      "NVDA"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": true,
+    "signal_score": 0.97,
+    "gate": "stop",
+    "reason": "redundant: repeat of synthetic_000200 (content 0.90, subject 0.31); jev thesis_relevant 0.63; signal score 0.97 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000295",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.88; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000296",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "government",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.04,
+    "gate": "stop",
+    "reason": "irrelevant 0.96; signal score 0.04 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000297",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 1.0,
+    "gate": "pass",
+    "reason": "monitor 0.98; signal score 1.00 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000298",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT",
+      "AAPL"
+    ],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.99,
+    "gate": "pass",
+    "reason": "monitor 0.98; signal score 0.99 clears 0.98"
+  },
+  {
+    "email_id": "synthetic_000299",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "low_value 0.93; signal score 0.02 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000300",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.05,
+    "gate": "stop",
+    "reason": "low_value 0.59; signal score 0.05 is below 0.98"
+  }
+]

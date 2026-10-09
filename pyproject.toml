@@ -52,3 +52,9 @@ mypy_path = ["src", "tests"]
 [[tool.mypy.overrides]]
 module = ["triage_app.modules.*", "test_lm"]
 disallow_subclassing_any = false
+
+# nbformat ships no type information; the notebook builder calls it untyped.
+[[tool.mypy.overrides]]
+module = ["build_walkthrough_notebook"]
+disallow_untyped_calls = false
+warn_return_any = false

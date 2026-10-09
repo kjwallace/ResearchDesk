@@ -1,0 +1,3865 @@
+{
+  "corpus": "day_1",
+  "criteria_version": "1f44a2faac8e",
+  "measures": {
+    "gate_recall": 0.8621,
+    "monitor_gate_recall": 0.8542,
+    "gate_reduction": 0.78,
+    "signal_accuracy": 0.8467,
+    "triage_accuracy": 0.65,
+    "ticker_f1": 0.7679,
+    "human_attention_precision": 0.85,
+    "human_attention_recall": 0.8947,
+    "topic_f1": 0.1215,
+    "repeat_flagged": 59.0,
+    "repeat_precision": 0.1017,
+    "stray_suggestions": 0.0,
+    "quote_faithfulness": 1.0,
+    "meetings_share": 0.25,
+    "email_type_accuracy": 0.7833,
+    "note_review": null,
+    "suggestion_review": null,
+    "new_thesis_review": null
+  },
+  "confusion": {
+    "thesis_relevant": {
+      "thesis_relevant": 19,
+      "monitor": 8,
+      "redundant": 2
+    },
+    "redundant": {
+      "monitor": 1,
+      "redundant": 26,
+      "irrelevant": 2,
+      "thesis_relevant": 1
+    },
+    "low_value": {
+      "low_value": 24,
+      "irrelevant": 48,
+      "monitor": 11,
+      "redundant": 21,
+      "thesis_relevant": 1
+    },
+    "irrelevant": {
+      "irrelevant": 80,
+      "low_value": 3,
+      "redundant": 5
+    },
+    "monitor": {
+      "monitor": 46,
+      "redundant": 2
+    }
+  },
+  "misses": [
+    {
+      "email_id": "synthetic_000001",
+      "measure": "gate_recall",
+      "expected": "pass",
+      "got": "stop"
+    },
+    {
+      "email_id": "synthetic_000073",
+      "measure": "gate_recall",
+      "expected": "pass",
+      "got": "stop"
+    },
+    {
+      "email_id": "synthetic_000246",
+      "measure": "gate_recall",
+      "expected": "pass",
+      "got": "stop"
+    },
+    {
+      "email_id": "synthetic_000294",
+      "measure": "gate_recall",
+      "expected": "pass",
+      "got": "stop"
+    },
+    {
+      "email_id": "synthetic_000014",
+      "measure": "monitor_gate_recall",
+      "expected": "pass",
+      "got": "stop"
+    },
+    {
+      "email_id": "synthetic_000061",
+      "measure": "monitor_gate_recall",
+      "expected": "pass",
+      "got": "stop"
+    },
+    {
+      "email_id": "synthetic_000070",
+      "measure": "monitor_gate_recall",
+      "expected": "pass",
+      "got": "stop"
+    },
+    {
+      "email_id": "synthetic_000135",
+      "measure": "monitor_gate_recall",
+      "expected": "pass",
+      "got": "stop"
+    },
+    {
+      "email_id": "synthetic_000147",
+      "measure": "monitor_gate_recall",
+      "expected": "pass",
+      "got": "stop"
+    },
+    {
+      "email_id": "synthetic_000197",
+      "measure": "monitor_gate_recall",
+      "expected": "pass",
+      "got": "stop"
+    },
+    {
+      "email_id": "synthetic_000287",
+      "measure": "monitor_gate_recall",
+      "expected": "pass",
+      "got": "stop"
+    },
+    {
+      "email_id": "synthetic_000002",
+      "measure": "signal_accuracy",
+      "expected": "redundant",
+      "got": "signal"
+    },
+    {
+      "email_id": "synthetic_000019",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "signal"
+    },
+    {
+      "email_id": "synthetic_000026",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000048",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "signal"
+    },
+    {
+      "email_id": "synthetic_000053",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "signal"
+    },
+    {
+      "email_id": "synthetic_000070",
+      "measure": "signal_accuracy",
+      "expected": "signal",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000072",
+      "measure": "signal_accuracy",
+      "expected": "redundant",
+      "got": "noise"
+    },
+    {
+      "email_id": "synthetic_000091",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000096",
+      "measure": "signal_accuracy",
+      "expected": "redundant",
+      "got": "noise"
+    },
+    {
+      "email_id": "synthetic_000097",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000098",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000104",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000109",
+      "measure": "signal_accuracy",
+      "expected": "redundant",
+      "got": "signal"
+    },
+    {
+      "email_id": "synthetic_000117",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "signal"
+    },
+    {
+      "email_id": "synthetic_000118",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "signal"
+    },
+    {
+      "email_id": "synthetic_000123",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000133",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000142",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "signal"
+    },
+    {
+      "email_id": "synthetic_000153",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000157",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000167",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000179",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000180",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000181",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000187",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "signal"
+    },
+    {
+      "email_id": "synthetic_000188",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000189",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "signal"
+    },
+    {
+      "email_id": "synthetic_000192",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "signal"
+    },
+    {
+      "email_id": "synthetic_000193",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000197",
+      "measure": "signal_accuracy",
+      "expected": "signal",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000207",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000210",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "signal"
+    },
+    {
+      "email_id": "synthetic_000211",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000215",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000218",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "signal"
+    },
+    {
+      "email_id": "synthetic_000242",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000246",
+      "measure": "signal_accuracy",
+      "expected": "signal",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000252",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000260",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000263",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000267",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000268",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000273",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "signal"
+    },
+    {
+      "email_id": "synthetic_000276",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000285",
+      "measure": "signal_accuracy",
+      "expected": "noise",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000294",
+      "measure": "signal_accuracy",
+      "expected": "signal",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000002",
+      "measure": "triage_accuracy",
+      "expected": "redundant",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000006",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000012",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000016",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000017",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000019",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000026",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000033",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000036",
+      "measure": "triage_accuracy",
+      "expected": "thesis_relevant",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000048",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000051",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000053",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000055",
+      "measure": "triage_accuracy",
+      "expected": "thesis_relevant",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000062",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000067",
+      "measure": "triage_accuracy",
+      "expected": "thesis_relevant",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000070",
+      "measure": "triage_accuracy",
+      "expected": "monitor",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000072",
+      "measure": "triage_accuracy",
+      "expected": "redundant",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000073",
+      "measure": "triage_accuracy",
+      "expected": "thesis_relevant",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000082",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000083",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000084",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000086",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000088",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000089",
+      "measure": "triage_accuracy",
+      "expected": "irrelevant",
+      "got": "low_value"
+    },
+    {
+      "email_id": "synthetic_000091",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000093",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000096",
+      "measure": "triage_accuracy",
+      "expected": "redundant",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000097",
+      "measure": "triage_accuracy",
+      "expected": "irrelevant",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000098",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000099",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000103",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000104",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000109",
+      "measure": "triage_accuracy",
+      "expected": "redundant",
+      "got": "thesis_relevant"
+    },
+    {
+      "email_id": "synthetic_000111",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000113",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000117",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000118",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000120",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000123",
+      "measure": "triage_accuracy",
+      "expected": "irrelevant",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000125",
+      "measure": "triage_accuracy",
+      "expected": "thesis_relevant",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000126",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000129",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000133",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000137",
+      "measure": "triage_accuracy",
+      "expected": "irrelevant",
+      "got": "low_value"
+    },
+    {
+      "email_id": "synthetic_000139",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000140",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000142",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000146",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000149",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000151",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000153",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000155",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000156",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000157",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000158",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000160",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000162",
+      "measure": "triage_accuracy",
+      "expected": "thesis_relevant",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000163",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000167",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000168",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000169",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000172",
+      "measure": "triage_accuracy",
+      "expected": "irrelevant",
+      "got": "low_value"
+    },
+    {
+      "email_id": "synthetic_000173",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000179",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000180",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000181",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000182",
+      "measure": "triage_accuracy",
+      "expected": "thesis_relevant",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000184",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000187",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000188",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000189",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000191",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000192",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000193",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000194",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000197",
+      "measure": "triage_accuracy",
+      "expected": "monitor",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000199",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000207",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000210",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "thesis_relevant"
+    },
+    {
+      "email_id": "synthetic_000211",
+      "measure": "triage_accuracy",
+      "expected": "irrelevant",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000215",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000217",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000218",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000236",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000242",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000243",
+      "measure": "triage_accuracy",
+      "expected": "thesis_relevant",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000246",
+      "measure": "triage_accuracy",
+      "expected": "thesis_relevant",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000252",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000254",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000257",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000259",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000260",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000263",
+      "measure": "triage_accuracy",
+      "expected": "irrelevant",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000267",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000268",
+      "measure": "triage_accuracy",
+      "expected": "irrelevant",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000273",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "monitor"
+    },
+    {
+      "email_id": "synthetic_000274",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000276",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000278",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000279",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000281",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000285",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000290",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000291",
+      "measure": "triage_accuracy",
+      "expected": "low_value",
+      "got": "irrelevant"
+    },
+    {
+      "email_id": "synthetic_000294",
+      "measure": "triage_accuracy",
+      "expected": "thesis_relevant",
+      "got": "redundant"
+    },
+    {
+      "email_id": "synthetic_000002",
+      "measure": "ticker_f1",
+      "expected": "NVDA",
+      "got": "NVDA,MSFT"
+    },
+    {
+      "email_id": "synthetic_000005",
+      "measure": "ticker_f1",
+      "expected": "NVDA",
+      "got": "NVDA,MSFT,GOOGL"
+    },
+    {
+      "email_id": "synthetic_000015",
+      "measure": "ticker_f1",
+      "expected": "none",
+      "got": "AMZN,MSFT,GOOGL"
+    },
+    {
+      "email_id": "synthetic_000017",
+      "measure": "ticker_f1",
+      "expected": "none",
+      "got": "GOOGL"
+    },
+    {
+      "email_id": "synthetic_000018",
+      "measure": "ticker_f1",
+      "expected": "NVDA",
+      "got": "NVDA,MSFT,GOOGL"
+    },
+    {
+      "email_id": "synthetic_000019",
+      "measure": "ticker_f1",
+      "expected": "AMZN",
+      "got": "none"
+    },
+    {
+      "email_id": "synthetic_000023",
+      "measure": "ticker_f1",
+      "expected": "NVDA",
+      "got": "AMZN,NVDA,MSFT,GOOGL"
+    },
+    {
+      "email_id": "synthetic_000026",
+      "measure": "ticker_f1",
+      "expected": "none",
+      "got": "MSFT"
+    },
+    {
+      "email_id": "synthetic_000030",
+      "measure": "ticker_f1",
+      "expected": "NVDA",
+      "got": "AMZN,NVDA,MSFT,GOOGL"
+    },
+    {
+      "email_id": "synthetic_000034",
+      "measure": "ticker_f1",
+      "expected": "AAPL",
+      "got": "none"
+    },
+    {
+      "email_id": "synthetic_000045",
+      "measure": "ticker_f1",
+      "expected": "none",
+      "got": "AMZN,MSFT,AAPL,GOOGL"
+    },
+    {
+      "email_id": "synthetic_000049",
+      "measure": "ticker_f1",
+      "expected": "GOOGL",
+      "got": "AMZN,NVDA,MSFT,GOOGL"
+    },
+    {
+      "email_id": "synthetic_000051",
+      "measure": "ticker_f1",
+      "expected": "none",
+      "got": "MSFT,GOOGL"
+    },
+    {
+      "email_id": "synthetic_000052",
+      "measure": "ticker_f1",
+      "expected": "AMZN",
+      "got": "none"
+    },
+    {
+      "email_id": "synthetic_000053",
+      "measure": "ticker_f1",
+      "expected": "none",
+      "got": "AMZN"
+    },
+    {
+      "email_id": "synthetic_000059",
+      "measure": "ticker_f1",
+      "expected": "MSFT",
+      "got": "AMZN,MSFT,GOOGL"
+    },
+    {
+      "email_id": "synthetic_000068",
+      "measure": "ticker_f1",
+      "expected": "AAPL",
+      "got": "none"
+    },
+    {
+      "email_id": "synthetic_000069",
+      "measure": "ticker_f1",
+      "expected": "AMZN",
+      "got": "none"
+    },
+    {
+      "email_id": "synthetic_000071",
+      "measure": "ticker_f1",
+      "expected": "NVDA,MSFT",
+      "got": "MSFT"
+    },
+    {
+      "email_id": "synthetic_000074",
+      "measure": "ticker_f1",
+      "expected": "NVDA,AAPL",
+      "got": "AAPL"
+    },
+    {
+      "email_id": "synthetic_000081",
+      "measure": "ticker_f1",
+      "expected": "GOOGL",
+      "got": "MSFT,GOOGL"
+    },
+    {
+      "email_id": "synthetic_000104",
+      "measure": "ticker_f1",
+      "expected": "none",
+      "got": "MSFT"
+    },
+    {
+      "email_id": "synthetic_000114",
+      "measure": "ticker_f1",
+      "expected": "none",
+      "got": "GOOGL"
+    },
+    {
+      "email_id": "synthetic_000119",
+      "measure": "ticker_f1",
+      "expected": "AMZN,NVDA,MSFT,AAPL,GOOGL",
+      "got": "AMZN,NVDA,MSFT,GOOGL"
+    },
+    {
+      "email_id": "synthetic_000120",
+      "measure": "ticker_f1",
+      "expected": "none",
+      "got": "MSFT,GOOGL"
+    },
+    {
+      "email_id": "synthetic_000124",
+      "measure": "ticker_f1",
+      "expected": "AAPL",
+      "got": "none"
+    },
+    {
+      "email_id": "synthetic_000127",
+      "measure": "ticker_f1",
+      "expected": "MSFT",
+      "got": "AMZN,MSFT,GOOGL"
+    },
+    {
+      "email_id": "synthetic_000133",
+      "measure": "ticker_f1",
+      "expected": "none",
+      "got": "AMZN,MSFT,GOOGL"
+    },
+    {
+      "email_id": "synthetic_000136",
+      "measure": "ticker_f1",
+      "expected": "AMZN",
+      "got": "AMZN,NVDA"
+    },
+    {
+      "email_id": "synthetic_000139",
+      "measure": "ticker_f1",
+      "expected": "AAPL",
+      "got": "none"
+    },
+    {
+      "email_id": "synthetic_000151",
+      "measure": "ticker_f1",
+      "expected": "none",
+      "got": "AMZN"
+    },
+    {
+      "email_id": "synthetic_000157",
+      "measure": "ticker_f1",
+      "expected": "NVDA",
+      "got": "none"
+    },
+    {
+      "email_id": "synthetic_000165",
+      "measure": "ticker_f1",
+      "expected": "NVDA",
+      "got": "none"
+    },
+    {
+      "email_id": "synthetic_000197",
+      "measure": "ticker_f1",
+      "expected": "NVDA,GOOGL",
+      "got": "GOOGL"
+    },
+    {
+      "email_id": "synthetic_000199",
+      "measure": "ticker_f1",
+      "expected": "AAPL",
+      "got": "none"
+    },
+    {
+      "email_id": "synthetic_000200",
+      "measure": "ticker_f1",
+      "expected": "NVDA",
+      "got": "none"
+    },
+    {
+      "email_id": "synthetic_000203",
+      "measure": "ticker_f1",
+      "expected": "NVDA",
+      "got": "AMZN"
+    },
+    {
+      "email_id": "synthetic_000211",
+      "measure": "ticker_f1",
+      "expected": "NVDA",
+      "got": "none"
+    },
+    {
+      "email_id": "synthetic_000214",
+      "measure": "ticker_f1",
+      "expected": "AAPL",
+      "got": "none"
+    },
+    {
+      "email_id": "synthetic_000215",
+      "measure": "ticker_f1",
+      "expected": "MSFT",
+      "got": "none"
+    },
+    {
+      "email_id": "synthetic_000226",
+      "measure": "ticker_f1",
+      "expected": "AMZN",
+      "got": "none"
+    },
+    {
+      "email_id": "synthetic_000231",
+      "measure": "ticker_f1",
+      "expected": "MSFT",
+      "got": "NVDA,MSFT"
+    },
+    {
+      "email_id": "synthetic_000233",
+      "measure": "ticker_f1",
+      "expected": "none",
+      "got": "AAPL"
+    },
+    {
+      "email_id": "synthetic_000234",
+      "measure": "ticker_f1",
+      "expected": "GOOGL",
+      "got": "NVDA,GOOGL"
+    },
+    {
+      "email_id": "synthetic_000250",
+      "measure": "ticker_f1",
+      "expected": "NVDA",
+      "got": "AMZN,NVDA,MSFT,GOOGL"
+    },
+    {
+      "email_id": "synthetic_000259",
+      "measure": "ticker_f1",
+      "expected": "none",
+      "got": "AMZN,AAPL,GOOGL"
+    },
+    {
+      "email_id": "synthetic_000265",
+      "measure": "ticker_f1",
+      "expected": "NVDA",
+      "got": "AMZN,NVDA,MSFT,GOOGL"
+    },
+    {
+      "email_id": "synthetic_000269",
+      "measure": "ticker_f1",
+      "expected": "NVDA",
+      "got": "none"
+    },
+    {
+      "email_id": "synthetic_000283",
+      "measure": "ticker_f1",
+      "expected": "AMZN,NVDA,MSFT,AAPL,GOOGL",
+      "got": "GOOGL"
+    },
+    {
+      "email_id": "synthetic_000285",
+      "measure": "ticker_f1",
+      "expected": "none",
+      "got": "MSFT"
+    },
+    {
+      "email_id": "synthetic_000290",
+      "measure": "ticker_f1",
+      "expected": "none",
+      "got": "GOOGL"
+    },
+    {
+      "email_id": "synthetic_000297",
+      "measure": "ticker_f1",
+      "expected": "AAPL",
+      "got": "none"
+    },
+    {
+      "email_id": "synthetic_000053",
+      "measure": "human_attention_precision",
+      "expected": "false",
+      "got": "true"
+    },
+    {
+      "email_id": "synthetic_000054",
+      "measure": "human_attention_precision",
+      "expected": "false",
+      "got": "true"
+    },
+    {
+      "email_id": "synthetic_000159",
+      "measure": "human_attention_precision",
+      "expected": "false",
+      "got": "true"
+    },
+    {
+      "email_id": "synthetic_000075",
+      "measure": "human_attention_recall",
+      "expected": "true",
+      "got": "false"
+    },
+    {
+      "email_id": "synthetic_000246",
+      "measure": "human_attention_recall",
+      "expected": "true",
+      "got": "false"
+    },
+    {
+      "email_id": "synthetic_000001",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000002",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000003",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000004",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000005",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000006",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000007",
+      "measure": "topic_f1",
+      "expected": "other",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000008",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000009",
+      "measure": "topic_f1",
+      "expected": "government",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000010",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000011",
+      "measure": "topic_f1",
+      "expected": "sector,government",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000012",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000013",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000014",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000015",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000016",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000017",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000018",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000020",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000021",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000022",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000023",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000024",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000025",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000026",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000027",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000028",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000029",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000030",
+      "measure": "topic_f1",
+      "expected": "sector",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000031",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000032",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000033",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000034",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000035",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000036",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000037",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000038",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000039",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,government"
+    },
+    {
+      "email_id": "synthetic_000040",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000041",
+      "measure": "topic_f1",
+      "expected": "macro",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000042",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000043",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000044",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000045",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000046",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000047",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000048",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000049",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000050",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000051",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000052",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000053",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000054",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000055",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000056",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000057",
+      "measure": "topic_f1",
+      "expected": "sector",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000058",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000059",
+      "measure": "topic_f1",
+      "expected": "government",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000060",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000061",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000062",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000063",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,other"
+    },
+    {
+      "email_id": "synthetic_000064",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000065",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000066",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000067",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000068",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000069",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000070",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000071",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000072",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000073",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000074",
+      "measure": "topic_f1",
+      "expected": "macro",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000075",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000076",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000077",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000078",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000079",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000080",
+      "measure": "topic_f1",
+      "expected": "sector",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000081",
+      "measure": "topic_f1",
+      "expected": "government",
+      "got": "government,other"
+    },
+    {
+      "email_id": "synthetic_000082",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000083",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000084",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000085",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000086",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000087",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000088",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000089",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000090",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000091",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000092",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000093",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000094",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000095",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000096",
+      "measure": "topic_f1",
+      "expected": "macro,sector",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000097",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000098",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000099",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000100",
+      "measure": "topic_f1",
+      "expected": "government",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000101",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000102",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000103",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000104",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000105",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000106",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000107",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000108",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000109",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000110",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000111",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000112",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000113",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000114",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000115",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000116",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000117",
+      "measure": "topic_f1",
+      "expected": "sector",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000118",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000119",
+      "measure": "topic_f1",
+      "expected": "sector",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000120",
+      "measure": "topic_f1",
+      "expected": "government",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000121",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000122",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000123",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000124",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000125",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000126",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000127",
+      "measure": "topic_f1",
+      "expected": "government",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000128",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000129",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000130",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000131",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000132",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000133",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000134",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000135",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000136",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000137",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000138",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000139",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,other"
+    },
+    {
+      "email_id": "synthetic_000140",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000141",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000142",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000143",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000144",
+      "measure": "topic_f1",
+      "expected": "sector",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000145",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000146",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000147",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000148",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000149",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000150",
+      "measure": "topic_f1",
+      "expected": "sector",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000151",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000152",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000153",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000154",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000155",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000156",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000157",
+      "measure": "topic_f1",
+      "expected": "sector",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000158",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000159",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000160",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000161",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000162",
+      "measure": "topic_f1",
+      "expected": "macro",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000163",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000164",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000165",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000166",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000167",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000168",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000169",
+      "measure": "topic_f1",
+      "expected": "other",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000170",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000171",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,other"
+    },
+    {
+      "email_id": "synthetic_000172",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000173",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000174",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000175",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000176",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000177",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000178",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000179",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000180",
+      "measure": "topic_f1",
+      "expected": "macro",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000181",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000182",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000183",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000184",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000185",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000186",
+      "measure": "topic_f1",
+      "expected": "macro",
+      "got": "macro,sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000187",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000188",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000189",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000190",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000191",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000193",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000194",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000195",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000196",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000197",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000198",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000199",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000200",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000201",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000202",
+      "measure": "topic_f1",
+      "expected": "government",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000203",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000204",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000205",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000206",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000207",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000208",
+      "measure": "topic_f1",
+      "expected": "macro,sector",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000209",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000210",
+      "measure": "topic_f1",
+      "expected": "macro",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000211",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000212",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000213",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000214",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000215",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000216",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000217",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000218",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000219",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000220",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000221",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000222",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000223",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000224",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000225",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000226",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000227",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000228",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000229",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000230",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000231",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000232",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector"
+    },
+    {
+      "email_id": "synthetic_000233",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000234",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000235",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000236",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000237",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000238",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000239",
+      "measure": "topic_f1",
+      "expected": "macro",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000240",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000241",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000242",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000243",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000244",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000245",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000246",
+      "measure": "topic_f1",
+      "expected": "macro,government",
+      "got": "macro,sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000247",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000248",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000249",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000250",
+      "measure": "topic_f1",
+      "expected": "government",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000251",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000252",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000253",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000254",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000255",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000256",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000257",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000258",
+      "measure": "topic_f1",
+      "expected": "sector",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000259",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000260",
+      "measure": "topic_f1",
+      "expected": "other",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000261",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000262",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000263",
+      "measure": "topic_f1",
+      "expected": "other",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000264",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000265",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000266",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000267",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000268",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000269",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000270",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000271",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000272",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000273",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000274",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000275",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000276",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000277",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000278",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000279",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000280",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000281",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000282",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000283",
+      "measure": "topic_f1",
+      "expected": "government",
+      "got": "macro,sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000284",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000285",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000286",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000287",
+      "measure": "topic_f1",
+      "expected": "macro",
+      "got": "macro,sector,government,other"
+    },
+    {
+      "email_id": "synthetic_000288",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000289",
+      "measure": "topic_f1",
+      "expected": "other",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000290",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000291",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000292",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000293",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,other"
+    },
+    {
+      "email_id": "synthetic_000294",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000295",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000296",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "government,other"
+    },
+    {
+      "email_id": "synthetic_000297",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000298",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "sector,other"
+    },
+    {
+      "email_id": "synthetic_000299",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "other"
+    },
+    {
+      "email_id": "synthetic_000300",
+      "measure": "topic_f1",
+      "expected": "none",
+      "got": "macro,sector,other"
+    },
+    {
+      "email_id": "synthetic_000026",
+      "measure": "repeat_precision",
+      "expected": "low_value",
+      "got": "flagged, nearest synthetic_000016"
+    },
+    {
+      "email_id": "synthetic_000036",
+      "measure": "repeat_precision",
+      "expected": "thesis_relevant",
+      "got": "flagged, nearest synthetic_000027"
+    },
+    {
+      "email_id": "synthetic_000041",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000036"
+    },
+    {
+      "email_id": "synthetic_000042",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000027"
+    },
+    {
+      "email_id": "synthetic_000055",
+      "measure": "repeat_precision",
+      "expected": "thesis_relevant",
+      "got": "flagged, nearest synthetic_000014"
+    },
+    {
+      "email_id": "synthetic_000058",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000049"
+    },
+    {
+      "email_id": "synthetic_000070",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000041"
+    },
+    {
+      "email_id": "synthetic_000075",
+      "measure": "repeat_precision",
+      "expected": "thesis_relevant",
+      "got": "flagged, nearest synthetic_000001"
+    },
+    {
+      "email_id": "synthetic_000076",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000041"
+    },
+    {
+      "email_id": "synthetic_000091",
+      "measure": "repeat_precision",
+      "expected": "low_value",
+      "got": "flagged, nearest synthetic_000041"
+    },
+    {
+      "email_id": "synthetic_000097",
+      "measure": "repeat_precision",
+      "expected": "irrelevant",
+      "got": "flagged, nearest synthetic_000089"
+    },
+    {
+      "email_id": "synthetic_000098",
+      "measure": "repeat_precision",
+      "expected": "low_value",
+      "got": "flagged, nearest synthetic_000077"
+    },
+    {
+      "email_id": "synthetic_000105",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000073"
+    },
+    {
+      "email_id": "synthetic_000123",
+      "measure": "repeat_precision",
+      "expected": "irrelevant",
+      "got": "flagged, nearest synthetic_000108"
+    },
+    {
+      "email_id": "synthetic_000125",
+      "measure": "repeat_precision",
+      "expected": "thesis_relevant",
+      "got": "flagged, nearest synthetic_000018"
+    },
+    {
+      "email_id": "synthetic_000136",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000098"
+    },
+    {
+      "email_id": "synthetic_000144",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000136"
+    },
+    {
+      "email_id": "synthetic_000153",
+      "measure": "repeat_precision",
+      "expected": "low_value",
+      "got": "flagged, nearest synthetic_000023"
+    },
+    {
+      "email_id": "synthetic_000157",
+      "measure": "repeat_precision",
+      "expected": "low_value",
+      "got": "flagged, nearest synthetic_000144"
+    },
+    {
+      "email_id": "synthetic_000162",
+      "measure": "repeat_precision",
+      "expected": "thesis_relevant",
+      "got": "flagged, nearest synthetic_000153"
+    },
+    {
+      "email_id": "synthetic_000174",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000036"
+    },
+    {
+      "email_id": "synthetic_000179",
+      "measure": "repeat_precision",
+      "expected": "low_value",
+      "got": "flagged, nearest synthetic_000149"
+    },
+    {
+      "email_id": "synthetic_000181",
+      "measure": "repeat_precision",
+      "expected": "low_value",
+      "got": "flagged, nearest synthetic_000056"
+    },
+    {
+      "email_id": "synthetic_000188",
+      "measure": "repeat_precision",
+      "expected": "low_value",
+      "got": "flagged, nearest synthetic_000041"
+    },
+    {
+      "email_id": "synthetic_000197",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000144"
+    },
+    {
+      "email_id": "synthetic_000200",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000144"
+    },
+    {
+      "email_id": "synthetic_000207",
+      "measure": "repeat_precision",
+      "expected": "low_value",
+      "got": "flagged, nearest synthetic_000157"
+    },
+    {
+      "email_id": "synthetic_000208",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000098"
+    },
+    {
+      "email_id": "synthetic_000211",
+      "measure": "repeat_precision",
+      "expected": "irrelevant",
+      "got": "flagged, nearest synthetic_000197"
+    },
+    {
+      "email_id": "synthetic_000229",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000042"
+    },
+    {
+      "email_id": "synthetic_000234",
+      "measure": "repeat_precision",
+      "expected": "thesis_relevant",
+      "got": "flagged, nearest synthetic_000144"
+    },
+    {
+      "email_id": "synthetic_000237",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000174"
+    },
+    {
+      "email_id": "synthetic_000242",
+      "measure": "repeat_precision",
+      "expected": "low_value",
+      "got": "flagged, nearest synthetic_000208"
+    },
+    {
+      "email_id": "synthetic_000243",
+      "measure": "repeat_precision",
+      "expected": "thesis_relevant",
+      "got": "flagged, nearest synthetic_000067"
+    },
+    {
+      "email_id": "synthetic_000246",
+      "measure": "repeat_precision",
+      "expected": "thesis_relevant",
+      "got": "flagged, nearest synthetic_000109"
+    },
+    {
+      "email_id": "synthetic_000248",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000061"
+    },
+    {
+      "email_id": "synthetic_000251",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000112"
+    },
+    {
+      "email_id": "synthetic_000252",
+      "measure": "repeat_precision",
+      "expected": "low_value",
+      "got": "flagged, nearest synthetic_000098"
+    },
+    {
+      "email_id": "synthetic_000260",
+      "measure": "repeat_precision",
+      "expected": "low_value",
+      "got": "flagged, nearest synthetic_000021"
+    },
+    {
+      "email_id": "synthetic_000261",
+      "measure": "repeat_precision",
+      "expected": "thesis_relevant",
+      "got": "flagged, nearest synthetic_000001"
+    },
+    {
+      "email_id": "synthetic_000263",
+      "measure": "repeat_precision",
+      "expected": "irrelevant",
+      "got": "flagged, nearest synthetic_000141"
+    },
+    {
+      "email_id": "synthetic_000265",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000144"
+    },
+    {
+      "email_id": "synthetic_000267",
+      "measure": "repeat_precision",
+      "expected": "low_value",
+      "got": "flagged, nearest synthetic_000217"
+    },
+    {
+      "email_id": "synthetic_000268",
+      "measure": "repeat_precision",
+      "expected": "irrelevant",
+      "got": "flagged, nearest synthetic_000141"
+    },
+    {
+      "email_id": "synthetic_000276",
+      "measure": "repeat_precision",
+      "expected": "low_value",
+      "got": "flagged, nearest synthetic_000033"
+    },
+    {
+      "email_id": "synthetic_000280",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000234"
+    },
+    {
+      "email_id": "synthetic_000284",
+      "measure": "repeat_precision",
+      "expected": "thesis_relevant",
+      "got": "flagged, nearest synthetic_000098"
+    },
+    {
+      "email_id": "synthetic_000285",
+      "measure": "repeat_precision",
+      "expected": "low_value",
+      "got": "flagged, nearest synthetic_000026"
+    },
+    {
+      "email_id": "synthetic_000286",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000200"
+    },
+    {
+      "email_id": "synthetic_000294",
+      "measure": "repeat_precision",
+      "expected": "thesis_relevant",
+      "got": "flagged, nearest synthetic_000200"
+    },
+    {
+      "email_id": "synthetic_000295",
+      "measure": "repeat_precision",
+      "expected": "thesis_relevant",
+      "got": "flagged, nearest synthetic_000001"
+    },
+    {
+      "email_id": "synthetic_000297",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000251"
+    },
+    {
+      "email_id": "synthetic_000298",
+      "measure": "repeat_precision",
+      "expected": "monitor",
+      "got": "flagged, nearest synthetic_000041"
+    },
+    {
+      "email_id": "synthetic_000004",
+      "measure": "email_type_accuracy",
+      "expected": "data_report",
+      "got": "vendor_pitch"
+    },
+    {
+      "email_id": "synthetic_000020",
+      "measure": "email_type_accuracy",
+      "expected": "administrative",
+      "got": "vendor_pitch"
+    },
+    {
+      "email_id": "synthetic_000022",
+      "measure": "email_type_accuracy",
+      "expected": "vendor_pitch",
+      "got": "administrative"
+    },
+    {
+      "email_id": "synthetic_000023",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "sell_side_research"
+    },
+    {
+      "email_id": "synthetic_000031",
+      "measure": "email_type_accuracy",
+      "expected": "data_report",
+      "got": "meeting_request"
+    },
+    {
+      "email_id": "synthetic_000035",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "vendor_pitch"
+    },
+    {
+      "email_id": "synthetic_000038",
+      "measure": "email_type_accuracy",
+      "expected": "meeting_request",
+      "got": "administrative"
+    },
+    {
+      "email_id": "synthetic_000040",
+      "measure": "email_type_accuracy",
+      "expected": "vendor_pitch",
+      "got": "sell_side_research"
+    },
+    {
+      "email_id": "synthetic_000044",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "sell_side_research"
+    },
+    {
+      "email_id": "synthetic_000045",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "internal_forward"
+    },
+    {
+      "email_id": "synthetic_000048",
+      "measure": "email_type_accuracy",
+      "expected": "data_report",
+      "got": "vendor_pitch"
+    },
+    {
+      "email_id": "synthetic_000052",
+      "measure": "email_type_accuracy",
+      "expected": "newsletter",
+      "got": "administrative"
+    },
+    {
+      "email_id": "synthetic_000054",
+      "measure": "email_type_accuracy",
+      "expected": "administrative",
+      "got": "sell_side_research"
+    },
+    {
+      "email_id": "synthetic_000060",
+      "measure": "email_type_accuracy",
+      "expected": "event_invitation",
+      "got": "administrative"
+    },
+    {
+      "email_id": "synthetic_000068",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "event_invitation"
+    },
+    {
+      "email_id": "synthetic_000075",
+      "measure": "email_type_accuracy",
+      "expected": "meeting_request",
+      "got": "sell_side_research"
+    },
+    {
+      "email_id": "synthetic_000084",
+      "measure": "email_type_accuracy",
+      "expected": "sell_side_research",
+      "got": "event_invitation"
+    },
+    {
+      "email_id": "synthetic_000085",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "administrative"
+    },
+    {
+      "email_id": "synthetic_000089",
+      "measure": "email_type_accuracy",
+      "expected": "meeting_request",
+      "got": "vendor_pitch"
+    },
+    {
+      "email_id": "synthetic_000091",
+      "measure": "email_type_accuracy",
+      "expected": "meeting_request",
+      "got": "vendor_pitch"
+    },
+    {
+      "email_id": "synthetic_000097",
+      "measure": "email_type_accuracy",
+      "expected": "meeting_request",
+      "got": "vendor_pitch"
+    },
+    {
+      "email_id": "synthetic_000098",
+      "measure": "email_type_accuracy",
+      "expected": "primary_research",
+      "got": "meeting_request"
+    },
+    {
+      "email_id": "synthetic_000099",
+      "measure": "email_type_accuracy",
+      "expected": "primary_research",
+      "got": "vendor_pitch"
+    },
+    {
+      "email_id": "synthetic_000100",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "vendor_pitch"
+    },
+    {
+      "email_id": "synthetic_000101",
+      "measure": "email_type_accuracy",
+      "expected": "vendor_pitch",
+      "got": "event_invitation"
+    },
+    {
+      "email_id": "synthetic_000109",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "internal_forward"
+    },
+    {
+      "email_id": "synthetic_000117",
+      "measure": "email_type_accuracy",
+      "expected": "primary_research",
+      "got": "vendor_pitch"
+    },
+    {
+      "email_id": "synthetic_000121",
+      "measure": "email_type_accuracy",
+      "expected": "sell_side_research",
+      "got": "vendor_pitch"
+    },
+    {
+      "email_id": "synthetic_000128",
+      "measure": "email_type_accuracy",
+      "expected": "meeting_request",
+      "got": "vendor_pitch"
+    },
+    {
+      "email_id": "synthetic_000129",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "event_invitation"
+    },
+    {
+      "email_id": "synthetic_000131",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "vendor_pitch"
+    },
+    {
+      "email_id": "synthetic_000132",
+      "measure": "email_type_accuracy",
+      "expected": "newsletter",
+      "got": "sell_side_research"
+    },
+    {
+      "email_id": "synthetic_000143",
+      "measure": "email_type_accuracy",
+      "expected": "newsletter",
+      "got": "sell_side_research"
+    },
+    {
+      "email_id": "synthetic_000144",
+      "measure": "email_type_accuracy",
+      "expected": "event_invitation",
+      "got": "meeting_request"
+    },
+    {
+      "email_id": "synthetic_000161",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "sell_side_research"
+    },
+    {
+      "email_id": "synthetic_000163",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "data_report"
+    },
+    {
+      "email_id": "synthetic_000165",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "sell_side_research"
+    },
+    {
+      "email_id": "synthetic_000176",
+      "measure": "email_type_accuracy",
+      "expected": "administrative",
+      "got": "event_invitation"
+    },
+    {
+      "email_id": "synthetic_000178",
+      "measure": "email_type_accuracy",
+      "expected": "data_report",
+      "got": "vendor_pitch"
+    },
+    {
+      "email_id": "synthetic_000182",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "primary_research"
+    },
+    {
+      "email_id": "synthetic_000185",
+      "measure": "email_type_accuracy",
+      "expected": "vendor_pitch",
+      "got": "meeting_request"
+    },
+    {
+      "email_id": "synthetic_000189",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "vendor_pitch"
+    },
+    {
+      "email_id": "synthetic_000190",
+      "measure": "email_type_accuracy",
+      "expected": "vendor_pitch",
+      "got": "primary_research"
+    },
+    {
+      "email_id": "synthetic_000196",
+      "measure": "email_type_accuracy",
+      "expected": "data_report",
+      "got": "newsletter"
+    },
+    {
+      "email_id": "synthetic_000197",
+      "measure": "email_type_accuracy",
+      "expected": "meeting_request",
+      "got": "sell_side_research"
+    },
+    {
+      "email_id": "synthetic_000204",
+      "measure": "email_type_accuracy",
+      "expected": "administrative",
+      "got": "event_invitation"
+    },
+    {
+      "email_id": "synthetic_000207",
+      "measure": "email_type_accuracy",
+      "expected": "meeting_request",
+      "got": "event_invitation"
+    },
+    {
+      "email_id": "synthetic_000230",
+      "measure": "email_type_accuracy",
+      "expected": "primary_research",
+      "got": "sell_side_research"
+    },
+    {
+      "email_id": "synthetic_000236",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "vendor_pitch"
+    },
+    {
+      "email_id": "synthetic_000239",
+      "measure": "email_type_accuracy",
+      "expected": "newsletter",
+      "got": "sell_side_research"
+    },
+    {
+      "email_id": "synthetic_000241",
+      "measure": "email_type_accuracy",
+      "expected": "event_invitation",
+      "got": "meeting_request"
+    },
+    {
+      "email_id": "synthetic_000244",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "newsletter"
+    },
+    {
+      "email_id": "synthetic_000245",
+      "measure": "email_type_accuracy",
+      "expected": "vendor_pitch",
+      "got": "data_report"
+    },
+    {
+      "email_id": "synthetic_000259",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "data_report"
+    },
+    {
+      "email_id": "synthetic_000268",
+      "measure": "email_type_accuracy",
+      "expected": "meeting_request",
+      "got": "event_invitation"
+    },
+    {
+      "email_id": "synthetic_000270",
+      "measure": "email_type_accuracy",
+      "expected": "newsletter",
+      "got": "internal_forward"
+    },
+    {
+      "email_id": "synthetic_000271",
+      "measure": "email_type_accuracy",
+      "expected": "newsletter",
+      "got": "sell_side_research"
+    },
+    {
+      "email_id": "synthetic_000272",
+      "measure": "email_type_accuracy",
+      "expected": "newsletter",
+      "got": "sell_side_research"
+    },
+    {
+      "email_id": "synthetic_000274",
+      "measure": "email_type_accuracy",
+      "expected": "sell_side_research",
+      "got": "event_invitation"
+    },
+    {
+      "email_id": "synthetic_000283",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "sell_side_research"
+    },
+    {
+      "email_id": "synthetic_000289",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "vendor_pitch"
+    },
+    {
+      "email_id": "synthetic_000290",
+      "measure": "email_type_accuracy",
+      "expected": "newsletter",
+      "got": "data_report"
+    },
+    {
+      "email_id": "synthetic_000291",
+      "measure": "email_type_accuracy",
+      "expected": "news_alert",
+      "got": "data_report"
+    },
+    {
+      "email_id": "synthetic_000296",
+      "measure": "email_type_accuracy",
+      "expected": "administrative",
+      "got": "news_alert"
+    },
+    {
+      "email_id": "synthetic_000300",
+      "measure": "email_type_accuracy",
+      "expected": "meeting_request",
+      "got": "vendor_pitch"
+    }
+  ]
+}

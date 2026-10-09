@@ -1,0 +1,694 @@
+[
+  {
+    "email_id": "synthetic_000003",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000003.s1",
+      "synthetic_000003.s2",
+      "synthetic_000003.s3"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000005",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000005.s1",
+      "synthetic_000005.s2"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000011",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000011.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000018",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000018.s1",
+      "synthetic_000018.s2"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000027",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000027.s1",
+      "synthetic_000027.s2",
+      "synthetic_000027.s3",
+      "synthetic_000027.s4",
+      "synthetic_000027.s5"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000036",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000036.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000041",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000041.s1",
+      "synthetic_000041.s2"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000042",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000042.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000046",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "The only claim comes from a monitor email, which is not enough alone for a new thesis."
+  },
+  {
+    "email_id": "synthetic_000049",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000049.s1",
+      "synthetic_000049.s2",
+      "synthetic_000049.s3"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000055",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000055.s1",
+      "synthetic_000055.s2"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000056",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "All claims come from email synthetic_000056, which is labelled monitor, and monitor claims are not enough alone for a new thesis."
+  },
+  {
+    "email_id": "synthetic_000057",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000057.s1",
+      "synthetic_000057.s2"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000058",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "The only email is labelled monitor, and its channel-check claims are not first-hand, so they are not enough alone to support a new thesis on cloud pricing."
+  },
+  {
+    "email_id": "synthetic_000067",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "All claims come from email synthetic_000067, which is labelled monitor, and monitor claims are not enough alone for a new thesis."
+  },
+  {
+    "email_id": "synthetic_000071",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000071.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000074",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000074.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000075",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000075.s1",
+      "synthetic_000075.s2",
+      "synthetic_000075.s3",
+      "synthetic_000075.s4"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000076",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000076.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000078",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "The hosting-rights extension falls within the existing Azure growth pillar, and the revenue-share cut is a single contract term reported secondhand, not a recurring debate that no existing pillar covers."
+  },
+  {
+    "email_id": "synthetic_000080",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "The only claim comes from a monitor email and is an unverified opinion, which is not enough alone for a new thesis."
+  },
+  {
+    "email_id": "synthetic_000081",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000081.s1",
+      "synthetic_000081.s2"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000087",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "The only source, synthetic_000087, is labelled monitor and none of its claims is first-hand, so the rule requiring a claim from a non-monitor label to carry any new-thesis candidate is not met."
+  },
+  {
+    "email_id": "synthetic_000105",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000105.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000107",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000107.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000112",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000112.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000119",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000119.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000125",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000125.s1",
+      "synthetic_000125.s2"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000127",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000127.s1",
+      "synthetic_000127.s2"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000134",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000134.s1",
+      "synthetic_000134.s2"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000136",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000136.s1",
+      "synthetic_000136.s2"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000144",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000144.s1",
+      "synthetic_000144.s2"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000150",
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
+  },
+  {
+    "email_id": "synthetic_000154",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000154.s1",
+      "synthetic_000154.s2",
+      "synthetic_000154.s3"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000162",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000162.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000174",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000174.s1",
+      "synthetic_000174.s2",
+      "synthetic_000174.s3"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000177",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "The claims are channel checks from one agency that the source says skews to DTC, and none is first-hand, so the YouTube ad monetization point is too narrow and single-sourced to support a new thesis yet."
+  },
+  {
+    "email_id": "synthetic_000182",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000182.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000186",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000186.s1",
+      "synthetic_000186.s2"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000196",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "The only claim comes from a monitor email, which is not enough alone for a new thesis, and its count of questionnaire documents does not describe a debate that the existing pillars leave uncovered."
+  },
+  {
+    "email_id": "synthetic_000200",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000200.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000208",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "The only claims come from email synthetic_000208, which is labelled monitor and is not first-hand, and monitor claims are not enough alone for a new thesis."
+  },
+  {
+    "email_id": "synthetic_000221",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000221.s1",
+      "synthetic_000221.s2"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000222",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000222.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000223",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000223.s1",
+      "synthetic_000223.s2"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000229",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000229.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000230",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "The only email behind these claims is labelled monitor, and no claim comes from a thesis_relevant or other non-monitor email, so the monitor-only rule blocks a new thesis."
+  },
+  {
+    "email_id": "synthetic_000231",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000231.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000234",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000234.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000237",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000237.s1",
+      "synthetic_000237.s2",
+      "synthetic_000237.s3"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000240",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000240.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000241",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000241.s1",
+      "synthetic_000241.s2"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000243",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000243.s1",
+      "synthetic_000243.s2",
+      "synthetic_000243.s3",
+      "synthetic_000243.s4"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000248",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "The only email for AMZN is labelled monitor, and claims from monitor emails are not enough alone to support a new thesis."
+  },
+  {
+    "email_id": "synthetic_000250",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000250.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000251",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "The only source, synthetic_000251, is labelled monitor, and the rules require at least one claim from a non-monitor label before a new thesis can be proposed."
+  },
+  {
+    "email_id": "synthetic_000258",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000258.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000261",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000261.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000265",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "The only claim comes from a monitor email and is not first-hand, so it is not enough alone for a new thesis."
+  },
+  {
+    "email_id": "synthetic_000269",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "The only claims come from a monitor email, which is not enough alone for a new thesis, and none of the claims are first-hand."
+  },
+  {
+    "email_id": "synthetic_000280",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "The only source is a monitor email, and its claims are second-hand channel checks, so they are not enough alone for a new thesis."
+  },
+  {
+    "email_id": "synthetic_000284",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000284.s1",
+      "synthetic_000284.s2"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000286",
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
+  },
+  {
+    "email_id": "synthetic_000295",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000295.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "synthetic_000297",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "All four claims come from email synthetic_000297, which is labelled monitor, and a monitor-only set of claims is not enough for a new thesis."
+  },
+  {
+    "email_id": "synthetic_000298",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "synthetic_000298.s1"
+    ],
+    "no_change_reason": null
+  }
+]
