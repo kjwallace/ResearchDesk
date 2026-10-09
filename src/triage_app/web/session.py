@@ -36,6 +36,7 @@ class SessionState:
     suggestions: dict[str, Suggestion] = field(default_factory=dict)
     claims: list[Claim] = field(default_factory=list)
     mattered: dict[str, str] = field(default_factory=dict)  # email ID to outcome line
+    handled: dict[str, str] = field(default_factory=dict)   # attention email ID to "responded" or "rejected"
 
     def reset(self) -> None:
         self.__dict__.update(SessionState(live_runs=self.live_runs).__dict__)

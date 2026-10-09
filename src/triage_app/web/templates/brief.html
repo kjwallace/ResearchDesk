@@ -27,7 +27,7 @@
 <div class="split">
 <section aria-label="Brief items" data-list>
   <div class="subtabs">
-    <span class="on">Morning brief · {{ brief.day.strftime('%a %b %d, %Y') }}</span>
+    <span class="on">Morning Brief · {{ brief.day.strftime('%a %b %d, %Y') }}</span>
     <a href="/review">Review one by one {{ icon('right') }}</a>
     <a href="/audit">Audit <span class="badge">{{ brief.audit | length }}</span></a>
   </div>
@@ -58,9 +58,9 @@
       {{ groups(worth_watching) }}
     </details>
 
-    <details class="group" open><summary>{{ icon('chev') }}<h2>Needs your attention</h2><span class="badge">{{ brief.needs_attention | length }}</span></summary>
+    <details class="group" open><summary>{{ icon('chev') }}<h2>Needs your attention</h2><span class="badge">{{ brief.needs_attention | reject('in', v.sess.handled) | list | length }}</span></summary>
       {% if brief.needs_attention %}<div class="pair-note" style="color:var(--ink-2);background:var(--sunken)"><a href="/attention">Open them by deadline, with who is asking, in Needs attention →</a></div>{% endif %}
-      {% for eid in brief.needs_attention %}
+      {% for eid in brief.needs_attention if eid not in v.sess.handled %}
         {% set e = v.email(eid) %}{% set n = v.data.notes.get(eid) %}{% set t = v.data.triage.get(eid) %}
         {% if e %}
         {% call email_row(v, e, snippet=n.summary if n else '') %}

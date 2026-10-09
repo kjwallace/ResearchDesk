@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "macros.html" import icon, stat, ticker_mark %}
+{% from "macros.html" import icon, stat, ticker_mark, rating, street_target %}
 {% block title %}Book{% endblock %}
 {% block content %}
 {%- set n_long = rows | selectattr('thesis.stance', 'equalto', 'long') | list -%}
@@ -19,8 +19,8 @@
 <div class="eyebrow">Positions</div>
 <div class="table-wrap">
 <table class="book">
-  <thead><tr><th>Company</th><th>Position</th><th class="num">Value</th><th class="num">Shares</th>
-    <th class="num">EPS</th><th class="num">Gap to consensus</th><th class="num">Target price</th><th class="num">Gap to consensus</th>
+  <thead><tr><th>Company</th><th>Position</th><th>Analyst rating</th><th class="num">Value</th><th class="num">Shares</th>
+    <th class="num">EPS</th><th class="num">Gap to consensus</th><th class="num">Target price</th><th class="num">Gap to consensus</th><th class="num">Street target</th>
     <th class="num">Open suggestions</th><th></th></tr></thead>
   {% for r in rows %}
     {% set a = r.proj['analyst'] %}{% set c = r.proj['consensus'] %}
@@ -29,26 +29,28 @@
     <tr>
       <td><a class="book-co" href="/company/{{ r.ticker }}">{{ ticker_mark(r.ticker) }}<span><b>{{ r.ticker }}</b><span class="xs muted">{{ r.model.fiscal_year }}</span></span></a></td>
       <td><span class="pill dot {{ r.thesis.stance }}">{{ r.thesis.stance | human }}</span></td>
+      <td>{{ rating(r.thesis, compact=True) }}</td>
       <td class="num">{{ labels.position_usd(r.thesis.size_bps) | money }}</td>
       <td class="num">{{ '{:,}'.format(labels.position_shares(r.ticker, r.thesis.size_bps)) }}</td>
       <td class="num">${{ a.eps | num(2) }}</td>
       <td class="num {{ 'gap-pos' if eps_gap > 0.05 else ('gap-neg' if eps_gap < -0.05 else 'muted') }}">{{ '+' if eps_gap > 0 else '' }}{{ eps_gap | num(1) }}%</td>
       <td class="num">${{ a.target_price | num(0) }}</td>
       <td class="num {{ 'gap-pos' if tp_gap > 0.05 else ('gap-neg' if tp_gap < -0.05 else 'muted') }}">{{ '+' if tp_gap > 0 else '' }}{{ tp_gap | num(1) }}%</td>
+      <td class="num">{{ street_target(r.thesis) }}</td>
       <td class="num">{% if r.open %}<a class="badge on" href="/review">{{ r.open }}</a>{% else %}<span class="muted">0</span>{% endif %}</td>
       <td class="num"><a class="btn" href="/research-log/{{ r.ticker }}">{{ icon('file') }}Full research log</a></td>
     </tr>
   {% endfor %}
 </table>
 </div>
-<p class="xs muted">Values and share counts use a synthetic {{ thresholds.SYNTHETIC_NAV_USD | money }} fund and synthetic reference prices. EPS and target price are computed by code from the analyst's assumptions and from consensus; models never supply a number.</p>
+<p class="xs muted">Analyst ratings (buy, hold or sell) and the Street's target prices arrive with the next data update; until then each shows as pending. "Gap to consensus" compares with figures computed from consensus assumptions. Values and share counts use a synthetic {{ thresholds.SYNTHETIC_NAV_USD | money }} fund and synthetic reference prices. EPS and target price are computed by code from the analyst's assumptions and from consensus; models never supply a number.</p>
 
 <div class="eyebrow" style="margin-top:28px">Theses</div>
 <div class="book-grid">
 {% for r in rows %}
   <article class="card">
     <h3>{{ ticker_mark(r.ticker) }} <a href="/company/{{ r.ticker }}">{{ r.ticker }}</a>
-      <span class="pill dot {{ r.thesis.stance }}">{{ r.thesis.stance | human }}</span>
+      <span class="pill dot {{ r.thesis.stance }}">{{ r.thesis.stance | human }}</span> {{ rating(r.thesis, compact=True) }}
       <span class="grow" style="flex:1"></span><a class="btn" href="/company/{{ r.ticker }}">Model {{ icon('right') }}</a></h3>
     <ul class="pillars">
     {% for p in r.thesis.pillars %}

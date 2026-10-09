@@ -550,3 +550,49 @@ form.add-rule input { flex: 1; }
 form.new-category { margin: 0 0 20px; border-style: dashed; }
 .new-cat-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 12px; }
 @media (max-width: 760px) { .new-cat-grid { grid-template-columns: minmax(0, 1fr); } }
+.toggles { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 16px; }
+.toggles .view-toggle { margin: 0; }
+.toggle-label { font-size: 12.5px; color: var(--muted); padding: 5px 6px 5px 8px; align-self: center; }
+/* Inbox sits beside the brief, lightly tinted so it stands out. */
+.tabs .tab-inbox { display: contents; }
+.tabs .tab-inbox a { background: var(--accent-softer); border-radius: 6px 6px 0 0; padding-left: 10px; padding-right: 10px; margin: 0 -4px; }
+.tabs .tab-inbox a:hover { background: var(--accent-soft); }
+
+/* ---- Analyst rating ---- */
+.rating { display: inline-flex; padding: 1px 9px; border-radius: 4px; font-size: 12.5px; font-weight: 600; }
+.rating.buy { background: var(--good-soft); color: var(--good); }
+.rating.hold { background: var(--info-soft); color: var(--info); }
+.rating.sell { background: var(--bad-soft); color: var(--bad); }
+.rating-pending { display: inline-flex; align-items: center; gap: 2px; font-size: 11.5px; vertical-align: middle; }
+.rating-pending span { padding: 1px 7px; border: 1px dashed var(--line-2); color: var(--faint); border-radius: 4px; }
+.rating-pending em { font-style: normal; margin-left: 6px; color: var(--warn); font-weight: 600; }
+.stat .value .rating-pending { font-size: 13px; font-weight: 500; }
+.upcoming { margin: 0 0 24px; border: 1px dashed var(--line-2); }
+.req-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; padding-top: 12px;
+  border-top: 1px dashed var(--line); }
+.req-actions form { display: inline; }
+.handled-row { background: var(--sunken); }
+.handled-row .status-line { gap: 10px; }
+.pending-chip { display: inline-block; padding: 0 7px; border: 1px dashed var(--line-2); border-radius: 4px; font-size: 11.5px;
+  color: var(--warn); font-weight: 600; line-height: 1.6; }
+
+/* ---- Needs attention: compact request cards ---- */
+.row.req { padding: 10px 14px; }
+.req-head { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.req-head .avatar { width: 26px; height: 26px; font-size: 10px; }
+.req-who { font-size: 13px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.req-who b { font-weight: 600; }
+.req-head .due { flex: none; font-size: 11.5px; padding: 2px 8px; }
+p.req-offer { margin: 6px 0 8px 36px; padding: 0; border: 0; font-size: 13px; font-weight: 600; line-height: 1.45;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+p.req-offer a.stretch { color: var(--ink); }
+.req-foot { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin-left: 36px; }
+.req-foot .tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.req-foot .req-actions { margin: 0; padding: 0; border: 0; gap: 6px; }
+.req-foot .req-actions button { padding: 3px 10px; font-size: 12px; }
+.req-toolbar { display: flex; gap: 8px; align-items: center; margin: 0 0 12px; }
+.req-toolbar .search { flex: 1; }
+@media (max-width: 760px) { p.req-offer, .req-foot { margin-left: 0; } .req-head { flex-wrap: wrap; } }
+/* The whole request summary, in regular weight and never cut off. */
+p.req-offer { font-weight: 400; font-size: 13.5px; line-height: 1.55; color: var(--ink); display: block;
+  -webkit-line-clamp: unset; overflow: visible; margin-top: 8px; margin-bottom: 10px; }

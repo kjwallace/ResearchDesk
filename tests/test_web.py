@@ -175,14 +175,14 @@ def test_attention_tab_shows_requester_offer_deadline_and_tags(client: TestClien
     email = CORPUS["fixture_007"]
     note = next(n for n in read_list(OUT / "notes.json", AttentionNote) if n.email_id == "fixture_007")
     result = RESULTS["fixture_007"]
-    assert 'id="req-fixture_007"' in text and "Requested by" in text
-    assert html.escape(email.sender.split(",")[0]) in text                  # who is asking
-    assert f"<strong>{escape(labels.split_summary(note.summary)[0])}</strong>" in text  # the offer, bold
-    assert "Reply by Today, 4:00 PM" in text                                 # the timeline
+    card = text[text.index('id="req-fixture_007"'):]
+    card = card[:card.index("</article>")]
+    assert str(escape(email.sender.split(",")[0])) in card                       # who is asking
+    assert str(escape(labels.split_summary(note.summary)[0])) in card            # the offer
+    assert card.index("Reply by Today, 4:00 PM") < card.index("req-offer")       # due beside the name
     for t in result.affected_tickers:
-        assert f'href="/company/{t}">{t}</a>' in text                       # relevance tags
-    assert "/attention" in client.get("/").text                              # reachable from the brief
-
+        assert f'href="/company/{t}">{t}</a>' in card                            # relevance tags
+    assert "/attention" in client.get("/").text                                  # reachable from the brief
 
 def test_book_lists_every_position_with_open_suggestions(client: TestClient) -> None:
     text = client.get("/book").text
@@ -255,6 +255,43 @@ def test_criteria_are_grouped_with_safety_separate_and_editing_marked_as_example
     one = client.get("/criteria/thesis_relevant").text
     assert "data-crit-editor" in one and "Definition (fixed)" in one and "not saved" in one
     assert 'hx-post="/criteria' not in one   # editing never reaches the server
+
+
+def test_requests_can_be_responded_to_or_rejected_and_restored(client: TestClient) -> None:
+    assert 'action="/attention/fixture_007/respond"' in client.get("/attention").text
+    r = client.post("/attention/fixture_007/respond", headers=HX)
+    assert r.status_code == 200 and "Responded" in r.text and "no email was sent" in r.text
+    page = client.get("/attention").text
+    assert "Handled this session" in page and 'action="/attention/fixture_007/respond"' not in page
+    assert "/email/fixture_007" not in client.get("/").text.split("Needs your attention")[1].split("</details>")[0]
+    assert client.post("/attention/fixture_007/restore", headers=HX).status_code == 200
+    assert 'action="/attention/fixture_007/respond"' in client.get("/attention").text
+    assert client.post("/attention/fixture_007/reject", headers=HX).status_code == 200
+    assert client.post("/attention/fixture_007/send", headers=HX).status_code == 404
+
+
+def test_requests_order_by_time_or_relevance_and_filter_by_ticker(client: TestClient) -> None:
+    for sort, heading in (("time", "Requests by deadline"), ("relevance", "Most relevant first")):
+        text = client.get(f"/attention?sort={sort}").text
+        assert heading in text and 'href="/attention?sort=relevance"' in text
+        assert "Attention 0." not in text
+    text = client.get("/attention").text
+    assert "sort=tickers" not in text and 'aria-label="Filter by ticker"' in text
+    tickers = " ".join(RESULTS["fixture_007"].affected_tickers)
+    assert re.search(r'id="req-fixture_007"\s+data-keys="[a-z]+ ' + re.escape(tickers) + '"', text)   # filterable by ticker
+    assert "Requested by" not in text and "Received " not in text
+
+
+def test_inbox_tab_follows_the_brief_and_ratings_are_placeholders(client: TestClient) -> None:
+    text = client.get("/").text
+    nav = text[text.index('class="tabs"'):text.index("</nav>")]
+    assert nav.index("Morning Brief") < nav.index("Inbox") < nav.index("Review")
+    book = client.get("/book").text
+    assert "Analyst rating</th>" in book and "rating-pending" in book
+    assert "Street target</th>" in book and "pending-chip" in book
+    assert "Street target" in client.get("/company/MSFT").text
+    company = client.get("/company/MSFT").text
+    assert "Suggested rating changes" in company and "Upcoming" in company
 
 
 def test_brief_lists_every_section(client: TestClient) -> None:
