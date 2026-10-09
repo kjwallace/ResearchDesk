@@ -1,0 +1,58 @@
+[
+  {
+    "email_id": "fixture_001",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "fixture_001.s1",
+      "fixture_001.s2"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "fixture_002",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "fixture_002.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "fixture_005",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [],
+    "no_change_reason": "The report states no figure or change that bears on Alphabet's capex, margin or search pillars."
+  },
+  {
+    "email_id": "fixture_007",
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
+  },
+  {
+    "email_id": "fixture_008",
+    "skills_called": [
+      "existing_thesis"
+    ],
+    "suggestion_ids": [
+      "fixture_008.s1"
+    ],
+    "no_change_reason": null
+  },
+  {
+    "email_id": "fixture_009",
+    "skills_called": [
+      "existing_thesis",
+      "new_thesis"
+    ],
+    "suggestion_ids": [
+      "fixture_009.s1"
+    ],
+    "no_change_reason": null
+  }
+]

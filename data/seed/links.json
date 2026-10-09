@@ -1,0 +1,48 @@
+[
+  {
+    "from_ticker": "MSFT",
+    "to_pillar_ids": [
+      "NVDA.p1",
+      "NVDA.p3",
+      "AMZN.p1",
+      "GOOGL.p2"
+    ],
+    "why": "Its capex and in-house chips bear on Nvidia; cloud share shifts between the three clouds."
+  },
+  {
+    "from_ticker": "AMZN",
+    "to_pillar_ids": [
+      "NVDA.p1",
+      "NVDA.p3",
+      "MSFT.p1",
+      "GOOGL.p2"
+    ],
+    "why": "The same two reasons."
+  },
+  {
+    "from_ticker": "GOOGL",
+    "to_pillar_ids": [
+      "NVDA.p1",
+      "NVDA.p3",
+      "MSFT.p1",
+      "AMZN.p1",
+      "AAPL.p2"
+    ],
+    "why": "The same two reasons, and search distribution payments reach Apple Services."
+  },
+  {
+    "from_ticker": "AAPL",
+    "to_pillar_ids": [
+      "GOOGL.p3"
+    ],
+    "why": "Rulings on search distribution deals affect both companies."
+  },
+  {
+    "from_ticker": "NVDA",
+    "to_pillar_ids": [
+      "MSFT.p1",
+      "AMZN.p1"
+    ],
+    "why": "Chip supply sets how fast cloud capacity comes online."
+  }
+]

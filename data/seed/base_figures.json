@@ -1,0 +1,72 @@
+{
+  "AMZN": {
+    "fiscal_year_reported": "FY2025",
+    "period_end": "2025-12-31",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm",
+    "revenue_lines": {
+      "AMZN.aws_growth": 128.725,
+      "AMZN.north_america_growth": 426.305,
+      "AMZN.international_growth": 161.894
+    },
+    "total_revenue_usd_bn": 716.924,
+    "tax_rate": 0.1961,
+    "diluted_shares_bn": 10.827,
+    "notes": "Segment net sales from Note 10 (Segment Information); segments sum exactly to total net sales. Tax rate = provision $19,087M / income before income taxes $97,311M (excludes equity-method investment activity, net of tax)."
+  },
+  "NVDA": {
+    "fiscal_year_reported": "FY2026",
+    "period_end": "2026-01-25",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000021/nvda-20260125.htm",
+    "revenue_lines": {
+      "NVDA.data_center_growth": 193.737,
+      "NVDA.gaming_growth": 16.042,
+      "NVDA.other_growth": 6.159
+    },
+    "total_revenue_usd_bn": 215.938,
+    "tax_rate": 0.1512,
+    "diluted_shares_bn": 24.514,
+    "notes": "Revenue by market platform (not the Compute & Networking / Graphics reportable segments). Other = Professional Visualization $3.191B + Automotive $2.349B + OEM and Other $0.619B; lines sum exactly to total revenue."
+  },
+  "MSFT": {
+    "fiscal_year_reported": "FY2026",
+    "period_end": "2026-06-30",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm",
+    "revenue_lines": {
+      "MSFT.intelligent_cloud_growth": 137.791,
+      "MSFT.productivity_growth": 139.996,
+      "MSFT.personal_computing_growth": 54.052
+    },
+    "total_revenue_usd_bn": 331.839,
+    "tax_rate": 0.194,
+    "diluted_shares_bn": 7.453,
+    "notes": "No re-segmentation in FY2026: the three reported segments map one-to-one and sum exactly to total revenue. Filing states effective tax rate of 19% (computed 0.194)."
+  },
+  "AAPL": {
+    "fiscal_year_reported": "FY2025",
+    "period_end": "2025-09-27",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm",
+    "revenue_lines": {
+      "AAPL.iphone_growth": 209.586,
+      "AAPL.services_growth": 109.158,
+      "AAPL.other_products_growth": 97.417
+    },
+    "total_revenue_usd_bn": 416.161,
+    "tax_rate": 0.1561,
+    "diluted_shares_bn": 15.005,
+    "notes": "Latest 10-K as of 2026-10-08 is FY2025 (FY2026 10-K not yet filed). Other products = Mac $33.708B + iPad $28.023B + Wearables, Home and Accessories $35.686B; lines sum exactly to total net sales."
+  },
+  "GOOGL": {
+    "fiscal_year_reported": "FY2025",
+    "period_end": "2025-12-31",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000018/goog-20251231.htm",
+    "revenue_lines": {
+      "GOOGL.services_growth": 342.721,
+      "GOOGL.cloud_growth": 58.705,
+      "GOOGL.other_bets_growth": 1.537
+    },
+    "total_revenue_usd_bn": 402.836,
+    "tax_rate": 0.1678,
+    "diluted_shares_bn": 12.23,
+    "notes": "Segment lines sum to $402.963B, $0.127B above total revenues because hedging losses of $(0.127)B are excluded. Diluted shares are the consolidated Class A+B+C figure (12,230M) from Note 12."
+  }
+}

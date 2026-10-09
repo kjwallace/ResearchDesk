@@ -1,0 +1,49 @@
+[
+  {
+    "name": "alter_existing_thesis",
+    "description": "Assesses whether extracted claims support or contradict a pillar the desk already holds, or meet a pillar's 'wrong if' test. Pass only claim IDs. Code works out which pillars to consider from the claims' tickers and the desk's links file, so do not name companies or pillars. Call it whenever any claim concerns AMZN, NVDA, MSFT, AAPL or GOOGL, and call it before spawn_new_thesis. Do not call it when no claim concerns a company in the book. It only recommends and changes nothing in the book.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "claim_ids": {
+          "type": "array",
+          "description": "The IDs of the extracted claims to assess, for example synthetic_000123.c1.",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]+\\.c\\d+$"
+          },
+          "minItems": 1
+        }
+      },
+      "required": ["claim_ids"],
+      "additionalProperties": false
+    },
+    "returns": "A list of suggestions on existing pillars (each naming a pillar ID such as NVDA.p1), or a no-change reason."
+  },
+  {
+    "name": "spawn_new_thesis",
+    "description": "Assesses whether extracted claims point to a thesis the book does not hold for one company. Call it only after alter_existing_thesis, and only when no existing pillar covers the debate the claims raise. Do not use it to restate, refine or reverse an existing pillar; use alter_existing_thesis for that. It handles one company per call, so if the claims concern several companies, make a separate call for each with only that company's claims. It only recommends and changes nothing in the book.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "claim_ids": {
+          "type": "array",
+          "description": "The IDs of the extracted claims, all concerning the given ticker, that may point to a new thesis.",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]+\\.c\\d+$"
+          },
+          "minItems": 1
+        },
+        "ticker": {
+          "type": "string",
+          "description": "The one company for which a new pillar is being considered.",
+          "enum": ["AMZN", "NVDA", "MSFT", "AAPL", "GOOGL"]
+        }
+      },
+      "required": ["claim_ids", "ticker"],
+      "additionalProperties": false
+    },
+    "returns": "At most one candidate pillar for the given ticker, or a no-change reason."
+  }
+]

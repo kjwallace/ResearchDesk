@@ -1,0 +1,143 @@
+[
+  {
+    "email_id": "fixture_001",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "additional_labels": [],
+    "human_attention": false,
+    "signal_score": 0.92,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.71; signal score 0.92 clears 0.60"
+  },
+  {
+    "email_id": "fixture_002",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "NVDA"
+    ],
+    "additional_labels": [
+      "sector"
+    ],
+    "human_attention": false,
+    "signal_score": 0.82,
+    "gate": "pass",
+    "reason": "monitor 0.58; signal score 0.82 clears 0.60"
+  },
+  {
+    "email_id": "fixture_003",
+    "triage": null,
+    "decided_by": "quarantine",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [],
+    "human_attention": false,
+    "signal_score": 0.09,
+    "gate": "quarantine",
+    "reason": "quarantined: instructs_ai 0.97 reaches 0.40"
+  },
+  {
+    "email_id": "fixture_004",
+    "triage": null,
+    "decided_by": "quarantine",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [],
+    "human_attention": false,
+    "signal_score": 0.83,
+    "gate": "quarantine",
+    "reason": "quarantined: possible_mnpi 0.91 reaches 0.40"
+  },
+  {
+    "email_id": "fixture_005",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector"
+    ],
+    "human_attention": false,
+    "signal_score": 0.71,
+    "gate": "pass",
+    "reason": "monitor 0.55; signal score 0.71 clears 0.60"
+  },
+  {
+    "email_id": "fixture_006",
+    "triage": "redundant",
+    "decided_by": "redundancy_check",
+    "redundant_of": "fixture_005",
+    "affected_tickers": [
+      "GOOGL"
+    ],
+    "additional_labels": [
+      "sector"
+    ],
+    "human_attention": false,
+    "signal_score": 0.52,
+    "gate": "stop",
+    "reason": "redundant: repeat of fixture_005 (content 0.96, subject 0.86); jev monitor 0.42; signal score 0.52 is below 0.60"
+  },
+  {
+    "email_id": "fixture_007",
+    "triage": "monitor",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "NVDA"
+    ],
+    "additional_labels": [],
+    "human_attention": true,
+    "signal_score": 0.72,
+    "gate": "pass",
+    "reason": "monitor 0.47; signal score 0.72 clears 0.60"
+  },
+  {
+    "email_id": "fixture_008",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "additional_labels": [],
+    "human_attention": false,
+    "signal_score": 0.62,
+    "gate": "pass",
+    "reason": "low_value 0.34; signal score 0.62 clears 0.60"
+  },
+  {
+    "email_id": "fixture_009",
+    "triage": "thesis_relevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [
+      "AMZN",
+      "NVDA"
+    ],
+    "additional_labels": [],
+    "human_attention": false,
+    "signal_score": 0.9,
+    "gate": "pass",
+    "reason": "thesis_relevant 0.66; signal score 0.90 clears 0.60"
+  },
+  {
+    "email_id": "fixture_010",
+    "triage": "irrelevant",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [],
+    "human_attention": false,
+    "signal_score": 0.04,
+    "gate": "stop",
+    "reason": "irrelevant 0.81; signal score 0.04 is below 0.60"
+  }
+]

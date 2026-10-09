@@ -1,0 +1,74 @@
+{
+  "corpus": "day_1",
+  "criteria_version": "fixture0000",
+  "measures": {
+    "gate_recall": 0.6667,
+    "monitor_gate_recall": 1.0,
+    "gate_reduction": 0.4,
+    "signal_accuracy": 0.8,
+    "triage_accuracy": 0.8,
+    "ticker_f1": 0.875,
+    "attention_precision": 1.0,
+    "attention_recall": 1.0,
+    "topic_f1": 1.0,
+    "repeat_flagged": 1.0,
+    "repeat_precision": 1.0,
+    "stray_suggestions": 1.0,
+    "quote_faithfulness": 1.0,
+    "meetings_share": 0.4,
+    "note_review": null,
+    "suggestion_review": null,
+    "new_thesis_review": null
+  },
+  "confusion": {
+    "thesis_relevant": {
+      "thesis_relevant": 2,
+      "quarantined": 1
+    },
+    "monitor": {
+      "monitor": 3
+    },
+    "irrelevant": {
+      "quarantined": 1,
+      "irrelevant": 1
+    },
+    "redundant": {
+      "redundant": 1
+    },
+    "low_value": {
+      "low_value": 1
+    }
+  },
+  "misses": [
+    {
+      "email_id": "fixture_003",
+      "measure": "triage_accuracy",
+      "expected": "irrelevant",
+      "got": "quarantined"
+    },
+    {
+      "email_id": "fixture_004",
+      "measure": "triage_accuracy",
+      "expected": "thesis_relevant",
+      "got": "quarantined"
+    },
+    {
+      "email_id": "fixture_004",
+      "measure": "ticker_f1",
+      "expected": "AAPL",
+      "got": "none"
+    },
+    {
+      "email_id": "fixture_004",
+      "measure": "gate_recall",
+      "expected": "pass",
+      "got": "quarantine"
+    },
+    {
+      "email_id": "fixture_009",
+      "measure": "ticker_f1",
+      "expected": "AMZN",
+      "got": "AMZN,NVDA"
+    }
+  ]
+}

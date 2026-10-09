@@ -1,0 +1,89 @@
+[
+  {
+    "email_id": "example_1",
+    "sender": "Priya Natarajan, Corporate Access, Halvorsen & Pike Securities",
+    "sender_email": "pnatarajan@halvorsenpike.com",
+    "subject": "Time-sensitive: call w/ former Apple iPhone ops director (now at Tier-1 camera module supplier) - Wed 8:00am ET",
+    "body": "Hi Ellen,\n\nFlagging a small-group call we've arranged for tomorrow before our guest flies to Asia for supplier reviews. Only four slots; you were on the list given your AAPL interest.\n\nGuest: Former Director of iPhone Operations at Apple (left 2023), currently SVP Customer Programs at a Tier-1 camera module supplier that ships into the iPhone 18 Pro / Pro Max.\n\nWhy now: In our pre-screen she said her company received a revised December-quarter build signal last Thursday that is roughly 8-10% below the August plan on Pro Max camera modules, with the base model flat. Her read is that the reduction reflects sell-through in China and an inventory correction at carriers rather than component shortages. That runs counter to the Street view that Pro mix is driving higher December-quarter builds (consensus models ~84-86m units for the quarter).\n\nTopics she has agreed to cover:\n- Magnitude and timing of the revised forecast vs. prior cycles (she says 2022 is the closest analog)\n- Whether other module/lens suppliers saw the same revision\n- Pro vs. Pro Max mix and the folding device pull-in schedule\n- What she would watch in Apple's guidance on the 29th\n\nLogistics: Wednesday 8:00-8:45am ET, dial-in sent upon confirmation. Compliance pre-cleared; she will not discuss her current employer's non-public financials.\n\nPlease confirm by 6pm tonight so I can hold the slot.\n\nBest,\nPriya Natarajan\nCorporate Access | Halvorsen & Pike Securities\n+1 212 555 0148",
+    "triage": "thesis_relevant",
+    "additional_labels": [
+      "human_attention"
+    ],
+    "affected_tickers": [
+      "AAPL"
+    ],
+    "human_attention": true,
+    "reason": "Credible, time-sensitive access to a supply-chain insider whose firm reportedly received a lower December-quarter iPhone build forecast, which contradicts consensus expectations for higher builds. Taking the call could directly change AAPL positioning ahead of earnings.",
+    "email_type": "meeting_request",
+    "systemic": false,
+    "angle": "contradicts consensus with new evidence"
+  },
+  {
+    "email_id": "example_2",
+    "sender": "Atlas Insight Calls - Transcript Delivery",
+    "sender_email": "transcripts@atlasinsightcalls.com",
+    "subject": "Transcript: Former hyperscaler network procurement lead on AI fabric choices (Spectrum-X vs. Ethernet merchant silicon)",
+    "body": "ATLAS INSIGHT CALLS | Transcript Summary | Call date: Oct 9, 2026\n\nExpert: Former Director, Network Infrastructure Procurement at a top-3 U.S. hyperscaler (left June 2026). 11 years in role.\nInterviewer: Atlas client (buy-side)\n\nKey takeaways (summary prepared by Atlas; full transcript attached):\n\n1. Networking choice for the next build. The expert said their former employer's 2027 AI cluster program has \"standardized\" on merchant-silicon Ethernet switches with in-house NICs for scale-out, after running Spectrum-X in two earlier clusters. Nvidia's NVLink remains the scale-up fabric inside racks.\n\n2. Why the switch. Mainly cost and multi-vendor flexibility. \"Spectrum-X performed well, but procurement wanted two sources and the merchant option closed the performance gap on collective operations with the last software release.\"\n\n3. Scale. The 2027 program is \"several hundred thousand accelerators,\" a mix of Nvidia GPUs and the hyperscaler's own chips. The expert estimated Nvidia's networking content per GPU in that program would fall by roughly 60-70% vs. the prior cluster.\n\n4. Is this widespread? The expert believes at least one other hyperscaler is evaluating the same approach, but noted that neoclouds and sovereign buyers \"still overwhelmingly take the full Nvidia stack.\"\n\n5. Interviewer note: The expert was firm on the architecture decision, less sure on volumes.\n\nCompliance: Expert affirmed no MNPI and no confidentiality obligations breached.\n\nFull transcript (14 pages) attached. Reply to schedule a follow-up with this expert.",
+    "triage": "thesis_relevant",
+    "additional_labels": [],
+    "affected_tickers": [
+      "NVDA"
+    ],
+    "human_attention": false,
+    "reason": "An expert says a large hyperscaler's next AI cluster build will standardize on merchant Ethernet switching instead of Nvidia's Spectrum-X, which challenges the networking-attach assumption in long NVDA positions. Its importance depends on how much the desk's thesis relies on networking growth.",
+    "email_type": "expert_network_transcript",
+    "systemic": false,
+    "angle": "value depends on the desk's existing exposure"
+  },
+  {
+    "email_id": "example_3",
+    "sender": "Sandridge Partners - Morning Note",
+    "sender_email": "morningnote@sandridgepartners.com",
+    "subject": "Sandridge AM: Recap of UK cloud market decision; MSFT impact limited",
+    "body": "SANDRIDGE PARTNERS | MORNING NOTE | Oct 13\n\nMSFT - UK cloud decision recap (published yesterday)\n\nFor those who missed yesterday's coverage: the UK competition regulator published its final decision in the cloud services market investigation. Key points, all public:\n\n- The regulator recommended \"strategic market status\" designations for the two largest cloud providers, opening the door to conduct requirements.\n- Software licensing practices, including pricing for running Windows Server and SQL Server on rival clouds, were flagged as a priority area.\n- Egress fees were addressed through voluntary commitments already announced by the providers.\n\nOur take (unchanged): The UK accounts for low-single-digit percent of Microsoft's commercial cloud revenue. Any remedies would take 12-18 months to design. We see limited near-term financial impact, as we've written since the provisional findings.\n\nOther items:\n- No change to our MSFT estimates or Buy rating.\n- Reminder: MSFT reports Oct 28.\n\nSandridge Partners Equity Research",
+    "triage": "redundant",
+    "additional_labels": [
+      "government"
+    ],
+    "affected_tickers": [
+      "MSFT"
+    ],
+    "human_attention": false,
+    "reason": "Recaps a UK regulator's cloud market decision that was published and widely covered yesterday. Restates the known conclusion that the near-term impact on Microsoft is limited.",
+    "email_type": "sell_side_morning_note",
+    "systemic": false,
+    "angle": "recap of a public earnings call or event"
+  },
+  {
+    "email_id": "example_4",
+    "sender": "Parallax Data Partnerships",
+    "sender_email": "partnerships@parallaxdata.io",
+    "subject": "NEW: Parallax SeatPulse - see seat growth at 400+ SaaS vendors (free sample inside)",
+    "body": "Hi there,\n\nSoftware investors keep asking us one question: are seats coming back?\n\nIntroducing Parallax SeatPulse, our new panel that tracks paid seat counts across 400+ SaaS vendors using anonymized procurement and SSO login data from 2,100 mid-market companies.\n\nSample insight (HR & payroll software, Sept 2026):\n- Median paid-seat growth across 18 HR/payroll vendors: +2.1% m/m\n- Top quartile: +4.8% m/m\n- \"Seat compression\" (seats removed after AI tooling adoption) appeared at 11% of panel companies, up from 7% in June\n\nWhat this means: Seat growth is stabilizing! Our data suggests the worst of the seat compression narrative may be behind us for HR software. (Note: panel skews to companies with 200-2,000 employees; results not yet weighted by vendor revenue.)\n\nWhy Parallax?\n- Weekly refresh\n- API + Snowflake delivery\n- 30-day free trial for new fund clients\n\nBook a 20-minute demo this week and receive our October \"AI and the Seat\" white paper.\n\nCheers,\nThe Parallax Partnerships Team\nUnsubscribe | Manage preferences",
+    "triage": "low_value",
+    "additional_labels": [],
+    "affected_tickers": [],
+    "human_attention": false,
+    "reason": "Vendor promotion for a SaaS seat-count dataset with a thin sample on mid-cap HR software. It has no target-company implication and the analysis is weak.",
+    "email_type": "vendor_data_report",
+    "systemic": false,
+    "angle": "promotional content mixed with weak analysis"
+  },
+  {
+    "email_id": "example_5",
+    "sender": "Ruth Delacroix, Transportation Analyst, Tidewell Securities",
+    "sender_email": "rdelacroix@tidewellsec.com",
+    "subject": "Rails: Labor talks enter mediation - what a 30-day cooling-off period means for Q4 volumes",
+    "body": "Tidewell Securities | Transportation | Industry Update\n\nRail labor: national bargaining moves to mediation\n\nTalks between the national carriers' conference and a coalition of seven unions moved into federal mediation yesterday after the parties failed to agree on crew-consist language and wage step-ups for 2027-2029.\n\nWhat happens next:\n- Mediation typically lasts 60-120 days; a release from mediation triggers a 30-day cooling-off period.\n- Any work stoppage before Q2 2027 looks very unlikely under that timeline.\n- Historically, Congress has intervened in the two most recent national stoppage threats.\n\nVolume implications: We model Q4 carload growth of +1.5% y/y and intermodal of +4.0% y/y. A protracted dispute would mainly affect shipper behavior in early 2027, with some intermodal shifting to truckload. Chemicals and grain shippers are most exposed.\n\nWage math: The unions' ask implies 4.5% annual increases vs. the carriers' 3.25% offer. Each 1 point of wage inflation is worth roughly 30-40bp of operating ratio for the large Class I carriers in our coverage.\n\nRatings unchanged. We continue to prefer the western carriers on pricing and intermodal exposure.\n\nRuth Delacroix | Tidewell Securities\nDisclosures available on request.",
+    "triage": "irrelevant",
+    "additional_labels": [
+      "other"
+    ],
+    "affected_tickers": [],
+    "human_attention": false,
+    "reason": "Well-researched note on rail labor mediation and freight volumes with no connection to the target technology companies. Outside the desk's coverage.",
+    "email_type": "sell_side_research",
+    "systemic": false,
+    "angle": "news from an unrelated sector"
+  }
+]

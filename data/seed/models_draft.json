@@ -1,0 +1,249 @@
+[
+  {
+    "ticker": "NVDA",
+    "synthetic": true,
+    "fiscal_year": "FY2028",
+    "target_multiple": 32,
+    "drivers": [
+      {
+        "id": "NVDA.data_center_growth",
+        "label": "Data Center revenue growth",
+        "unit": "pct",
+        "analyst": 38.0,
+        "consensus": 34.0,
+        "min": 10.0,
+        "max": 70.0
+      },
+      {
+        "id": "NVDA.gaming_growth",
+        "label": "Gaming revenue growth",
+        "unit": "pct",
+        "analyst": 8.0,
+        "consensus": 8.0,
+        "min": -20.0,
+        "max": 35.0
+      },
+      {
+        "id": "NVDA.other_growth",
+        "label": "All other revenue growth",
+        "unit": "pct",
+        "analyst": 12.0,
+        "consensus": 12.0,
+        "min": -15.0,
+        "max": 40.0
+      },
+      {
+        "id": "NVDA.operating_margin",
+        "label": "Operating margin",
+        "unit": "pct",
+        "analyst": 62.0,
+        "consensus": 62.0,
+        "min": 45.0,
+        "max": 75.0
+      }
+    ]
+  },
+  {
+    "ticker": "MSFT",
+    "synthetic": true,
+    "fiscal_year": "FY2027",
+    "target_multiple": 31,
+    "drivers": [
+      {
+        "id": "MSFT.intelligent_cloud_growth",
+        "label": "Intelligent Cloud revenue growth",
+        "unit": "pct",
+        "analyst": 24.0,
+        "consensus": 21.5,
+        "min": 0.0,
+        "max": 50.0
+      },
+      {
+        "id": "MSFT.productivity_growth",
+        "label": "Productivity and Business Processes revenue growth",
+        "unit": "pct",
+        "analyst": 14.0,
+        "consensus": 12.0,
+        "min": -10.0,
+        "max": 40.0
+      },
+      {
+        "id": "MSFT.personal_computing_growth",
+        "label": "More Personal Computing revenue growth",
+        "unit": "pct",
+        "analyst": 3.0,
+        "consensus": 3.0,
+        "min": -20.0,
+        "max": 25.0
+      },
+      {
+        "id": "MSFT.operating_margin",
+        "label": "Operating margin",
+        "unit": "pct",
+        "analyst": 45.0,
+        "consensus": 45.0,
+        "min": 30.0,
+        "max": 60.0
+      },
+      {
+        "id": "MSFT.capex",
+        "label": "Capital expenditure",
+        "unit": "usd_bn",
+        "analyst": 110.0,
+        "consensus": 110.0,
+        "min": 55.0,
+        "max": 220.0
+      }
+    ]
+  },
+  {
+    "ticker": "AMZN",
+    "synthetic": true,
+    "fiscal_year": "FY2027",
+    "target_multiple": 30,
+    "drivers": [
+      {
+        "id": "AMZN.aws_growth",
+        "label": "AWS revenue growth",
+        "unit": "pct",
+        "analyst": 22.0,
+        "consensus": 19.0,
+        "min": 0.0,
+        "max": 45.0
+      },
+      {
+        "id": "AMZN.north_america_growth",
+        "label": "North America revenue growth",
+        "unit": "pct",
+        "analyst": 9.0,
+        "consensus": 9.0,
+        "min": -15.0,
+        "max": 30.0
+      },
+      {
+        "id": "AMZN.international_growth",
+        "label": "International revenue growth",
+        "unit": "pct",
+        "analyst": 10.0,
+        "consensus": 10.0,
+        "min": -15.0,
+        "max": 35.0
+      },
+      {
+        "id": "AMZN.operating_margin",
+        "label": "Operating margin",
+        "unit": "pct",
+        "analyst": 13.5,
+        "consensus": 12.0,
+        "min": 0.0,
+        "max": 25.0
+      },
+      {
+        "id": "AMZN.capex",
+        "label": "Capital expenditure",
+        "unit": "usd_bn",
+        "analyst": 140.0,
+        "consensus": 140.0,
+        "min": 70.0,
+        "max": 280.0
+      }
+    ]
+  },
+  {
+    "ticker": "AAPL",
+    "synthetic": true,
+    "fiscal_year": "FY2027",
+    "target_multiple": 27,
+    "drivers": [
+      {
+        "id": "AAPL.iphone_growth",
+        "label": "iPhone revenue growth",
+        "unit": "pct",
+        "analyst": 1.0,
+        "consensus": 4.5,
+        "min": -25.0,
+        "max": 25.0
+      },
+      {
+        "id": "AAPL.services_growth",
+        "label": "Services revenue growth",
+        "unit": "pct",
+        "analyst": 9.0,
+        "consensus": 12.0,
+        "min": -15.0,
+        "max": 35.0
+      },
+      {
+        "id": "AAPL.other_products_growth",
+        "label": "Mac, iPad and wearables revenue growth",
+        "unit": "pct",
+        "analyst": 3.0,
+        "consensus": 3.0,
+        "min": -20.0,
+        "max": 25.0
+      },
+      {
+        "id": "AAPL.operating_margin",
+        "label": "Operating margin",
+        "unit": "pct",
+        "analyst": 30.0,
+        "consensus": 32.0,
+        "min": 18.0,
+        "max": 45.0
+      }
+    ]
+  },
+  {
+    "ticker": "GOOGL",
+    "synthetic": true,
+    "fiscal_year": "FY2027",
+    "target_multiple": 21,
+    "drivers": [
+      {
+        "id": "GOOGL.services_growth",
+        "label": "Google Services revenue growth",
+        "unit": "pct",
+        "analyst": 7.0,
+        "consensus": 10.5,
+        "min": -15.0,
+        "max": 30.0
+      },
+      {
+        "id": "GOOGL.cloud_growth",
+        "label": "Google Cloud revenue growth",
+        "unit": "pct",
+        "analyst": 28.0,
+        "consensus": 28.0,
+        "min": 5.0,
+        "max": 55.0
+      },
+      {
+        "id": "GOOGL.other_bets_growth",
+        "label": "Other Bets revenue growth",
+        "unit": "pct",
+        "analyst": 15.0,
+        "consensus": 15.0,
+        "min": -30.0,
+        "max": 60.0
+      },
+      {
+        "id": "GOOGL.operating_margin",
+        "label": "Operating margin",
+        "unit": "pct",
+        "analyst": 30.0,
+        "consensus": 33.0,
+        "min": 18.0,
+        "max": 45.0
+      },
+      {
+        "id": "GOOGL.capex",
+        "label": "Capital expenditure",
+        "unit": "usd_bn",
+        "analyst": 100.0,
+        "consensus": 93.0,
+        "min": 50.0,
+        "max": 200.0
+      }
+    ]
+  }
+]

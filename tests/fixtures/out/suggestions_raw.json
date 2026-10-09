@@ -1,0 +1,146 @@
+[
+  {
+    "id": "fixture_001.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "MSFT.p1",
+      "stance": "supports",
+      "strength": 2,
+      "wrong_if_met": false,
+      "assumptions": [
+        {
+          "driver_id": "MSFT.intelligent_cloud_growth",
+          "stated_value": 26.0,
+          "book_value": 24.0,
+          "consensus_value": 21.5
+        }
+      ]
+    },
+    "rationale": "Reseller checks put Azure growth above consensus and show capacity arriving early, which supports the Azure pillar.",
+    "claim_ids": [
+      "fixture_001.c1",
+      "fixture_001.c2"
+    ],
+    "sections": [
+      {
+        "email_id": "fixture_001",
+        "quote": "Our checks with four Azure resellers point to Intelligent Cloud revenue growth of 26% in FY2027, versus the 21.5% the Street models."
+      },
+      {
+        "email_id": "fixture_001",
+        "quote": "Two of the resellers said new GPU capacity in the Iowa and Texas regions was released to customers six weeks early."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "fixture_001.s2",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "NVDA.p1",
+      "stance": "supports",
+      "strength": 1,
+      "wrong_if_met": false,
+      "assumptions": []
+    },
+    "rationale": "Early release of GPU capacity at Microsoft points to continued AI infrastructure spending.",
+    "claim_ids": [
+      "fixture_001.c2"
+    ],
+    "sections": [
+      {
+        "email_id": "fixture_001",
+        "quote": "resellers report GPU capacity arriving well ahead of schedule"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "fixture_002.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "NVDA.p2",
+      "stance": "supports",
+      "strength": 2,
+      "wrong_if_met": false,
+      "assumptions": []
+    },
+    "rationale": "A supplier report that memory for the next platform is booked and on schedule supports the supply pillar.",
+    "claim_ids": [
+      "fixture_002.c1",
+      "fixture_002.c2"
+    ],
+    "sections": [
+      {
+        "email_id": "fixture_002",
+        "quote": "high-bandwidth memory allocations for Nvidia's next platform are fully booked through mid-2027 and shipping on schedule"
+      },
+      {
+        "email_id": "fixture_002",
+        "quote": "an advanced packaging house in Taiwan said it added capacity in the third quarter, without naming customers"
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "fixture_008.s1",
+    "body": {
+      "kind": "existing_thesis",
+      "pillar_id": "AAPL.p1",
+      "stance": "supports",
+      "strength": 1,
+      "wrong_if_met": false,
+      "assumptions": []
+    },
+    "rationale": "A distributor report of trimmed iPhone build orders supports the view that the upgrade cycle disappoints.",
+    "claim_ids": [
+      "fixture_008.c1"
+    ],
+    "sections": [
+      {
+        "email_id": "fixture_008",
+        "quote": "a components distributor in Shenzhen told us Apple trimmed December-quarter iPhone build orders by roughly 10% last week."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  },
+  {
+    "id": "fixture_009.s1",
+    "body": {
+      "kind": "new_thesis",
+      "ticker": "AMZN",
+      "statement": "In-house AI chips lower AWS's cost of AI capacity, so operating margin expands as AI workloads grow.",
+      "wrong_if": "Customers do not adopt in-house chip instances, or AWS keeps buying most new AI capacity as GPUs.",
+      "driver_ids": [
+        "AMZN.operating_margin",
+        "AMZN.aws_growth"
+      ]
+    },
+    "rationale": "Partner checks show most new internal inference moving to Amazon's own chips at a steep price discount, which no AMZN pillar covers.",
+    "claim_ids": [
+      "fixture_009.c1",
+      "fixture_009.c2"
+    ],
+    "sections": [
+      {
+        "email_id": "fixture_009",
+        "quote": "Amazon has moved roughly 40% of its internal model inference onto its own Trainium chips, up from under 15% a year ago."
+      },
+      {
+        "email_id": "fixture_009",
+        "quote": "AWS is pricing Trainium instances at about a 30% discount to comparable GPU instances to pull external customers across."
+      }
+    ],
+    "second_look": false,
+    "status": "open",
+    "reject_reason": null
+  }
+]

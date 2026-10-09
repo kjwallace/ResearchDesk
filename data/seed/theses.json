@@ -1,0 +1,168 @@
+[
+  {
+    "ticker": "NVDA",
+    "stance": "long",
+    "size_bps": 300,
+    "conviction": 4,
+    "pillars": [
+      {
+        "id": "NVDA.p1",
+        "statement": "AI infrastructure spending by cloud and sovereign buyers keeps Data Center growth above consensus through the next fiscal year.",
+        "wrong_if": "Two of MSFT, AMZN and GOOGL guide capital expenditure flat or lower.",
+        "driver_ids": [
+          "NVDA.data_center_growth"
+        ]
+      },
+      {
+        "id": "NVDA.p2",
+        "statement": "Supply of advanced packaging and high-bandwidth memory is sufficient to ship the newest platform on schedule.",
+        "wrong_if": "Credible evidence of a delay of a quarter or more.",
+        "driver_ids": [
+          "NVDA.data_center_growth"
+        ]
+      },
+      {
+        "id": "NVDA.p3",
+        "statement": "In-house chips at large customers grow alongside Nvidia instead of replacing it, so pricing and margin hold.",
+        "wrong_if": "A top customer moves most new capacity to in-house chips, or Nvidia cuts pricing to defend share.",
+        "driver_ids": [
+          "NVDA.operating_margin",
+          "NVDA.data_center_growth"
+        ]
+      }
+    ]
+  },
+  {
+    "ticker": "MSFT",
+    "stance": "long",
+    "size_bps": 250,
+    "conviction": 3,
+    "pillars": [
+      {
+        "id": "MSFT.p1",
+        "statement": "Azure growth stays above consensus as data-center capacity comes online.",
+        "wrong_if": "Capacity constraints persist for two more quarters, or Azure guidance falls below consensus.",
+        "driver_ids": [
+          "MSFT.intelligent_cloud_growth"
+        ]
+      },
+      {
+        "id": "MSFT.p2",
+        "statement": "Paid AI assistants raise revenue per seat in the productivity suite.",
+        "wrong_if": "Seat adoption or renewal data show enterprises cutting back.",
+        "driver_ids": [
+          "MSFT.productivity_growth"
+        ]
+      },
+      {
+        "id": "MSFT.p3",
+        "statement": "Capital intensity peaks within the model year and operating margin holds.",
+        "wrong_if": "Capex guidance is raised again without matching growth in backlog.",
+        "driver_ids": [
+          "MSFT.capex",
+          "MSFT.operating_margin"
+        ]
+      }
+    ]
+  },
+  {
+    "ticker": "AMZN",
+    "stance": "long",
+    "size_bps": 200,
+    "conviction": 3,
+    "pillars": [
+      {
+        "id": "AMZN.p1",
+        "statement": "AWS growth re-accelerates as power and chip capacity is added.",
+        "wrong_if": "AWS growth decelerates for two consecutive quarters, or large workloads move to rivals.",
+        "driver_ids": [
+          "AMZN.aws_growth"
+        ]
+      },
+      {
+        "id": "AMZN.p2",
+        "statement": "Retail operating margin keeps expanding through fulfillment efficiency and advertising.",
+        "wrong_if": "Fulfillment costs rise faster than revenue, or advertising growth slows sharply.",
+        "driver_ids": [
+          "AMZN.operating_margin",
+          "AMZN.north_america_growth"
+        ]
+      },
+      {
+        "id": "AMZN.p3",
+        "statement": "Capital expenditure converts into AWS backlog instead of a lasting drag on free cash flow.",
+        "wrong_if": "Capex rises while backlog growth stalls.",
+        "driver_ids": [
+          "AMZN.capex",
+          "AMZN.aws_growth"
+        ]
+      }
+    ]
+  },
+  {
+    "ticker": "AAPL",
+    "stance": "short",
+    "size_bps": 200,
+    "conviction": 3,
+    "pillars": [
+      {
+        "id": "AAPL.p1",
+        "statement": "The iPhone upgrade cycle disappoints: AI features do not pull upgrades forward, and share in China stays under pressure.",
+        "wrong_if": "Sell-through or lead-time data show a clearly stronger cycle than consensus expects.",
+        "driver_ids": [
+          "AAPL.iphone_growth"
+        ]
+      },
+      {
+        "id": "AAPL.p2",
+        "statement": "Services growth slows as regulation and litigation pressure App Store fees and search distribution payments.",
+        "wrong_if": "Rulings or settlements leave fees and payments intact and Services growth holds.",
+        "driver_ids": [
+          "AAPL.services_growth"
+        ]
+      },
+      {
+        "id": "AAPL.p3",
+        "statement": "Operating margin is at risk from tariffs and component costs.",
+        "wrong_if": "Costs are absorbed or passed through and margin is guided flat or up.",
+        "driver_ids": [
+          "AAPL.operating_margin"
+        ]
+      }
+    ]
+  },
+  {
+    "ticker": "GOOGL",
+    "stance": "short",
+    "size_bps": 150,
+    "conviction": 2,
+    "pillars": [
+      {
+        "id": "GOOGL.p1",
+        "statement": "AI answers reduce clicks on commercial queries, so Search revenue growth falls below consensus.",
+        "wrong_if": "Paid-click and pricing data show monetization holding or improving.",
+        "driver_ids": [
+          "GOOGL.services_growth"
+        ]
+      },
+      {
+        "id": "GOOGL.p2",
+        "statement": "Rising capital expenditure and depreciation compress operating margin.",
+        "wrong_if": "Cloud growth and Cloud margin offset the step-up in depreciation.",
+        "driver_ids": [
+          "GOOGL.operating_margin",
+          "GOOGL.capex",
+          "GOOGL.cloud_growth"
+        ]
+      },
+      {
+        "id": "GOOGL.p3",
+        "statement": "Regulatory remedies in search and advertising technology restrict distribution or the ad stack.",
+        "wrong_if": "Remedies are narrow or delayed, with little operating effect.",
+        "driver_ids": [
+          "GOOGL.services_growth"
+        ]
+      }
+    ]
+  }
+]

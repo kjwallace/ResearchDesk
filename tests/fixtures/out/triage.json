@@ -1,0 +1,392 @@
+[
+  {
+    "email_id": "fixture_001",
+    "criteria_version": "fixture0000",
+    "triage_probs": {
+      "thesis_relevant": 0.71,
+      "monitor": 0.21,
+      "redundant": 0.02,
+      "low_value": 0.04,
+      "irrelevant": 0.02
+    },
+    "ticker_probs": {
+      "AMZN": 0.02,
+      "NVDA": 0.22,
+      "MSFT": 0.94,
+      "AAPL": 0.02,
+      "GOOGL": 0.02
+    },
+    "attention": 0.12,
+    "topic_probs": {
+      "macro": 0.03,
+      "sector": 0.18,
+      "government": 0.03,
+      "other": 0.03
+    },
+    "kind": "research",
+    "kind_probs": {
+      "research": 0.75,
+      "news": 0.05,
+      "company_release": 0.05,
+      "invitation": 0.05,
+      "newsletter": 0.05,
+      "other": 0.05
+    },
+    "safety": {
+      "possible_mnpi": 0.03,
+      "instructs_ai": 0.01
+    },
+    "truncated": false
+  },
+  {
+    "email_id": "fixture_002",
+    "criteria_version": "fixture0000",
+    "triage_probs": {
+      "thesis_relevant": 0.24,
+      "monitor": 0.58,
+      "redundant": 0.05,
+      "low_value": 0.1,
+      "irrelevant": 0.03
+    },
+    "ticker_probs": {
+      "AMZN": 0.02,
+      "NVDA": 0.91,
+      "MSFT": 0.02,
+      "AAPL": 0.02,
+      "GOOGL": 0.02
+    },
+    "attention": 0.08,
+    "topic_probs": {
+      "macro": 0.03,
+      "sector": 0.66,
+      "government": 0.03,
+      "other": 0.03
+    },
+    "kind": "news",
+    "kind_probs": {
+      "research": 0.05,
+      "news": 0.75,
+      "company_release": 0.05,
+      "invitation": 0.05,
+      "newsletter": 0.05,
+      "other": 0.05
+    },
+    "safety": {
+      "possible_mnpi": 0.02,
+      "instructs_ai": 0.01
+    },
+    "truncated": false
+  },
+  {
+    "email_id": "fixture_003",
+    "criteria_version": "fixture0000",
+    "triage_probs": {
+      "thesis_relevant": 0.05,
+      "monitor": 0.04,
+      "redundant": 0.03,
+      "low_value": 0.3,
+      "irrelevant": 0.58
+    },
+    "ticker_probs": {
+      "AMZN": 0.02,
+      "NVDA": 0.02,
+      "MSFT": 0.02,
+      "AAPL": 0.02,
+      "GOOGL": 0.02
+    },
+    "attention": 0.35,
+    "topic_probs": {
+      "macro": 0.03,
+      "sector": 0.03,
+      "government": 0.03,
+      "other": 0.12
+    },
+    "kind": "newsletter",
+    "kind_probs": {
+      "research": 0.05,
+      "news": 0.05,
+      "company_release": 0.05,
+      "invitation": 0.05,
+      "newsletter": 0.75,
+      "other": 0.05
+    },
+    "safety": {
+      "possible_mnpi": 0.06,
+      "instructs_ai": 0.97
+    },
+    "truncated": false
+  },
+  {
+    "email_id": "fixture_004",
+    "criteria_version": "fixture0000",
+    "triage_probs": {
+      "thesis_relevant": 0.62,
+      "monitor": 0.21,
+      "redundant": 0.02,
+      "low_value": 0.1,
+      "irrelevant": 0.05
+    },
+    "ticker_probs": {
+      "AMZN": 0.02,
+      "NVDA": 0.02,
+      "MSFT": 0.02,
+      "AAPL": 0.93,
+      "GOOGL": 0.02
+    },
+    "attention": 0.55,
+    "topic_probs": {
+      "macro": 0.03,
+      "sector": 0.03,
+      "government": 0.03,
+      "other": 0.03
+    },
+    "kind": "other",
+    "kind_probs": {
+      "research": 0.05,
+      "news": 0.05,
+      "company_release": 0.05,
+      "invitation": 0.05,
+      "newsletter": 0.05,
+      "other": 0.75
+    },
+    "safety": {
+      "possible_mnpi": 0.91,
+      "instructs_ai": 0.02
+    },
+    "truncated": false
+  },
+  {
+    "email_id": "fixture_005",
+    "criteria_version": "fixture0000",
+    "triage_probs": {
+      "thesis_relevant": 0.16,
+      "monitor": 0.55,
+      "redundant": 0.06,
+      "low_value": 0.18,
+      "irrelevant": 0.05
+    },
+    "ticker_probs": {
+      "AMZN": 0.02,
+      "NVDA": 0.02,
+      "MSFT": 0.02,
+      "AAPL": 0.02,
+      "GOOGL": 0.88
+    },
+    "attention": 0.07,
+    "topic_probs": {
+      "macro": 0.03,
+      "sector": 0.71,
+      "government": 0.03,
+      "other": 0.03
+    },
+    "kind": "news",
+    "kind_probs": {
+      "research": 0.05,
+      "news": 0.75,
+      "company_release": 0.05,
+      "invitation": 0.05,
+      "newsletter": 0.05,
+      "other": 0.05
+    },
+    "safety": {
+      "possible_mnpi": 0.02,
+      "instructs_ai": 0.01
+    },
+    "truncated": false
+  },
+  {
+    "email_id": "fixture_006",
+    "criteria_version": "fixture0000",
+    "triage_probs": {
+      "thesis_relevant": 0.1,
+      "monitor": 0.42,
+      "redundant": 0.38,
+      "low_value": 0.07,
+      "irrelevant": 0.03
+    },
+    "ticker_probs": {
+      "AMZN": 0.02,
+      "NVDA": 0.02,
+      "MSFT": 0.02,
+      "AAPL": 0.02,
+      "GOOGL": 0.86
+    },
+    "attention": 0.05,
+    "topic_probs": {
+      "macro": 0.03,
+      "sector": 0.69,
+      "government": 0.03,
+      "other": 0.03
+    },
+    "kind": "research",
+    "kind_probs": {
+      "research": 0.75,
+      "news": 0.05,
+      "company_release": 0.05,
+      "invitation": 0.05,
+      "newsletter": 0.05,
+      "other": 0.05
+    },
+    "safety": {
+      "possible_mnpi": 0.02,
+      "instructs_ai": 0.01
+    },
+    "truncated": false
+  },
+  {
+    "email_id": "fixture_007",
+    "criteria_version": "fixture0000",
+    "triage_probs": {
+      "thesis_relevant": 0.25,
+      "monitor": 0.47,
+      "redundant": 0.03,
+      "low_value": 0.2,
+      "irrelevant": 0.05
+    },
+    "ticker_probs": {
+      "AMZN": 0.02,
+      "NVDA": 0.81,
+      "MSFT": 0.02,
+      "AAPL": 0.02,
+      "GOOGL": 0.02
+    },
+    "attention": 0.86,
+    "topic_probs": {
+      "macro": 0.03,
+      "sector": 0.03,
+      "government": 0.03,
+      "other": 0.03
+    },
+    "kind": "invitation",
+    "kind_probs": {
+      "research": 0.05,
+      "news": 0.05,
+      "company_release": 0.05,
+      "invitation": 0.75,
+      "newsletter": 0.05,
+      "other": 0.05
+    },
+    "safety": {
+      "possible_mnpi": 0.09,
+      "instructs_ai": 0.01
+    },
+    "truncated": false
+  },
+  {
+    "email_id": "fixture_008",
+    "criteria_version": "fixture0000",
+    "triage_probs": {
+      "thesis_relevant": 0.29,
+      "monitor": 0.33,
+      "redundant": 0.02,
+      "low_value": 0.34,
+      "irrelevant": 0.02
+    },
+    "ticker_probs": {
+      "AMZN": 0.02,
+      "NVDA": 0.02,
+      "MSFT": 0.02,
+      "AAPL": 0.77,
+      "GOOGL": 0.02
+    },
+    "attention": 0.1,
+    "topic_probs": {
+      "macro": 0.21,
+      "sector": 0.03,
+      "government": 0.03,
+      "other": 0.03
+    },
+    "kind": "newsletter",
+    "kind_probs": {
+      "research": 0.05,
+      "news": 0.05,
+      "company_release": 0.05,
+      "invitation": 0.05,
+      "newsletter": 0.75,
+      "other": 0.05
+    },
+    "safety": {
+      "possible_mnpi": 0.04,
+      "instructs_ai": 0.01
+    },
+    "truncated": false
+  },
+  {
+    "email_id": "fixture_009",
+    "criteria_version": "fixture0000",
+    "triage_probs": {
+      "thesis_relevant": 0.66,
+      "monitor": 0.24,
+      "redundant": 0.02,
+      "low_value": 0.06,
+      "irrelevant": 0.02
+    },
+    "ticker_probs": {
+      "AMZN": 0.92,
+      "NVDA": 0.55,
+      "MSFT": 0.02,
+      "AAPL": 0.02,
+      "GOOGL": 0.02
+    },
+    "attention": 0.14,
+    "topic_probs": {
+      "macro": 0.03,
+      "sector": 0.03,
+      "government": 0.03,
+      "other": 0.03
+    },
+    "kind": "research",
+    "kind_probs": {
+      "research": 0.75,
+      "news": 0.05,
+      "company_release": 0.05,
+      "invitation": 0.05,
+      "newsletter": 0.05,
+      "other": 0.05
+    },
+    "safety": {
+      "possible_mnpi": 0.03,
+      "instructs_ai": 0.01
+    },
+    "truncated": false
+  },
+  {
+    "email_id": "fixture_010",
+    "criteria_version": "fixture0000",
+    "triage_probs": {
+      "thesis_relevant": 0.01,
+      "monitor": 0.03,
+      "redundant": 0.01,
+      "low_value": 0.14,
+      "irrelevant": 0.81
+    },
+    "ticker_probs": {
+      "AMZN": 0.02,
+      "NVDA": 0.02,
+      "MSFT": 0.02,
+      "AAPL": 0.02,
+      "GOOGL": 0.02
+    },
+    "attention": 0.04,
+    "topic_probs": {
+      "macro": 0.22,
+      "sector": 0.03,
+      "government": 0.31,
+      "other": 0.03
+    },
+    "kind": "invitation",
+    "kind_probs": {
+      "research": 0.05,
+      "news": 0.05,
+      "company_release": 0.05,
+      "invitation": 0.75,
+      "newsletter": 0.05,
+      "other": 0.05
+    },
+    "safety": {
+      "possible_mnpi": 0.01,
+      "instructs_ai": 0.01
+    },
+    "truncated": false
+  }
+]

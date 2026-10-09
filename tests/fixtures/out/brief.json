@@ -1,0 +1,47 @@
+{
+  "day": "2026-10-13",
+  "counts": {
+    "thesis_relevant": 2,
+    "monitor": 3,
+    "redundant": 1,
+    "low_value": 1,
+    "irrelevant": 1,
+    "quarantined": 2,
+    "passed": 6,
+    "stopped": 2,
+    "notes": 1,
+    "suggestions": 4,
+    "rejected": 1
+  },
+  "thesis_changes": [
+    "MSFT.p1.supports",
+    "AAPL.p1.supports"
+  ],
+  "new_theses": [
+    "AMZN.new1"
+  ],
+  "worth_watching": [
+    "NVDA.p2.supports"
+  ],
+  "needs_attention": [
+    "fixture_007"
+  ],
+  "relevant_unlinked": [
+    "fixture_007",
+    "fixture_005"
+  ],
+  "alerts": [
+    {
+      "kind": "human_attention",
+      "ref_id": "fixture_007"
+    }
+  ],
+  "audit": [
+    "fixture_006",
+    "fixture_010"
+  ],
+  "quarantined": [
+    "fixture_003",
+    "fixture_004"
+  ]
+}

@@ -1,0 +1,130 @@
+[
+  {
+    "quote": "Our checks with four Azure resellers point to Intelligent Cloud revenue growth of 26% in FY2027, versus the 21.5% the Street models.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Intelligent Cloud revenue growth",
+    "period": "FY2027",
+    "value": 26.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": true,
+    "id": "fixture_001.c1",
+    "email_id": "fixture_001"
+  },
+  {
+    "quote": "Two of the resellers said new GPU capacity in the Iowa and Texas regions was released to customers six weeks early.",
+    "tickers": [
+      "MSFT"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": true,
+    "id": "fixture_001.c2",
+    "email_id": "fixture_001"
+  },
+  {
+    "quote": "high-bandwidth memory allocations for Nvidia's next platform are fully booked through mid-2027 and shipping on schedule",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "fixture_002.c1",
+    "email_id": "fixture_002"
+  },
+  {
+    "quote": "an advanced packaging house in Taiwan said it added capacity in the third quarter, without naming customers",
+    "tickers": [
+      "NVDA"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": "up",
+    "first_hand": false,
+    "id": "fixture_002.c2",
+    "email_id": "fixture_002"
+  },
+  {
+    "quote": "Alphabet is close to signing a 1.2 gigawatt power purchase agreement with a Midwest utility to supply new data center campuses from 2028.",
+    "tickers": [
+      "GOOGL"
+    ],
+    "entities": [],
+    "kind": "reported_fact",
+    "metric": null,
+    "period": null,
+    "value": null,
+    "unit": null,
+    "direction": null,
+    "first_hand": false,
+    "id": "fixture_005.c1",
+    "email_id": "fixture_005"
+  },
+  {
+    "quote": "a components distributor in Shenzhen told us Apple trimmed December-quarter iPhone build orders by roughly 10% last week.",
+    "tickers": [
+      "AAPL"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "iPhone build orders",
+    "period": null,
+    "value": 10.0,
+    "unit": "pct",
+    "direction": "down",
+    "first_hand": true,
+    "id": "fixture_008.c1",
+    "email_id": "fixture_008"
+  },
+  {
+    "quote": "Amazon has moved roughly 40% of its internal model inference onto its own Trainium chips, up from under 15% a year ago.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "share of internal inference on in-house chips",
+    "period": null,
+    "value": 40.0,
+    "unit": "pct",
+    "direction": "up",
+    "first_hand": true,
+    "id": "fixture_009.c1",
+    "email_id": "fixture_009"
+  },
+  {
+    "quote": "AWS is pricing Trainium instances at about a 30% discount to comparable GPU instances to pull external customers across.",
+    "tickers": [
+      "AMZN"
+    ],
+    "entities": [],
+    "kind": "channel_check",
+    "metric": "Trainium instance discount to GPU instances",
+    "period": null,
+    "value": 30.0,
+    "unit": "pct",
+    "direction": null,
+    "first_hand": true,
+    "id": "fixture_009.c2",
+    "email_id": "fixture_009"
+  }
+]
