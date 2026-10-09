@@ -53,8 +53,14 @@ def process(triage: TriageRecord, redundancy: RedundancyRecord | None, threshold
         )
 
     # 2. Label: Jev's most probable label, unless the check flags a repeat below the gate.
-    jev_label = max(config.TRIAGE_LABELS, key=lambda label: triage.triage_probs.get(label, 0.0))
+    #    Monitor needs P(monitor) >= MONITOR_LABEL_MIN; a weaker monitor takes the next label.
+    ranked = sorted(config.TRIAGE_LABELS, key=lambda label: -triage.triage_probs.get(label, 0.0))
+    jev_label = ranked[0]
     jev_part = f"{jev_label} {triage.triage_probs.get(jev_label, 0.0):.2f}"
+    if jev_label == "monitor" and triage.triage_probs.get("monitor", 0.0) < limits.MONITOR_LABEL_MIN:
+        jev_label = ranked[1]
+        jev_part = (f"monitor {triage.triage_probs.get('monitor', 0.0):.2f} is below {limits.MONITOR_LABEL_MIN:.2f}, "
+                    f"so {jev_label} {triage.triage_probs.get(jev_label, 0.0):.2f}")
     label, decided_by, redundant_of, label_part = jev_label, "jev", None, jev_part
     if (redundancy is not None and redundancy.flagged and signal < thresholds.pass_signal
             and jev_label != "redundant" and redundancy.nearest is not None):

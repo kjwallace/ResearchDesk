@@ -365,6 +365,8 @@ Every number the pipeline depends on is listed here and is defined once, in `src
 | Human-attention threshold (`HUMAN_ATTENTION`) | 0.6 | ReAnchor |
 | Ticker and topic thresholds | 0.5 each | ReAnchor |
 | Quarantine threshold | 0.65 | Fixed |
+| Minimum P(monitor) for the monitor label | 0.70 | Chosen on the tuning fit split |
+| Relevance a thesis suggestion needs (monitor-only evidence) | 0.7 (0.85) | Fixed |
 | Content similarity that flags a repeat | 0.85 | Fixed |
 | Content similarity that flags a repeat when subjects match | 0.75 | Fixed |
 | Subject similarity that counts as a match | 0.6 | Fixed |

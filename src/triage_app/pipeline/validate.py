@@ -190,9 +190,12 @@ def _figure_stated(a: LinkedAssumption, claims: list[Claim], model: CompanyModel
                for c in claims)
 
 
-def _check_relevance(body: ExistingThesis) -> None:
-    if body.relevance < thresholds.MIN_PILLAR_RELEVANCE:
-        raise Rejected(f"weak match: relevance {body.relevance:g} below {thresholds.MIN_PILLAR_RELEVANCE:g}")
+def _check_relevance(body: ExistingThesis, monitor_only: bool) -> None:
+    """Monitor-only evidence is read skeptically, so it must match its pillar more exactly."""
+    bar = thresholds.MIN_PILLAR_RELEVANCE_MONITOR if monitor_only else thresholds.MIN_PILLAR_RELEVANCE
+    if body.relevance < bar:
+        kind = "weak match for monitor-only evidence" if monitor_only else "weak match"
+        raise Rejected(f"{kind}: relevance {body.relevance:g} below {bar:g}")
 
 
 def _check_projection(body: ProjectionChange, claims: list[Claim], model: CompanyModel) -> None:
@@ -218,13 +221,13 @@ def check(suggestion: Suggestion, ctx: RunContext, inputs: ValidationInputs) -> 
     _check_unknown(suggestion, email_id, inputs)
     _check_quotes(suggestion, inputs)
     body = suggestion.body
+    monitor_only = all(_label(inputs.results, e) == "monitor" for e in linked_emails(suggestion))
     if isinstance(body, ExistingThesis):
-        _check_relevance(body)
+        _check_relevance(body, monitor_only)
     if isinstance(body, NewThesis):
         _check_duplicate(body, inputs, ctx)
     if isinstance(body, ProjectionChange):
         _check_projection(body, [inputs.claims[c] for c in suggestion.claim_ids], inputs.models[body.ticker])
-    monitor_only = all(_label(inputs.results, e) == "monitor" for e in linked_emails(suggestion))
     if isinstance(body, NewThesis):
         if monitor_only:
             raise Rejected("monitor only: a new thesis needs an email not labeled monitor")

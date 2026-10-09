@@ -21,6 +21,8 @@ PASS_SIGNAL = 0.6            # sweep  signal score P(thesis_relevant)+P(monitor)
 HUMAN_ATTENTION = 0.6        # sweep  human_attention probability that flags human attention
 TICKER_THRESHOLD = 0.5       # sweep  per-ticker probability that lists a company (each ticker tuned)
 TOPIC_THRESHOLD = 0.5        # sweep  per-topic probability that lists a topic (each topic tuned)
+MONITOR_LABEL_MIN = 0.70     # fixed  P(monitor) needed to keep the monitor label; below it the next most probable
+                             #        label is used (chosen on the tuning fit split; the gate still reads the signal score)
 QUARANTINE = 0.65            # fixed  either safety probability (possible_mnpi, instructs_ai) that quarantines
 SIGNAL_SCORE_DECIMALS = 6    # fixed  signal score is rounded before comparing, so 0.3 + 0.3 counts as 0.60
 
@@ -43,6 +45,7 @@ SKILL_CALLS_PER_EMAIL = 3         # fixed  analysis-agent skill calls per email
 NEW_THESIS_DUPLICATE = 0.8        # fixed  cosine at which a new thesis duplicates an existing pillar (rejected)
 NEW_THESIS_MERGE = 0.8            # fixed  cosine at which two new-thesis candidates merge
 MIN_PILLAR_RELEVANCE = 0.7        # fixed  existing-thesis suggestions the skill rates less relevant than this are rejected
+MIN_PILLAR_RELEVANCE_MONITOR = 0.85  # fixed  the same bar when every linked email is labeled monitor (skeptical reading)
 MAX_THESIS_SUGGESTIONS_PER_EMAIL = 2  # fixed  most existing-thesis suggestions one email may raise (most relevant kept)
 PILLAR_EVIDENCE_IN_PROMPT = 3     # fixed  evidence items per pillar the existing-thesis skill sees
 PROJECTION_DISPLAY_DECIMALS = 2   # fixed  rounding of the book's projections shown to the projections skill
@@ -83,7 +86,6 @@ LLM_MAX_TOKENS = 4096             # fixed  default output cap for a chat call
 DSPY_MAX_TOKENS = 8000            # fixed  output cap for DSPy modules (notes, extraction, skills, agents)
 LLM_TIMEOUT_S = 300.0             # fixed  OpenRouter request timeout
 JEV_TIMEOUT_S = 60.0              # fixed  TypeSafe request timeout
-OPENROUTER_REQUESTS_PER_MINUTE = 20   # fixed  client-side throttle per model (OpenRouter's new-account limit)
 LLM_MAX_RETRIES = 6               # fixed  retries on 429 / 5xx before a call fails
 LLM_RETRY_BASE_S = 5.0            # fixed  first backoff when the provider gives no reset time (doubles each retry)
 LLM_RETRY_MAX_S = 90.0            # fixed  longest single backoff

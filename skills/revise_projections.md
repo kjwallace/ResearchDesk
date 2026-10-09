@@ -54,6 +54,8 @@ Rules for this skill:
 - The `rationale` says who states the figure and whether it sits above, below or in line with the desk's projection and with consensus. Never repeat the desk's or the consensus value; code shows them beside the stated figure.
 - `claim_ids` lists the `id` of every claim quoted in `sections`.
 
+**Skeptical reading of monitor emails.** A figure from an email labeled `monitor` is often a rumor, a partial read or a relayed number. Return it only when the claim states the figure, its period and its source plainly. In the `rationale`, say that it is unconfirmed and what would confirm it.
+
 ## Worked examples
 Drivers and figures below are invented. Only relevant fields are shown.
 

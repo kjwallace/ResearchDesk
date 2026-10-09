@@ -11,7 +11,6 @@ is never printed or logged. Jev is not served by OpenRouter and keeps its own cl
 
 import json
 import os
-import threading
 import time
 from typing import Any, Protocol
 
@@ -26,19 +25,6 @@ from triage_app.monitoring import Recorder, cached_call
 
 DEFAULT_BASE_URL = "https://openrouter.ai/api/v1"
 
-# Process-wide throttle: OpenRouter limits requests per minute per model.
-_next_slot: dict[str, float] = {}
-_slot_lock = threading.Lock()
-
-
-def _throttle(model: str) -> None:
-    interval = 60.0 / thresholds.OPENROUTER_REQUESTS_PER_MINUTE
-    with _slot_lock:
-        now = time.monotonic()
-        slot = max(now, _next_slot.get(model, 0.0))
-        _next_slot[model] = slot + interval
-    if slot > now:
-        time.sleep(slot - now)
 
 
 def _retry_delay(resp: httpx.Response, attempt: int) -> float:
@@ -101,7 +87,6 @@ class OpenRouterClient:
         if not self._api_key:
             raise RuntimeError("OPENROUTER_API_KEY is not set")
         for attempt in range(thresholds.LLM_MAX_RETRIES + 1):
-            _throttle(body["model"])
             try:
                 resp = httpx.post(
                     f"{self.base_url}/chat/completions",
