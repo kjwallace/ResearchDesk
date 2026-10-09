@@ -13,6 +13,7 @@ Only evals and the corpus loader read EmailLabel.
 from collections.abc import Callable, Iterable, Mapping
 from dataclasses import dataclass, field
 
+from triage_app import config
 from triage_app.config import TICKERS, TOPICS
 from triage_app.pipeline.io import quote_in
 from triage_app.schema import (
@@ -32,11 +33,10 @@ SIGNAL_CLASS = {
     "low_value": "noise", "irrelevant": "noise",
 }
 NOISE_LABELS = frozenset({"redundant", "low_value", "irrelevant"})
-MEETING_KINDS = frozenset({"invitation", "newsletter"})  # meeting requests, newsletters, events
 
 # The measures reported per split by the criteria check (all label measures with a value).
 LABEL_MEASURES = ("gate_recall", "monitor_gate_recall", "signal_accuracy", "triage_accuracy",
-                  "ticker_f1", "topic_f1", "attention_precision", "attention_recall")
+                  "ticker_f1", "topic_f1", "human_attention_precision", "human_attention_recall")
 
 Results = Mapping[str, EmailResult]
 Labels = Mapping[str, EmailLabel]
@@ -163,16 +163,16 @@ def _attention(results: Results, email_id: str) -> bool:
     return bool(r and r.human_attention)
 
 
-def attention_precision(results: Results, labels: Labels) -> Score:
+def human_attention_precision(results: Results, labels: Labels) -> Score:
     flagged = [i for i in labels if _attention(results, i)]
-    misses = [Miss(email_id=i, measure="attention_precision", expected="false", got="true")
+    misses = [Miss(email_id=i, measure="human_attention_precision", expected="false", got="true")
               for i in flagged if not labels[i].human_attention]
     return Score(_ratio(len(flagged) - len(misses), len(flagged)), misses)
 
 
-def attention_recall(results: Results, labels: Labels) -> Score:
+def human_attention_recall(results: Results, labels: Labels) -> Score:
     wanted = [i for i, lab in labels.items() if lab.human_attention]
-    misses = [Miss(email_id=i, measure="attention_recall", expected="true", got="false")
+    misses = [Miss(email_id=i, measure="human_attention_recall", expected="true", got="false")
               for i in wanted if not _attention(results, i)]
     return Score(_ratio(len(wanted) - len(misses), len(wanted)), misses)
 
@@ -180,7 +180,7 @@ def attention_recall(results: Results, labels: Labels) -> Score:
 # ---- Repeats ----
 
 def repeat_flagged(redundancy: Iterable[RedundancyRecord]) -> Score:
-    """Count of emails the redundancy check flags."""
+    """Count of emails the redundancy check flags; an email absent from redundancy.json is not flagged."""
     return Score(float(sum(1 for r in redundancy if r.flagged)))
 
 
@@ -213,7 +213,7 @@ def stray_suggestions(suggestions: Iterable[Suggestion], labels: Labels) -> Scor
 
 def quote_faithfulness(notes: Iterable[AttentionNote], suggestions: Iterable[Suggestion],
                        bodies: Mapping[str, str]) -> Score:
-    """Share of quoted sections, in notes and suggestions, found verbatim in the parsed body."""
+    """Share of quoted sections, in notes and suggestions, found verbatim in the email body."""
     sections: list[tuple[str, LinkedSection]] = [(n.email_id, sec) for n in notes for sec in n.sections]
     sections += [(s.id, sec) for s in suggestions for sec in s.sections]
     misses = [Miss(email_id=sec.email_id, measure="quote_faithfulness", expected=f"verbatim quote in {owner}",
@@ -223,9 +223,26 @@ def quote_faithfulness(notes: Iterable[AttentionNote], suggestions: Iterable[Sug
 
 
 def meetings_share(triage: Iterable[TriageRecord]) -> Score:
-    """Share of emails whose Jev email kind is an invitation or a newsletter."""
+    """Share of emails whose Jev email type is meeting-like (`config.MEETING_LIKE_TYPES`)."""
     records = list(triage)
-    return Score(_ratio(sum(1 for t in records if t.kind in MEETING_KINDS), len(records)))
+    return Score(_ratio(sum(1 for t in records if t.email_type in config.MEETING_LIKE_TYPES), len(records)))
+
+
+def email_type_accuracy(triage: Iterable[TriageRecord], labels: Labels, results: Results) -> Score:
+    """Share of emails whose Jev email type (most probable option) equals the corpus `email_type`.
+
+    A quarantined email counts as a miss; an email whose label has no email_type is left out.
+    """
+    by_id = {t.email_id: t for t in triage}
+    ids = [i for i, lab in labels.items() if lab.email_type is not None and i in by_id]
+    misses = []
+    for i in ids:
+        want = labels[i].email_type or ""
+        quarantined = (r := results.get(i)) is not None and r.gate == "quarantine"
+        got = "quarantined" if quarantined else by_id[i].email_type
+        if got != want:
+            misses.append(Miss(email_id=i, measure="email_type_accuracy", expected=want, got=got))
+    return Score(_ratio(len(ids) - len(misses), len(ids)), misses)
 
 
 # ---- Hand reviews, from the filled sheets ----
@@ -278,8 +295,8 @@ LABEL_FUNCTIONS: dict[str, Callable[[Results, Labels], Score]] = {
     "signal_accuracy": signal_accuracy,
     "triage_accuracy": triage_accuracy,
     "ticker_f1": ticker_f1,
-    "attention_precision": attention_precision,
-    "attention_recall": attention_recall,
+    "human_attention_precision": human_attention_precision,
+    "human_attention_recall": human_attention_recall,
     "topic_f1": topic_f1,
 }
 

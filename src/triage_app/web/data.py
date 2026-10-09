@@ -1,14 +1,18 @@
 """Read-only view of one set's stage files for the app.
 
-The directory comes from `TRIAGE_DATA_DIR` (default `data/out/day_1`). Files are read once
+The directory comes from `TRIAGE_DATA_DIR` (default `data/out/day_1`). The emails are not a
+stage file: they are read from the set's corpus file through the corpus loader (label-free,
+bodies exactly as in the corpus). `data/out/<set>` maps to `data/corpus/<set>/emails.jsonl`,
+any other directory to the `emails.jsonl` beside it (the fixtures: `tests/fixtures/out` ->
+`tests/fixtures/emails.jsonl`), and `TRIAGE_EMAILS_FILE` overrides both. Files are read once
 and reloaded when any of them changes on disk. A missing file reads as empty, so the app
 answers before every stage has run. Nothing here writes.
 """
 
-import json
 import os
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Any
 
 from markupsafe import Markup, escape
 from pydantic import BaseModel
@@ -16,8 +20,8 @@ from pydantic import BaseModel
 from triage_app import config
 from triage_app.pipeline.io import normalize_ws, read_list, read_one
 from triage_app.schema import (
-    AnalysisRecord, AttentionNote, Brief, CallRecord, Claim, CriteriaHistoryEntry, Email, EmailResult,
-    EvalReport, LinkedSection, RedundancyRecord, StageTiming, Suggestion, TriageRecord, UsageReport,
+    AnalysisRecord, AttentionNote, Brief, Claim, CriteriaHistoryEntry, Email, EmailResult,
+    EvalReport, LinkedSection, RedundancyRecord, Suggestion, TriageRecord, UsageReport,
 )
 
 DEFAULT_DATA_DIR = config.OUT_DIR / "day_1"
@@ -31,14 +35,33 @@ def data_dir_from_env() -> Path:
     return path if path.is_absolute() else config.ROOT / path
 
 
+def emails_file_for(data_dir: Path) -> Path:
+    """The corpus file holding the emails of the set whose stage files are in `data_dir`."""
+    raw = os.environ.get("TRIAGE_EMAILS_FILE", "").strip()
+    if raw:
+        path = Path(raw)
+        return path if path.is_absolute() else config.ROOT / path
+    for corpus_set in config.CORPUS_SETS:
+        if data_dir.name == corpus_set:
+            return config.corpus_file(corpus_set)
+    return data_dir.parent / "emails.jsonl"
+
+
+def load_emails(path: Path) -> list[Email]:
+    """Label-free emails from a corpus file, in arrival order; empty when the file is missing."""
+    if not path.exists():
+        return []
+    from triage_app.corpus import load as load_corpus
+    return load_corpus(path)[0]
+
+
 @dataclass
 class DayData:
     """Every stage file of one set, with lookups by ID."""
 
     directory: Path
-    raw: list[Email] = field(default_factory=list)
-    parsed: list[Email] = field(default_factory=list)
-    redundancy: dict[str, RedundancyRecord] = field(default_factory=dict)
+    inbox: list[Email] = field(default_factory=list)                    # from the corpus file
+    redundancy: dict[str, RedundancyRecord] = field(default_factory=dict)  # flagged emails only
     triage: dict[str, TriageRecord] = field(default_factory=dict)
     results: dict[str, EmailResult] = field(default_factory=dict)
     notes: dict[str, AttentionNote] = field(default_factory=dict)
@@ -49,17 +72,12 @@ class DayData:
     brief: Brief | None = None
     eval: EvalReport | None = None
     metrics: UsageReport | None = None
-    calls: list[CallRecord] = field(default_factory=list)
-    timings: list[StageTiming] = field(default_factory=list)
     history: list[CriteriaHistoryEntry] = field(default_factory=list)
+    day_cache: Any = None   # stage 2's day cache, built by the live route on first use
 
     @property
     def emails(self) -> dict[str, Email]:
-        return {e.email_id: e for e in self.parsed}
-
-    @property
-    def raw_by_id(self) -> dict[str, Email]:
-        return {e.email_id: e for e in self.raw}
+        return {e.email_id: e for e in self.inbox}
 
     def quarantined(self, email_id: str) -> bool:
         r = self.results.get(email_id)
@@ -100,16 +118,14 @@ def _one[M: BaseModel](path: Path, model: type[M]) -> M | None:
     return read_one(path, model) if path.exists() else None
 
 
-def load(directory: Path) -> DayData:
+def load(directory: Path, emails_path: Path | None = None) -> DayData:
     d = directory
-    usage = json.loads((d / "usage.json").read_text()) if (d / "usage.json").exists() else {}
     history_path = d / "criteria_history.json"
     if not history_path.exists():
         history_path = d.parent / "criteria_history.json"
     return DayData(
         directory=d,
-        raw=_list(d / "raw.json", Email),
-        parsed=_list(d / "parsed.json", Email),
+        inbox=load_emails(emails_path or emails_file_for(d)),
         redundancy={r.email_id: r for r in _list(d / "redundancy.json", RedundancyRecord)},
         triage={t.email_id: t for t in _list(d / "triage.json", TriageRecord)},
         results={r.email_id: r for r in _list(d / "results.json", EmailResult)},
@@ -121,8 +137,6 @@ def load(directory: Path) -> DayData:
         brief=_one(d / "brief.json", Brief),
         eval=_one(d / "eval.json", EvalReport),
         metrics=_one(d / "metrics.json", UsageReport),
-        calls=[CallRecord.model_validate(c) for c in usage.get("calls", [])],
-        timings=[StageTiming.model_validate(t) for t in usage.get("timings", [])],
         history=_list(history_path, CriteriaHistoryEntry),
     )
 
@@ -130,20 +144,22 @@ def load(directory: Path) -> DayData:
 class DataStore:
     """Holds the loaded set and reloads it when a stage file changes."""
 
-    def __init__(self, directory: Path) -> None:
+    def __init__(self, directory: Path, emails_path: Path | None = None) -> None:
         self.directory = directory
+        self.emails_path = emails_path or emails_file_for(directory)
         self._stamp: tuple[float, ...] | None = None
         self._data: DayData | None = None
 
     def _mtimes(self) -> tuple[float, ...]:
-        if not self.directory.exists():
-            return ()
-        return tuple(sorted(p.stat().st_mtime for p in self.directory.glob("*.json")))
+        files = list(self.directory.glob("*.json")) if self.directory.exists() else []
+        if self.emails_path.exists():
+            files.append(self.emails_path)
+        return tuple(sorted(p.stat().st_mtime for p in files))
 
     def get(self) -> DayData:
         stamp = self._mtimes()
         if self._data is None or stamp != self._stamp:
-            self._data = load(self.directory)
+            self._data = load(self.directory, self.emails_path)
             self._stamp = stamp
         return self._data
 
@@ -151,7 +167,7 @@ class DataStore:
 # ---- Rendering helpers ----
 
 def highlight(body: str, quotes: list[str]) -> Markup:
-    """The parsed body as HTML, with each quoted section wrapped in <mark>.
+    """The email body as HTML, with each quoted section wrapped in <mark>.
 
     Quotes are matched after whitespace normalization, as the pipeline checks them.
     """

@@ -1,6 +1,6 @@
 {
   "pass_signal": 0.98,
-  "attention": 0.925,
+  "human_attention": 0.925,
   "ticker": {
     "AMZN": 0.52,
     "NVDA": 0.7,

@@ -20,12 +20,12 @@ STAGE = "gate"
 
 def run(in_dir: Path, out_dir: Path, ctx: RunContext) -> None:
     triage = read_list(in_dir / "triage.json", TriageRecord)
-    redundancy = {r.email_id: r for r in read_list(in_dir / "redundancy.json", RedundancyRecord)}
+    redundancy = {r.email_id: r for r in read_list(in_dir / "redundancy.json", RedundancyRecord)}  # flagged only
     thresholds = ctx.thresholds
     results: list[EmailResult] = []
     for record in triage:
         with ctx.recorder.stage(STAGE, record.email_id):
-            results.append(process(record, redundancy[record.email_id], thresholds))
+            results.append(process(record, redundancy.get(record.email_id), thresholds))
     write_list(out_dir / "results.json", results)
 
 
@@ -34,8 +34,11 @@ def signal_score(triage: TriageRecord) -> float:
     return round(triage.triage_probs.get("thesis_relevant", 0.0) + triage.triage_probs.get("monitor", 0.0), limits.SIGNAL_SCORE_DECIMALS)
 
 
-def process(triage: TriageRecord, redundancy: RedundancyRecord, thresholds: Thresholds) -> EmailResult:
-    """Quarantine, label, tickers and topics, attention, gate; reason composed by code."""
+def process(triage: TriageRecord, redundancy: RedundancyRecord | None, thresholds: Thresholds) -> EmailResult:
+    """Quarantine, label, tickers and topics, attention, gate; reason composed by code.
+
+    `redundancy` is the email's flagged record, or None when the check did not flag it.
+    """
     signal = signal_score(triage)
 
     # 1. Quarantine on either safety question; nothing further runs.
@@ -53,7 +56,7 @@ def process(triage: TriageRecord, redundancy: RedundancyRecord, thresholds: Thre
     jev_label = max(config.TRIAGE_LABELS, key=lambda label: triage.triage_probs.get(label, 0.0))
     jev_part = f"{jev_label} {triage.triage_probs.get(jev_label, 0.0):.2f}"
     label, decided_by, redundant_of, label_part = jev_label, "jev", None, jev_part
-    if (redundancy.flagged and signal < thresholds.pass_signal
+    if (redundancy is not None and redundancy.flagged and signal < thresholds.pass_signal
             and jev_label != "redundant" and redundancy.nearest is not None):
         label, decided_by, redundant_of = "redundant", "redundancy_check", redundancy.nearest
         label_part = (f"redundant: repeat of {redundancy.nearest} "
@@ -67,7 +70,7 @@ def process(triage: TriageRecord, redundancy: RedundancyRecord, thresholds: Thre
               if triage.topic_probs.get(t, 0.0) >= thresholds.topic.get(t, limits.TOPIC_THRESHOLD)]
 
     # 4. Human attention.
-    attention = triage.attention >= thresholds.attention
+    attention = triage.human_attention >= thresholds.human_attention
 
     # 5. Gate on the signal score, or pass a truncated email on its first chunk.
     if signal >= thresholds.pass_signal:

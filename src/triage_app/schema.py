@@ -23,7 +23,7 @@ class Email(BaseModel):                 # input fields of one JSONL row
     sender: str
     sender_email: str
     subject: str
-    body: str                           # raw in the corpus; cleaned in parsed.json
+    body: str                           # exactly as in the corpus: the text of record
 
 class EmailLabel(BaseModel):            # corpus label fields of the same row
     email_id: str                       # read only by the loader, evals and tuning
@@ -33,6 +33,7 @@ class EmailLabel(BaseModel):            # corpus label fields of the same row
     human_attention: bool
     redundant_of: str | None = None     # absent from the corpus; always None today
     reason: str
+    email_type: str | None = None       # generation field, for email_type_accuracy only
 
 
 # ---- Criteria ----
@@ -53,22 +54,22 @@ class CriteriaSet(BaseModel):           # everything Jev is told about relevance
 
 # ---- Stages 2 to 4 ----
 
-class RedundancyRecord(BaseModel):      # stage 2 output, one per email
+class RedundancyRecord(BaseModel):      # stage 2 output; redundancy.json holds flagged emails only
     email_id: str
     nearest: str | None                 # email_id of the most similar earlier email
     content_similarity: float | None    # cosine; None for the first email
     subject_score: float | None         # token-set similarity with that email, 0 to 1
-    flagged: bool                       # potentially redundant
+    flagged: bool                       # potentially redundant; an email absent from the file is not
 
 class TriageRecord(BaseModel):          # stage 3 output: Jev's answers, unmodified
     email_id: str
     criteria_version: str               # hash of the criteria files in force
     triage_probs: dict[str, float]      # Choice over the five labels
     ticker_probs: dict[str, float]      # Noul per ticker
-    attention: float                    # Noul
+    human_attention: float              # Noul
     topic_probs: dict[str, float]       # Noul per topic label
-    kind: str                           # most probable option; display only
-    kind_probs: dict[str, float]        # Choice over the six email kinds
+    email_type: str                     # most probable option; display only
+    email_type_probs: dict[str, float]  # Choice over the eleven email types
     safety: dict[str, float]            # keys: possible_mnpi, instructs_ai
     truncated: bool                     # set by stage 3 when it trims the body
 
@@ -232,7 +233,7 @@ class Brief(BaseModel):                 # stage 9 output; every list is in displ
 
 class Thresholds(BaseModel):            # tuned/thresholds.json; overrides thresholds.py
     pass_signal: float
-    attention: float
+    human_attention: float
     ticker: dict[str, float]
     topic: dict[str, float]
     content_similarity: float
@@ -252,7 +253,7 @@ class EvalReport(BaseModel):            # data/out/<set>/eval.json
     confusion: dict[str, dict[str, int]]  # corpus label, then pipeline label
     misses: list[Miss]
 
-class CallRecord(BaseModel):            # one model or embedding call; usage.json
+class CallRecord(BaseModel):            # one model or embedding call; in memory only
     stage: str                          # a stage name, or "live" / "verify"
     email_id: str | None                # None for set-level calls
     model: str                          # model ID from config.py
@@ -263,7 +264,7 @@ class CallRecord(BaseModel):            # one model or embedding call; usage.jso
     latency_ms: float                   # wall clock
     at: datetime
 
-class StageTiming(BaseModel):           # one stage over one email, or over the set; usage.json
+class StageTiming(BaseModel):           # one stage over one email, or over the set; in memory only
     stage: str
     email_id: str | None                # None for the set-level total
     latency_ms: float

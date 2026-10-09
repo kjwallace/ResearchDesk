@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from fakes import FakeJev
+from fakes import FIXTURE_EMAILS, FakeJev
 
 from triage_app import config
 from triage_app import criteria as criteria_files
@@ -50,6 +50,11 @@ EMAILS = [
 ]
 
 
+@pytest.fixture(autouse=True)
+def jev_model(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("JEV_MODEL", "jev-fake")  # no test reads .env
+
+
 @pytest.fixture
 def tuning(tmp_path: Path) -> dict[str, Any]:
     crit = tmp_path / "criteria"
@@ -61,14 +66,13 @@ def tuning(tmp_path: Path) -> dict[str, Any]:
                                             "affected_tickers": tk, "human_attention": False, "reason": "r"})
               for i, _s, t, tk, _p in EMAILS}
     split: dict[str, Split] = {i: "fit" if p == "fit" else "validation" for i, _s, _t, _tk, p in EMAILS}
-    redundancy = {e.email_id: RedundancyRecord(email_id=e.email_id, nearest=None, content_similarity=None,
-                                               subject_score=None, flagged=False) for e in emails}
+    redundancy: dict[str, RedundancyRecord] = {}  # flagged emails only, and none of these is flagged
     return {"criteria": crit, "emails": emails, "labels": labels, "split": split, "redundancy": redundancy,
             "out": tmp_path / "out", "history": tmp_path / "criteria_history.json"}
 
 
 def run(t: dict[str, Any]) -> tuple[CriteriaHistoryEntry, CriteriaHistoryEntry | None, Thresholds]:
-    ctx = RunContext("tuning", jev=CriteriaJev(), use_cache=False, criteria=criteria_files.load(t["criteria"]))
+    ctx = RunContext("tuning", jev=CriteriaJev(), use_cache=False, criteria=criteria_files.load(t["criteria"]), emails_path=FIXTURE_EMAILS)
     return criteria_check.check(t["emails"], t["redundancy"], t["labels"], t["split"], ctx,
                                 criteria_dir=t["criteria"], out_dir=t["out"], history_path=t["history"])
 

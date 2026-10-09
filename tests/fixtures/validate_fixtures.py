@@ -9,18 +9,18 @@ import re
 import sys
 from pathlib import Path
 
-import numpy as np
 from pydantic import BaseModel, TypeAdapter
 
 from triage_app import thresholds
 from triage_app import config
-from triage_app.pipeline import parse as parse_stage
-from triage_app.monitoring import build_report
+from triage_app.corpus import load as load_corpus
+from triage_app.pipeline import run as pipeline_run
+from triage_app.pipeline import summary
 from triage_app.pipeline.io import normalize_ws, quote_in
 from triage_app.schema import (
-    AnalysisRecord, AttentionNote, Brief, CallRecord, Claim, CompanyModel, CriteriaHistoryEntry,
-    Email, EmailLabel, EmailResult, EvalReport, ExistingThesis, Link, NewThesis, RedundancyRecord,
-    StageTiming, Suggestion, Thesis, TriageRecord, UsageReport,
+    AnalysisRecord, AttentionNote, Brief, Claim, CompanyModel, CriteriaHistoryEntry,
+    EmailLabel, EmailResult, EvalReport, ExistingThesis, Link, NewThesis, RedundancyRecord,
+    Suggestion, Thesis, TriageRecord, UsageReport,
 )
 
 FIX = Path(__file__).resolve().parent
@@ -75,11 +75,12 @@ labels = [EmailLabel.model_validate_json(line) for line in (FIX / "labels.jsonl"
 LAB = by_id(labels)
 check([lab.email_id for lab in labels] == IDS, "labels.jsonl: one label per fixture email, in order")
 check(all(lab.redundant_of is None for lab in labels), "labels.jsonl: redundant_of must be null everywhere")
+check(all(lab.email_type in config.EMAIL_TYPES for lab in labels), "labels.jsonl: email_type must be one of config.EMAIL_TYPES")
+check([lab.email_type for lab in labels] == [r.get("email_type") for r in rows],
+      "labels.jsonl: email_type must match emails.jsonl")
 
 # ---- stage files load with their contracts ----
 
-raw = load_list("raw.json", Email)
-parsed = load_list("parsed.json", Email)
 red = load_list("redundancy.json", RedundancyRecord)
 tri = load_list("triage.json", TriageRecord)
 results = load_list("results.json", EmailResult)
@@ -93,54 +94,37 @@ history = load_list("criteria_history.json", CriteriaHistoryEntry)
 brief = load_one("brief.json", Brief)
 ev = load_one("eval.json", EvalReport)
 metrics = load_one("metrics.json", UsageReport)
-try:
-    usage = json.loads((OUT / "usage.json").read_text())
-    check(set(usage) == {"calls", "timings"}, "usage.json: keys must be exactly calls and timings")
-    calls = TypeAdapter(list[CallRecord]).validate_python(usage["calls"])
-    timings = TypeAdapter(list[StageTiming]).validate_python(usage["timings"])
-except Exception as e:  # noqa: BLE001
-    failures.append(f"usage.json: does not load: {e}")
-    calls, timings = [], []
 
-for name, items in [("raw.json", raw), ("parsed.json", parsed), ("redundancy.json", red),
-                    ("triage.json", tri), ("results.json", results)]:
+for name, items in [("triage.json", tri), ("results.json", results)]:
     check([i.email_id for i in items] == IDS, f"{name}: one record per email, in arrival order")
 
-# ---- stage 1 ----
+# ---- emails: read from emails.jsonl by the corpus loader; no stage writes them out ----
 
+for gone in ("raw.json", "parsed.json", "vectors.npy", "usage.json"):
+    check(not (OUT / gone).exists(), f"{gone}: no longer a stage file; delete it")
 ROW = {r["email_id"]: r for r in rows}
-for f in ("raw.json", "parsed.json"):
-    for item in json.loads((OUT / f).read_text()):
-        check(not (set(item) & LABEL_FIELDS), f"{f} {item.get('email_id')}: holds label fields")
-for a, b in zip(raw, parsed):
-    check(a.body == ROW[a.email_id]["body"], f"raw.json {a.email_id}: body must be the corpus body")
-    check(b.body == parse_stage.process(a).body, f"parsed.json {a.email_id}: body must be the cleaned raw body")
-    check((a.sender, a.sender_email, a.subject, a.received_at) == (b.sender, b.sender_email, b.subject, b.received_at),
-          f"parsed.json {a.email_id}: header fields differ from raw.json")
-    check(str(a.received_at.date()) == config.SET_DATES["day_1"], f"raw.json {a.email_id}: received_at not on day_1")
-check(all(x.received_at < y.received_at for x, y in zip(raw, raw[1:])), "raw.json: received_at must increase")
-BODY = {p.email_id: p.body for p in parsed}
+emails = load_corpus(FIX / "emails.jsonl")[0]
+check([e.email_id for e in emails] == IDS, "emails.jsonl: the loader must keep all ten emails, in order")
+for e in emails:
+    check(e.body == ROW[e.email_id]["body"], f"loader {e.email_id}: body must be exactly the corpus body")
+    check(not (set(e.model_dump()) & LABEL_FIELDS), f"loader {e.email_id}: Email holds label fields")
+    check(str(e.received_at.date()) == config.SET_DATES["day_1"], f"loader {e.email_id}: received_at not on day_1")
+check(all(x.received_at < y.received_at for x, y in zip(emails, emails[1:])), "loader: received_at must increase")
+BODY = {e.email_id: e.body for e in emails}
 
-# ---- stage 2 ----
+# ---- stage 2: redundancy.json holds flagged emails only ----
 
-V = np.load(OUT / "vectors.npy")
-check(V.dtype == np.float32, f"vectors.npy: dtype {V.dtype}, want float32")
-check(V.shape == (10, 8), f"vectors.npy: shape {V.shape}, want (10, 8)")
-check(bool(np.allclose(np.linalg.norm(V, axis=1), 1.0, atol=1e-5)), "vectors.npy: rows must be L2-normalized")
 RED = by_id(red)
-for i, r in enumerate(red):
-    if i == 0:
-        check(r.nearest is None and r.content_similarity is None and r.subject_score is None and not r.flagged,
-              "redundancy.json: first email must have no nearest and no scores")
-        continue
-    sims = V[:i] @ V[i]
-    j = int(np.argmax(sims))
-    check(r.nearest == IDS[j], f"redundancy.json {r.email_id}: nearest should be {IDS[j]}")
-    check(r.content_similarity is not None and abs(r.content_similarity - float(sims[j])) < 1e-3,
-          f"redundancy.json {r.email_id}: content_similarity disagrees with vectors.npy")
+check(len(RED) == len(red), "redundancy.json: duplicate email IDs")
+check([r.email_id for r in red] == [i for i in IDS if i in RED], "redundancy.json: records in arrival order")
+for r in red:
+    check(r.flagged, f"redundancy.json {r.email_id}: holds an unflagged record (the file lists flagged emails only)")
+    check(r.nearest in IDS and IDS.index(r.nearest) < IDS.index(r.email_id),
+          f"redundancy.json {r.email_id}: nearest must be an earlier email")
     c, s = r.content_similarity or 0.0, r.subject_score or 0.0
     want = c >= thresholds.CONTENT_SIMILARITY or (c >= thresholds.CONTENT_SIMILARITY_WITH_SUBJECT and s >= thresholds.SUBJECT_MATCH)
-    check(r.flagged == want, f"redundancy.json {r.email_id}: flagged={r.flagged} disagrees with the thresholds")
+    check(r.content_similarity is not None and r.subject_score is not None and want,
+          f"redundancy.json {r.email_id}: scores do not reach the flag thresholds")
 
 # ---- stage 3 and 4 ----
 
@@ -152,8 +136,10 @@ for t in tri:
     check(abs(sum(t.triage_probs.values()) - 1) < 1e-6, f"triage.json {t.email_id}: triage_probs must sum to 1")
     check(set(t.ticker_probs) == set(config.TICKERS), f"triage.json {t.email_id}: ticker_probs keys")
     check(set(t.topic_probs) == set(config.TOPICS), f"triage.json {t.email_id}: topic_probs keys")
-    check(set(t.kind_probs) == set(config.EMAIL_KINDS) and t.kind == max(t.kind_probs, key=t.kind_probs.get),
-          f"triage.json {t.email_id}: kind must be the most probable of the six kinds")
+    check(set(t.email_type_probs) == set(config.EMAIL_TYPES)
+          and t.email_type == max(t.email_type_probs, key=t.email_type_probs.get),
+          f"triage.json {t.email_id}: email_type must be the most probable of the eleven types")
+    check(abs(sum(t.email_type_probs.values()) - 1) < 1e-6, f"triage.json {t.email_id}: email_type_probs must sum to 1")
     check(set(t.safety) == set(config.SAFETY_QUESTIONS), f"triage.json {t.email_id}: safety keys")
 
 for r in results:
@@ -175,9 +161,9 @@ for r in results:
     check(f"signal score {sig:.2f}" in r.reason and f"{thresholds.PASS_SIGNAL:.2f}" in r.reason,
           f"results.json {r.email_id}: reason must name the signal score and threshold")
     top = max(t.triage_probs, key=t.triage_probs.get)
-    rr = RED[r.email_id]
+    rr = RED.get(r.email_id)
     if r.decided_by == "redundancy_check":
-        check(rr.flagged and not passed and top != "redundant" and r.triage == "redundant"
+        check(rr is not None and rr.flagged and not passed and top != "redundant" and r.triage == "redundant"
               and r.redundant_of == rr.nearest,
               f"results.json {r.email_id}: redundancy_check result must point to the flagged nearest email")
     else:
@@ -187,7 +173,8 @@ for r in results:
           f"results.json {r.email_id}: affected_tickers disagree with ticker_probs")
     check(r.additional_labels == [x for x in config.TOPICS if t.topic_probs[x] >= thresholds.TOPIC_THRESHOLD],
           f"results.json {r.email_id}: additional_labels disagree with topic_probs")
-    check(r.human_attention == (t.attention >= thresholds.ATTENTION), f"results.json {r.email_id}: attention flag")
+    check(r.human_attention == (t.human_attention >= thresholds.HUMAN_ATTENTION),
+          f"results.json {r.email_id}: human_attention flag")
 
 QUAR = {r.email_id for r in results if r.gate == "quarantine"}
 PASSED = {r.email_id for r in results if r.gate == "pass"}
@@ -199,7 +186,9 @@ repeats = [r for r in results if r.decided_by == "redundancy_check"]
 check(len(repeats) == 1, "results.json: need one same-day repeat decided by the redundancy check")
 for r in repeats:
     a, b = IDS.index(r.redundant_of), IDS.index(r.email_id)
-    check(a < b and float(V[a] @ V[b]) >= 0.85, "repeat pair: earlier email first and cosine >= 0.85")
+    rr = RED.get(r.email_id)
+    check(a < b and rr is not None and (rr.content_similarity or 0.0) >= thresholds.CONTENT_SIMILARITY,
+          "repeat pair: earlier email first and content similarity at the content threshold")
     check(LAB[r.email_id].triage == "redundant", "repeat: corpus label must be redundant")
 
 # ---- quotes: notes, claims, suggestions ----
@@ -352,7 +341,7 @@ if brief is not None:
         if sid in SFIN:
             all_mon = {RES[x.email_id].triage for x in SFIN[sid].sections} == {"monitor"}
             check(all_mon == (sid in brief.worth_watching), f"brief.json: worth_watching placement of {sid}")
-    check(brief.needs_attention == [n.email_id for n in sorted(notes, key=lambda n: -TRI[n.email_id].attention)],
+    check(brief.needs_attention == [n.email_id for n in sorted(notes, key=lambda n: -TRI[n.email_id].human_attention)],
           "brief.json: needs_attention must list every note's email by attention probability")
     check(sorted(brief.quarantined) == sorted(QUAR), "brief.json: quarantined must be the quarantined emails")
     # Every email placed exactly once: suggestion lists (by linked email), relevant_unlinked, audit,
@@ -371,21 +360,44 @@ if brief is not None:
     check(len(brief.alerts) <= thresholds.ALERTS_PER_DAY, "brief.json: at most three alerts")
     for al in brief.alerts:
         if al.kind == "human_attention":
-            check(TRI[al.ref_id].attention >= thresholds.ALERT_ATTENTION, f"brief.json: alert {al.ref_id} below the alert threshold")
+            check(TRI[al.ref_id].human_attention >= thresholds.ALERT_HUMAN_ATTENTION, f"brief.json: alert {al.ref_id} below the alert threshold")
     check(brief.counts.get("notes") == len(notes) and brief.counts.get("suggestions") == len(s_fin),
           "brief.json: counts of notes and suggestions")
 
-# ---- eval, usage, metrics, criteria history ----
+# ---- eval, metrics, summary, criteria history ----
 
 if ev is not None:
     check(ev.corpus == "day_1" and ev.criteria_version == "fixture0000", "eval.json: corpus day_1, criteria_version fixture0000")
     check(sum(sum(v.values()) for v in ev.confusion.values()) == 10, "eval.json: confusion must count ten emails")
     check(ev.measures.get("quote_faithfulness") == 1.0, "eval.json: quote_faithfulness must be 1.0 on delivered items")
+    check("email_type_accuracy" in ev.measures, "eval.json: needs email_type_accuracy")
 if metrics is not None:
-    want = build_report("day_1", calls, timings, emails=10).model_dump(exclude={"run_at"})
-    check(metrics.model_dump(exclude={"run_at"}) == want, "metrics.json: does not match build_report(usage.json)")
-check(all(c.email_id is None or c.email_id not in QUAR or c.stage in ("redundancy", "classify") for c in calls),
-      "usage.json: a quarantined email reached a model after stage 3")
+    check(metrics.emails == 10, "metrics.json: emails must be 10")
+    check(set(metrics.stages) <= set(pipeline_run.STAGES), f"metrics.json: unknown stage keys {sorted(metrics.stages)}")
+    check(sum(u.calls for u in metrics.stages.values()) == sum(u.calls for u in metrics.by_model.values()),
+          "metrics.json: per-stage and per-model call counts must agree")
+    for name, u in [*metrics.stages.items(), *metrics.by_model.items()]:
+        check(u.cache_hits <= u.calls and u.input_tokens <= u.uncached_input_tokens
+              and u.output_tokens <= u.uncached_output_tokens
+              and u.latency_p50_ms <= u.latency_p95_ms <= u.latency_max_ms,
+              f"metrics.json {name}: spent tokens exceed uncached, or percentiles out of order")
+    for q in QUAR:
+        check(q not in json.dumps(metrics.model_dump(mode="json")), "metrics.json: holds an email ID")
+
+# SUMMARY.md: produced by pipeline.summary from these files; no body and no corpus label.
+summary_path = OUT / summary.FILE
+if not summary_path.exists():
+    failures.append("SUMMARY.md: missing")
+else:
+    text = summary_path.read_text()
+    want_text = summary.render(summary.read(OUT, "day_1", emails, None, thresholds.starting_thresholds()))
+    check(text == want_text, "SUMMARY.md: differs from pipeline.summary.render on these fixtures; regenerate it")
+    for q in QUAR:
+        words = BODY[q].split()
+        for i in range(0, max(1, len(words) - 6), 4):
+            check(" ".join(words[i:i + 6]) not in text, f"SUMMARY.md: quarantined body of {q} leaked")
+    for lab in labels:
+        check(lab.reason not in text, f"SUMMARY.md: holds the corpus reason of {lab.email_id}")
 check(len(history) == 1 and history[0].criteria_version == "fixture0000", "criteria_history.json: one entry, fixture0000")
 
 if failures:

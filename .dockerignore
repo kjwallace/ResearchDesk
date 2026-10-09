@@ -10,5 +10,11 @@ tests
 docs
 scripts
 prompts
-# The app reads stage files, not the labeled corpus.
+# The app reads the stage files plus each test day's emails.jsonl, through the corpus loader,
+# which drops every label before anything reaches a screen or model. Plans and tuning stay out.
 data/corpus
+!data/corpus/day_1
+!data/corpus/day_1/emails.jsonl
+!data/corpus/day_2
+!data/corpus/day_2/emails.jsonl
+data/corpus/*/email_plan.jsonl

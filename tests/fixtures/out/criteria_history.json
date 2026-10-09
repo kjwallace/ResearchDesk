@@ -20,16 +20,16 @@
       "triage_accuracy": 0.7,
       "ticker_f1": 0.9,
       "topic_f1": 0.75,
-      "attention_precision": 1.0,
-      "attention_recall": 1.0
+      "human_attention_precision": 1.0,
+      "human_attention_recall": 1.0
     },
     "validation": {
       "signal_accuracy": 0.75,
       "triage_accuracy": 0.65,
       "ticker_f1": 0.88,
       "topic_f1": 0.7,
-      "attention_precision": 1.0,
-      "attention_recall": 0.5
+      "human_attention_precision": 1.0,
+      "human_attention_recall": 0.5
     },
     "changed": []
   }

@@ -1,10 +1,10 @@
-"""Stage A Write attention notes: parsed.json, results.json -> notes.json.
+"""Stage A Write attention notes: the corpus emails, results.json -> notes.json.
 
 Owned by work package 5 (Attention notes). See SPEC.md: Attention pathway.
 
 Every email that stage 4 flagged for human attention gets one note. The note explains the
 flag and cannot remove it; it never touches the book. Each quoted section is checked by
-string match against the parsed body: failing sections are dropped and counted, the note
+string match against the email body: failing sections are dropped and counted, the note
 stays. `run` prints one summary line with the drop count; `write_note` returns it per email.
 """
 
@@ -15,11 +15,11 @@ from triage_app.pipeline.context import RunContext
 from triage_app.pipeline.io import quote_in, read_list, write_list
 from triage_app.schema import AttentionNote, Email, EmailResult, LinkedSection, NoteDraft
 
-STAGE = "attention"
+STAGE = "human_attention"
 
 
 def run(in_dir: Path, out_dir: Path, ctx: RunContext) -> None:
-    emails = {e.email_id: e for e in read_list(in_dir / "parsed.json", Email)}
+    emails = {e.email_id: e for e in ctx.emails}
     results = read_list(in_dir / "results.json", EmailResult)
     flagged = [r for r in results if r.human_attention]
     writer = AttentionWriter(ctx.chat) if flagged else None
@@ -31,7 +31,7 @@ def run(in_dir: Path, out_dir: Path, ctx: RunContext) -> None:
         notes.append(note)
         dropped += n
     write_list(out_dir / "notes.json", notes)
-    print(f"[{ctx.corpus_set}] attention: {len(notes)} notes, {dropped} sections dropped "
+    print(f"[{ctx.corpus_set}] {STAGE}: {len(notes)} notes, {dropped} sections dropped "
           f"(quote not found in body)", flush=True)
 
 

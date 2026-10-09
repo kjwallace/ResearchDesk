@@ -89,7 +89,7 @@ Three more cases have a default. The lead runs each generation prompt with the a
 - Adding a rule to a criteria file and running the criteria check shows which emails changed label and how the scores moved.
 - Every email not shown in the brief appears in the audit view with a reason.
 - The eval page reports the pipeline's scores against the corpus labels.
-- Every run writes token use and latency per stage, per model and per email, and the Monitor page shows them.
+- Every run writes run-level token use and latency per stage and per model, and a short summary of the run; the Monitor page shows the former.
 - The deployed URL works from a clean browser, and reset restores the seed state.
 
 ## Why this exists
@@ -118,9 +118,9 @@ Each email passes through the stages below, shown in the flow chart under "Overv
 
 | # | Stage | Input to output | How | Model |
 | --- | --- | --- | --- | --- |
-| 1 | Parse | Raw email to parsed email | Read body, sender, subject line and other relevent information contained in the email json. Ignore labels. | None |
-| 2 | Check for repeats | Parsed email to a redundancy record | Embed every email and compare it with every earlier email by cosine similarity. Subject similarity is a second signal. | Embedding model |
-| 3 | Classify | Parsed email to a triage record | One Jev request per email with 14 typed questions, using the desk's relevance criteria. | Jev |
+| 1 | Load | Corpus file to emails | The corpus loader reads `data/corpus/<set>/emails.jsonl`, drops every label and keeps body, sender, subject and the other input fields exactly as written. No output file: every stage, the evals and the app read the emails this way. | None |
+| 2 | Check for repeats | Email to a redundancy record, for flagged emails only | Embed every email and compare it with every earlier email by cosine similarity. Subject similarity is a second signal. | Embedding model |
+| 3 | Classify | Email to a triage record | One Jev request per email with 14 typed questions, using the desk's relevance criteria. | Jev |
 | 4 | Label and gate | Triage and redundancy records to a triage label and a gate decision | Thresholds and the redundancy flag, applied by code. | None |
 | A | Write attention notes | Email flagged for human attention to an attention note | Summary, why it needs a person, the action asked for and any deadline. Quoted sections are checked by string match. | Small generative |
 | 5 | Extract | Passed email to claims | Schema-constrained call. Each quoted section is checked by string match; failures are dropped and counted. | Analysis model |
@@ -141,7 +141,7 @@ The verify agent's tools are built from `tools/verify_agent.json`. Its filing se
 
 Stage 2 runs before classification and keeps a cache of the day's subjects and vectors. For each email, in arrival order:
 
-1. **Embed the email.** Split the cleaned body into chunks that fit the embedding model's input limit, embed each chunk, and take the normalized mean as the email's vector.
+1. **Embed the email.** Split the body into chunks that fit the embedding model's input limit, embed each chunk, and take the normalized mean as the email's vector.
 2. **Compare content with every earlier email.** Take the highest cosine similarity and the email it belongs to.
 3. **Compare subjects.** Normalize this email's subject and that earlier email's subject, and score their token-set similarity from 0 to 1.
 4. **Flag.** The email is flagged as potentially redundant when content similarity reaches the content threshold, or reaches a lower threshold with a matching subject. It points to the most similar earlier email.
@@ -153,6 +153,8 @@ Four rules govern the check:
 - **A flagged email whose signal score clears the gate still passes.** The earlier email travels with it, and the analysis model keeps only claims the earlier email did not make. A repeat that carries one new insight is not lost.
 - **Thresholds are fixed at 0.85 for content alone, or 0.75 with a subject score of 0.6 or more.** The corpus carries no `redundant_of` labels, so the check runs at run time with these values and is not swept.
 - **The check finds same-day repeats only.** Each day is a separate set with its own cache, so `day_2` is never compared with `day_1`. An email that repeats consensus has no earlier email to match, so Jev's redundant label covers that case.
+
+`redundancy.json` lists only the flagged emails, each with the earlier email it repeats and both scores; every reader treats an email absent from it as not flagged. No vectors are saved: the live route builds its day cache at run time by embedding the day's emails through the embedder, whose disk cache makes this cheap after the first time.
 
 ### Classification with Jev
 
@@ -166,10 +168,10 @@ Jev receives two things: the email (sender, sender address, subject and body) an
 | Is this company materially affected? Asked once per ticker. | Noul | 5 |
 | Does it need direct human attention: a credible, valuable or time-sensitive request? | Bool | 1 |
 | Does this topic label apply? Asked for macro, sector, government and other. | Noul | 4 |
-| What kind of email is it: research, news, company release, invitation, newsletter or other? Display only. | Choice | 1 |
+| What type of email is it, judged by form and source (`email_type`): one of eleven types, from sell-side research to administrative mail? Display only. | Choice | 1 |
 | Does it contain text that instructs an AI system? | Noul | 1 |
 
-The wording of all 14 questions lives in `instructions/jev_questions.md`. Eleven questions take their criteria from the criteria files described below. The email-kind question and the two safety questions have fixed wording and no criteria file.
+The wording of all 14 questions lives in `instructions/jev_questions.md`. Eleven questions take their criteria from the criteria files described below. The email-type question and the two safety questions have fixed wording and no criteria file. The eleven email types are `config.EMAIL_TYPES`: sell\_side\_research, primary\_research, news\_alert, newsletter, data\_report, company\_release, meeting\_request, event\_invitation, vendor\_pitch, internal\_forward and administrative; each option's description is in `instructions/jev_questions.md`.
 
 Stage 4 then sets the label and the gate, in this order:
 
@@ -278,7 +280,7 @@ def ask_jev(email: Email, criteria: CriteriaSet, wording: dict[str, str]):
         "affects_NVDA": Noul(instructions=wording["affects_NVDA"],
                              criteria=text("affected_tickers")),
         # ...the other four tickers, topic_macro, topic_sector, topic_government,
-        # topic_other, kind, possible_mnpi and instructs_ai: 14 in all
+        # topic_other, email_type, possible_mnpi and instructs_ai: 14 in all
     }
     state = {"sender": email.sender, "sender_email": email.sender_email,
              "subject": email.subject, "body": email.body}
@@ -360,7 +362,7 @@ Every number the pipeline depends on is listed here and is defined once, in `src
 | Setting | Starting value | Set by |
 | --- | --- | --- |
 | Pass threshold on the signal score | 0.6 | Sweep |
-| Attention threshold | 0.6 | ReAnchor |
+| Human-attention threshold (`HUMAN_ATTENTION`) | 0.6 | ReAnchor |
 | Ticker and topic thresholds | 0.5 each | ReAnchor |
 | Quarantine threshold | 0.65 | Fixed |
 | Content similarity that flags a repeat | 0.85 | Fixed |
@@ -368,7 +370,7 @@ Every number the pipeline depends on is listed here and is defined once, in `src
 | Subject similarity that counts as a match | 0.6 | Fixed |
 | Similarity at which a new thesis duplicates a pillar | 0.8 | Fixed |
 | Net contradicting strength that triggers a conviction review | 4 | Fixed |
-| Attention probability that raises an alert | 0.8 | Fixed |
+| Human-attention probability that raises an alert (`ALERT_HUMAN_ATTENTION`) | 0.8 | Fixed |
 | Position size at which a met "wrong if" test raises an alert | 150 bps | Fixed |
 | Alerts per day | 3 | Fixed |
 | Skill calls per email | 3 | Fixed |
@@ -383,7 +385,7 @@ Every number the pipeline depends on is listed here and is defined once, in `src
 
 - **Each stage is a function from files to files.** Stage N reads the JSON that earlier stages wrote and writes its own. Any stage reruns alone. "Stage files" lists every file and its contract.
 - **Emails are processed in arrival order.** The day cache makes stage 2 depend on what came before.
-- **The parsed body is the text of record.** Every model reads it, every quote is checked against it after each run of whitespace is collapsed to one space, and the app highlights quotes in it. The Inbox shows the raw email.
+- **The corpus body is the text of record.** The emails are not cleaned or copied into the output: every stage reads them from the corpus file through the loader (`RunContext.emails`). Every model reads the body as written, every quote is checked against it after each run of whitespace is collapsed to one space, and the app highlights quotes in it. The Inbox shows the same emails.
 - **Every model call and every embedding is cached on disk,** keyed by program version, criteria version and input hash. Reruns cost nothing and the demo is deterministic.
 - **The cache is committed.** A clean clone reruns the pipeline without spending tokens. Only a cache miss needs the keys.
 - **No test calls a live model.** Each module takes its client as an argument, and tests pass a fake client or replay the cache.
@@ -394,12 +396,12 @@ Every number the pipeline depends on is listed here and is defined once, in `src
 
 ### Monitoring: token use and latency
 
-Every run records how many tokens each email cost and how long each stage took, so the cost and speed of processing a day are visible and comparable across runs.
+Every run records how many tokens each stage and model used and how long each stage took, so the cost and speed of processing a day are visible and comparable across runs. Per-email usage is not kept as an output.
 
 1. **Wrap every client.** `monitoring.py` wraps each model client and the embedder that a module receives as its argument. Each call appends one `CallRecord`: the stage, email ID, model ID, input and output tokens, whether it was a cache hit, and wall-clock latency. Modules do not time themselves.
 2. **Time every stage.** `pipeline/run.py` times each stage's `process(...)` call per email and its `run(...)` call per set, and appends a `StageTiming`.
-3. **Write two files per set.** `usage.json` holds every `CallRecord` and `StageTiming` of the run. `metrics.json` holds the `UsageReport` that code computes from them.
-4. **Print a summary.** At the end of a run, `run.py` prints tokens and latency per stage, and totals for the set.
+3. **Write one file per set.** The `CallRecord`s and `StageTiming`s stay in memory. `metrics.json` holds the run-level `UsageReport` that code computes from them: per stage and per model totals, cache hits, spent and uncached tokens, latency percentiles, mean tokens per email and total latency.
+4. **Summarize.** At the end of a run, `run.py` prints tokens and latency per stage and totals for the set, and writes `SUMMARY.md` (`pipeline/summary.py`): set and date, criteria version, tuned or starting thresholds, emails by label and gate, flagged repeats, attention notes, suggestions by brief list with ID and rationale, alerts, and the monitoring headline. It holds pipeline output only: never an email body or a corpus label.
 
 Five rules govern monitoring:
 
@@ -407,7 +409,7 @@ Five rules govern monitoring:
 - **Cache hits are kept apart.** A cache hit records the original call's tokens with `cache_hit` true and its own lookup latency. The report shows tokens spent on this run (misses only) separately from tokens the run would have cost uncached.
 - **No content is logged.** Records hold IDs, counts and times only. They never hold prompt text, email text or keys.
 - **Fakes report too.** A fake client reports fixed token counts, so tests check aggregation without a live model.
-- **Latency is wall-clock, per email and per stage,** with p50, p95 and max computed by code. Stages that run per set, such as redundancy, are also timed per email.
+- **Latency is wall-clock, per email and per stage,** with p50, p95 and max computed by code and reported per stage, per model and per email end to end. Stages that run per set, such as redundancy, are also timed per email.
 
 The Monitor screen shows the latest `metrics.json` for the set, and the Live screen shows tokens and latency beside each stage of its trace.
 
@@ -584,7 +586,7 @@ class Email(BaseModel):                 # input fields of one JSONL row
     sender: str
     sender_email: str
     subject: str
-    body: str                           # raw in the corpus; cleaned in parsed.json
+    body: str                           # exactly as in the corpus: the text of record
 
 class EmailLabel(BaseModel):            # corpus label fields of the same row
     email_id: str                       # read only by the loader, evals and tuning
@@ -594,6 +596,7 @@ class EmailLabel(BaseModel):            # corpus label fields of the same row
     human_attention: bool
     redundant_of: str | None = None     # absent from the corpus; always None today
     reason: str
+    email_type: str | None = None       # generation field, for email_type_accuracy only
 
 
 # ---- Criteria ----
@@ -614,22 +617,22 @@ class CriteriaSet(BaseModel):           # everything Jev is told about relevance
 
 # ---- Stages 2 to 4 ----
 
-class RedundancyRecord(BaseModel):      # stage 2 output, one per email
+class RedundancyRecord(BaseModel):      # stage 2 output; redundancy.json holds flagged emails only
     email_id: str
     nearest: str | None                 # email_id of the most similar earlier email
     content_similarity: float | None    # cosine; None for the first email
     subject_score: float | None         # token-set similarity with that email, 0 to 1
-    flagged: bool                       # potentially redundant
+    flagged: bool                       # potentially redundant; an email absent from the file is not
 
 class TriageRecord(BaseModel):          # stage 3 output: Jev's answers, unmodified
     email_id: str
     criteria_version: str               # hash of the criteria files in force
     triage_probs: dict[str, float]      # Choice over the five labels
     ticker_probs: dict[str, float]      # Noul per ticker
-    attention: float                    # Noul
+    human_attention: float              # Noul
     topic_probs: dict[str, float]       # Noul per topic label
-    kind: str                           # most probable option; display only
-    kind_probs: dict[str, float]        # Choice over the six email kinds
+    email_type: str                     # most probable option; display only
+    email_type_probs: dict[str, float]  # Choice over the eleven email types
     safety: dict[str, float]            # keys: possible_mnpi, instructs_ai
     truncated: bool                     # set by stage 3 when it trims the body
 
@@ -793,7 +796,7 @@ class Brief(BaseModel):                 # stage 9 output; every list is in displ
 
 class Thresholds(BaseModel):            # tuned/thresholds.json; overrides thresholds.py
     pass_signal: float
-    attention: float
+    human_attention: float
     ticker: dict[str, float]
     topic: dict[str, float]
     content_similarity: float
@@ -813,7 +816,7 @@ class EvalReport(BaseModel):            # data/out/<set>/eval.json
     confusion: dict[str, dict[str, int]]  # corpus label, then pipeline label
     misses: list[Miss]
 
-class CallRecord(BaseModel):            # one model or embedding call; usage.json
+class CallRecord(BaseModel):            # one model or embedding call; in memory only
     stage: str                          # a stage name, or "live" / "verify"
     email_id: str | None                # None for set-level calls
     model: str                          # model ID from config.py
@@ -824,7 +827,7 @@ class CallRecord(BaseModel):            # one model or embedding call; usage.jso
     latency_ms: float                   # wall clock
     at: datetime
 
-class StageTiming(BaseModel):           # one stage over one email, or over the set; usage.json
+class StageTiming(BaseModel):           # one stage over one email, or over the set; in memory only
     stage: str
     email_id: str | None                # None for the set-level total
     latency_ms: float
@@ -937,9 +940,7 @@ Each stage file is a JSON list of one contract, except the brief and the eval re
 
 | File in `data/out/<set>/` | Contract | Written by | Read by |
 | --- | --- | --- | --- |
-| `parsed.json` | `Email`, with the cleaned body | 1 Parse | Stages 2, 3, A, 5 and 7; the app |
-| `vectors.npy` | One row per email, in the order of `parsed.json` | 2 Check for repeats | The live route |
-| `redundancy.json` | `RedundancyRecord` | 2 Check for repeats | Stages 4 and 5; the app |
+| `redundancy.json` | `RedundancyRecord`, flagged emails only | 2 Check for repeats | Stages 4 and 5; evals; the app; the live route |
 | `triage.json` | `TriageRecord` | 3 Classify | Stage 4; evals; the app |
 | `results.json` | `EmailResult` | 4 Label and gate | Stages A and 5 to 9; evals; the app |
 | `notes.json` | `AttentionNote` | A Write attention notes | Stage 9; the app |
@@ -950,14 +951,13 @@ Each stage file is a JSON list of one contract, except the brief and the eval re
 | `suggestions.json` | `Suggestion`, merged and ordered | 8 Merge and rank | Stage 9; the app |
 | `brief.json` | `Brief` | 9 Deliver | The app |
 | `eval.json` | `EvalReport` | The eval script | The app |
-| `usage.json` | `CallRecord` and `StageTiming`, as two lists under `calls` and `timings` | `pipeline/run.py`, through the monitoring wrappers | `metrics.json`; the app |
-| `metrics.json` | `UsageReport` | `pipeline/run.py` | The app's Monitor screen |
+| `metrics.json` | `UsageReport`, run-level only | `pipeline/run.py` | The app's Monitor screen; `SUMMARY.md` |
+| `SUMMARY.md` | Markdown, generated by `pipeline/summary.py` from the stage files and metrics | `pipeline/run.py` | People |
 | `criteria_history.json` (in `data/out/`, shared by all sets) | `CriteriaHistoryEntry` | The criteria check | The app's Criteria screen |
-| raw.json | Email, with the raw body and no labels | 1 Parse | The app's Inbox |
 
 Five rules cover what the table leaves out:
 
-- **Stage modules share one interface.** Each `pipeline/<stage>.py` exposes `run(in_dir, out_dir, ctx)` for a whole set and `process(...)` for one email. `ctx` is a `RunContext` (`pipeline/context.py`) holding the clients, recorder, cache, criteria and thresholds; tests pass fakes through it. The stage names are parse, redundancy, classify, gate, attention, extract, analyze, validate, merge and deliver. Package 0 commits a typed stub of all ten.
+- **Stage modules share one interface.** Each `pipeline/<stage>.py` exposes `run(in_dir, out_dir, ctx)` for a whole set and `process(...)` for one email. `ctx` is a `RunContext` (`pipeline/context.py`) holding the clients, recorder, cache, criteria and thresholds; tests pass fakes through it. The stage names are redundancy, classify, gate, human\_attention, extract, analyze, validate, merge and deliver. The emails are not a stage file: `ctx.emails` reads them from the corpus file named by `RunContext.emails_path` through the loader (`run.py` sets `data/corpus/<set>/emails.jsonl`; tests use `tests/fixtures/emails.jsonl`). `data/out/README.md` describes every output file.
 - **Each set's outputs are kept apart.** The sets are `day_1`, `day_2` and `tuning`, named after their folders in `data/corpus/`. A run on a set writes its stage files to `data/out/<set>/`. The app reads the directory named in `TRIAGE_DATA_DIR`, which defaults to `data/out/day_1`; the deployed app uses the default once the final run exists, and the fixtures until then.
 - **Tuned thresholds override starting values.** Stage 4 reads `tuned/thresholds.json` when it exists and `thresholds.py` otherwise. Stage 2 always uses the fixed values in `thresholds.py`.
 - **Code assigns every ID.** A claim is `<email_id>.c<n>` and a raw suggestion is `<email_id>.s<n>`. After merging, a suggestion is `<pillar_id>.<stance>` or `<ticker>.new<n>`. A model never writes an ID of its own.
@@ -1082,7 +1082,7 @@ The corpus has no `received_at` and no `redundant_of`. The loader assigns `recei
 | irrelevant | 30% | 90 |
 | **Total** | **100%** | **300** |
 
-The prompt sets further targets, and five are checked. The loader reports the first, third and fourth. The eval script reports the second after stage 3, from Jev's email kind, under the key meetings\_share. The fifth uses a name-and-ticker match and is approximate.
+The prompt sets further targets, and five are checked. The loader reports the first, third and fourth. The eval script reports the second after stage 3, from Jev's email type (meeting\_request, event\_invitation or newsletter), under the key meetings\_share. The fifth uses a name-and-ticker match and is approximate.
 
 - human\_attention is true on 15 to 25 emails.
 - Meeting requests, newsletters and event announcements make up at least 60 emails.
@@ -1159,7 +1159,7 @@ The whole application is Python, including the UI. Pages are rendered on the ser
 | Skills | One prompt file and one DSPy module per skill, registered with the analysis agent | A new investment question is a new file, not a longer prompt |
 | Web | FastAPI with Jinja templates and HTMX | Server-rendered pages; one process to deploy |
 | Storage | JSON and text files in the repo; accepted changes in server memory, keyed by a session cookie | No database; every visitor starts clean, and a restart clears sessions |
-| Cache | Model calls cached in development; pipeline output and the test day's vectors committed | The deployed app never reruns the corpus, and the live route can compare a new email with the day |
+| Cache | Model calls and embeddings cached on disk and committed; pipeline output committed | The deployed app never reruns the corpus, and the live route re-embeds the day from the cache to compare a new email with it |
 | Tests | pytest on the loader, redundancy check, gate, compute, fold, validate and merge | Pure functions are cheap to test |
 | Deploy | One container on any host that runs Python; the image includes the embedding model | Pages and the live route ship together |
 | Secrets | OpenRouter key and TypeSafe key, read from OPENROUTER\_API\_KEY and TYPESAFE\_API\_KEY in `.env`, server-side only. Other keys in `.env` are unused | Never sent to the browser |
@@ -1194,12 +1194,13 @@ data/
             models_draft.json           output of the book prompt, before the merge
   live_presets/                         six emails for the live route
   out/      criteria_history.json       scores for each criteria version
-    day_1/  raw.json  parsed.json  redundancy.json  triage.json  results.json
+            README.md                   what every output file is
+    day_1/  redundancy.json  triage.json  results.json
             notes.json  claims.json  analysis.json
             suggestions_raw.json  suggestions_checked.json  suggestions.json
             brief.json  eval.json
-            usage.json  metrics.json    token use and latency
-            vectors.npy                 the day's email vectors
+            metrics.json                run-level token use and latency
+            SUMMARY.md                  a short summary of the run
             review_notes.csv  review_suggestions.csv   sheets for hand review
     day_2/  the same stage files for day 2
     tuning/ the same stage files for the tuning set
@@ -1215,11 +1216,12 @@ src/triage_app/
   cache.py      the on-disk cache under data/cache/
   corpus.py     loader: split, normalize, check, report
   criteria.py   load, check and hash the criteria files
-  monitoring.py client wrappers, stage timer, usage report
+  monitoring.py client wrappers, stage timer, run-level usage report
   modules/      DSPy modules: classify, attention note, extract,
                 analysis agent, verify agent, one module per skill
-  pipeline/     parse.py  redundancy.py  classify.py  gate.py  attention.py
-                extract.py  analyze.py  validate.py  merge.py  deliver.py  run.py
+  pipeline/     context.py  redundancy.py  classify.py  gate.py  human_attention.py
+                extract.py  analyze.py  validate.py  merge.py  deliver.py
+                summary.py  run.py
   state/        compute.py  fold.py  apply.py  seed_merge.py
   evals/        metric.py  score.py  tune.py  criteria_check.py
   web/          main.py  templates/  static/
@@ -1255,10 +1257,10 @@ The suggestion screen is the center of the demo: the suggested change on one sid
 | Company | Drivers with analyst value, consensus and gap; projections; pillars with accepted evidence; change history. | Click any change to open its emails. |
 | Criteria | Each label's criteria file as written: its definition and numbered rules, with the version history and the scores for each version. | Read and compare versions; open a version to see the emails whose label it changed. |
 | Audit | Every email not in the brief, grouped by label, with Jev's probabilities, the criteria version in force and, for flagged repeats, the earlier email and both similarity scores. | "This mattered" sends the email to the analysis agent. Quarantined emails are listed here by sender and subject only. |
-| Inbox | The day's 300 raw emails in arrival order. A quarantined email shows its sender and subject only. | Shows the contrast with the brief. |
+| Inbox | The day's 300 emails in arrival order, as in the corpus file. A quarantined email shows its sender and subject only. | Shows the contrast with the brief. |
 | Live | Paste or pick a new email and watch a stage-by-stage trace. | Proves the pipeline runs for real. |
 | Eval | Scores against labels and a list of misses. | Open any miss. |
-| Monitor | Tokens and latency for the set's latest run: per stage, per model and per email, with spent and uncached totals. | Open the slowest or costliest emails. |
+| Monitor | Tokens and latency for the set's latest run: per stage and per model, with spent and uncached totals, cache hits and email latency percentiles. | Compare stages and models. |
 
 ### Routes
 
@@ -1288,7 +1290,7 @@ Build in eight steps, each with a test that proves it is done. Steps 0 to 2 fit 
 | Step | Build | Done when |
 | --- | --- | --- |
 | 0 | Python project with uv; Pydantic schemas; compute and fold with tests. Seed files: pillars, stances, driver IDs and links from this spec, driver values from the book prompt, base figures from filings. The 11 criteria files from the criteria prompt. Test fixtures. Monitoring wrappers and the usage report. A one-email Jev spike that picks the stage 3 route. | Compute returns EPS and target price for all five; folding an empty log returns the seed; a fake client's calls aggregate into a valid `UsageReport`; the criteria files load and hash; every fixture validates against its contract; the spike returns 14 answers for one email. |
-| 1 | Corpus loader with normalization and the distribution report; parse stage. | `day_1` and `day_2` load (and `tuning` once it exists); the report prints label counts against the prompt's targets and lists any rows that need hand fixing. |
+| 1 | Corpus loader with normalization and the distribution report; every stage reads its emails through it. | `day_1` and `day_2` load (and `tuning` once it exists); the report prints label counts against the prompt's targets and lists any rows that need hand fixing. |
 | 2 | Redundancy check: embed every email, compare with earlier emails of the same day, write redundancy records. | On `day_1`, a report lists every flagged email with its nearest earlier email and both scores, and how many flagged emails the corpus labels redundant. |
 | 3 | Jev question wording from the stage-instructions prompt; classification with the criteria files; the label and gate stage. | Every email has one label and a reason; a report shows gate recall and gate reduction at the starting values, on the tuning set once it exists. |
 | 4 | Skills and tool definitions from their prompts; attention notes; extraction; the analysis agent; validate and merge. | Every flagged email has a note; every suggestion is valid or carries a reject reason; every quoted section matches its email. |
@@ -1333,11 +1335,11 @@ The lead agent can hand nine packages to subagents once package 0 has frozen the
 | --- | --- | --- | --- | --- | --- |
 | 0 | Foundation, built by the lead | `pyproject.toml`, `uv.lock`, `schema.py`, `config.py`, `thresholds.py`, `criteria.py`, `monitoring.py`, `criteria/`, `state/compute.py`, `state/fold.py`, `state/seed_merge.py`, `data/seed/`, `data/filings/`, `tests/fixtures/`, `pipeline/run.py`, and a typed stub of every stage module | This spec, prompts 01 and 02 and the annual reports, then the seed files, criteria files, fixtures and stubs | Start here; Data contracts; Stage files; The book; State; Relevance criteria; Calling Jev; Starting values; Commands | Build step 0 passes. |
 | 1 | Generated drafts | `skills/`, `instructions/`, `tools/` | Prompts 04, 05 and 06, then the drafts | Attention pathway; Analysis agent; Data contracts; `prompts/README.md` | Every file parses and passes its checks in the prompts README. The report lists each file for `REVIEW.md`. |
-| 2 | Corpus and parse | `corpus.py`, `pipeline/parse.py` | The fixture emails and labels, then `parsed.json` | Corpus; Stage files | The fixtures load, split and normalize, and the report prints. Each row of the normalization table has a test. The parse output validates. |
-| 3 | Redundancy | `pipeline/redundancy.py` | `parsed.json`, then `redundancy.json` and `vectors.npy` | Redundancy check; Starting values | The fixture repeat is flagged and points to its earlier email. The first email has no nearest. The output validates. |
-| 4 | Classify and gate | The classify module, `pipeline/classify.py`, `pipeline/gate.py` | `parsed.json`, `redundancy.json`, the criteria set and `instructions/jev_questions.md`, then `triage.json` and `results.json` | Classification with Jev; Relevance criteria; Calling Jev | With a fake client, every fixture email gets one result. Each gate case under "Classification with Jev" has a test. A test proves the Jev request holds only the email and the criteria. |
-| 5 | Attention notes | The attention module, `pipeline/attention.py` | `parsed.json` and `results.json`, then `notes.json` | Attention pathway; Data contracts | With a fake client, every flagged fixture email gets a note. A section that fails the string match is dropped and counted, and the note stays. |
-| 6 | Analysis | The extract, analysis agent, skill and verify modules with their tool functions; `pipeline/extract.py`, `analyze.py`, `validate.py`, `merge.py` | `parsed.json`, `results.json`, `redundancy.json`, the seed files, `skills/`, `instructions/` and `tools/`, then `claims.json`, `analysis.json` and the three suggestion files | Analysis agent; Labels and suggestions; Read-through links; Data contracts | With fake clients, each validation rule and each merge rule has a test, and every output validates. |
+| 2 | Corpus | `corpus.py` | The fixture emails and labels | Corpus; Stage files | The fixtures load, split and normalize, and the report prints. Each row of the normalization table has a test. |
+| 3 | Redundancy | `pipeline/redundancy.py` | The corpus emails, then `redundancy.json` (flagged only) | Redundancy check; Starting values | The fixture repeat is flagged and points to its earlier email. The first email has no nearest. The output validates. |
+| 4 | Classify and gate | The classify module, `pipeline/classify.py`, `pipeline/gate.py` | The corpus emails, `redundancy.json`, the criteria set and `instructions/jev_questions.md`, then `triage.json` and `results.json` | Classification with Jev; Relevance criteria; Calling Jev | With a fake client, every fixture email gets one result. Each gate case under "Classification with Jev" has a test. A test proves the Jev request holds only the email and the criteria. |
+| 5 | Attention notes | The attention module, `pipeline/human_attention.py` | The corpus emails and `results.json`, then `notes.json` | Attention pathway; Data contracts | With a fake client, every flagged fixture email gets a note. A section that fails the string match is dropped and counted, and the note stays. |
+| 6 | Analysis | The extract, analysis agent, skill and verify modules with their tool functions; `pipeline/extract.py`, `analyze.py`, `validate.py`, `merge.py` | The corpus emails, `results.json`, `redundancy.json`, the seed files, `skills/`, `instructions/` and `tools/`, then `claims.json`, `analysis.json` and the three suggestion files | Analysis agent; Labels and suggestions; Read-through links; Data contracts | With fake clients, each validation rule and each merge rule has a test, and every output validates. |
 | 7 | State and app | `state/apply.py`, `pipeline/deliver.py`, `web/` | Every stage file and the seed files, then `brief.json`, the pages and the session log | State; Labels and suggestions; Screens; Routes; Data contracts; Stage files; Starting values; the live-route rules under "Stack and repo layout" | Build step 5 passes on the fixtures. Every route under "Routes" answers, with a fake standing in for any module another package owns. Brief items plus audit items account for every fixture email. |
 | 8 | Evals and tuning | `evals/` | The stage files and `labels.jsonl`, then `thresholds.json`, `eval.json`, `criteria_history.json` and the review sheets | Tuning; Starting values; Evaluation and guardrails; Stage files | The eval, tuning and criteria-check commands run on the fixtures, with a fake classifier, and write valid files. |
 | 9 | Review, in a fresh context | Nothing; it is read-only | The repo and this spec, then a findings report | Design rules; Guardrails; Working rules | Every check in the last rule below passes, or the failure is reported. |
@@ -1371,11 +1373,13 @@ The eval script compares pipeline output with the labels and writes the scores t
 | Signal accuracy | `signal_accuracy` | Label correct on three classes: signal (thesis\_relevant or monitor), redundant, and noise (low\_value or irrelevant). | 85% or better |
 | Triage accuracy | `triage_accuracy` | Label equals the corpus label exactly, on all five. | Reported, with a confusion table |
 | Ticker tagging | `ticker_f1` | Micro-averaged F1 on affected\_tickers. | 0.90 or better |
-| Human attention | `attention_precision`, `attention_recall` | Precision and recall on the flag. | Recall 90% or better; precision 80% or better |
+| Human attention | `human_attention_precision`, `human_attention_recall` | Precision and recall on the flag. | Recall 90% or better; precision 80% or better |
 | Topic labels | `topic_f1` | Micro-averaged F1 on macro, sector, government and other. | Reported |
 | Repeat detection | `repeat_flagged`, `repeat_precision` | Count of emails the check flags, and the share of flagged emails the corpus labels redundant. The corpus has no `redundant_of`, so recall and match to the right earlier email are not measured. | Reported |
 | Stray suggestions | `stray_suggestions` | Count of suggestions whose only linked emails are labeled redundant, low\_value or irrelevant. | Reported; each one reviewed |
 | Quote faithfulness | `quote_faithfulness` | Quoted sections that match the source exactly, in notes and suggestions. | 100%, enforced by code |
+| Meeting-like share | `meetings_share` | Share of emails whose Jev email type is meeting\_request, event\_invitation or newsletter. | Reported |
+| Email type | `email_type_accuracy` | Share of emails whose Jev email type (most probable option) equals the corpus `email_type`. A quarantined email counts as a miss. | Reported, no target |
 | Attention note review | `note_review` | Hand review of every note: summary accurate, reason and action stated. | 90% or better |
 | Suggestion review | `suggestion_review` | Hand review of every suggestion: right pillar, right stance, sections support it. | 90% or better |
 | New-thesis review | `new_thesis_review` | Hand review of every candidate: new to the book and supported by its sections. | Reported |

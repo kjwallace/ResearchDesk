@@ -43,10 +43,10 @@ from triage_app.schema import (
 
 PENDING = "criteria check pending: tuning set not available"
 HISTORY = config.OUT_DIR / "criteria_history.json"
-NEEDED = ("parsed.json", "redundancy.json")
+NEEDED = ("redundancy.json",)
 
 Classify = Callable[[Email, RunContext], TriageRecord]
-Gate = Callable[[TriageRecord, RedundancyRecord, Thresholds], EmailResult]
+Gate = Callable[[TriageRecord, RedundancyRecord | None, Thresholds], EmailResult]
 _HISTORY = TypeAdapter(list[CriteriaHistoryEntry])
 
 
@@ -97,7 +97,7 @@ def check(emails: list[Email], redundancy: Mapping[str, RedundancyRecord], label
         with ctx.recorder.stage(classify.STAGE, email.email_id):
             triage.append(classify_one(email, ctx))
     thresholds = tune.fit_thresholds(triage, labels, {i for i, s in split.items() if s == "fit"})
-    results = {t.email_id: gate_one(t, redundancy[t.email_id], thresholds) for t in triage}
+    results = {t.email_id: gate_one(t, redundancy.get(t.email_id), thresholds) for t in triage}
 
     history = read_history(history_path)
     previous = next((h for h in reversed(history) if h.criteria_version != version), None)
@@ -155,10 +155,9 @@ def main() -> None:
         return
     corpus_emails, label_list = load_corpus("tuning")
     split = tune.split_ids(corpus_emails, label_list)
-    emails = read_list(out_dir / "parsed.json", Email)
-    redundancy = {r.email_id: r for r in read_list(out_dir / "redundancy.json", RedundancyRecord)}
+    redundancy = {r.email_id: r for r in read_list(out_dir / "redundancy.json", RedundancyRecord)}  # flagged only
     ctx = RunContext("tuning", criteria=criteria_files.load(args.criteria))
-    entry, previous, thresholds = check(emails, redundancy, {lab.email_id: lab for lab in label_list}, split, ctx,
+    entry, previous, thresholds = check(corpus_emails, redundancy, {lab.email_id: lab for lab in label_list}, split, ctx,
                                         criteria_dir=args.criteria, out_dir=out_dir)
     print(format_check(entry, previous, thresholds, {lab.email_id: lab for lab in label_list}))
 

@@ -3,7 +3,8 @@
 Only this module, evals and tuning read EmailLabel. See SPEC.md, "Corpus".
 
 The loader does five things, in order:
-1. splits each row into an Email and an EmailLabel (generation fields are dropped);
+1. splits each row into an Email and an EmailLabel (generation fields are dropped, except
+   `email_type`, kept on the EmailLabel for the `email_type_accuracy` eval);
 2. normalizes label spellings with the table in SPEC.md, "The loader";
 3. checks that IDs increase in file order and assigns `received_at` in that order;
 4. validates every row against the schema and lists failures for hand fixing;
@@ -36,7 +37,7 @@ from triage_app.schema import Email, EmailLabel, Ticker, Topic, Triage
 
 EMAIL_FIELDS = ("email_id", "sender", "sender_email", "subject", "body")
 LABEL_FIELDS = ("triage", "additional_labels", "affected_tickers", "human_attention", "reason")
-GENERATION_FIELDS = ("email_type", "systemic", "angle", "day")  # label-side; never kept
+GENERATION_FIELDS = ("email_type", "systemic", "angle", "day")  # label-side; never reach Email
 
 
 MACRO_SECTOR_GOVERNMENT: tuple[Topic, ...] = ("macro", "sector", "government")
@@ -165,10 +166,12 @@ def load_with_report(path: Path, corpus_set: CorpusSet | None = None) -> LoadRes
             continue
         email_id = str(row.get("email_id", f"line {lineno}"))
 
-        # 1. Split: input fields to Email, label fields to EmailLabel; generation fields dropped.
+        # 1. Split: input fields to Email, label fields to EmailLabel; of the generation fields
+        # only email_type is kept (on the label, for evals); the rest are dropped.
         email_raw = {k: row.get(k) for k in EMAIL_FIELDS}
         label_raw: dict[str, Any] = {k: row.get(k) for k in LABEL_FIELDS}
         label_raw["email_id"] = row.get("email_id")
+        label_raw["email_type"] = row.get("email_type") if isinstance(row.get("email_type"), str) else None
 
         # 2. Normalize label spellings.
         triage, attention_t = normalize_triage(label_raw["triage"])

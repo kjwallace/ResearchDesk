@@ -3,7 +3,7 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-from fakes import FakeEmbedder
+from fakes import FIXTURE_EMAILS, FakeEmbedder, fixture_emails
 
 from triage_app import thresholds
 from triage_app import config
@@ -18,7 +18,7 @@ T0 = datetime(2026, 10, 13, 8, 0, tzinfo=UTC)
 
 
 def _ctx(embedder: object | None = None) -> RunContext:
-    return RunContext("day_1", embedder=embedder or FakeEmbedder(), use_cache=False)  # type: ignore[arg-type]
+    return RunContext("day_1", embedder=embedder or FakeEmbedder(), use_cache=False, emails_path=FIXTURE_EMAILS)  # type: ignore[arg-type]
 
 
 def _email(n: int, subject: str, body: str) -> Email:
@@ -27,25 +27,33 @@ def _email(n: int, subject: str, body: str) -> Email:
 
 
 @pytest.fixture
-def fixture_run(tmp_path: Path) -> tuple[list[RedundancyRecord], np.ndarray, RunContext]:
+def fixture_run(tmp_path: Path) -> tuple[list[RedundancyRecord], RunContext]:
     ctx = _ctx()
-    redundancy.run(FIXTURES, tmp_path, ctx)
-    records = read_list(tmp_path / "redundancy.json", RedundancyRecord)
-    return records, np.load(tmp_path / "vectors.npy"), ctx
+    redundancy.run(tmp_path, tmp_path, ctx)
+    return read_list(tmp_path / "redundancy.json", RedundancyRecord), ctx
 
 
-def test_fixture_repeat_is_flagged_and_points_to_earlier(fixture_run) -> None:  # type: ignore[no-untyped-def]
-    records, _, _ = fixture_run
-    by_id = {r.email_id: r for r in records}
-    repeat = by_id["fixture_006"]
-    assert repeat.flagged
-    assert repeat.nearest == "fixture_005"
+def every_comparison() -> list[RedundancyRecord]:
+    """What `process` returns for each fixture email in arrival order, flagged or not."""
+    ctx, day = _ctx(), DayCache()
+    return [redundancy.process(e, day, ctx) for e in fixture_emails()]
+
+
+def test_file_holds_only_the_flagged_repeat(fixture_run) -> None:  # type: ignore[no-untyped-def]
+    records, _ = fixture_run
+    assert [r.email_id for r in records] == ["fixture_006"]
+    repeat = records[0]
+    assert repeat.flagged and repeat.nearest == "fixture_005"
     assert repeat.content_similarity is not None and repeat.content_similarity >= 0.75
-    assert [r.email_id for r in records if r.flagged] == ["fixture_006"]
+    assert [r.email_id for r in every_comparison() if r.flagged] == ["fixture_006"]
 
 
-def test_first_email_has_no_nearest(fixture_run) -> None:  # type: ignore[no-untyped-def]
-    records, _, _ = fixture_run
+def test_no_vectors_are_saved(fixture_run, tmp_path: Path) -> None:  # type: ignore[no-untyped-def]
+    assert sorted(p.name for p in tmp_path.iterdir()) == ["redundancy.json"]
+
+
+def test_first_email_has_no_nearest() -> None:
+    records = every_comparison()
     first = records[0]
     assert first.email_id == "fixture_001"
     assert (first.nearest, first.content_similarity, first.subject_score, first.flagged) == (None, None, None, False)
@@ -53,19 +61,25 @@ def test_first_email_has_no_nearest(fixture_run) -> None:  # type: ignore[no-unt
 
 
 def test_output_matches_contract_and_order(fixture_run) -> None:  # type: ignore[no-untyped-def]
-    records, vectors, ctx = fixture_run
-    parsed = read_list(FIXTURES / "parsed.json", Email)
-    assert [r.email_id for r in records] == [e.email_id for e in parsed]
-    for r in records:
+    _, ctx = fixture_run
+    emails = fixture_emails()
+    ids = [e.email_id for e in emails]
+    for r in every_comparison():
         RedundancyRecord.model_validate(r.model_dump())
         if r.nearest is not None:
-            ids = [e.email_id for e in parsed]
             assert ids.index(r.nearest) < ids.index(r.email_id)  # earlier emails only
             assert r.subject_score is not None and 0.0 <= r.subject_score <= 1.0
-    assert vectors.dtype == np.float32 and vectors.shape == (len(parsed), FakeEmbedder().dim)
-    assert np.allclose(np.linalg.norm(vectors, axis=1), 1.0, atol=1e-5)
     timed = [t.email_id for t in ctx.recorder.timings if t.stage == "redundancy"]
-    assert sorted(timed) == sorted(e.email_id for e in parsed)
+    assert sorted(timed) == sorted(ids)
+
+
+def test_build_day_cache_matches_the_run() -> None:
+    ctx = _ctx()
+    day = redundancy.build_day_cache(fixture_emails(), ctx)
+    assert day.ids == [e.email_id for e in fixture_emails()]
+    copy = day.copy()
+    copy.add("x", "x", day.vectors[0])
+    assert len(day.ids) == 10 and len(copy.ids) == 11
 
 
 def test_subject_only_path_flags_between_thresholds() -> None:

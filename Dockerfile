@@ -26,6 +26,8 @@ COPY criteria ./criteria
 COPY skills ./skills
 COPY instructions ./instructions
 COPY tools ./tools
+# data/ includes data/corpus/day_1 and day_2 emails.jsonl (see .dockerignore): the app reads
+# each set's emails from its corpus file, and the live route embeds them for its day cache.
 COPY data ./data
 COPY tuned ./tuned
 

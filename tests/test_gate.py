@@ -4,6 +4,8 @@ from typing import Any
 
 import pytest
 
+from fakes import FIXTURE_EMAILS
+
 from triage_app import thresholds
 from triage_app import config
 from triage_app.pipeline import gate
@@ -19,9 +21,9 @@ def triage(**kw: Any) -> TriageRecord:
     base: dict[str, Any] = dict(
         email_id="e1", criteria_version="v",
         triage_probs={"thesis_relevant": 0.1, "monitor": 0.1, "redundant": 0.1, "low_value": 0.6, "irrelevant": 0.1},
-        ticker_probs={t: 0.0 for t in config.TICKERS}, attention=0.0,
-        topic_probs={t: 0.0 for t in config.TOPICS}, kind="news",
-        kind_probs={k: 1 / 6 for k in config.EMAIL_KINDS},
+        ticker_probs={t: 0.0 for t in config.TICKERS}, human_attention=0.0,
+        topic_probs={t: 0.0 for t in config.TOPICS}, email_type="news_alert",
+        email_type_probs={k: 1 / len(config.EMAIL_TYPES) for k in config.EMAIL_TYPES},
         safety={"possible_mnpi": 0.0, "instructs_ai": 0.0}, truncated=False,
     )
     return TriageRecord(**{**base, **kw})
@@ -38,14 +40,14 @@ REPEAT = RedundancyRecord(email_id="e1", nearest="e0", content_similarity=0.91, 
 def test_reproduces_fixture_results() -> None:
     redundancy = {r.email_id: r for r in read_list(OUT / "redundancy.json", RedundancyRecord)}
     expected = read_list(OUT / "results.json", EmailResult)
-    got = [gate.process(t, redundancy[t.email_id], T) for t in read_list(OUT / "triage.json", TriageRecord)]
+    got = [gate.process(t, redundancy.get(t.email_id), T) for t in read_list(OUT / "triage.json", TriageRecord)]
     assert got == expected
 
 
 def test_run_writes_one_result_per_email(tmp_path: Path) -> None:
     for name in ("triage.json", "redundancy.json"):
         shutil.copy(OUT / name, tmp_path / name)
-    ctx = RunContext("day_1", use_cache=False, thresholds=T)
+    ctx = RunContext("day_1", use_cache=False, thresholds=T, emails_path=FIXTURE_EMAILS)
     gate.run(tmp_path, tmp_path, ctx)
     assert read_list(tmp_path / "results.json", EmailResult) == read_list(OUT / "results.json", EmailResult)
     assert len([t for t in ctx.recorder.timings if t.stage == "gate"]) == 10
@@ -54,7 +56,7 @@ def test_run_writes_one_result_per_email(tmp_path: Path) -> None:
 @pytest.mark.parametrize("question", ["instructs_ai", "possible_mnpi"])
 def test_quarantine_on_either_safety_question(question: str) -> None:
     t = triage(triage_probs=probs(0.7, 0.2), safety={"possible_mnpi": 0.0, "instructs_ai": 0.0, question: thresholds.QUARANTINE},
-               ticker_probs={**{x: 0.0 for x in config.TICKERS}, "NVDA": 0.9}, attention=0.9,
+               ticker_probs={**{x: 0.0 for x in config.TICKERS}, "NVDA": 0.9}, human_attention=0.9,
                topic_probs={**{x: 0.0 for x in config.TOPICS}, "macro": 0.9}, truncated=True)
     r = gate.process(t, REPEAT, T)
     assert (r.triage, r.decided_by, r.gate, r.redundant_of) == (None, "quarantine", "quarantine", None)
@@ -114,8 +116,8 @@ def test_tickers_and_topics_at_their_thresholds() -> None:
 
 
 def test_attention_threshold() -> None:
-    assert gate.process(triage(attention=0.6), NO_REPEAT, T).human_attention is True
-    assert gate.process(triage(attention=0.59), NO_REPEAT, T).human_attention is False
+    assert gate.process(triage(human_attention=0.6), None, T).human_attention is True
+    assert gate.process(triage(human_attention=0.59), None, T).human_attention is False
 
 
 def test_gate_reads_signal_score_not_label() -> None:

@@ -16,8 +16,6 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Literal
 
-import numpy as np
-
 from triage_app import config
 from triage_app.monitoring import Recorder, recording
 from triage_app.pipeline.context import RunContext
@@ -134,17 +132,16 @@ def load_presets(directory: Path = config.LIVE_PRESETS_DIR) -> list[Email]:
     return out
 
 
-def day_cache(data: DayData) -> Any:
-    """Stage 2's day cache rebuilt from the set's parsed.json and vectors.npy."""
-    red = importlib.import_module("triage_app.pipeline.redundancy")
-    cache = red.DayCache()
-    vectors_path = data.directory / "vectors.npy"
-    if not vectors_path.exists() or not data.parsed:
-        return cache
-    vectors = np.load(vectors_path)
-    for email, row in zip(data.parsed, vectors, strict=False):
-        cache.add(email.email_id, red.normalize_subject(email.subject), row)
-    return cache
+def day_cache(data: DayData, ctx: RunContext) -> Any:
+    """Stage 2's day cache over the set's emails, built at run time through `ctx.embedder`.
+
+    Embeddings are disk-cached, so only the first build after a cold start embeds anything;
+    the cache is then kept on the loaded set, and each run gets its own copy to add to.
+    """
+    if data.day_cache is None:
+        red = importlib.import_module("triage_app.pipeline.redundancy")
+        data.day_cache = red.build_day_cache(data.inbox, ctx)
+    return data.day_cache.copy()
 
 
 def run_live(email: Email, data: DayData, make_ctx: ContextFactory, seed: Seed, log: list[LogEntry]) -> Trace:
@@ -155,10 +152,8 @@ def run_live(email: Email, data: DayData, make_ctx: ContextFactory, seed: Seed, 
     trace = Trace(email_id=email.email_id, sender=email.sender, subject=email.subject)
     r = _Runner(trace, rec)
     with recording(rec):
-        parsed = r.step("parse", lambda: stage_fn("parse")(email), lambda e: "body cleaned") or email
-
         def redundancy() -> RedundancyRecord:
-            record: RedundancyRecord = stage_fn("redundancy")(parsed, day_cache(data), ctx)
+            record: RedundancyRecord = stage_fn("redundancy")(email, day_cache(data, ctx), ctx)
             return record
 
         red = r.step("redundancy", redundancy, lambda x: (
@@ -169,34 +164,34 @@ def run_live(email: Email, data: DayData, make_ctx: ContextFactory, seed: Seed, 
                                    subject_score=None, flagged=False)
             trace.steps[-1].detail += "; treated as no repeat"
 
-        trace.triage = r.step("classify", lambda: stage_fn("classify")(parsed, ctx),
+        trace.triage = r.step("classify", lambda: stage_fn("classify")(email, ctx),
                               lambda t: f"top label {max(t.triage_probs, key=t.triage_probs.get)}")
         if trace.triage is None:
-            for name in ("gate", "attention", "extract", "analyze", "validate", "merge"):
+            for name in ("gate", "human_attention", "extract", "analyze", "validate", "merge"):
                 r.skip(name, "needs a classification")
             return trace
         triage = trace.triage
         trace.result = r.step("gate", lambda: stage_fn("gate")(triage, red, ctx.thresholds),
                               lambda x: x.reason)
         if trace.result is None:
-            for name in ("attention", "extract", "analyze", "validate", "merge"):
+            for name in ("human_attention", "extract", "analyze", "validate", "merge"):
                 r.skip(name, "needs a gate decision")
             return trace
         result = trace.result
         if result.gate == "quarantine":
-            for name in ("attention", "extract", "analyze", "validate", "merge"):
+            for name in ("human_attention", "extract", "analyze", "validate", "merge"):
                 r.skip(name, "quarantined: held unsummarized")
             return trace
         if result.human_attention:
-            trace.note = r.step("attention", lambda: stage_fn("attention")(parsed, result, ctx),
+            trace.note = r.step("human_attention", lambda: stage_fn("human_attention")(email, result, ctx),
                                 lambda n: f"note written; action {n.action}")
         else:
-            r.skip("attention", "not flagged for attention")
+            r.skip("human_attention", "not flagged for attention")
         if result.gate != "pass":
             for name in ("extract", "analyze", "validate", "merge"):
                 r.skip(name, "stopped at the gate")
             return trace
-        _analyse(r, trace, parsed, result, earlier_email(red, data), ctx, seed, log)
+        _analyse(r, trace, email, result, earlier_email(red, data), ctx, seed, log)
     return trace
 
 

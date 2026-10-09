@@ -3,6 +3,7 @@ import shutil
 from pathlib import Path
 
 import pytest
+from fakes import fixture_emails
 
 from triage_app import config
 from triage_app.evals import score
@@ -30,7 +31,7 @@ def rows(path: Path) -> list[dict[str, str]]:
 
 
 def test_score_writes_valid_eval_and_sheets(out_dir: Path) -> None:
-    score.score_set("day_1", out_dir, labels())
+    score.score_set("day_1", out_dir, labels(), fixture_emails())
     report = read_one(out_dir / "eval.json", EvalReport)
     expected = read_one(FIXTURES / "out" / "eval.json", EvalReport)
     assert report.corpus == "day_1" and report.criteria_version == "fixture0000"
@@ -62,7 +63,7 @@ def test_filled_sheets_are_kept_and_read(out_dir: Path) -> None:
 
     written = score.write_sheets(out_dir)
     assert path not in written and rows(path) == filled
-    report = score.score_set("day_1", out_dir, labels())
+    report = score.score_set("day_1", out_dir, labels(), fixture_emails())
     assert report.measures["suggestion_review"] == pytest.approx(0.6667)
     assert report.measures["new_thesis_review"] == 1.0
     assert report.measures["note_review"] is None
@@ -70,6 +71,6 @@ def test_filled_sheets_are_kept_and_read(out_dir: Path) -> None:
 
 def test_missing_suggestions_file_leaves_stray_empty(out_dir: Path) -> None:
     (out_dir / "suggestions.json").unlink()
-    report = score.evaluate("day_1", out_dir, labels())
+    report = score.evaluate("day_1", out_dir, labels(), fixture_emails())
     assert report.measures["stray_suggestions"] is None
     assert report.measures["quote_faithfulness"] == 1.0

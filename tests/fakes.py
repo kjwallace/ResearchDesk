@@ -7,10 +7,19 @@ from typing import Any
 
 import numpy as np
 
-from triage_app import thresholds
+from triage_app import config, thresholds
 from triage_app.embed import Vector
 from triage_app.llm import Completion, Message
 from triage_app.monitoring import cached_call
+from triage_app.schema import Email
+
+FIXTURE_EMAILS = config.FIXTURES_DIR / "emails.jsonl"   # the corpus file every stage reads in tests
+
+
+def fixture_emails() -> list[Email]:
+    """The ten fixture emails through the corpus loader: label-free, bodies as in the file."""
+    from triage_app.corpus import load
+    return load(FIXTURE_EMAILS)[0]
 
 
 class FakeChat:

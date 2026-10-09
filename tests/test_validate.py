@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 import pytest
-from fakes import FakeEmbedder
+from fakes import FIXTURE_EMAILS, FakeEmbedder, fixture_emails
 
 from triage_app.config import FIXTURES_DIR
 from triage_app.pipeline import validate
@@ -25,14 +25,14 @@ OUT = FIXTURES_DIR / "out"
 
 @pytest.fixture
 def ctx() -> RunContext:
-    return RunContext(embedder=FakeEmbedder(), use_cache=False)
+    return RunContext(embedder=FakeEmbedder(), use_cache=False, emails_path=FIXTURE_EMAILS)
 
 
 @pytest.fixture
 def inputs() -> validate.ValidationInputs:
     return validate.ValidationInputs(
         claims=read_list(OUT / "claims.json", Claim),
-        parsed=read_list(OUT / "parsed.json", Email),
+        emails=fixture_emails(),
         results=read_list(OUT / "results.json", EmailResult),
         seed=load_seed(),
     )

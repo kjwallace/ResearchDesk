@@ -15,8 +15,9 @@ def record(email_id: str, tr: float, mon: float, *, attention: float = 0.0, msft
     return TriageRecord(
         email_id=email_id, criteria_version="v",
         triage_probs={"thesis_relevant": tr, "monitor": mon, "redundant": 0.0, "low_value": rest, "irrelevant": 0.0},
-        ticker_probs={t: (msft if t == "MSFT" else 0.0) for t in config.TICKERS}, attention=attention,
-        topic_probs={t: (macro if t == "macro" else 0.0) for t in config.TOPICS}, kind="research", kind_probs={},
+        ticker_probs={t: (msft if t == "MSFT" else 0.0) for t in config.TICKERS}, human_attention=attention,
+        topic_probs={t: (macro if t == "macro" else 0.0) for t in config.TOPICS}, email_type="sell_side_research",
+        email_type_probs={},
         safety={"possible_mnpi": mnpi, "instructs_ai": 0.0}, truncated=truncated)
 
 
@@ -62,7 +63,7 @@ def test_fit_thresholds_on_synthetic_set(tmp_path: Path) -> None:
     ]}
     th = tune.fit_thresholds(triage, labels, {"r1", "r2", "m1", "n1", "q1", "t1"})
     assert th.pass_signal == 0.7
-    assert th.attention == 0.55
+    assert th.human_attention == 0.55
     assert th.ticker["MSFT"] == 0.3
     assert th.ticker["NVDA"] == thresholds.TICKER_THRESHOLD
     assert th.topic["macro"] == 0.35

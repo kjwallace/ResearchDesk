@@ -12,18 +12,18 @@
   {% if result %}<div class="panel small">
     <span class="pill">{{ result.triage }}</span> <span class="pill">{{ result.gate }}</span>
     {% if result.human_attention %}<span class="pill second">needs attention</span>{% endif %}
+    {% if triage %}<span class="pill" title="email type (Jev, display only)">{{ triage.email_type }}</span>{% endif %}
     {% for t in result.affected_tickers %}<a class="pill" href="/company/{{ t }}">{{ t }}</a> {% endfor %}
     <div>{{ result.reason }}</div>
-    {% if redundancy and redundancy.nearest %}<div class="muted">Nearest earlier email: {{ email_link(v, redundancy.nearest) }}
-      (content {{ redundancy.content_similarity | num(2) }}, subject {{ redundancy.subject_score | num(2) }}){% if redundancy.flagged %}; flagged as a possible repeat{% endif %}</div>{% endif %}
+    {% if redundancy and redundancy.flagged and redundancy.nearest %}<div class="muted">Flagged as a possible repeat of {{ email_link(v, redundancy.nearest) }}
+      (content {{ redundancy.content_similarity | num(2) }}, subject {{ redundancy.subject_score | num(2) }})</div>{% endif %}
     {% if no_change %}<div class="muted">No change: {{ no_change }}</div>{% endif %}
   </div>{% endif %}
   {% if note %}<div class="panel"><h3>Attention note</h3><div>{{ note.summary }}</div>
     <div class="small"><b>Why:</b> {{ note.why_attention }} · <b>Action:</b> {{ note.action }}{% if note.deadline %} · <b>Deadline:</b> {{ note.deadline.strftime('%b %d, %H:%M') }}{% endif %}</div></div>{% endif %}
   {% if linked %}<div class="panel small">Suggestions citing this email:
     {% for s in linked %}<a href="/suggestion/{{ s.id }}">{{ s.id }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</div>{% endif %}
-  <h2>Parsed body <span class="small muted">(quoted sections highlighted)</span></h2>
+  <h2>Body <span class="small muted">(quoted sections highlighted)</span></h2>
   <div class="body" id="body">{{ highlight(email.body, quotes) }}</div>
-  {% if raw %}<details class="panel"><summary class="small">Raw email</summary><div class="body">{{ raw.body }}</div></details>{% endif %}
 {% endif %}
 {% endblock %}

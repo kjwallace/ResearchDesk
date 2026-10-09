@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from fakes import FakeChat, FakeEmbedder
+from fakes import FIXTURE_EMAILS, FakeChat, FakeEmbedder
 
 from triage_app import thresholds
 from triage_app import config
@@ -157,7 +157,7 @@ def test_verify_entry_point_uses_the_log_and_records_the_stage() -> None:
     chat = script([step("search_change_log", query="Azure Intelligent Cloud", ticker="MSFT")],
                   {"verdict": "confirmed", "explanation": "An accepted entry already logs this.",
                    "sources": [{"source": "log1", "quote": "Azure resellers report Intelligent Cloud growth"}]})
-    ctx = RunContext(corpus_set="day_1", chat=chat, embedder=FakeEmbedder(), use_cache=False)
+    ctx = RunContext(corpus_set="day_1", chat=chat, embedder=FakeEmbedder(), use_cache=False, emails_path=FIXTURE_EMAILS)
     result = verify(suggestion(), log, ctx, claims())
     assert result.verdict == "confirmed" and result.sources[0].source == "log1"
     assert any(t.stage == "verify" for t in ctx.recorder.timings)

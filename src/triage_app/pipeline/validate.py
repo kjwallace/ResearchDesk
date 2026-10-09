@@ -1,4 +1,4 @@
-"""Stage 7 Validate: suggestions_raw.json, claims.json, parsed.json, results.json -> suggestions_checked.json.
+"""Stage 7 Validate: suggestions_raw.json, claims.json, the corpus emails, results.json -> suggestions_checked.json.
 
 Pure code; no generative model. See SPEC.md: Validation in stage 7. Rules run in this
 fixed order, and the first rule that rejects ends the check:
@@ -7,7 +7,7 @@ fixed order, and the first rule that rejects ends the check:
    quoting another email; a pillar outside the candidate set recomputed from the claims'
    tickers plus the pillars links.json ties to them; a new thesis on a ticker outside
    the claims' tickers; a new pillar naming a driver that is not its own company's.
-2. Quote mismatch (reject): a section not found verbatim in the parsed body (`quote_in`).
+2. Quote mismatch (reject): a section not found verbatim in the email body (`quote_in`).
 3. Duplicate thesis (reject): a new-thesis statement whose cosine with any existing
    pillar statement reaches `thresholds.NEW_THESIS_DUPLICATE` (stage 2 embedding model).
 4. Monitor only: every linked email is labeled monitor. Strength becomes 1; a new-thesis
@@ -56,12 +56,12 @@ class Rejected(Exception):
 
 
 class ValidationInputs:
-    """Everything the rules look up: the set's claims, parsed bodies and results, and the book."""
+    """Everything the rules look up: the set's claims, email bodies and results, and the book."""
 
-    def __init__(self, claims: list[Claim], parsed: list[Email], results: list[EmailResult],
+    def __init__(self, claims: list[Claim], emails: list[Email], results: list[EmailResult],
                  seed: Seed) -> None:
         self.claims: dict[str, Claim] = {c.id: c for c in claims}
-        self.bodies: dict[str, str] = {e.email_id: e.body for e in parsed}
+        self.bodies: dict[str, str] = {e.email_id: e.body for e in emails}
         self.results: dict[str, EmailResult] = {r.email_id: r for r in results}
         self.models: dict[str, CompanyModel] = {m.ticker: m for m in seed.models}
         self.pillars: dict[str, Pillar] = {p.id: p for t in seed.theses for p in t.pillars}
@@ -195,7 +195,7 @@ def run(in_dir: Path, out_dir: Path, ctx: RunContext, seed: Seed | None = None) 
     raw = read_list(in_dir / "suggestions_raw.json", Suggestion)
     inputs = ValidationInputs(
         claims=read_list(in_dir / "claims.json", Claim),
-        parsed=read_list(in_dir / "parsed.json", Email),
+        emails=ctx.emails,
         results=read_list(in_dir / "results.json", EmailResult),
         seed=seed or load_seed(),
     )

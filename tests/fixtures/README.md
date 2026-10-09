@@ -2,6 +2,8 @@
 
 Ten hand-written synthetic emails (day 1, 2026-10-13) and a valid, mutually consistent example of every stage file in `out/`, as the pipeline would write them at starting thresholds with criteria version `fixture0000`. People and firms are fictional; the five covered companies are real. No model wrote any of this.
 
+`emails.jsonl` is the corpus file every stage reads in tests (`RunContext(emails_path=...)`, `tests/fakes.FIXTURE_EMAILS`); there is no emails stage file. `redundancy.json` holds the one flagged repeat (fixture_006) only. `metrics.json` is a run-level report; no per-call file exists. `SUMMARY.md` is what `pipeline/summary.py` renders from these files (the validator checks it matches). Jev's `email_type` in `triage.json` matches the corpus `email_type` except on fixture_006 (Jev `news_alert`, corpus `sell_side_research`), so `email_type_accuracy` is 0.7 (the two quarantined emails count as misses).
+
 Check everything with:
 
 ```

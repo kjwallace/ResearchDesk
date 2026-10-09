@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from fakes import FakeJev
+from fakes import FIXTURE_EMAILS, FakeJev, fixture_emails
 
 from triage_app import thresholds
 from triage_app import config
@@ -18,7 +18,7 @@ from triage_app.pipeline.io import read_list
 from triage_app.schema import Email, TriageRecord
 
 OUT = config.FIXTURES_DIR / "out"
-EMAILS = read_list(OUT / "parsed.json", Email)
+EMAILS = fixture_emails()
 EXPECTED = {r.email_id: r for r in read_list(OUT / "triage.json", TriageRecord)}
 BY_SUBJECT = {e.subject: EXPECTED[e.email_id] for e in EMAILS}
 
@@ -32,9 +32,9 @@ def answers_for(record: TriageRecord) -> dict[str, Any]:
     return {
         "triage": record.triage_probs,
         **{f"affects_{t}": p for t, p in record.ticker_probs.items()},
-        "human_attention": record.attention,
+        "human_attention": record.human_attention,
         **{f"topic_{t}": p for t, p in record.topic_probs.items()},
-        "kind": record.kind_probs,
+        "email_type": record.email_type_probs,
         **record.safety,
     }
 
@@ -44,9 +44,8 @@ def fixture_jev() -> FakeJev:
 
 
 def test_every_fixture_email_gets_one_record(tmp_path: Path) -> None:
-    shutil.copy(OUT / "parsed.json", tmp_path / "parsed.json")
     jev = fixture_jev()
-    ctx = RunContext("day_1", jev=jev, use_cache=False)
+    ctx = RunContext("day_1", jev=jev, use_cache=False, emails_path=FIXTURE_EMAILS)
     stage.run(tmp_path, tmp_path, ctx)
 
     records = read_list(tmp_path / "triage.json", TriageRecord)
@@ -80,7 +79,7 @@ def test_request_holds_only_the_email_and_criteria() -> None:
     assert questions["human_attention"]["criteria"] == {"true": criteria_text(criteria, "human_attention")}
     assert "criteria" not in questions["instructs_ai"] and "criteria" not in questions["possible_mnpi"]
     assert "Microsoft" in questions["affects_MSFT"]["instructions"]
-    assert questions["kind"]["criteria"].keys() == set(config.EMAIL_KINDS)
+    assert questions["email_type"]["criteria"].keys() == set(config.EMAIL_TYPES)
 
     # Nothing else: no other email, no label or its reason, no redundancy flag, no book.
     for other in EMAILS[1:]:
@@ -127,7 +126,8 @@ def test_wording_file_covers_every_question(caplog: pytest.LogCaptureFixture) ->
         wording = load_wording()
     assert not caplog.records
     assert set(wording.questions) == set(QUESTION_IDS)
-    assert wording.kind_options["company_release"] != "company release"
+    assert wording.type_options["company_release"] != "company release"
+    assert set(wording.type_options) == set(config.EMAIL_TYPES)
 
 
 def test_missing_wording_falls_back_to_stubs(caplog: pytest.LogCaptureFixture) -> None:
@@ -136,5 +136,5 @@ def test_missing_wording_falls_back_to_stubs(caplog: pytest.LogCaptureFixture) -
         wording = parse_wording(text)
     assert wording.questions["triage"] == "Which label?"
     assert "Apple" in wording.questions["affects_AAPL"]
-    assert wording.kind_options["company_release"] == "company release"
+    assert wording.type_options["company_release"] == "company release"
     assert any("affects_AAPL" in r.getMessage() for r in caplog.records)

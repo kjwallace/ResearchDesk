@@ -25,4 +25,4 @@ uv run python -m triage_app.evals.score --set day_1    # score against the label
 uv run uvicorn triage_app.web.main:app                 # serve the app
 ```
 
-Every run writes `usage.json` and `metrics.json` (tokens and latency per stage, model and email) beside its stage files and prints a summary.
+Every stage reads the set's emails from `data/corpus/<set>/emails.jsonl` through the corpus loader (labels dropped, bodies as in the corpus); no stage writes the emails out. Every run writes `metrics.json` (run-level tokens and latency per stage and per model) and `SUMMARY.md` (a short Markdown summary of the run) beside its stage files, and prints a summary. `data/out/README.md` lists every output file. After a key rename, `uv run python scripts/rename_output_keys.py` rewrites existing output files in place.

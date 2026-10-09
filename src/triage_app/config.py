@@ -53,7 +53,16 @@ def out_dir(corpus_set: CorpusSet) -> Path:
 TICKERS: tuple[Ticker, ...] = get_args(Ticker)
 TRIAGE_LABELS: tuple[Triage, ...] = get_args(Triage)
 TOPICS: tuple[Topic, ...] = get_args(Topic)
-EMAIL_KINDS = ("research", "news", "company_release", "invitation", "newsletter", "other")
+# Email types: what an email is, by form and source. Display-only (Jev's `email_type` Choice,
+# with no criteria file). The corpus's `email_type` generation field uses the same eleven
+# values; only the loader and evals read it (EmailLabel.email_type).
+EMAIL_TYPES = (
+    "sell_side_research", "primary_research", "news_alert", "newsletter", "data_report",
+    "company_release", "meeting_request", "event_invitation", "vendor_pitch", "internal_forward",
+    "administrative",
+)
+# Meeting-like types (the corpus generator's MEETING_LIKE); `meetings_share` counts them.
+MEETING_LIKE_TYPES = frozenset({"meeting_request", "event_invitation", "newsletter"})
 SAFETY_QUESTIONS = ("possible_mnpi", "instructs_ai")
 
 CRITERIA_FILES = (

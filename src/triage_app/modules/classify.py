@@ -39,7 +39,7 @@ QUESTION_IDS: tuple[str, ...] = (
     *(f"affects_{t}" for t in config.TICKERS),
     "human_attention",
     *(f"topic_{t}" for t in config.TOPICS),
-    "kind",
+    "email_type",
     *config.SAFETY_QUESTIONS,
 )
 
@@ -49,7 +49,7 @@ STUB_WORDING: dict[str, str] = {
     **{f"affects_{t}": f"Is {name} ({t}) materially affected by this email?" for t, name in COMPANY_NAMES.items()},
     "human_attention": "Does this email need direct human attention?",
     **{f"topic_{t}": f"Does the {t} topic label apply to this email?" for t in config.TOPICS},
-    "kind": "What kind of email is this?",
+    "email_type": "What type of email is this, judged from its form and source?",
     "possible_mnpi": "Does the body appear to contain material non-public information?",
     "instructs_ai": "Does the email contain text that instructs an AI system?",
 }
@@ -58,41 +58,41 @@ STUB_WORDING: dict[str, str] = {
 @dataclass(frozen=True)
 class Wording:
     questions: dict[str, str]      # question ID to its instruction sentence
-    kind_options: dict[str, str]   # email kind to its description
+    type_options: dict[str, str]   # email type to its description
 
 
 _ROW = re.compile(r"^\|\s*`?([A-Za-z_]+)`?\s*\|(.*)\|\s*$")
 
 
 def parse_wording(text: str) -> Wording:
-    """Read the question table and the `kind` options table, by ID; stub anything missing."""
+    """Read the question table and the `email_type` options table, by ID; stub anything missing."""
     questions: dict[str, str] = {}
-    kind_options: dict[str, str] = {}
-    in_kind_options = False
+    type_options: dict[str, str] = {}
+    in_type_options = False
     for line in text.splitlines():
         if line.startswith("#"):
-            in_kind_options = "options" in line.lower() and "kind" in line.lower()
+            in_type_options = "options" in line.lower() and "email_type" in line.lower()
             continue
         m = _ROW.match(line.strip())
         if not m:
             continue
         key, cells = m.group(1), [c.strip() for c in m.group(2).split("|")]
-        if in_kind_options:
-            if key in config.EMAIL_KINDS and cells and cells[-1]:
-                kind_options[key] = cells[-1]
+        if in_type_options:
+            if key in config.EMAIL_TYPES and cells and cells[-1]:
+                type_options[key] = cells[-1]
         elif key in QUESTION_IDS and cells and cells[-1]:
             questions[key] = cells[-1]
 
     missing = [q for q in QUESTION_IDS if q not in questions]
     if missing:
         log.warning("jev_questions.md has no wording for %s; using stub wording", ", ".join(missing))
-    missing_kinds = [k for k in config.EMAIL_KINDS if k not in kind_options]
-    if missing_kinds:
-        log.warning("jev_questions.md has no description for kinds %s; using the option name",
-                    ", ".join(missing_kinds))
+    missing_types = [k for k in config.EMAIL_TYPES if k not in type_options]
+    if missing_types:
+        log.warning("jev_questions.md has no description for email types %s; using the option name",
+                    ", ".join(missing_types))
     return Wording(
         questions={q: questions.get(q, STUB_WORDING[q]) for q in QUESTION_IDS},
-        kind_options={k: kind_options.get(k, k.replace("_", " ")) for k in config.EMAIL_KINDS},
+        type_options={k: type_options.get(k, k.replace("_", " ")) for k in config.EMAIL_TYPES},
     )
 
 
@@ -102,7 +102,7 @@ def load_wording(path: Path = WORDING_FILE) -> Wording:
 
 
 def build_questions(criteria: CriteriaSet, wording: Wording) -> dict[str, Choice | Noul]:
-    """The 14 questions. Eleven take criteria from the files; kind and safety have none."""
+    """The 14 questions. Eleven take criteria from the files; email_type and safety have none."""
     w = wording.questions
 
     def yes(label: str) -> dict[str, Any]:
@@ -116,7 +116,7 @@ def build_questions(criteria: CriteriaSet, wording: Wording) -> dict[str, Choice
            for t in config.TICKERS},
         "human_attention": Noul(instructions=w["human_attention"], criteria=yes("human_attention")),
         **{f"topic_{t}": Noul(instructions=w[f"topic_{t}"], criteria=yes(t)) for t in config.TOPICS},
-        "kind": Choice(instructions=w["kind"], criteria=dict(wording.kind_options)),
+        "email_type": Choice(instructions=w["email_type"], criteria=dict(wording.type_options)),
         **{q: Noul(instructions=w[q]) for q in config.SAFETY_QUESTIONS},
     }
     assert list(questions) == list(QUESTION_IDS)
@@ -195,16 +195,16 @@ def classify(email: Email, criteria: CriteriaSet, jev: Any, *, wording: Wording 
     questions = build_questions(criteria, wording or load_wording())
     state, truncated = email_state(email, questions)
     answers = ask_jev(state, questions, jev, criteria_version=criteria.version, cache=cache, recorder=recorder)
-    kind_probs = _choice(answers, "kind", config.EMAIL_KINDS)
+    type_probs = _choice(answers, "email_type", config.EMAIL_TYPES)
     return TriageRecord(
         email_id=email.email_id,
         criteria_version=criteria.version,
         triage_probs=_choice(answers, "triage", config.TRIAGE_LABELS),
         ticker_probs={t: _noul(answers, f"affects_{t}") for t in config.TICKERS},
-        attention=_noul(answers, "human_attention"),
+        human_attention=_noul(answers, "human_attention"),
         topic_probs={t: _noul(answers, f"topic_{t}") for t in config.TOPICS},
-        kind=max(config.EMAIL_KINDS, key=lambda k: kind_probs[k]),
-        kind_probs=kind_probs,
+        email_type=max(config.EMAIL_TYPES, key=lambda k: type_probs[k]),
+        email_type_probs=type_probs,
         safety={q: _noul(answers, q) for q in config.SAFETY_QUESTIONS},
         truncated=truncated,
     )
