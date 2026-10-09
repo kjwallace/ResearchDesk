@@ -59,9 +59,15 @@ class RunContext:
     @property
     def embedder(self) -> Embedder:
         if self._embedder is None:
-            from triage_app.embed import HFEmbedder
-            self._embedder = HFEmbedder(cache=self.cache, use_cache=self.cache is not None,
-                                        recorder=self.recorder)
+            import os
+            if os.environ.get("EMBEDDING_BACKEND", "local").strip().lower() == "openrouter":
+                from triage_app.embed import RemoteEmbedder   # hosts with no room for a local model
+                self._embedder = RemoteEmbedder(cache=self.cache, use_cache=self.cache is not None,
+                                                recorder=self.recorder)
+            else:
+                from triage_app.embed import HFEmbedder
+                self._embedder = HFEmbedder(cache=self.cache, use_cache=self.cache is not None,
+                                            recorder=self.recorder)
         return self._embedder
 
     @property

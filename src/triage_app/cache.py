@@ -7,6 +7,7 @@ same inputs costs nothing and the demo is deterministic.
 import hashlib
 import json
 import os
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -33,11 +34,14 @@ class DiskCache:
     "<namespace>/<key>", so `scripts/prune_cache.py` can keep exactly the entries runs need.
     """
 
-    def __init__(self, root: Path = CACHE_DIR) -> None:
+    def __init__(self, root: Path = CACHE_DIR, overlay: Path | None = None) -> None:
+        # `root` is the committed cache, which may be read-only (a serverless bundle). New entries
+        # that cannot be written there go to `overlay` (a temp folder), which is read first.
         self.root = root
+        self.overlay = overlay or Path(tempfile.gettempdir()) / "triage_cache"
 
-    def _path(self, namespace: str, key: str) -> Path:
-        return self.root / namespace / key[:2] / f"{key}.json"
+    def _path(self, namespace: str, key: str, root: Path | None = None) -> Path:
+        return (root or self.root) / namespace / key[:2] / f"{key}.json"
 
     def _trace(self, namespace: str, key: str) -> None:
         trace = os.environ.get(TRACE_ENV)
@@ -46,15 +50,23 @@ class DiskCache:
                 f.write(f"{namespace}/{key}\n")
 
     def get(self, namespace: str, key: str) -> dict[str, Any] | None:
-        path = self._path(namespace, key)
         self._trace(namespace, key)
-        if not path.exists():
-            return None
-        entry: dict[str, Any] = json.loads(path.read_text())
-        return entry
+        for root in (self.root, self.overlay):
+            path = self._path(namespace, key, root)
+            if path.exists():
+                entry: dict[str, Any] = json.loads(path.read_text())
+                return entry
+        return None
 
     def put(self, namespace: str, key: str, entry: dict[str, Any]) -> None:
-        path = self._path(namespace, key)
         self._trace(namespace, key)
-        path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(json.dumps(entry, ensure_ascii=False, sort_keys=True))
+        text = json.dumps(entry, ensure_ascii=False, sort_keys=True)
+        for root in (self.root, self.overlay):
+            path = self._path(namespace, key, root)
+            try:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(text)
+                return
+            except OSError:   # read-only filesystem: fall through to the temp overlay
+                if root is self.overlay:
+                    return   # nowhere to write; the call still succeeded, it just is not remembered
