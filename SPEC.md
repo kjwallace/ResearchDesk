@@ -1156,8 +1156,8 @@ The whole application is Python, including the UI. Pages are rendered on the ser
 | Subject matching | Token-set similarity, for example with rapidfuzz | A second signal beside content similarity; fast and local |
 | Content similarity | A Hugging Face embedding model, pulled from the Hub with `huggingface-hub` and run locally with `sentence-transformers` (default `BAAI/bge-small-en-v1.5`), in `triage_app/embed.py`; long emails chunked to its input limit; cosine similarity in NumPy | Every email is embedded; no vector database, and no API key for embeddings |
 | Model access | Every generative call goes through OpenRouter, in `triage_app/llm.py`; Jev keeps its own TypeSafe client | One key and one client for every generative model |
-| Analysis model | Claude Sonnet 5.5 for extraction, the analysis agent and verify (OpenRouter `anthropic/claude-sonnet-5.5`) | Model IDs come only from `.env` |
-| Attention notes model | Claude Haiku 4.5 (OpenRouter `anthropic/claude-haiku-4.5`) | Short summaries do not need the larger model |
+| Analysis model | Claude Haiku 5.5 for extraction, the analysis agent and verify (OpenRouter `anthropic/claude-haiku-5.5`), the cheapest Claude model | Model IDs come only from `.env` |
+| Attention notes model | Claude Haiku 5.5 (OpenRouter `anthropic/claude-haiku-5.5`) | The cheapest Claude model; short summaries need no more |
 | Skills | One prompt file and one DSPy module per skill, registered with the analysis agent | A new investment question is a new file, not a longer prompt |
 | Web | FastAPI with Jinja templates and HTMX | Server-rendered pages; one process to deploy |
 | Storage | JSON and text files in the repo; accepted changes in server memory, keyed by a session cookie | No database; every visitor starts clean, and a restart clears sessions |
@@ -1432,8 +1432,8 @@ The coding agent uses each default below until told otherwise.
 | 3 | What do the criteria files start with? | The prompt's definition for each label and no more than four starter rules. Further rules are added through the criteria check. |
 | 4 | Is the rule-proposal prompt used? | No. It shows tuning labels to a model, so new rules are written by hand unless the reviewer opts in. |
 | 5 | Which embedding model? | A Hugging Face model run locally, named by `EMBEDDING_MODEL` in `.env`; default `BAAI/bge-small-en-v1.5`. |
-| 6 | Which model writes attention notes? | Claude Haiku 4.5, through OpenRouter. |
-| 7 | Which model runs extraction and the analysis agent? | Claude Sonnet 5.5, through OpenRouter. |
+| 6 | Which model writes attention notes? | Claude Haiku 5.5, through OpenRouter (the cheapest Claude model). |
+| 7 | Which model runs extraction and the analysis agent? | Claude Haiku 5.5, through OpenRouter (the cheapest Claude model). |
 | 8 | Are two skills enough for the prototype? | Yes: alter an existing thesis, and spawn a new thesis. |
 | 9 | Which trading dates does the corpus use? | `day_1` is Tuesday, Oct 13, 2026, `day_2` is Wednesday, Oct 14, 2026, and the tuning set is Thursday, Oct 15, 2026. |
 | 10 | How deep is the model? | 23 drivers, one forward year, four formulas. |
