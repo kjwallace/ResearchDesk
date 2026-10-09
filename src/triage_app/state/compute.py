@@ -46,3 +46,24 @@ def compute(model: CompanyModel) -> dict[str, Projection]:
         "analyst": project(model, driver_values(model, "analyst")),
         "consensus": project(model, driver_values(model, "consensus")),
     }
+
+
+OUTPUT_METRICS = ("revenue", "operating_income", "eps", "target_price")
+_OUTPUT_FIELD = {"revenue": "revenue_usd_bn", "operating_income": "operating_income_usd_bn",
+                 "eps": "eps", "target_price": "target_price"}
+
+
+def metric_value(model: CompanyModel, metric: str, basis: Literal["analyst", "consensus"]) -> float | None:
+    """A projection metric's value on the analyst's or consensus drivers.
+
+    `metric` is one of the company's driver IDs (its value), or an output metric:
+    revenue and operating income in USD billions, EPS and target price in USD.
+    None when the metric is neither.
+    """
+    values = driver_values(model, basis)
+    if metric in values:
+        return values[metric]
+    if metric in _OUTPUT_FIELD:
+        return float(getattr(project(model, values), _OUTPUT_FIELD[metric]))
+    return None
+

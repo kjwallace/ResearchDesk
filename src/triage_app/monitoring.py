@@ -23,6 +23,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Literal, TypeVar
 
+from triage_app import thresholds
 from triage_app.cache import DiskCache, cache_key
 from triage_app.thresholds import CHARS_PER_TOKEN
 from triage_app.schema import CallRecord, StageTiming, StageUsage, UsageReport
@@ -165,6 +166,23 @@ def percentile(values: list[float], q: float) -> float:
     return xs[lo] + (xs[hi] - xs[lo]) * (pos - lo)
 
 
+def call_cost(call: CallRecord) -> float | None:
+    """Estimated USD cost of one call at `thresholds.MODEL_PRICES`; None when the model is unpriced."""
+    price = thresholds.MODEL_PRICES.get(call.model)
+    if price is None:
+        return None
+    return (call.input_tokens * price[0] + call.output_tokens * price[1]) / 1_000_000
+
+
+def _cost(calls: list[CallRecord]) -> float | None:
+    costs = [call_cost(c) for c in calls]
+    return None if any(c is None for c in costs) else round(sum(c for c in costs if c is not None), 6)
+
+
+def _priced_cost(calls: list[CallRecord]) -> float:
+    return round(sum(c for c in (call_cost(x) for x in calls) if c is not None), 6)
+
+
 def _usage(calls: list[CallRecord], latencies: list[float]) -> StageUsage:
     misses = [c for c in calls if not c.cache_hit]
     return StageUsage(
@@ -177,6 +195,8 @@ def _usage(calls: list[CallRecord], latencies: list[float]) -> StageUsage:
         latency_p50_ms=percentile(latencies, 50),
         latency_p95_ms=percentile(latencies, 95),
         latency_max_ms=max(latencies, default=0.0),
+        cost_usd=_cost(misses),
+        uncached_cost_usd=_cost(calls),
     )
 
 
@@ -206,6 +226,7 @@ def build_report(corpus: ReportCorpus, calls: list[CallRecord], timings: list[St
 
     spent = sum(c.input_tokens + c.output_tokens for c in calls if not c.cache_hit)
     email_latencies = list(per_email_total.values())
+    cost = _priced_cost([c for c in calls if not c.cache_hit])
     return UsageReport(
         corpus=corpus,
         run_at=datetime.now(UTC),
@@ -216,18 +237,29 @@ def build_report(corpus: ReportCorpus, calls: list[CallRecord], timings: list[St
         email_latency_p50_ms=percentile(email_latencies, 50),
         email_latency_p95_ms=percentile(email_latencies, 95),
         total_latency_ms=set_level_total or sum(email_latencies),
+        cost_usd=cost,
+        uncached_cost_usd=_priced_cost(calls),
+        cost_per_email_usd=round(cost / emails, 6) if emails else None,
+        unpriced_models=sorted({c.model for c in calls if call_cost(c) is None}),
     )
 
 
 def format_summary(report: UsageReport) -> str:
     """Plain-text table that run.py prints at the end of a run."""
-    lines = [f"{'stage':<16}{'calls':>7}{'hits':>6}{'in tok':>10}{'out tok':>9}{'p50 ms':>9}{'p95 ms':>9}"]
+    def usd(v: float | None) -> str:
+        return "unpriced" if v is None else f"${v:,.4f}"
+
+    lines = [f"{'stage':<16}{'calls':>7}{'hits':>6}{'in tok':>10}{'out tok':>9}{'p50 ms':>9}{'p95 ms':>9}"
+             f"{'cost':>11}"]
     for name, u in report.stages.items():
         lines.append(f"{name:<16}{u.calls:>7}{u.cache_hits:>6}{u.input_tokens:>10}{u.output_tokens:>9}"
-                     f"{u.latency_p50_ms:>9.1f}{u.latency_p95_ms:>9.1f}")
+                     f"{u.latency_p50_ms:>9.1f}{u.latency_p95_ms:>9.1f}{usd(u.cost_usd):>11}")
     lines.append(
         f"{report.emails} emails; {report.tokens_per_email_mean:.0f} tokens/email spent; "
         f"email latency p50 {report.email_latency_p50_ms:.0f} ms, p95 {report.email_latency_p95_ms:.0f} ms; "
         f"total {report.total_latency_ms / 1000:.1f} s"
     )
+    unpriced = f" (excludes unpriced: {', '.join(report.unpriced_models)})" if report.unpriced_models else ""
+    lines.append(f"estimated cost {usd(report.cost_usd)} spent, {usd(report.uncached_cost_usd)} uncached, "
+                 f"{usd(report.cost_per_email_usd)} per email{unpriced}")
     return "\n".join(lines)

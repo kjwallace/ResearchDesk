@@ -251,6 +251,7 @@ NOTE_CHECKS = ("summary_accurate", "reason_stated", "action_stated")
 SUGGESTION_CHECKS: dict[str, tuple[str, ...]] = {
     "existing_thesis": ("right_pillar", "right_stance", "sections_support"),
     "new_thesis": ("new_to_book", "sections_support"),
+    "projection_change": ("right_metric", "figure_stated", "sections_support"),
 }
 YES = frozenset({"yes", "y", "true", "1"})
 
@@ -284,6 +285,10 @@ def suggestion_review(rows: Iterable[Mapping[str, str]]) -> float | None:
 
 def new_thesis_review(rows: Iterable[Mapping[str, str]]) -> float | None:
     return review_share(rows, {"new_thesis": SUGGESTION_CHECKS["new_thesis"]})
+
+
+def projection_review(rows: Iterable[Mapping[str, str]]) -> float | None:
+    return review_share(rows, {"projection_change": SUGGESTION_CHECKS["projection_change"]})
 
 
 # ---- All label measures at once ----

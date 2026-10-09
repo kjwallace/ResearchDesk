@@ -2,8 +2,9 @@
 
 SPEC.md, "Analysis agent". The agent is a `dspy.ReAct` loop bound to
 `RouterLM(config.ANALYSIS_MODEL, chat)` under the JSON adapter. Its tools are built from
-`tools/analysis_agent.json` (name, description with `returns` appended, input schema); each tool
-runs one skill module from `modules/skills.py`. The agent is given the claims and the statements
+`tools/analysis_agent.json` (name, description with `returns` appended, input schema), plus a
+built-in definition for any registered skill the file does not yet list; each tool runs one
+skill module from `modules/skills.py`. The agent is given the claims and the statements
 of the candidate pillars, passes claim IDs only, and makes at most
 `thresholds.SKILL_CALLS_PER_EMAIL` skill calls.
 
@@ -55,9 +56,36 @@ def pillar_statements(ids: list[str], book: BookState) -> list[dict[str, str]]:
     return [{"id": i, "statement": pillars[i].statement} for i in ids if i in pillars]
 
 
+# Used only while tools/analysis_agent.json does not define the tool.
+BUILTIN_TOOLS: dict[str, dict[str, Any]] = {
+    "revise_projections": {
+        "name": "revise_projections",
+        "description": ("Compares a forward figure the claims state for one company (a driver, revenue, "
+                        "operating income, EPS or target price for its modeled fiscal year) with the book's "
+                        "projection. Pass only claim IDs about that company. It handles one company per "
+                        "call. It only recommends and changes nothing in the book."),
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "claim_ids": {"type": "array", "items": {"type": "string"},
+                              "description": "The IDs of the extracted claims that state the figure."},
+                "ticker": {"type": "string", "enum": list(config.TICKERS),
+                           "description": "The one company whose projection the claims bear on."},
+            },
+            "required": ["claim_ids", "ticker"],
+            "additionalProperties": False,
+        },
+        "returns": "The figures the email states against the book's projections, or a no-change reason.",
+    },
+}
+
+
 def load_tool_defs(path: Path = TOOLS_PATH) -> list[dict[str, Any]]:
-    defs: list[dict[str, Any]] = json.loads(path.read_text())
-    return defs
+    """The tools in the file, then a built-in definition for each registered skill it lacks."""
+    defs: list[dict[str, Any]] = json.loads(path.read_text()) if path.exists() else []
+    named = {d["name"] for d in defs}
+    defs += [spec for name, spec in BUILTIN_TOOLS.items() if name in SKILLS and name not in named]
+    return [d for d in defs if d["name"] in SKILLS]
 
 
 def load_instructions(path: Path = INSTRUCTIONS_PATH) -> str:
@@ -76,7 +104,8 @@ class AnalyzeEmail(dspy.Signature):
 
     claims: str = dspy.InputField(desc="JSON list of the email's claims (data)")
     candidate_pillars: str = dspy.InputField(desc="JSON list of candidate pillars: id and statement")
-    summary: str = dspy.OutputField(desc="One sentence; when no tool was called, begin with 'No skill applies:'")
+    summary: str = dspy.OutputField(desc="When no tool was called: 'No change: ' and one sentence for the analyst "
+                                       "on why nothing in the book is affected, never naming skills or tools")
 
 
 class SkillLoop(dspy.ReAct):
@@ -121,6 +150,8 @@ def observation(result: SkillResult) -> str:
     for s in result.suggestions:
         if s.kind == "existing_thesis":
             parts.append(f"{s.pillar_id} {s.stance} (strength {s.strength})")
+        elif s.kind == "projection_change":
+            parts.append(f"{s.ticker} {s.metric} {s.period}: {s.stated_value:g}")
         else:
             parts.append(f"new candidate pillar for {s.ticker}")
     return f"{len(parts)} suggestion(s) recorded: " + "; ".join(parts)

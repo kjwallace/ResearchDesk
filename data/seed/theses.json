@@ -4,6 +4,10 @@
     "stance": "long",
     "size_bps": 300,
     "conviction": 4,
+    "summary": "The desk is long Nvidia because AI infrastructure demand from cloud and sovereign buyers is still growing faster than the street models, and the desk's FY2027 Data Center growth of 38% sits above consensus at 34%. The view needs three things to hold together: buyers keep spending (p1), supply lets the newest platform ship on time (p2), and in-house chips add to the market rather than take Nvidia's share or pricing (p3). Margin is modeled in line with consensus, so the edge is volume, not price.",
+    "street_view": "buy",
+    "street_target_price": 205.0,
+    "street_view_note": "The street rates NVDA a buy with a $205 target; the desk agrees and is above consensus on Data Center growth (38% versus 34%).",
     "pillars": [
       {
         "id": "NVDA.p1",
@@ -11,6 +15,25 @@
         "wrong_if": "Two of MSFT, AMZN and GOOGL guide capital expenditure flat or lower.",
         "driver_ids": [
           "NVDA.data_center_growth"
+        ],
+        "summary": "Data Center is the overwhelming majority of revenue, so the stock follows hyperscaler and sovereign capital budgets. The desk reads those budgets as still rising into the model year, which supports growth above the street's figure.",
+        "evidence": [
+          {
+            "observation": "Data Center revenue was $193.7bn of $215.9bn total revenue in FY2026, about 90% of the company.",
+            "source": "NVDA 10-K, FY2026 (fiscal year ended 2026-01-25), revenue by market platform"
+          },
+          {
+            "observation": "Both procurement leads said their FY2027 accelerator budgets are set above FY2026, with no plan to pause orders for the next platform.",
+            "source": "Desk channel check with two hyperscaler procurement leads, Sep 2026 (synthetic)"
+          },
+          {
+            "observation": "Three national AI programs moved from announcement to signed orders in the last two quarters; the desk counts sovereign demand as a growing share of the FY2027 build.",
+            "source": "Desk sovereign AI tracker, Q3 2026 update (synthetic)"
+          },
+          {
+            "observation": "The desk models FY2027 Data Center growth at 38% against a consensus of 34%.",
+            "source": "Desk model, FY2027 build (synthetic)"
+          }
         ]
       },
       {
@@ -19,6 +42,21 @@
         "wrong_if": "Credible evidence of a delay of a quarter or more.",
         "driver_ids": [
           "NVDA.data_center_growth"
+        ],
+        "summary": "The constraint on shipments is advanced packaging and high-bandwidth memory, not demand. Capacity added over the past year looks enough to ship the newest platform on the current schedule, which keeps the desk's growth number reachable.",
+        "evidence": [
+          {
+            "observation": "Advanced packaging capacity at the main foundry partner is tracking roughly 60% higher year over year by the end of 2026.",
+            "source": "Desk supply-chain model, packaging capacity tab (synthetic)"
+          },
+          {
+            "observation": "Two memory suppliers told the desk that HBM output for 2027 is largely contracted, with Nvidia the largest single buyer.",
+            "source": "Desk channel check with memory suppliers, Aug 2026 (synthetic)"
+          },
+          {
+            "observation": "Server assembler lead times for the newest platform are stable at about 12 weeks, with no reported slip in first shipments.",
+            "source": "Alder Point Research, AI server supply note, Sep 2026 (synthetic)"
+          }
         ]
       },
       {
@@ -28,6 +66,21 @@
         "driver_ids": [
           "NVDA.operating_margin",
           "NVDA.data_center_growth"
+        ],
+        "summary": "Large customers are building their own accelerators, but mostly for narrow internal workloads while buying Nvidia for general training and inference. As long as that holds, pricing and the 62% operating margin the desk models (in line with consensus) are safe.",
+        "evidence": [
+          {
+            "observation": "Of the four largest cloud buyers, none has shifted a majority of new AI capacity to in-house chips in the last four quarters.",
+            "source": "Desk custom-silicon tracker, Q3 2026 (synthetic)"
+          },
+          {
+            "observation": "Rental prices for the current-generation GPU on public clouds held within 5% over six months, with no sign of discounting to defend share.",
+            "source": "Desk GPU rental price survey, Sep 2026 (synthetic)"
+          },
+          {
+            "observation": "The desk models FY2027 operating margin at 62%, the same as consensus.",
+            "source": "Desk model, FY2027 build (synthetic)"
+          }
         ]
       }
     ]
@@ -37,6 +90,10 @@
     "stance": "long",
     "size_bps": 250,
     "conviction": 3,
+    "summary": "The desk is long Microsoft on two growth engines that it models above consensus: Azure, inside Intelligent Cloud (24% versus 21.5% for FY2027), and paid AI assistants in Productivity and Business Processes (14% versus 12%). The third pillar is the risk control: capital spending must peak within the model year so that operating margin holds at the 45% both the desk and consensus use. If growth comes through but capex keeps rising, the margin pillar breaks first.",
+    "street_view": "buy",
+    "street_target_price": 600.0,
+    "street_view_note": "The street rates MSFT a buy with a $600 target; the desk agrees and is above consensus on both Intelligent Cloud and Productivity growth.",
     "pillars": [
       {
         "id": "MSFT.p1",
@@ -44,6 +101,25 @@
         "wrong_if": "Capacity constraints persist for two more quarters, or Azure guidance falls below consensus.",
         "driver_ids": [
           "MSFT.intelligent_cloud_growth"
+        ],
+        "summary": "Azure growth has been held back by data-center capacity rather than demand. As new sites come online through the model year, the desk expects revenue to catch up with backlog, which puts Intelligent Cloud growth above the street.",
+        "evidence": [
+          {
+            "observation": "Intelligent Cloud revenue was $137.8bn of $331.8bn total revenue in FY2026.",
+            "source": "MSFT 10-K, FY2026 (fiscal year ended 2026-06-30), segment information"
+          },
+          {
+            "observation": "The desk counts about 1.5 GW of new data-center capacity scheduled to go live across FY2027, front-loaded in the first half.",
+            "source": "Desk data-center capacity tracker, Sep 2026 (synthetic)"
+          },
+          {
+            "observation": "Three enterprise IT buyers said cloud AI projects were waiting on capacity allocation, not budget approval.",
+            "source": "Desk channel check with enterprise IT buyers, Aug 2026 (synthetic)"
+          },
+          {
+            "observation": "The desk models FY2027 Intelligent Cloud growth at 24% against a consensus of 21.5%.",
+            "source": "Desk model, FY2027 build (synthetic)"
+          }
         ]
       },
       {
@@ -52,6 +128,25 @@
         "wrong_if": "Seat adoption or renewal data show enterprises cutting back.",
         "driver_ids": [
           "MSFT.productivity_growth"
+        ],
+        "summary": "The paid AI assistant is sold as an add-on per seat, so each adopting customer raises revenue per user on a large installed base. The desk sees adoption broadening from pilots to department-wide rollouts, which supports growth above consensus.",
+        "evidence": [
+          {
+            "observation": "Productivity and Business Processes revenue was $140.0bn in FY2026, the largest of the three segments.",
+            "source": "MSFT 10-K, FY2026 (fiscal year ended 2026-06-30), segment information"
+          },
+          {
+            "observation": "Of 25 enterprise customers surveyed, 14 have moved the AI assistant beyond a pilot, up from 8 six months earlier.",
+            "source": "Desk enterprise software survey, Sep 2026 (synthetic)"
+          },
+          {
+            "observation": "Resellers report AI add-on attach on renewals rising each quarter in 2026, with few seat reductions.",
+            "source": "Larchmere Capital Markets, reseller check note, Aug 2026 (synthetic)"
+          },
+          {
+            "observation": "The desk models FY2027 Productivity and Business Processes growth at 14% against a consensus of 12%.",
+            "source": "Desk model, FY2027 build (synthetic)"
+          }
         ]
       },
       {
@@ -61,6 +156,21 @@
         "driver_ids": [
           "MSFT.capex",
           "MSFT.operating_margin"
+        ],
+        "summary": "Capital expenditure has stepped up sharply to build AI capacity, and depreciation follows. The desk's long case assumes the step-up levels off within the model year so that operating margin holds; it models capex and margin in line with consensus.",
+        "evidence": [
+          {
+            "observation": "The desk models FY2027 capital expenditure at $110bn and operating margin at 45%, both the same as consensus.",
+            "source": "Desk model, FY2027 build (synthetic)"
+          },
+          {
+            "observation": "Lease commitments signed in the last two quarters grew more slowly than in the prior four, the first sign of a plateau in new site starts.",
+            "source": "Desk data-center capacity tracker, Sep 2026 (synthetic)"
+          },
+          {
+            "observation": "Contracted backlog for cloud services is growing faster than capex in the desk's estimate, which is the test for this pillar.",
+            "source": "Brightwater Lane Securities, cloud capex and backlog note, Sep 2026 (synthetic)"
+          }
         ]
       }
     ]
@@ -70,6 +180,10 @@
     "stance": "long",
     "size_bps": 200,
     "conviction": 3,
+    "summary": "The desk is long Amazon on AWS re-accelerating as power and chip capacity is added (22% versus 19% consensus for FY2026) and on retail margin continuing to expand through fulfillment efficiency and advertising (13.5% group operating margin versus 12%). The third pillar ties the two together: heavy capital spending, modeled in line with consensus, must turn into AWS backlog rather than a lasting drag on free cash flow. The desk's conviction is moderate because the re-acceleration is still ahead, not yet in reported numbers.",
+    "street_view": "hold",
+    "street_target_price": 215.0,
+    "street_view_note": "The street rates AMZN a hold with a $215 target on capex worries; the desk is more constructive, above consensus on AWS growth and operating margin.",
     "pillars": [
       {
         "id": "AMZN.p1",
@@ -77,6 +191,25 @@
         "wrong_if": "AWS growth decelerates for two consecutive quarters, or large workloads move to rivals.",
         "driver_ids": [
           "AMZN.aws_growth"
+        ],
+        "summary": "AWS growth has been capped by power and accelerator supply. New capacity coming online through the model year should let growth re-accelerate, which the street does not yet fully model.",
+        "evidence": [
+          {
+            "observation": "AWS net sales were $128.7bn of $716.9bn total net sales in FY2025.",
+            "source": "AMZN 10-K, FY2025 (fiscal year ended 2025-12-31), Note 10 segment information"
+          },
+          {
+            "observation": "The desk counts new power hookups at AWS sites roughly doubling in the second half of 2026 versus the first half.",
+            "source": "Desk data-center power tracker, Sep 2026 (synthetic)"
+          },
+          {
+            "observation": "Two large AI developers told the desk they are expanding AWS commitments for 2027 training runs.",
+            "source": "Desk channel check with AI developers, Aug 2026 (synthetic)"
+          },
+          {
+            "observation": "The desk models FY2026 AWS growth at 22% against a consensus of 19%.",
+            "source": "Desk model, FY2026 build (synthetic)"
+          }
         ]
       },
       {
@@ -86,6 +219,25 @@
         "driver_ids": [
           "AMZN.operating_margin",
           "AMZN.north_america_growth"
+        ],
+        "summary": "Regionalized fulfillment has cut cost per unit shipped, and advertising adds high-margin revenue on top of retail traffic. Together they let retail margin keep expanding even with North America growth modeled in line with consensus.",
+        "evidence": [
+          {
+            "observation": "North America segment net sales were $426.3bn in FY2025, the largest segment.",
+            "source": "AMZN 10-K, FY2025 (fiscal year ended 2025-12-31), Note 10 segment information"
+          },
+          {
+            "observation": "Delivery times in the desk's basket of 40 test orders fell again in 2026, with more same-day deliveries from regional sites.",
+            "source": "Desk delivery-speed survey, Sep 2026 (synthetic)"
+          },
+          {
+            "observation": "Advertiser agencies report Amazon's share of their retail media budgets rising for a sixth straight quarter.",
+            "source": "Corvid Street Partners, retail media survey, Aug 2026 (synthetic)"
+          },
+          {
+            "observation": "The desk models FY2026 operating margin at 13.5% against a consensus of 12%, with North America growth at 9%, the same as consensus.",
+            "source": "Desk model, FY2026 build (synthetic)"
+          }
         ]
       },
       {
@@ -95,6 +247,21 @@
         "driver_ids": [
           "AMZN.capex",
           "AMZN.aws_growth"
+        ],
+        "summary": "Capital spending is large and modeled in line with the street. The pillar holds if that spending is matched by signed AWS commitments, so it becomes revenue rather than a lasting hit to free cash flow.",
+        "evidence": [
+          {
+            "observation": "The desk models FY2026 capital expenditure at $140bn, the same as consensus.",
+            "source": "Desk model, FY2026 build (synthetic)"
+          },
+          {
+            "observation": "In the desk's estimate, AWS backlog grew faster than AWS capex over the last four quarters.",
+            "source": "Desk AWS backlog tracker, Q3 2026 (synthetic)"
+          },
+          {
+            "observation": "A sell-side survey found most new AWS commitments are multi-year, which supports conversion of capacity into revenue.",
+            "source": "Alder Point Research, cloud contract survey, Sep 2026 (synthetic)"
+          }
         ]
       }
     ]
@@ -104,6 +271,10 @@
     "stance": "short",
     "size_bps": 200,
     "conviction": 3,
+    "summary": "The desk is short Apple against a street that rates it a buy. It expects a weaker iPhone cycle than consensus (1% growth versus 4.5% for FY2026) because AI features are not pulling upgrades forward and China share remains under pressure. It also expects Services to slow (9% versus 12%) as regulation and litigation reach App Store fees and search payments, and operating margin to come in below the street (30% versus 32%) on tariffs and component costs. Each pillar is a different way the street's estimates could prove too high.",
+    "street_view": "buy",
+    "street_target_price": 230.0,
+    "street_view_note": "The street rates AAPL a buy with a $230 target; the desk is short and below consensus on iPhone growth, Services growth and operating margin.",
     "pillars": [
       {
         "id": "AAPL.p1",
@@ -111,6 +282,25 @@
         "wrong_if": "Sell-through or lead-time data show a clearly stronger cycle than consensus expects.",
         "driver_ids": [
           "AAPL.iphone_growth"
+        ],
+        "summary": "The street assumes AI features drive a strong upgrade cycle. The desk sees little sign of that in sell-through or lead times, and sees continued share loss in China, so it models iPhone growth well below consensus.",
+        "evidence": [
+          {
+            "observation": "iPhone net sales were $209.6bn of $416.2bn total net sales in FY2025, about half the company.",
+            "source": "AAPL 10-K, FY2025 (fiscal year ended 2025-09-27), net sales by category"
+          },
+          {
+            "observation": "Lead times for the new models in the desk's eight-country tracker were shorter at launch than for last year's models.",
+            "source": "Desk iPhone lead-time tracker, Sep 2026 (synthetic)"
+          },
+          {
+            "observation": "Carrier contacts in China reported Apple's share of premium phone sales down year over year in the third quarter.",
+            "source": "Desk channel check with China carrier contacts, Sep 2026 (synthetic)"
+          },
+          {
+            "observation": "The desk models FY2026 iPhone growth at 1% against a consensus of 4.5%.",
+            "source": "Desk model, FY2026 build (synthetic)"
+          }
         ]
       },
       {
@@ -119,6 +309,25 @@
         "wrong_if": "Rulings or settlements leave fees and payments intact and Services growth holds.",
         "driver_ids": [
           "AAPL.services_growth"
+        ],
+        "summary": "Services carries much higher margin than hardware, so slower growth there matters more than its revenue share suggests. App Store rules and search distribution payments are both under legal pressure, and the desk expects that to show up in growth.",
+        "evidence": [
+          {
+            "observation": "Services net sales were $109.2bn in FY2025.",
+            "source": "AAPL 10-K, FY2025 (fiscal year ended 2025-09-27), net sales by category"
+          },
+          {
+            "observation": "The desk tracks four live proceedings on app store terms or default search payments that could take effect within the model year.",
+            "source": "Desk regulatory tracker, Q3 2026 (synthetic)"
+          },
+          {
+            "observation": "A sell-side note estimates that alternative payment options reduce the effective App Store take rate on large developers.",
+            "source": "Brightwater Lane Securities, app store economics note, Jul 2026 (synthetic)"
+          },
+          {
+            "observation": "The desk models FY2026 Services growth at 9% against a consensus of 12%.",
+            "source": "Desk model, FY2026 build (synthetic)"
+          }
         ]
       },
       {
@@ -127,6 +336,21 @@
         "wrong_if": "Costs are absorbed or passed through and margin is guided flat or up.",
         "driver_ids": [
           "AAPL.operating_margin"
+        ],
+        "summary": "Hardware margin depends on component prices and on where devices are assembled. Higher memory costs and tariffs on imported devices are hard to pass through fully without hurting units, so the desk models operating margin below the street.",
+        "evidence": [
+          {
+            "observation": "Memory contract prices in the desk's survey rose for three straight quarters through Q3 2026.",
+            "source": "Desk component price survey, Sep 2026 (synthetic)"
+          },
+          {
+            "observation": "The desk estimates that a large share of US-bound devices is still assembled in countries facing new tariffs.",
+            "source": "Desk supply-chain model, assembly location tab (synthetic)"
+          },
+          {
+            "observation": "The desk models FY2026 operating margin at 30% against a consensus of 32%.",
+            "source": "Desk model, FY2026 build (synthetic)"
+          }
         ]
       }
     ]
@@ -136,6 +360,10 @@
     "stance": "short",
     "size_bps": 150,
     "conviction": 2,
+    "summary": "The desk is short Alphabet at low conviction against a street hold. It expects AI answers to reduce clicks on commercial queries, so Google Services growth falls below consensus (7% versus 10.5% for FY2026). It also expects capital expenditure above consensus ($100bn versus $93bn) to compress operating margin (30% versus 33%), with Cloud growth in line with the street not enough to offset depreciation. Regulatory remedies are the third, slower-moving risk.",
+    "street_view": "hold",
+    "street_target_price": 210.0,
+    "street_view_note": "The street rates GOOGL a hold with a $210 target; the desk is short and below consensus on Services growth and operating margin, with capex above.",
     "pillars": [
       {
         "id": "GOOGL.p1",
@@ -143,6 +371,25 @@
         "wrong_if": "Paid-click and pricing data show monetization holding or improving.",
         "driver_ids": [
           "GOOGL.services_growth"
+        ],
+        "summary": "When a search page answers the question directly, fewer users click through to ads on commercial queries. The desk expects that loss of clicks to outweigh any pricing gains, so Services growth comes in below the street.",
+        "evidence": [
+          {
+            "observation": "Google Services revenue was $342.7bn of $402.8bn total revenues in FY2025.",
+            "source": "GOOGL 10-K, FY2025 (fiscal year ended 2025-12-31), segment information"
+          },
+          {
+            "observation": "In a panel of 500 commercial queries, the share showing an AI answer above the ads rose from 20% to 35% over six months.",
+            "source": "Desk search results panel, Sep 2026 (synthetic)"
+          },
+          {
+            "observation": "Agencies running search budgets for retail clients reported lower paid-click volumes in Q3 2026, partly offset by higher cost per click.",
+            "source": "Corvid Street Partners, search agency survey, Sep 2026 (synthetic)"
+          },
+          {
+            "observation": "The desk models FY2026 Google Services growth at 7% against a consensus of 10.5%.",
+            "source": "Desk model, FY2026 build (synthetic)"
+          }
         ]
       },
       {
@@ -153,6 +400,25 @@
           "GOOGL.operating_margin",
           "GOOGL.capex",
           "GOOGL.cloud_growth"
+        ],
+        "summary": "Capital spending on AI infrastructure turns into depreciation over the following years. The desk models capex above consensus and Cloud growth in line with it, so the step-up in depreciation is not fully offset and operating margin falls below the street.",
+        "evidence": [
+          {
+            "observation": "Google Cloud revenue was $58.7bn in FY2025.",
+            "source": "GOOGL 10-K, FY2025 (fiscal year ended 2025-12-31), segment information"
+          },
+          {
+            "observation": "The desk models FY2026 capital expenditure at $100bn against a consensus of $93bn.",
+            "source": "Desk model, FY2026 build (synthetic)"
+          },
+          {
+            "observation": "The desk models FY2026 operating margin at 30% against a consensus of 33%, with Cloud growth at 28%, the same as consensus.",
+            "source": "Desk model, FY2026 build (synthetic)"
+          },
+          {
+            "observation": "A sell-side depreciation schedule shows servers and network equipment added in 2025 and 2026 reaching full depreciation run-rate during the model year.",
+            "source": "Larchmere Capital Markets, hyperscaler depreciation note, Aug 2026 (synthetic)"
+          }
         ]
       },
       {
@@ -161,6 +427,21 @@
         "wrong_if": "Remedies are narrow or delayed, with little operating effect.",
         "driver_ids": [
           "GOOGL.services_growth"
+        ],
+        "summary": "Remedies in the search and advertising technology cases could limit default placement deals or force changes to the ad stack. Timing is uncertain and appeals are likely, so the desk treats this as a slower risk to Services growth than AI answers.",
+        "evidence": [
+          {
+            "observation": "The desk tracks two remedy proceedings, one on search distribution and one on advertising technology, each with a decision window in the next twelve months.",
+            "source": "Desk regulatory tracker, Q3 2026 (synthetic)"
+          },
+          {
+            "observation": "A sell-side scenario analysis puts the revenue at risk from ending exclusive default deals at a low single-digit share of Services revenue in the first year.",
+            "source": "Alder Point Research, search remedies scenario note, Sep 2026 (synthetic)"
+          },
+          {
+            "observation": "Advertisers surveyed said they would keep most spending on Google's ad tools even if parts of the stack were separated.",
+            "source": "Desk channel check with ad-tech buyers, Aug 2026 (synthetic)"
+          }
         ]
       }
     ]

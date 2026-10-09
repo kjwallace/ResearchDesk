@@ -4,6 +4,8 @@ Two days of synthetic inbound email (300 per day, 600 total) plus a 100-email tu
 
 All people, firms, research, datasets and figures are fictional. Real company names appear only for the five target companies and for well-known public companies used as context.
 
+> **Day 1 after hand edits (2026-10-09).** Day 1 now holds **288 emails in shuffled arrival order**. Eleven redundant emails were replaced: ten became analyst estimate or rating changes, and one became an insider offering non-public results, which should be quarantined. Then seven thesis_relevant and five monitor emails were removed without replacement. Triage counts are now: thesis_relevant 30, monitor 45, redundant 19, low_value 105, irrelevant 89; human_attention 19. Email IDs are unchanged and no longer follow arrival order. Where the per-day tables below differ, these counts are current for day 1.
+
 ## Files
 
 | Path | Contents |
@@ -38,27 +40,27 @@ Each line of `emails.jsonl` is one JSON object with 14 fields: the 10 fields fro
 
 | Measure | Day 1 | Day 2 | Tuning (100) | Target from prompt |
 | --- | --- | --- | --- | --- |
-| `thesis_relevant` | 29 (10%) | 27 (9%) | 9 (9%) | ~10% |
-| `monitor` | 48 (16%) | 48 (16%) | 15 (15%) | ~15% |
-| `redundant` | 30 (10%) | 33 (11%) | 9 (9%) | ~10% |
+| `thesis_relevant` | 37 (12%) | 27 (9%) | 9 (9%) | ~10% |
+| `monitor` | 50 (17%) | 48 (16%) | 15 (15%) | ~15% |
+| `redundant` | 19 (6%) | 33 (11%) | 9 (9%) | ~10% |
 | `low_value` | 105 (35%) | 99 (33%) | 34 (34%) | ~35% |
-| `irrelevant` | 88 (29%) | 93 (31%) | 33 (33%) | ~30% |
+| `irrelevant` | 89 (30%) | 93 (31%) | 33 (33%) | ~30% |
 | `human_attention` | 19 | 20 | 7 | 15–25 per 300 (~5–8 per 100) |
-| Emails with `macro` / `government` / `sector` | 30 | 28 | 10 | 25–35 per 300 (~8–12 per 100) |
+| Emails with `macro` / `government` / `sector` | 29 | 28 | 10 | 25–35 per 300 (~8–12 per 100) |
 | Emails with `other` | 7 | 4 | 2 | — |
 | Systemic (all five tickers) | 4 | 4 | 2 | under 10% |
-| Meetings, newsletters and events | 80 (27%) | 90 (30%) | 33 (33%) | at least 20% |
-| Noise (`low_value` + `irrelevant`) naming a target | 28 of 193 (15%) | 28 of 192 (15%) | 10 of 67 (15%) | at most 15% |
+| Meetings, newsletters and events | 77 (26%) | 90 (30%) | 33 (33%) | at least 20% |
+| Noise (`low_value` + `irrelevant`) naming a target | 29 of 194 (15%) | 28 of 192 (15%) | 10 of 67 (15%) | at most 15% |
 
-The triage counts are jittered by a few emails around the targets, so the splits differ slightly, as the prompt allows. Tuning-set counts are scaled from the 300-email day.
+The triage counts are jittered by a few emails around the targets, so the splits differ slightly, as the prompt allows. Day 1 is further off target on purpose: 11 of its `redundant` emails were later rewritten by hand, 10 as analyst estimate or rating changes (8 `thesis_relevant`, 2 `monitor`) and 1 as an insider offering to sell non-public results, which should be quarantined (`irrelevant`). See `DECISIONS.md`. Tuning-set counts are scaled from the 300-email day.
 
 ### Additional labels
 
 | Label | Day 1 | Day 2 | Tuning |
 | --- | --- | --- | --- |
-| `macro` | 11 | 16 | 2 |
-| `government` | 11 | 5 | 5 |
-| `sector` | 12 | 10 | 5 |
+| `macro` | 10 | 16 | 2 |
+| `government` | 9 | 5 | 5 |
+| `sector` | 13 | 10 | 5 |
 | `other` | 7 | 4 | 2 |
 | `human_attention` | 19 | 20 | 7 |
 
@@ -70,13 +72,13 @@ Tickers are rotated evenly through the `thesis_relevant` and `monitor` emails. C
 
 | Ticker | Day 1 signal | Day 2 signal | Tuning signal | Day 1 all | Day 2 all | Tuning all |
 | --- | --- | --- | --- | --- | --- | --- |
-| AMZN | 18 | 22 | 5 | 34 | 37 | 9 |
-| NVDA | 22 | 21 | 8 | 33 | 31 | 11 |
-| MSFT | 20 | 21 | 7 | 28 | 34 | 10 |
-| AAPL | 20 | 20 | 7 | 35 | 31 | 11 |
-| GOOGL | 23 | 18 | 6 | 30 | 28 | 11 |
+| AMZN | 20 | 22 | 5 | 35 | 37 | 9 |
+| NVDA | 24 | 21 | 8 | 34 | 31 | 11 |
+| MSFT | 22 | 21 | 7 | 30 | 34 | 10 |
+| AAPL | 22 | 20 | 7 | 35 | 31 | 11 |
+| GOOGL | 25 | 18 | 6 | 31 | 28 | 11 |
 
-"Signal" means `thesis_relevant` + `monitor`. Within `thesis_relevant` alone, each ticker appears 5–8 times per 300-email day (1–3 in the 100-email tuning set).
+"Signal" means `thesis_relevant` + `monitor`. Within `thesis_relevant` alone, each ticker appears 5–8 times per 300-email day (7–10 on day 1 after the hand edits) (1–3 in the 100-email tuning set).
 
 ### Email types
 
@@ -84,24 +86,24 @@ The generator wrote 18 email types. They were consolidated in place to 11 (see `
 
 | Email type | Day 1 | Day 2 | Tuning | Generator types merged |
 | --- | --- | --- | --- | --- |
-| `sell_side_research` | 70 | 86 | 18 | sell_side_research, sell_side_morning_note, sell_side_sales_color, macro_strategy |
-| `news_alert` | 50 | 33 | 15 | news_alert, government_regulatory |
+| `sell_side_research` | 77 | 86 | 18 | sell_side_research, sell_side_morning_note, sell_side_sales_color, macro_strategy |
+| `news_alert` | 46 | 33 | 15 | news_alert, government_regulatory |
 | `meeting_request` | 32 | 34 | 17 | meeting_request, expert_call_offer |
 | `primary_research` | 36 | 29 | 8 | channel_check, industry_contact, expert_network_transcript |
-| `vendor_pitch` | 27 | 25 | 13 | vendor_sales_pitch |
-| `newsletter` | 24 | 30 | 9 | newsletter |
+| `vendor_pitch` | 28 | 25 | 13 | vendor_sales_pitch |
+| `newsletter` | 21 | 30 | 9 | newsletter |
 | `event_invitation` | 24 | 26 | 7 | event_invitation |
-| `data_report` | 19 | 16 | 8 | vendor_data_report |
+| `data_report` | 17 | 16 | 8 | vendor_data_report |
 | `administrative` | 14 | 12 | 1 | administrative |
-| `internal_forward` | 3 | 4 | 4 | internal_forward |
+| `internal_forward` | 4 | 4 | 4 | internal_forward |
 | `company_release` | 1 | 5 | 0 | company_ir |
 
 ### Text statistics
 
 | Measure | Day 1 | Day 2 | Tuning |
 | --- | --- | --- | --- |
-| Body length in words (min / average / max) | 142 / 252 / 400 | 164 / 263 / 429 | 177 / 249 / 376 |
-| Distinct sender domains | 284 | 286 | 94 |
+| Body length in words (min / average / max) | 83 / 250 / 400 | 164 / 263 / 429 | 177 / 249 / 376 |
+| Distinct sender domains | 283 | 286 | 94 |
 | Duplicate subjects | 0 | 0 (none across days either) | 0 |
 
 ## How it was generated

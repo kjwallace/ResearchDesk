@@ -46,6 +46,7 @@ class BookState(BaseModel):
     evidence: dict[str, list[LogEntry]]   # pillar ID to accepted pillar_evidence entries
     applied: list[LogEntry]               # log entries in effect, in log order
     removed: dict[str, Pillar] = Field(default_factory=dict)  # pillars removed this session; their IDs are never reused
+    projections: dict[str, list[LogEntry]] = Field(default_factory=dict)  # ticker to accepted projection notes
 
 
 def load_seed(seed_dir: Path = SEED_DIR) -> Seed:
@@ -76,6 +77,7 @@ def fold(seed: Seed, log: list[LogEntry]) -> BookState:
     evidence: dict[str, list[LogEntry]] = {p.id: [] for t in theses.values() for p in t.pillars}
     applied = effective_entries(log)
     removed: dict[str, Pillar] = {}
+    projections: dict[str, list[LogEntry]] = {}
 
     for entry in applied:
         match entry.change:
@@ -116,9 +118,11 @@ def fold(seed: Seed, log: list[LogEntry]) -> BookState:
                 thesis.pillars = [p for p in thesis.pillars if p.id != entry.item_id]
                 removed[gone.id] = gone
                 evidence.pop(gone.id, None)
+            case "projection_noted":
+                projections.setdefault(ticker_of(entry.item_id), []).append(entry)
 
     return BookState(theses=theses, models=models, links=seed.links, evidence=evidence, applied=applied,
-                     removed=removed)
+                     removed=removed, projections=projections)
 
 
 def net_contradicting(state: BookState, pillar_id: str) -> int:

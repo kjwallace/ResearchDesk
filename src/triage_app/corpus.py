@@ -6,7 +6,7 @@ The loader does five things, in order:
 1. splits each row into an Email and an EmailLabel (generation fields are dropped, except
    `email_type`, kept on the EmailLabel for the `email_type_accuracy` eval);
 2. normalizes label spellings with the table in SPEC.md, "The loader";
-3. checks that IDs increase in file order and assigns `received_at` in that order;
+3. takes file order as arrival order (assigning `received_at` in that order) and checks IDs are unique;
 4. validates every row against the schema and lists failures for hand fixing;
 5. reports the distribution against the prompt's targets (`report`).
 
@@ -129,9 +129,6 @@ def arrival_times(corpus_set: CorpusSet, n: int) -> list[datetime]:
     return [start + i * step for i in range(n)]
 
 
-def _id_key(email_id: str) -> tuple[int, str]:
-    m = re.search(r"(\d+)$", email_id)
-    return (int(m.group(1)) if m else -1, email_id)
 
 
 def infer_set(path: Path) -> CorpusSet:
@@ -153,7 +150,7 @@ def load_with_report(path: Path, corpus_set: CorpusSet | None = None) -> LoadRes
     result.rows = len(lines)
     times = arrival_times(corpus_set, len(lines))
     seen: dict[str, str] = {}
-    last_id: str | None = None
+    ids_seen: set[str] = set()
 
     for (lineno, line), received_at in zip(lines, times):
         try:
@@ -188,10 +185,12 @@ def load_with_report(path: Path, corpus_set: CorpusSet | None = None) -> LoadRes
         label_raw.update(triage=triage, additional_labels=topics, affected_tickers=tickers,
                          human_attention=flag)
 
-        # 3. IDs increase in file order; received_at follows file order.
-        if last_id is not None and _id_key(email_id) <= _id_key(last_id):
-            result.warnings.append(f"{email_id}: ID does not increase after {last_id}")
-        last_id = email_id
+        # 3. File order is arrival order: received_at follows it. IDs are identifiers only
+        # (they need not increase), but each must be unique.
+        if email_id in ids_seen:
+            result.hand_fix.append((email_id, "duplicate email_id"))
+            continue
+        ids_seen.add(email_id)
         email_raw["received_at"] = received_at
 
         # 4. Validate against the schema.

@@ -28,7 +28,8 @@ from triage_app import config, thresholds
 from triage_app.pipeline.context import RunContext
 from triage_app.pipeline.io import read_list, write_one
 from triage_app.schema import (
-    Alert, AttentionNote, Brief, Email, EmailResult, ExistingThesis, NewThesis, Suggestion, TriageRecord,
+    Alert, AttentionNote, Brief, Email, EmailResult, ExistingThesis, NewThesis, ProjectionChange, Suggestion,
+    TriageRecord,
 )
 from triage_app.state.fold import load_seed
 
@@ -95,8 +96,10 @@ def assemble(day: date, emails: list[Email], results: list[EmailResult], triage:
 
     existing = [s for s in suggestions if isinstance(s.body, ExistingThesis)]
     new = [s for s in suggestions if isinstance(s.body, NewThesis)]
+    projected = [s for s in suggestions if isinstance(s.body, ProjectionChange)]
     thesis_changes = [s.id for s in sorted(existing, key=existing_key) if not all_monitor(s)]
     new_theses = [s.id for s in sorted(new, key=new_key) if not all_monitor(s)]
+    projection_changes = [s.id for s in sorted(projected, key=new_key) if not all_monitor(s)]
     watching = [s for s in suggestions if all_monitor(s)]
     worth_watching = [s.id for s in sorted(watching, key=existing_key)]
 
@@ -129,6 +132,7 @@ def assemble(day: date, emails: list[Email], results: list[EmailResult], triage:
         },
         thesis_changes=thesis_changes,
         new_theses=new_theses,
+        projection_changes=projection_changes,
         worth_watching=worth_watching,
         needs_attention=needs_attention,
         relevant_unlinked=relevant_unlinked,

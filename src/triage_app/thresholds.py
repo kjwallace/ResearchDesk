@@ -42,6 +42,12 @@ CHARS_PER_TOKEN = 4               # fixed  token estimate where a provider repor
 SKILL_CALLS_PER_EMAIL = 3         # fixed  analysis-agent skill calls per email
 NEW_THESIS_DUPLICATE = 0.8        # fixed  cosine at which a new thesis duplicates an existing pillar (rejected)
 NEW_THESIS_MERGE = 0.8            # fixed  cosine at which two new-thesis candidates merge
+MIN_PILLAR_RELEVANCE = 0.7        # fixed  existing-thesis suggestions the skill rates less relevant than this are rejected
+MAX_THESIS_SUGGESTIONS_PER_EMAIL = 2  # fixed  most existing-thesis suggestions one email may raise (most relevant kept)
+PILLAR_EVIDENCE_IN_PROMPT = 3     # fixed  evidence items per pillar the existing-thesis skill sees
+PROJECTION_DISPLAY_DECIMALS = 2   # fixed  rounding of the book's projections shown to the projections skill
+PROJECTION_MAX_GAP = 0.5          # fixed  a stated projection more than this share away from the book's is rejected
+                                  #        as implausible (usually a different basis, unit or period)
 
 # ---- Delivery, alerts and the book --------------------------------------------------------
 
@@ -151,3 +157,17 @@ SYNTHETIC_NAV_USD = 1_000_000_000     # fixed  synthetic fund size; a position's
 SYNTHETIC_PRICE_USD = {               # fixed  synthetic reference price per share, for share counts only
     "AMZN": 220.0, "NVDA": 180.0, "MSFT": 510.0, "AAPL": 250.0, "GOOGL": 240.0,
 }
+
+
+# ---- Model prices, for the cost estimates in metrics.json -----------------------------
+# USD per million tokens (input, output), from OpenRouter's model list on 2026-10-09.
+# A model with calls but no entry is reported as unpriced, never guessed. The embedder
+# runs locally and costs nothing; Jev's TypeSafe price is not published here.
+
+MODEL_PRICES: dict[str, tuple[float, float]] = {
+    "anthropic/claude-sonnet-5.5": (2.00, 10.00),
+    "anthropic/claude-haiku-5.5": (0.10, 0.50),
+    "anthropic/claude-haiku-4.5": (1.00, 5.00),
+    "BAAI/bge-small-en-v1.5": (0.0, 0.0),
+}
+

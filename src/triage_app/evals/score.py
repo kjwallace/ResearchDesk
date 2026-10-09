@@ -36,7 +36,8 @@ from triage_app.schema import (
 NOTES_SHEET = "review_notes.csv"
 SUGGESTIONS_SHEET = "review_suggestions.csv"
 NOTE_COLUMNS = ("id", "kind", *metric.NOTE_CHECKS, "comment")
-SUGGESTION_COLUMNS = ("id", "kind", "right_pillar", "right_stance", "sections_support", "new_to_book", "comment")
+SUGGESTION_COLUMNS = ("id", "kind", "right_pillar", "right_stance", "sections_support", "new_to_book",
+                      "right_metric", "figure_stated", "comment")
 
 
 # ---- Labels ----

@@ -13,6 +13,9 @@ Triage = Literal["thesis_relevant", "monitor", "redundant",
                  "low_value", "irrelevant"]
 Topic = Literal["macro", "sector", "government", "other"]
 Stance = Literal["supports", "contradicts"]
+StreetView = Literal["buy", "hold", "sell"]
+StreetViewShift = Literal["toward_buy", "toward_sell", "none"]
+ProjectionMetric = Literal["revenue", "operating_income", "eps", "target_price"]  # or a driver ID
 
 
 # ---- Corpus ----
@@ -92,9 +95,10 @@ class QuoteDraft(BaseModel):
     quote: str
 
 class NoteFields(BaseModel):          # what a note says; shared by the draft and the stored note
-    summary: str                        # two sentences
-    why_attention: str                  # one or two sentences
+    summary: str                        # two to three sentences: the target stock, the opportunity, what's offered
+    why_attention: str                  # what attending or replying does for the firm
     action: Literal["reply", "attend", "decide", "read", "other"]
+    follow_up: str = ""                 # the follow-up the desk should take, in one or two sentences
     deadline: datetime | None = None    # only when the email states one
 
 class NoteDraft(NoteFields):           # stage A model output
@@ -125,10 +129,13 @@ class AssumptionDraft(BaseModel):
 class ExistingThesisDraft(BaseModel):   # one suggestion from the existing-thesis skill
     kind: Literal["existing_thesis"]
     pillar_id: str
-    stance: Stance
+    stance: Literal["supports", "contradicts", "none"]  # "none": considered, no direct bearing (dropped by code)
+    relevance: float = Field(ge=0, le=1)  # how directly the claims bear on this exact pillar
     strength: Literal[1, 2, 3]
     wrong_if_met: bool = False
     assumptions: list[AssumptionDraft] = []
+    street_view_shift: StreetViewShift = "none"  # did analysts' emails move the street's buy/hold/sell view?
+    street_view_note: str = ""          # one sentence on the street's view versus the desk's stance
     rationale: str
     claim_ids: list[str]
     sections: list[LinkedSection]
@@ -139,12 +146,22 @@ class NewThesisDraft(BaseModel):        # one candidate from the new-thesis skil
     statement: str
     wrong_if: str
     driver_ids: list[str] = []
+    rationale: str                      # three to five sentences: what was noticed and why it is a new thesis
+    claim_ids: list[str]
+    sections: list[LinkedSection]
+
+class ProjectionDraft(BaseModel):       # one figure from the projections skill
+    kind: Literal["projection_change"]
+    ticker: Ticker
+    metric: str                         # a driver ID of that company, or a ProjectionMetric
+    period: str                         # the fiscal year the email gives, e.g. "FY2027"
+    stated_value: float                 # the figure the email states, in the metric's unit
     rationale: str
     claim_ids: list[str]
     sections: list[LinkedSection]
 
-class SkillResult(BaseModel):           # what either skill returns
-    suggestions: list[Annotated[ExistingThesisDraft | NewThesisDraft,
+class SkillResult(BaseModel):           # what any skill returns
+    suggestions: list[Annotated[ExistingThesisDraft | NewThesisDraft | ProjectionDraft,
                                 Field(discriminator="kind")]] = []
     no_change_reason: str | None = None # one sentence when suggestions is empty
 
@@ -177,8 +194,11 @@ class ExistingThesis(BaseModel):        # skill: alter an existing thesis
     pillar_id: str
     stance: Stance
     strength: Literal[1, 2, 3]
+    relevance: float = 1.0              # from the skill; below thresholds.MIN_PILLAR_RELEVANCE is rejected
     wrong_if_met: bool = False
     assumptions: list[LinkedAssumption] = []
+    street_view_shift: StreetViewShift = "none"
+    street_view_note: str = ""
 
 class NewThesis(BaseModel):             # skill: spawn a new thesis
     kind: Literal["new_thesis"]
@@ -186,6 +206,15 @@ class NewThesis(BaseModel):             # skill: spawn a new thesis
     statement: str
     wrong_if: str
     driver_ids: list[str] = []
+
+class ProjectionChange(BaseModel):      # skill: compare an email's projection with the book's
+    kind: Literal["projection_change"]
+    ticker: Ticker
+    metric: str                         # a driver ID, or revenue / operating_income / eps / target_price
+    period: str                         # equals the company's modeled fiscal year
+    stated_value: float                 # the figure the email states
+    book_value: float                   # the book's current value or computed projection; filled by code
+    consensus_value: float              # the same on consensus drivers; filled by code
 
 class ConvictionReview(BaseModel):      # raised by code in the session, not by a model
     kind: Literal["conviction_review"]
@@ -195,7 +224,7 @@ class ConvictionReview(BaseModel):      # raised by code in the session, not by 
 class Suggestion(BaseModel):            # stages 6 to 8
     id: str                             # assigned by code; see "Stage files"
     body: Annotated[
-        ExistingThesis | NewThesis | ConvictionReview,
+        ExistingThesis | NewThesis | ProjectionChange | ConvictionReview,
         Field(discriminator="kind"),
     ]
     rationale: str                      # one sentence
@@ -226,6 +255,7 @@ class Brief(BaseModel):                 # stage 9 output; every list is in displ
     counts: dict[str, int]              # emails by label, notes, suggestions
     thesis_changes: list[str]           # suggestion IDs
     new_theses: list[str]               # suggestion IDs
+    projection_changes: list[str] = []  # suggestion IDs: emails' projections against the book's
     worth_watching: list[str]           # suggestion IDs whose emails are all monitor
     needs_attention: list[str]          # email IDs that have a note
     relevant_unlinked: list[str]        # see "Where each email appears"
@@ -281,6 +311,8 @@ class StageUsage(BaseModel):
     latency_p50_ms: float
     latency_p95_ms: float
     latency_max_ms: float
+    cost_usd: float | None = None       # spent this run, at thresholds.MODEL_PRICES; None if a model is unpriced
+    uncached_cost_usd: float | None = None
 
 class UsageReport(BaseModel):           # data/out/<set>/metrics.json, computed by code
     corpus: Literal["day_1", "day_2", "tuning", "live"]
@@ -292,6 +324,10 @@ class UsageReport(BaseModel):           # data/out/<set>/metrics.json, computed 
     email_latency_p50_ms: float         # end to end, all stages for one email
     email_latency_p95_ms: float
     total_latency_ms: float
+    cost_usd: float | None = None       # spent this run, all priced models
+    uncached_cost_usd: float | None = None  # what the run would have cost uncached
+    cost_per_email_usd: float | None = None
+    unpriced_models: list[str] = []     # models with calls but no price in thresholds.MODEL_PRICES
 
 class LabelChange(BaseModel):
     email_id: str
@@ -337,18 +373,28 @@ class CompanyModel(BaseModel):          # data/seed/models.json
     target_multiple: float              # synthetic
     drivers: list[Driver]
 
+class PillarEvidence(BaseModel):        # synthetic boilerplate behind a pillar
+    observation: str                    # a data point or observation
+    source: str                         # where it comes from (fictional desk work or a filing)
+
 class Pillar(BaseModel):
     id: str                             # e.g. "NVDA.p1"
     statement: str
     wrong_if: str
     driver_ids: list[str]
+    summary: str = ""                   # a few sentences of reasoning behind the statement
+    evidence: list[PillarEvidence] = []
 
 class Thesis(BaseModel):                # data/seed/theses.json
     ticker: Ticker
-    stance: Literal["long", "short"]
+    stance: Literal["long", "short"]    # the desk's view
     size_bps: int
     conviction: Literal[1, 2, 3, 4, 5]
     pillars: list[Pillar]
+    summary: str = ""                   # the thesis in a short paragraph
+    street_view: StreetView = "hold"    # the street's consensus rating
+    street_view_note: str = ""          # one sentence: where the street sits versus the desk
+    street_target_price: float | None = None  # the street's consensus target, USD per share (synthetic)
 
 class Link(BaseModel):                  # data/seed/links.json
     from_ticker: Ticker                 # a claim about this company...
@@ -361,8 +407,8 @@ class LogEntry(BaseModel):              # written only by the analyst: an accept
     suggestion_id: str                  # "" for a manual change
     change: Literal["pillar_evidence", "pillar_added",
                     "driver_updated", "conviction_changed",
-                    "pillar_edited", "pillar_removed"]
-    item_id: str                        # pillar ID, driver ID or ticker
+                    "pillar_edited", "pillar_removed", "projection_noted"]
+    item_id: str                        # pillar ID, driver ID or ticker; "<ticker>.<metric>" for a projection
     before: float | None = None         # driver or conviction; filled by code
     after: float | None = None
     stance: Stance | None = None        # pillar evidence

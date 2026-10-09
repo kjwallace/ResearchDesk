@@ -3,7 +3,9 @@
     "summary": "Kestrel Insight Partners offers a 45-minute call with a former advanced packaging engineer who worked on Nvidia's capacity plan. The call is on Wednesday, Oct 14 at 8:00am ET, and two seats remain.",
     "why_attention": "Seats are released to other clients unless someone confirms by 4:00pm ET today, so a person must decide whether to take one.",
     "action": "reply",
+    "follow_up": "",
     "deadline": "2026-10-13T16:00:00-04:00",
+    "email_id": "fixture_007",
     "sections": [
       {
         "email_id": "fixture_007",
@@ -13,7 +15,6 @@
         "email_id": "fixture_007",
         "quote": "Please confirm by 4:00pm ET today if you want one of the two remaining seats; after that we release them to other clients."
       }
-    ],
-    "email_id": "fixture_007"
+    ]
   }
 ]

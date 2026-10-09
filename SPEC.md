@@ -466,6 +466,15 @@ This example is the seed for the prototype. It is invented for the demo and is n
 
 A pillar's linked drivers are where a figure stated in an email can appear on a suggestion. The driver IDs, and the desk's direction against consensus on each, are listed under "The model".
 
+### Pillar detail, evidence and the street's view
+
+Each thesis and pillar in `data/seed/theses.json` carries detail beyond the table above. The `id`, statement, "wrong if" test and linked drivers stay as listed; the rest is synthetic boilerplate for the demo.
+
+- **Thesis summary** (`Thesis.summary`): a short paragraph on the desk's view and how the three pillars fit together.
+- **The street's view** (`Thesis.street_view`, `street_view_note`, `street_target_price`): the street's consensus rating (buy, hold or sell), one sentence on where the street sits versus the desk, and the street's consensus target price in USD per share. The existing-thesis skill compares an email's analyst views with this rating. A target price sits within about 10% of the target the book computes on consensus drivers, at or above it for a buy.
+- **Pillar summary** (`Pillar.summary`): two to three sentences of reasoning behind the statement.
+- **Evidence** (`Pillar.evidence`): three or four observations, each with a source. A source is either fictional desk work or a fictional sell-side note, marked "(synthetic)", or the company's latest 10-K. A figure cited from a 10-K matches `data/seed/base_figures.json` exactly; invented figures never contradict the drivers in `data/seed/models.json`. No real person, research firm or bank is named.
+
 ### How an email meets the book
 
 These five cases are illustrations, not corpus emails. They show the two results an email can have: a label from Jev and a suggestion from the analysis agent.
@@ -576,6 +585,7 @@ Triage = Literal["thesis_relevant", "monitor", "redundant",
                  "low_value", "irrelevant"]
 Topic = Literal["macro", "sector", "government", "other"]
 Stance = Literal["supports", "contradicts"]
+StreetView = Literal["buy", "hold", "sell"]
 
 
 # ---- Corpus ----
@@ -900,18 +910,28 @@ class CompanyModel(BaseModel):          # data/seed/models.json
     target_multiple: float              # synthetic
     drivers: list[Driver]
 
+class PillarEvidence(BaseModel):        # synthetic boilerplate behind a pillar
+    observation: str                    # a data point or observation
+    source: str                         # where it comes from (fictional desk work or a filing)
+
 class Pillar(BaseModel):
     id: str                             # e.g. "NVDA.p1"
     statement: str
     wrong_if: str
     driver_ids: list[str]
+    summary: str = ""                   # a few sentences of reasoning behind the statement
+    evidence: list[PillarEvidence] = []
 
 class Thesis(BaseModel):                # data/seed/theses.json
     ticker: Ticker
-    stance: Literal["long", "short"]
+    stance: Literal["long", "short"]    # the desk's view
     size_bps: int
     conviction: Literal[1, 2, 3, 4, 5]
     pillars: list[Pillar]
+    summary: str = ""                   # the thesis in a short paragraph
+    street_view: StreetView = "hold"    # the street's consensus rating
+    street_view_note: str = ""          # one sentence: where the street sits versus the desk
+    street_target_price: float | None = None  # the street's consensus target, USD per share (synthetic)
 
 class Link(BaseModel):                  # data/seed/links.json
     from_ticker: Ticker                 # a claim about this company...
@@ -1098,7 +1118,7 @@ The loader does five things, in order:
 
 1. Splits each row into an Email and an EmailLabel.
 2. Normalizes label spellings, using the table below. Version 3 of the prompt removes these inconsistencies; the table stays as a safety net.
-3. Checks that IDs increase in file order, and assigns each row a `received_at` in that order within its day.
+3. Takes file order as arrival order, assigning each row a `received_at` in that order within its day, and checks that every `email_id` is unique (IDs are identifiers only and need not increase).
 4. Validates every row against the schema and lists failures for hand fixing.
 5. Prints a distribution report against the prompt's targets.
 
@@ -1156,8 +1176,8 @@ The whole application is Python, including the UI. Pages are rendered on the ser
 | Subject matching | Token-set similarity, for example with rapidfuzz | A second signal beside content similarity; fast and local |
 | Content similarity | A Hugging Face embedding model, pulled from the Hub with `huggingface-hub` and run locally with `sentence-transformers` (default `BAAI/bge-small-en-v1.5`), in `triage_app/embed.py`; long emails chunked to its input limit; cosine similarity in NumPy | Every email is embedded; no vector database, and no API key for embeddings |
 | Model access | Every generative call goes through OpenRouter, in `triage_app/llm.py`; Jev keeps its own TypeSafe client | One key and one client for every generative model |
-| Analysis model | Claude Haiku 5.5 for extraction, the analysis agent and verify (OpenRouter `anthropic/claude-haiku-5.5`), the cheapest Claude model | Model IDs come only from `.env` |
-| Attention notes model | Claude Haiku 5.5 (OpenRouter `anthropic/claude-haiku-5.5`) | The cheapest Claude model; short summaries need no more |
+| Analysis model | Claude Sonnet 5.5 for extraction, the analysis agent and verify (OpenRouter `anthropic/claude-sonnet-5.5`) | Model IDs come only from `.env` |
+| Attention notes model | Claude Sonnet 5.5 (OpenRouter `anthropic/claude-sonnet-5.5`) | Notes must read the opportunity for the desk, which needs the stronger model |
 | Skills | One prompt file and one DSPy module per skill, registered with the analysis agent | A new investment question is a new file, not a longer prompt |
 | Web | FastAPI with Jinja templates and HTMX | Server-rendered pages; one process to deploy |
 | Storage | JSON and text files in the repo; accepted changes in server memory, keyed by a session cookie | No database; every visitor starts clean, and a restart clears sessions |
@@ -1432,8 +1452,8 @@ The coding agent uses each default below until told otherwise.
 | 3 | What do the criteria files start with? | The prompt's definition for each label and no more than four starter rules. Further rules are added through the criteria check. |
 | 4 | Is the rule-proposal prompt used? | No. It shows tuning labels to a model, so new rules are written by hand unless the reviewer opts in. |
 | 5 | Which embedding model? | A Hugging Face model run locally, named by `EMBEDDING_MODEL` in `.env`; default `BAAI/bge-small-en-v1.5`. |
-| 6 | Which model writes attention notes? | Claude Haiku 5.5, through OpenRouter (the cheapest Claude model). |
-| 7 | Which model runs extraction and the analysis agent? | Claude Haiku 5.5, through OpenRouter (the cheapest Claude model). |
+| 6 | Which model writes attention notes? | Claude Sonnet 5.5, through OpenRouter. |
+| 7 | Which model runs extraction and the analysis agent? | Claude Sonnet 5.5, through OpenRouter. |
 | 8 | Are two skills enough for the prototype? | Yes: alter an existing thesis, and spawn a new thesis. |
 | 9 | Which trading dates does the corpus use? | `day_1` is Tuesday, Oct 13, 2026, `day_2` is Wednesday, Oct 14, 2026, and the tuning set is Thursday, Oct 15, 2026. |
 | 10 | How deep is the model? | 23 drivers, one forward year, four formulas. |
