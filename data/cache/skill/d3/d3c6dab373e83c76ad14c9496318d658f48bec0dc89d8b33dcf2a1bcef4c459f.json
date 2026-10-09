@@ -1,1 +1,0 @@
-{"estimated": false, "input_tokens": 6943, "output_tokens": 138, "value": {"input_tokens": 6943, "model": "anthropic/claude-haiku-5.5", "output_tokens": 138, "text": "```json\n{\"result\": {\"suggestions\": [], \"no_change_reason\": \"Both claims state figures for 2027, while the book models FY2026, so neither qualifies as a stated projection for the modeled year.\"}}\n```"}}
