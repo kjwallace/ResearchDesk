@@ -44,6 +44,8 @@ NEW_THESIS_DUPLICATE = 0.8        # fixed  cosine at which a new thesis duplicat
 NEW_THESIS_MERGE = 0.8            # fixed  cosine at which two new-thesis candidates merge
 MIN_PILLAR_RELEVANCE = 0.7        # fixed  existing-thesis suggestions the skill rates less relevant than this are rejected
 MAX_THESIS_SUGGESTIONS_PER_EMAIL = 2  # fixed  most existing-thesis suggestions one email may raise (most relevant kept)
+PILLAR_EVIDENCE_IN_PROMPT = 3     # fixed  evidence items per pillar the existing-thesis skill sees
+PROJECTION_DISPLAY_DECIMALS = 2   # fixed  rounding of the book's projections shown to the projections skill
 PROJECTION_MAX_GAP = 0.5          # fixed  a stated projection more than this share away from the book's is rejected
                                   #        as implausible (usually a different basis, unit or period)
 

@@ -5,20 +5,30 @@ fixed order, and the first rule that rejects ends the check:
 
 1. Unknown item (reject): a claim ID that is not one of the email's claims; a section
    quoting another email; a pillar outside the candidate set recomputed from the claims'
-   tickers plus the pillars links.json ties to them; a new thesis on a ticker outside
-   the claims' tickers; a new pillar naming a driver that is not its own company's.
+   tickers plus the pillars links.json ties to them; a new thesis or a projection on a
+   ticker outside the claims' tickers; a new pillar naming a driver that is not its own
+   company's; a projection on a ticker the book does not model, or on a metric that is
+   neither a driver of that company nor revenue, operating_income, eps or target_price.
 2. Quote mismatch (reject): a section not found verbatim in the email body (`quote_in`).
-3. Duplicate thesis (reject): a new-thesis statement whose cosine with any existing
+3. Weak match (reject): an existing-thesis suggestion whose relevance is below
+   `thresholds.MIN_PILLAR_RELEVANCE`.
+4. Duplicate thesis (reject): a new-thesis statement whose cosine with any existing
    pillar statement reaches `thresholds.NEW_THESIS_DUPLICATE` (stage 2 embedding model).
-4. Monitor only: every linked email is labeled monitor. Strength becomes 1; a new-thesis
-   candidate is rejected.
-5. Out of bounds (keep, drop the figure): a stated value outside the driver's bounds, or
+5. Projection checks (reject), in this order: the period is not exactly the company's
+   modeled fiscal year; the stated number is not written in any of its claims' quotes;
+   the stated value is more than `thresholds.PROJECTION_MAX_GAP` of the book's value away
+   from it ("implausible"; skipped when the book's value is zero); a driver figure outside
+   the driver's bounds.
+6. Monitor only: every linked email is labeled monitor. An existing thesis's strength
+   becomes 1; a new-thesis candidate is rejected; a projection is kept as it is.
+7. Out of bounds (keep, drop the figure): a stated value outside the driver's bounds, or
    a driver the pillar is not linked to.
-6. Figure not stated (keep, drop the figure): no claim of the suggestion states the figure
+8. Figure not stated (keep, drop the figure): no claim of the suggestion states the figure
    for exactly the company's modeled fiscal year with the number itself in the claim's
    quote. Value and period are model output; the quote is checked text, so a number the
    email never states cannot reach the analyst.
-7. Second look (keep, mark): no linked email is labeled thesis_relevant or monitor.
+9. Second look (keep, mark): no linked email is labeled thesis_relevant or monitor. This
+   applies to every kind.
 
 A rejected suggestion keeps everything it had, with status "rejected" and a one-line
 `reject_reason`.
@@ -46,8 +56,10 @@ from triage_app.schema import (
     LinkedAssumption,
     NewThesis,
     Pillar,
+    ProjectionChange,
     Suggestion,
 )
+from triage_app.state.compute import metric_value
 from triage_app.state.fold import Seed, load_seed
 
 STAGE = "validate"
@@ -127,6 +139,14 @@ def _check_unknown(suggestion: Suggestion, email_id: str, inputs: ValidationInpu
         for driver_id in body.driver_ids:
             if driver_id not in own:
                 raise Rejected(f"unknown item: driver {driver_id} is not a driver of {body.ticker}")
+    elif isinstance(body, ProjectionChange):
+        model = inputs.models.get(body.ticker)
+        if model is None:
+            raise Rejected(f"unknown item: the book does not model {body.ticker}")
+        if body.ticker not in tickers:
+            raise Rejected(f"unknown item: projection on {body.ticker}, outside the claims' tickers")
+        if metric_value(model, body.metric, "analyst") is None:
+            raise Rejected(f"unknown item: {body.metric} is not a projection metric of {body.ticker}")
     else:
         raise Rejected(f"unknown item: stage 6 does not raise {body.kind}")
 
@@ -170,14 +190,40 @@ def _figure_stated(a: LinkedAssumption, claims: list[Claim], model: CompanyModel
                for c in claims)
 
 
+def _check_relevance(body: ExistingThesis) -> None:
+    if body.relevance < thresholds.MIN_PILLAR_RELEVANCE:
+        raise Rejected(f"weak match: relevance {body.relevance:g} below {thresholds.MIN_PILLAR_RELEVANCE:g}")
+
+
+def _check_projection(body: ProjectionChange, claims: list[Claim], model: CompanyModel) -> None:
+    if body.period != model.fiscal_year:
+        raise Rejected(f"wrong period: {body.period} is not {body.ticker}'s modeled year {model.fiscal_year}")
+    if not any(math.isclose(n, abs(body.stated_value)) for c in claims for n in numbers_in(c.quote)):
+        raise Rejected(f"figure not stated: {body.stated_value:g} is not written in the claims' quotes")
+    book = metric_value(model, body.metric, "analyst")
+    if book:  # a zero book value gives no share to compare with
+        gap = abs(body.stated_value - book) / abs(book)
+        if gap > thresholds.PROJECTION_MAX_GAP:
+            raise Rejected(f"implausible: {body.stated_value:g} is {gap:.0%} away from the book's {book:.4g} "
+                           f"(more than {thresholds.PROJECTION_MAX_GAP:.0%})")
+    driver = next((d for d in model.drivers if d.id == body.metric), None)
+    if driver is not None and not driver.min <= body.stated_value <= driver.max:
+        raise Rejected(f"out of bounds: {body.stated_value:g} is outside {driver.id}'s bounds "
+                       f"({driver.min:g} to {driver.max:g})")
+
+
 def check(suggestion: Suggestion, ctx: RunContext, inputs: ValidationInputs) -> Suggestion:
-    """Apply rules 1 to 7 in order; raises Rejected at the first rule that rejects."""
+    """Apply rules 1 to 9 in order; raises Rejected at the first rule that rejects."""
     email_id = email_of(suggestion.id)
     _check_unknown(suggestion, email_id, inputs)
     _check_quotes(suggestion, inputs)
     body = suggestion.body
+    if isinstance(body, ExistingThesis):
+        _check_relevance(body)
     if isinstance(body, NewThesis):
         _check_duplicate(body, inputs, ctx)
+    if isinstance(body, ProjectionChange):
+        _check_projection(body, [inputs.claims[c] for c in suggestion.claim_ids], inputs.models[body.ticker])
     monitor_only = all(_label(inputs.results, e) == "monitor" for e in linked_emails(suggestion))
     if isinstance(body, NewThesis):
         if monitor_only:

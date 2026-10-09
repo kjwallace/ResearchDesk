@@ -43,28 +43,35 @@ def step(tool: str, **args: Any) -> dict[str, Any]:
 
 
 def existing(pillar: str, *claim_ids: str, email: str = "fixture_001", quote: str = MSFT_Q1,
-             assumptions: list[dict[str, Any]] | None = None, strength: int = 2) -> dict[str, Any]:
-    return {"kind": "existing_thesis", "pillar_id": pillar, "stance": "supports", "strength": strength,
-            "wrong_if_met": False, "assumptions": assumptions or [], "rationale": f"Bears on {pillar}.",
-            "claim_ids": list(claim_ids), "sections": [{"email_id": email, "quote": quote}]}
+             assumptions: list[dict[str, Any]] | None = None, strength: int = 2,
+             relevance: float = 0.9, stance: str = "supports") -> dict[str, Any]:
+    return {"kind": "existing_thesis", "pillar_id": pillar, "stance": stance, "strength": strength,
+            "relevance": relevance, "wrong_if_met": False, "assumptions": assumptions or [],
+            "rationale": f"Bears on {pillar}.", "claim_ids": list(claim_ids),
+            "sections": [{"email_id": email, "quote": quote}]}
+
+
+# Each skill is recognized by an input field only its signature has, never by its prompt file's wording.
+SKILL_FIELDS = {"alter": "`theses`", "spawn": "`existing_pillars`", "project": "`companies`"}
 
 
 class Script:
     """Routes each model call by its system prompt: agent steps, skill replies, final summary."""
 
     def __init__(self, steps: list[dict[str, Any]], alter: list[dict[str, Any]] | None = None,
-                 spawn: list[dict[str, Any]] | None = None, summary: str = "Done.") -> None:
-        self.steps, self.alter, self.spawn, self.summary = steps, alter or [], spawn or [], summary
-        self.seen: dict[str, list[str]] = {"agent": [], "alter": [], "spawn": [], "extract": []}
+                 spawn: list[dict[str, Any]] | None = None, summary: str = "Done.",
+                 project: list[dict[str, Any]] | None = None) -> None:
+        self.steps, self.summary = steps, summary
+        self.replies = {"alter": alter or [], "spawn": spawn or [], "project": project or []}
+        self.seen: dict[str, list[str]] = {"agent": [], "alter": [], "spawn": [], "project": [], "extract": []}
 
     def __call__(self, messages: list[Message]) -> str:
         system, full = messages[0].content, "\n".join(m.content for m in messages)
-        if "# Skill: Alter an existing thesis" in system:
-            self.seen["alter"].append(full)
-            return json.dumps({"result": self.alter.pop(0)})
-        if "# Skill: Spawn a new thesis" in system:
-            self.seen["spawn"].append(full)
-            return json.dumps({"result": self.spawn.pop(0)})
+        if "next_tool_name" not in system:
+            for skill, marker in SKILL_FIELDS.items():
+                if marker in system:
+                    self.seen[skill].append(full)
+                    return json.dumps({"result": self.replies[skill].pop(0)})
         if "next_tool_name" in system:
             self.seen["agent"].append(full)
             return json.dumps(self.steps.pop(0) if self.steps else step("finish"))
@@ -184,20 +191,20 @@ def test_no_change_reason_is_last_skills_reason() -> None:
 
 
 def test_no_skill_called_uses_agent_final_text() -> None:
-    script = Script([step("finish")], summary="No skill applies: the claims concern no book company.")
+    script = Script([step("finish")], summary="No change: the claims concern no company in the book.")
     record, made, _ = run_one(script)
     assert record.skills_called == [] and made == []
-    assert record.no_change_reason == "No skill applies: the claims concern no book company."
+    assert record.no_change_reason == "No change: the claims concern no company in the book."
 
 
 def test_bad_tool_arguments_do_not_count_as_a_skill_call() -> None:
     steps = [step("spawn_new_thesis", claim_ids=["fixture_009.c1"], ticker="AAPL"),   # ticker not in claims
              step("alter_existing_thesis", claim_ids=["other_email.c1"]),             # not this email's claim
              step("finish")]
-    script = Script(steps, summary="No skill applies: nothing fits.")
+    script = Script(steps, summary="No change: the claims do not bear directly on any pillar or stated projection.")
     record, _, _ = run_one(script, "fixture_009")
     assert record.skills_called == [] and script.seen["spawn"] == [] and script.seen["alter"] == []
-    assert record.no_change_reason == "No skill applies: nothing fits."
+    assert record.no_change_reason == "No change: the claims do not bear directly on any pillar or stated projection."
 
 
 # ---- Building suggestions ----
@@ -238,7 +245,7 @@ def test_run_on_fixtures_writes_valid_files(tmp_path: Path) -> None:
 
     def answer(messages: list[Message]) -> str:
         system, user = messages[0].content, messages[-1].content
-        if "# Skill: Alter" in system:
+        if "`theses`" in system and "next_tool_name" not in system:
             claims = json.loads(user.split("[[ ## claims ## ]]")[1].split("[[ ##")[0]) if "[[ ## claims" in user else []
             if claims:
                 c = claims[0]
@@ -250,7 +257,7 @@ def test_run_on_fixtures_writes_valid_files(tmp_path: Path) -> None:
                 return json.dumps(step("finish"))
             ids = [c["id"] for c in json.loads(user.split("[[ ## claims ## ]]")[1].split("[[ ##")[0])]
             return json.dumps(step("alter_existing_thesis", claim_ids=ids))
-        return json.dumps({"reasoning": "", "summary": "No skill applies."})
+        return json.dumps({"reasoning": "", "summary": "No change: nothing in the book is affected."})
 
     chat = FakeChat(answer)
     analyze.run(tmp_path, tmp_path, RunContext(corpus_set="day_1", chat=chat, use_cache=False, emails_path=FIXTURE_EMAILS))
@@ -291,10 +298,108 @@ def test_one_failing_email_does_not_abort_the_stage(tmp_path: Path) -> None:
             raise RuntimeError("provider error")
         if "next_tool_name" in messages[0].content:
             return json.dumps(step("finish"))
-        return json.dumps({"reasoning": "", "summary": "No skill applies."})
+        return json.dumps({"reasoning": "", "summary": "No change: nothing in the book is affected."})
 
     analyze.run(tmp_path, tmp_path, RunContext(corpus_set="day_1", chat=FakeChat(answer), use_cache=False,
                                                emails_path=FIXTURE_EMAILS))
     records = {r.email_id: r for r in read_list(tmp_path / "analysis.json", AnalysisRecord)}
     assert records["fixture_001"].no_change_reason == "analysis failed: RuntimeError"
     assert len(records) == len({r.email_id for r in read_list(OUT / "results.json", EmailResult) if r.gate == "pass"})
+
+
+# ---- Existing-thesis view, stance "none" and the per-email cap ----
+
+def test_existing_skill_sees_street_view_pillar_summary_and_evidence() -> None:
+    from triage_app.schema import PillarEvidence
+
+    msft = BOOK.theses["MSFT"]
+    pillars = [p.model_copy(update={"summary": "Azure takes share of AI workloads.",
+                                    "evidence": [PillarEvidence(observation="Reseller checks up.", source="desk")]})
+               if p.id == "MSFT.p1" else p for p in msft.pillars]
+    thesis = msft.model_copy(update={"street_view": "buy", "street_view_note": "The street agrees.",
+                                     "pillars": pillars})
+    book = BOOK.model_copy(update={"theses": {**BOOK.theses, "MSFT": thesis}})
+    script = Script([step("alter_existing_thesis", claim_ids=["fixture_001.c1"])],
+                    alter=[{"suggestions": [], "no_change_reason": "Nothing bears."}])
+    chat = FakeChat(script)
+    ctx = RunContext(corpus_set="day_1", chat=chat, use_cache=False, emails_path=FIXTURE_EMAILS)
+    analyze.process("fixture_001", claims_of("fixture_001"), result_of("fixture_001"), ctx, book=book)
+    prompt = script.seen["alter"][0]
+    assert '"street_view": "buy"' in prompt and "The street agrees." in prompt
+    assert "Azure takes share of AI workloads." in prompt and "Reseller checks up." in prompt
+    assert "size_bps" not in prompt and "conviction" not in prompt
+
+
+def test_none_stance_drafts_are_dropped() -> None:
+    script = Script([step("alter_existing_thesis", claim_ids=["fixture_001.c1"])],
+                    alter=[{"suggestions": [existing("MSFT.p2", "fixture_001.c1", stance="none"),
+                                            existing("NVDA.p1", "fixture_001.c1", stance="none")]}])
+    dropped = analyze.Collected()
+    chat = FakeChat(script)
+    ctx = RunContext(corpus_set="day_1", chat=chat, use_cache=False, emails_path=FIXTURE_EMAILS)
+    record, made = analyze.process("fixture_001", claims_of("fixture_001"), result_of("fixture_001"), ctx,
+                                   book=BOOK, dropped=dropped)
+    assert made == [] and dropped.no_bearing == 2
+    assert record.no_change_reason == analyze.NO_BEARING
+
+
+def test_per_email_cap_keeps_the_most_relevant() -> None:
+    drafts = [existing("MSFT.p1", "fixture_001.c1", relevance=0.8),
+              existing("MSFT.p2", "fixture_001.c1", relevance=0.95),
+              existing("MSFT.p3", "fixture_001.c1", relevance=0.9, stance="contradicts"),
+              existing("NVDA.p1", "fixture_001.c1", stance="none")]
+    script = Script([step("alter_existing_thesis", claim_ids=["fixture_001.c1"])], alter=[{"suggestions": drafts}])
+    _, made, _ = run_one(script)
+    assert thresholds.MAX_THESIS_SUGGESTIONS_PER_EMAIL == 2
+    bodies = [s.body for s in made]
+    assert [(b.pillar_id, b.relevance) for b in bodies if isinstance(b, ExistingThesis)] == [
+        ("MSFT.p2", 0.95), ("MSFT.p3", 0.9)]                     # call order kept among the kept
+    assert [s.id for s in made] == ["fixture_001.s1", "fixture_001.s2"]
+
+
+def test_relevance_and_street_view_shift_carried_into_the_suggestion() -> None:
+    draft = existing("MSFT.p1", "fixture_001.c1", relevance=0.85)
+    draft.update(street_view_shift="toward_buy", street_view_note="Analysts raised targets.")
+    script = Script([step("alter_existing_thesis", claim_ids=["fixture_001.c1"])], alter=[{"suggestions": [draft]}])
+    _, made, _ = run_one(script)
+    body = made[0].body
+    assert isinstance(body, ExistingThesis)
+    assert (body.relevance, body.street_view_shift, body.street_view_note) == (
+        0.85, "toward_buy", "Analysts raised targets.")
+    Suggestion.model_validate(made[0].model_dump())
+
+
+# ---- The third tool ----
+
+def test_projection_tool_is_built_in_when_the_tools_file_lacks_it(tmp_path: Path) -> None:
+    from triage_app.modules import analysis_agent
+
+    two = [d for d in json.loads(analysis_agent.TOOLS_PATH.read_text()) if d["name"] != "revise_projections"]
+    path = tmp_path / "analysis_agent.json"
+    path.write_text(json.dumps(two))
+    defs = analysis_agent.load_tool_defs(path)
+    assert [d["name"] for d in defs] == ["alter_existing_thesis", "spawn_new_thesis", "revise_projections"]
+    spec = defs[-1]
+    assert set(spec["input_schema"]["properties"]) == {"claim_ids", "ticker"}
+    assert spec["input_schema"]["required"] == ["claim_ids", "ticker"]
+
+
+def test_projection_tool_counts_toward_the_call_limit() -> None:
+    steps = [step("revise_projections", claim_ids=["fixture_001.c1"], ticker="MSFT") for _ in range(5)]
+    script = Script(steps, project=[{"suggestions": [], "no_change_reason": f"Reason {i}."} for i in range(5)])
+    record, made, _ = run_one(script)
+    assert record.skills_called == ["projection_change"] * thresholds.SKILL_CALLS_PER_EMAIL
+    assert len(script.seen["project"]) == thresholds.SKILL_CALLS_PER_EMAIL
+    assert made == [] and record.no_change_reason == "Reason 2."
+
+
+def test_mixed_skills_share_one_call_budget() -> None:
+    steps = [step("alter_existing_thesis", claim_ids=["fixture_001.c1"]),
+             step("revise_projections", claim_ids=["fixture_001.c1"], ticker="MSFT"),
+             step("spawn_new_thesis", claim_ids=["fixture_001.c1"], ticker="MSFT"),
+             step("revise_projections", claim_ids=["fixture_001.c1"], ticker="MSFT")]
+    no = {"suggestions": [], "no_change_reason": "No."}
+    script = Script(steps, alter=[no], spawn=[no], project=[no, no])
+    record, _, _ = run_one(script)
+    assert record.skills_called == ["existing_thesis", "projection_change", "new_thesis"]
+    assert len(script.seen["project"]) == 1

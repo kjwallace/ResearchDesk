@@ -52,7 +52,7 @@ def next_entry_id(log: list[LogEntry]) -> str:
 def accepted_ids(log: list[LogEntry]) -> set[str]:
     """Suggestion IDs with an accept still in effect."""
     return {e.suggestion_id for e in effective_entries(log)
-            if e.change in ("pillar_evidence", "pillar_added")}
+            if e.suggestion_id and e.change in ("pillar_evidence", "pillar_added", "driver_updated", "projection_noted")}
 
 
 def status_of(suggestion: Suggestion, log: list[LogEntry], dismissed: Iterable[str]) -> Status:

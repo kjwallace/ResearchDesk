@@ -197,3 +197,18 @@ def test_figure_whose_number_is_not_in_the_quote_is_dropped(ctx: RunContext,
 
 def test_numbers_in_reads_separators_and_signs() -> None:
     assert validate.numbers_in("capex of $4,500m, up -2.5% to 31.0%") == [4500.0, 2.5, 31.0]
+
+
+def test_weak_match_rejected(ctx: RunContext, inputs: validate.ValidationInputs) -> None:
+    from triage_app import thresholds
+
+    out = check(with_body(raw()["fixture_001.s1"], relevance=0.5), ctx, inputs)
+    assert out.status == "rejected"
+    assert out.reject_reason == f"weak match: relevance 0.5 below {thresholds.MIN_PILLAR_RELEVANCE:g}"
+    at_threshold = with_body(raw()["fixture_001.s1"], relevance=thresholds.MIN_PILLAR_RELEVANCE)
+    assert check(at_threshold, ctx, inputs).status == "open"
+
+
+def test_quote_mismatch_reported_before_weak_match(ctx: RunContext, inputs: validate.ValidationInputs) -> None:
+    out = check(with_body(raw()["fixture_001.s2"], relevance=0.1), ctx, inputs)
+    assert (out.reject_reason or "").startswith("quote mismatch")
