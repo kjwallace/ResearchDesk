@@ -8,7 +8,7 @@ This repo is a **build-from-spec case study**. `SPEC.md` is the source of truth:
 
 Python is 3.14 (`.python-version`). In `.env`, the `LLM_*` variables and `EMBEDDING_PROVIDER`/`EMBEDDING_DIM` are leftovers from an earlier prototype and unused.
 
-Read `SPEC.md` **in full** before changing behaviour (about 1,400 lines; do not work from a summary). Subagent briefs are in `transcripts/briefs/`; the common rules in `_common.md` apply to any new work.
+Read `SPEC.md` **in full** before changing behaviour (about 1,400 lines; do not work from a summary). Subagent briefs are in `AI_transcripts/agent_transcripts/briefs/`; the common rules in `_common.md` apply to any new work.
 
 ## Commands (as the spec defines them, to implement under these exact names)
 
@@ -50,7 +50,7 @@ Corpus generation scripts (already run, they produced the existing corpus): `scr
 - A quarantined email's body reaches no later model and no screen (sender and subject only).
 - Criteria files: label definitions are fixed (from the corpus prompt). Add rules only, at most 12 per file, one sentence each. No pillar or driver IDs and no views (the loader must fail if one appears).
 - Tune only on the tuning set and never on test. Never edit the corpus or the corpus prompt to make a score pass.
-- Every generated draft (seed numbers, criteria, skills, instructions, tools) is committed and listed in `REVIEW.md`. Spec-silent choices go in `DECISIONS.md`. Session and subagent transcripts go in `transcripts/` (they are a deliverable).
+- Every generated draft (seed numbers, criteria, skills, instructions, tools) is committed and listed in `REVIEW.md`. Spec-silent choices go in `DECISIONS.md`. Session and subagent transcripts go in `AI_transcripts/` (subagent briefs, generation logs and transcripts in `AI_transcripts/agent_transcripts/`) (they are a deliverable).
 - Every screen is labeled synthetic. The system never sends mail. Never commit or log API keys.
 
 ## Corpus and keys
