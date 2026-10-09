@@ -9,21 +9,6 @@
 {%- else %}{% set first_href = '' %}{% endif -%}
 
 
-{% if alerts %}
-<div class="alerts" id="alerts">
-  <div class="eyebrow">{{ icon('alert') }}Alerts <span class="badge">{{ alerts | length }}</span></div>
-  <ul>
-  {% for a in alerts %}
-    <li>
-    {% if a.kind == 'human_attention' %}<span class="pill attention">Attention required</span> {{ email_link(v, a.ref_id) }}
-    {% elif a.kind == 'wrong_if_met' %}<span class="pill contradicts">Pillar at risk</span> <a href="/suggestion/{{ a.ref_id }}">{{ a.ref_id | ref }}</a>
-    {% else %}<span class="pill second">Conviction review</span> <a href="/suggestion/{{ a.ref_id }}">{{ a.ref_id | ref }}</a>{% endif %}
-    </li>
-  {% endfor %}
-  </ul>
-</div>
-{% endif %}
-
 <div class="split">
 <section aria-label="Brief items" data-list>
   <div class="subtabs">
@@ -35,33 +20,34 @@
     <div class="list-head"><span>Today's brief</span><span class="muted">Ordered by position size, then strength</span></div>
 
     {% if reviews %}
-    <details class="group" open><summary>{{ icon('chev') }}<h2>Conviction reviews</h2><span class="badge">{{ reviews | length }}</span></summary>
+    <section class="group" aria-label="Conviction reviews"><h2 class="group-head">Conviction reviews<span class="badge">{{ reviews | length }}</span></h2>
       {% for s in reviews %}{{ suggestion_row(v, s, sizes) }}{% endfor %}
-    </details>
+    </section>
     {% endif %}
 
     {% macro groups(items) %}
       {% for group in items %}
-        {% if group | length > 1 %}<div class="pair"><div class="pair-note">Two stances on one pillar; neither is preselected.</div>{% endif %}
+        {% if group | length > 1 %}<div class="pair"><div class="pair-note conflict"><span>{{ icon('alert') }}Contradicting: one email supports this pillar and another contradicts it.</span>
+          <a href="/compare/{{ group[0].body.pillar_id }}" hx-get="/compare/{{ group[0].body.pillar_id }}" hx-select="#detail" hx-target="#pane" hx-swap="innerHTML">Compare side by side</a></div>{% endif %}
         {% for s in group %}{{ suggestion_row(v, s, sizes) }}{% endfor %}
         {% if group | length > 1 %}</div>{% endif %}
       {% else %}<div class="empty">None today.</div>{% endfor %}
     {% endmacro %}
 
-    <details class="group" open><summary>{{ icon('chev') }}<h2>Suggested thesis changes</h2><span class="badge">{{ thesis_changes | map('length') | sum }}</span></summary>
+    <section class="group" aria-label="Suggested thesis changes"><h2 class="group-head">Suggested thesis changes<span class="badge">{{ thesis_changes | map('length') | sum }}</span></h2>
       {{ groups(thesis_changes) }}
-    </details>
-    <details class="group" open><summary>{{ icon('chev') }}<h2>Projection changes</h2><span class="badge">{{ projection_changes | map('length') | sum }}</span></summary>
+    </section>
+    <section class="group" aria-label="Projection changes"><h2 class="group-head">Projection changes<span class="badge">{{ projection_changes | map('length') | sum }}</span></h2>
       {{ groups(projection_changes) }}
-    </details>
-    <details class="group" open><summary>{{ icon('chev') }}<h2>New thesis candidates</h2><span class="badge">{{ new_theses | map('length') | sum }}</span></summary>
+    </section>
+    <section class="group" aria-label="New thesis candidates"><h2 class="group-head">New thesis candidates<span class="badge">{{ new_theses | map('length') | sum }}</span></h2>
       {{ groups(new_theses) }}
-    </details>
-    <details class="group" open><summary>{{ icon('chev') }}<h2>Worth watching</h2><span class="badge">{{ worth_watching | map('length') | sum }}</span></summary>
+    </section>
+    <section class="group" aria-label="Worth watching"><h2 class="group-head">Worth watching<span class="badge">{{ worth_watching | map('length') | sum }}</span></h2>
       {{ groups(worth_watching) }}
-    </details>
+    </section>
 
-    <details class="group" open><summary>{{ icon('chev') }}<h2>Needs your attention</h2><span class="badge">{{ brief.needs_attention | reject('in', v.sess.handled) | list | length }}</span></summary>
+    <section class="group" aria-label="Needs your attention"><h2 class="group-head">Needs your attention<span class="badge">{{ brief.needs_attention | reject('in', v.sess.handled) | list | length }}</span></h2>
       {% if brief.needs_attention %}<div class="pair-note" style="color:var(--ink-2);background:var(--sunken)"><a href="/attention">Open them by deadline, with who is asking, in Needs attention →</a></div>{% endif %}
       {% for eid in brief.needs_attention if eid not in v.sess.handled %}
         {% set e = v.email(eid) %}{% set n = v.data.notes.get(eid) %}{% set t = v.data.triage.get(eid) %}
@@ -72,9 +58,9 @@
         {% endcall %}
         {% endif %}
       {% else %}<div class="empty">No emails require attention today.</div>{% endfor %}
-    </details>
+    </section>
 
-    <details class="group" {% if brief.relevant_unlinked | length <= 12 %}open{% endif %}><summary>{{ icon('chev') }}<h2>Relevant with no link to your book</h2><span class="badge">{{ brief.relevant_unlinked | length }}</span></summary>
+    <section class="group" aria-label="Relevant with no link to your book"><h2 class="group-head">Relevant with no link to your book<span class="badge">{{ brief.relevant_unlinked | length }}</span></h2>
       {% for eid in brief.relevant_unlinked %}
         {% set e = v.email(eid) %}
         {% if e %}
@@ -84,16 +70,16 @@
         {% endcall %}
         {% endif %}
       {% else %}<div class="empty">None.</div>{% endfor %}
-    </details>
+    </section>
 
     {% if extras or v.sess.notes %}
-    <details class="group" open><summary>{{ icon('chev') }}<h2>Added in this session</h2><span class="badge">{{ extras | length + v.sess.notes | length }}</span></summary>
+    <section class="group" aria-label="Added in this session"><h2 class="group-head">Added in this session<span class="badge">{{ extras | length + v.sess.notes | length }}</span></h2>
       <div class="pair-note" style="color:var(--muted);background:var(--sunken)">From the live route and "this mattered".</div>
       {% for s in extras %}{{ suggestion_row(v, s, sizes) }}{% endfor %}
       {% for eid, n in v.sess.notes.items() %}{% set e = v.email(eid) %}
         {% if e %}{% call email_row(v, e, snippet=n.summary) %}<span class="tag warn">{{ n.action | human }}</span>{% endcall %}{% endif %}
       {% endfor %}
-    </details>
+    </section>
     {% endif %}
 
     <div class="list-foot">

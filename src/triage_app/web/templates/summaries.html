@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% from "macros.html" import icon, ticker_mark %}
+{% block title %}Daily summaries{% endblock %}
+{% block content %}
+{%- set tone_name = {'positive': 'Constructive', 'negative': 'Cautious', 'mixed': 'Mixed'} -%}
+<div class="summ-top">
+  <div>
+    <div class="page-title"><h2>Daily summaries</h2><span class="chip">Synthetic</span></div>
+    <p class="small muted" style="margin:2px 0 0">What the day's emails said about each company.</p>
+  </div>
+  <div class="subtabs" style="margin:0">
+    {% for d in days %}<a href="/summaries?day={{ d }}" class="{{ 'on' if d == day.isoformat() else '' }}">{{ d[5:] | replace('-', '/') }}{% if d != loaded %} <span class="xs muted">(links need that day's data)</span>{% endif %}</a>{% endfor %}
+  </div>
+</div>
+
+{% if not summaries %}<div class="empty">No summaries have been written for this day.</div>{% endif %}
+
+<div class="summ-tiles" role="navigation" aria-label="Companies">
+{% for t in config.TICKERS if t in summaries %}{% set s = summaries[t] %}{% set th = v.thesis(t) %}
+  <a class="summ-tile {{ s.tone }}" href="#summary-{{ t }}">
+    <span class="tile-head">{{ ticker_mark(t) }}<b>{{ t }}</b>{% if th %}<span class="pill dot {{ th.stance }}">{{ th.stance | human }}</span>{% endif %}</span>
+    <span class="tone-line"><i class="tone-dot"></i>{{ tone_name[s.tone] }} · {{ s.points | length }} points</span>
+  </a>
+{% endfor %}
+</div>
+
+<div class="summ-grid">
+{% for t in config.TICKERS if t in summaries %}
+  {% set s = summaries[t] %}{% set th = v.thesis(t) %}
+  <article class="summ {{ s.tone }}" id="summary-{{ t }}">
+    <header class="summ-head">
+      {{ ticker_mark(t) }}
+      <div class="summ-title"><a href="/company/{{ t }}">{{ t }}</a>
+        <span class="xs muted">{% if th %}{{ th.stance | human }} · {{ position(t, th.size_bps) }} · {% endif %}{{ read.get(t, 0) }} emails read</span></div>
+      <span class="tone-tag {{ s.tone }}"><i class="tone-dot"></i>{{ tone_name[s.tone] }} day</span>
+    </header>
+    <p class="headline">{{ s.headline }}</p>
+    <ol class="summ-points">
+      {% for p in s.points %}
+      <li>
+        <p>{{ p.text }}</p>
+        <div class="summ-src">
+          {% for eid in p.email_ids if v.email(eid) and not v.quarantined(eid) %}{% set e = v.email(eid) %}
+            <a href="/email/{{ eid }}" title="{{ e.subject }}">{{ icon('mail') }}{{ e.sender.split(',')[-1].strip() | truncate(30, True, '…') }}</a>
+          {% endfor %}
+          {% if not p.email_ids | select('in', v.data.emails) | list %}<span class="xs muted">{{ p.email_ids | length }} source email{{ '' if p.email_ids | length == 1 else 's' }}</span>{% endif %}
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+    <div class="summ-watch">{{ icon('eye') }}<span><b>To watch</b> {{ s.watch }}</span></div>
+  </article>
+{% endfor %}
+</div>
+{% endblock %}

@@ -28,24 +28,6 @@
   </div>
   {% endif %}
 
-  {% if result %}
-  <div class="section">
-    <div class="eyebrow">Classification</div>
-    <dl class="kv">
-      <dt>Label</dt><dd>{{ label_pill(result.triage) }}</dd>
-      <dt>Analysis</dt><dd><span class="pill {{ result.gate }}">{{ 'Passed on' if result.gate == 'pass' else result.gate | human }}</span></dd>
-      {% if result.human_attention %}<dt>Attention required</dt><dd><span class="pill attention">Yes</span></dd>{% endif %}
-      {% if triage %}<dt>Email type</dt><dd><span class="tag">{{ triage.email_type | human }}</span></dd>{% endif %}
-      <dt>Companies</dt><dd>{% for t in result.affected_tickers %}<a class="tag" href="/company/{{ t }}">{{ t }}</a>{% else %}<span class="muted">None</span>{% endfor %}</dd>
-      <dt>Topics</dt><dd>{% for t in result.additional_labels %}<span class="tag soft">{{ t | human }}</span>{% else %}<span class="muted">None</span>{% endfor %}</dd>
-    </dl>
-    {% if redundancy and redundancy.flagged and redundancy.nearest %}<div class="callout warn"><div class="eyebrow">{{ icon('repeat') }}Possible repeat</div>
-      <p>Flagged as a possible repeat of {{ email_link(v, redundancy.nearest) }}.</p></div>{% endif %}
-    {% if no_change %}<div class="callout plain"><div class="eyebrow">No change to the book</div><p>{{ no_change | prose }}</p></div>{% endif %}
-    {{ scores(v, triage, result, redundancy) }}
-  </div>
-  {% endif %}
-
   {% if linked %}
   <div class="section">
     <div class="eyebrow">{{ icon('link') }}Suggestions citing this email</div>

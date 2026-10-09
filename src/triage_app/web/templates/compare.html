@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}{{ pillar_id | ref }}: contradicting evidence{% endblock %}
+{% block content %}
+<nav class="crumbs"><a href="/book">Book</a> / <a href="/company/{{ ticker }}">{{ ticker }}</a> / <span class="mono-id">{{ pillar_id | ref }}</span></nav>
+{% include "_compare.html" %}
+{% endblock %}

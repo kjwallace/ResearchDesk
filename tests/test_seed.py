@@ -160,3 +160,22 @@ def test_10k_citations_use_only_base_figures() -> None:
                     continue
                 for amount in re.findall(r"\$([\d,]+(?:\.\d+)?)\s*bn", e.observation):
                     assert float(amount.replace(",", "")) in figures, (p.id, amount)
+
+
+def test_model_bases_match_filings_and_stance_matches_estimates() -> None:
+    import json
+    from triage_app.config import SEED_DIR
+    from triage_app.state.compute import compute
+    from triage_app.state.fold import load_seed
+
+    base = json.loads((SEED_DIR / "base_figures.json").read_text())
+    seed = load_seed()
+    models = {m.ticker: m for m in seed.models}
+    for m in seed.models:
+        b = base[m.ticker]
+        assert {x.driver_id: x.base_revenue_usd_bn for x in m.revenue_lines} == b["revenue_lines"]
+        assert (m.tax_rate, m.diluted_shares_bn) == (b["tax_rate"], b["diluted_shares_bn"])
+    for t in seed.theses:
+        c = compute(models[t.ticker])
+        assert (c["analyst"].eps > c["consensus"].eps) == (t.stance == "long"), t.ticker
+        assert {d for p in t.pillars for d in p.driver_ids} <= {d.id for d in models[t.ticker].drivers}

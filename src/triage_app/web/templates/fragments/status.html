@@ -2,3 +2,8 @@
   <div class="status-line"><span class="pill dot {{ status }}">{{ status | human }}</span> <span>{{ text }}.</span></div>
   {% for r in raised %}<div class="flash err" style="width:100%;margin-top:8px">Conviction review raised: <a href="/suggestion/{{ r.id }}" class="mono-id">{{ r.id | ref }}</a></div>{% endfor %}
 </div>
+{% if auto %}<div class="actions" id="actions-{{ auto.id | replace('.', '-') }}" hx-swap-oob="true">
+  <div class="status-line"><span class="pill dot dismissed">Dismissed</span> <span>Dismissed automatically because you accepted the contradicting suggestion. Undo the accept to restore it.</span></div>
+</div>{% endif %}
+{% if status != 'open' %}<div id="row-{{ s.id | replace('.', '-') }}" hx-swap-oob="delete"></div>{% endif %}
+{% if auto %}<div id="row-{{ auto.id | replace('.', '-') }}" hx-swap-oob="delete"></div>{% endif %}

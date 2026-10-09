@@ -17,6 +17,7 @@ Every generated file is committed as a draft and listed here before the pipeline
 | `instructions/verify_agent.md` | Prompt 05 via OpenRouter | Requires `sources: []` for `not_found`; `confirmed` must match any figure and period. | No |
 | `tools/analysis_agent.json` | Prompt 06 via OpenRouter; one lead edit (DECISIONS #23) | Descriptions say when not to call each tool. | No |
 | `tools/verify_agent.json` | Prompt 06 via OpenRouter | Three read-only tools; the `item_id` pattern accepts every seed ID. | No |
+| `data/seed/daily_summaries.json` | Written by Claude (Sonnet 5.5) in the UI session from the day_1 and day_2 emails; ten summaries, five per day | Each point against the emails it cites (some read from excerpts); that early or unconfirmed items are flagged as such; and that no point states a view for the desk. | No |
 
 ## Flags for the reviewer
 

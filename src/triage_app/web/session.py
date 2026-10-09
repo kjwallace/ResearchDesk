@@ -36,6 +36,7 @@ class SessionState:
     suggestions: dict[str, Suggestion] = field(default_factory=dict)
     claims: list[Claim] = field(default_factory=list)
     mattered: dict[str, str] = field(default_factory=dict)  # email ID to outcome line
+    auto_dismissed: dict[str, str] = field(default_factory=dict)  # suggestion dismissed because its opposite was accepted -> that accept
     handled: dict[str, str] = field(default_factory=dict)   # attention email ID to "responded" or "rejected"
 
     def reset(self) -> None:

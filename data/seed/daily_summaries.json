@@ -1,0 +1,521 @@
+{
+ "2026-10-13": {
+  "NVDA": {
+   "headline": "Two sell-side calls pull opposite ways on FY2027 demand, while supply checks and policy items add detail.",
+   "tone": "mixed",
+   "points": [
+    {
+     "text": "Tidewell raises FY2027 EPS to $6.55 (from $6.12) and the price target to $215 (from $200), citing larger and earlier HBM4 allocation and easing substrate lead times.",
+     "email_ids": [
+      "synthetic_000002"
+     ]
+    },
+    {
+     "text": "Ellery Crane downgrades to Hold with a $180 target (from $205): two hyperscaler contacts describe 1H27 accelerator budgets as flat, with custom ASIC tape-outs up about 60% year on year.",
+     "email_ids": [
+      "synthetic_000124"
+     ]
+    },
+    {
+     "text": "Supply looks to be improving: a former ODM rack-integration manager says GB300 rack yields recovered from about 70% over the summer to the high 80s by August.",
+     "email_ids": [
+      "synthetic_000018"
+     ]
+    },
+    {
+     "text": "A softer early read runs the other way on supply: two unconfirmed sources say glass-cloth allocation from December could stretch substrate lead times from about 6 to 9-10 weeks, with AI accelerator substrates served first.",
+     "email_ids": [
+      "synthetic_000112"
+     ]
+    },
+    {
+     "text": "Demand quality: GPU-backed credit spreads have widened about 60bp, with two issues pulled, which bears on non-hyperscaler buyers. September customs data show Southeast Asia server imports up sharply ahead of a pending U.S. diversion rule.",
+     "email_ids": [
+      "synthetic_000162",
+      "synthetic_000135"
+     ]
+    },
+    {
+     "text": "Policy: the EU inquiry has moved to structured information requests to accelerator customers and distributors, and location-verification language for accelerators is being discussed for the NDAA conference text but is not in either chamber's version.",
+     "email_ids": [
+      "synthetic_000105",
+      "synthetic_000265"
+     ]
+    },
+    {
+     "text": "Low weight: an options-flow alert and a promotional bullish primer add no new information.",
+     "email_ids": [
+      "synthetic_000189",
+      "synthetic_000153"
+     ]
+    }
+   ],
+   "watch": "Whether a second hyperscaler confirms flat 1H27 budgets; the pending diversion rule and NDAA conference text."
+  },
+  "MSFT": {
+   "headline": "Azure demand checks are strong, but capacity timing and softer Copilot and agent spending temper the read.",
+   "tone": "mixed",
+   "points": [
+    {
+     "text": "Azure demand: partner checks put September-quarter Azure consumption growth near 41% year on year, up from about 36% in June and above the roughly 37-38% the Street is described as using. Quota approvals are also coming faster, and federal September obligations to Microsoft rose 41% year on year, including a first agency-scale Copilot commitment.",
+     "email_ids": [
+      "synthetic_000027",
+      "synthetic_000042",
+      "synthetic_000127"
+     ]
+    },
+    {
+     "text": "Capacity timing is the counterweight. Quillon trims FY2027 Intelligent Cloud growth to 20.5% and lifts capex to $121bn, with four campuses slipping energization by one to two quarters, and cuts its target to $560 from $590. A separate early read says Rubin pilot racks bound for a Microsoft campus may slip.",
+     "email_ids": [
+      "synthetic_000045",
+      "synthetic_000071"
+     ]
+    },
+    {
+     "text": "Software spending tone is cautious: only 5 of 14 CIOs now call agent pilots expanding (10 of 14 in July), four advisory clients asked how to shrink Azure reserved-instance commitments, and an ex-Microsoft negotiator says some large Copilot renewals are being cut back.",
+     "email_ids": [
+      "synthetic_000076",
+      "synthetic_000229",
+      "synthetic_000041"
+     ]
+    },
+    {
+     "text": "Lease tone and custom silicon: a neocloud CEO says Microsoft is asking for shorter terms and swap rights. One unconfirmed source says 2027 Maia 2 volume is 30-35% below plan, shifted to merchant GPU racks.",
+     "email_ids": [
+      "synthetic_000237",
+      "synthetic_000231"
+     ]
+    },
+    {
+     "text": "Regulation and pricing: an EU authority is sending customers questionnaires on AI-assistant bundling in productivity suites. An unconfirmed rumor points to a higher M365 E3 list price around July 2027.",
+     "email_ids": [
+      "synthetic_000196",
+      "synthetic_000070"
+     ]
+    },
+    {
+     "text": "Housekeeping only: a sell-side desk rolled FX and share count, moving FY2027 EPS to $18.62 from $18.55 with no change to growth, margin or capex.",
+     "email_ids": [
+      "synthetic_000238"
+     ]
+    }
+   ],
+   "watch": "Whether capacity slips show up in Azure guidance, and whether Copilot renewal cutbacks spread beyond a handful of accounts."
+  },
+  "AMZN": {
+   "headline": "A positive AWS and advertising skew, with retail volume checks mostly firm and a few cautious signals on seller costs and peak delivery routes.",
+   "tone": "positive",
+   "points": [
+    {
+     "text": "AWS: Westbrook Halsey lifts FY2026 AWS growth to 21% (from 18.5%) after its price tracker showed GPU instance prices rising and committed-use discounts narrowing. Corvane reads utility filings as AWS adding about 1.8GW of contracted load for 2027-28 and puts 2027 capex at $188bn against about $170bn for the Street.",
+     "email_ids": [
+      "synthetic_000096",
+      "synthetic_000003"
+     ]
+    },
+    {
+     "text": "Ratings: Hollinsworth upgrades to Buy from Hold with a $255 target (from $215), on advertising. A 3Q preview from Pryor Lane leaves operating estimates largely unchanged (AWS $41.3bn, up 21%).",
+     "email_ids": [
+      "synthetic_000202",
+      "synthetic_000284"
+     ]
+    },
+    {
+     "text": "Retail volume checks lean firm: a carrier panel shows inbound pallets for Amazon fulfillment centers up about 23% year on year, FBA-linked trans-Pacific bookings are 22% above last year, and fulfillment-grade box orders are running above plan.",
+     "email_ids": [
+      "synthetic_000046",
+      "synthetic_000056",
+      "synthetic_000230"
+     ]
+    },
+    {
+     "text": "Cautious items: 17 of 23 surveyed third-party sellers report higher ad costs, two delivery-partner owners say peak-season route allotments will be 8-12% lower (unconfirmed), and a former ODM contact says Amazon cut its final September build plan for next-generation Echo and Fire tablets.",
+     "email_ids": [
+      "synthetic_000117",
+      "synthetic_000222",
+      "synthetic_000248"
+     ]
+    },
+    {
+     "text": "Cloud competition: partner checks say AWS and Google reps are softening multi-year commit terms, and one startup says it was offered more than 40% off list on Trainium capacity for a three-year commit. Permit slowdowns are flagged in three hyperscale corridors, with AWS projects named.",
+     "email_ids": [
+      "synthetic_000107",
+      "synthetic_000136",
+      "synthetic_000011"
+     ]
+    },
+    {
+     "text": "Other: an unconfirmed report has a large CPG advertiser moving about $150m of Q4 search budget from Google to Amazon ads, and a state attorney-general coalition is reviewing marketplace pricing practices. Higher DRAM contract prices add to Amazon's 2027 capex in one broker's numbers.",
+     "email_ids": [
+      "synthetic_000221",
+      "synthetic_000061",
+      "synthetic_000075"
+     ]
+    }
+   ],
+   "watch": "The Oct 29 print: AWS growth and capex against the 2027 figures in the filings, and advertising against the upgrade case."
+  },
+  "AAPL": {
+   "headline": "iPhone 18 checks run strong, Services data softens a little, and cost and tariff items weigh on margin.",
+   "tone": "mixed",
+   "points": [
+    {
+     "text": "iPhone: Grantham Lowe upgrades to Buy (target $235 from $190) on carrier sell-through, with iPhone 18 Pro first-month units 9% ahead of the iPhone 17 Pro. A distributor reports Pro Max allocation up 14% year on year (up 3% last year), and a display supplier says Pro Max panel orders were pulled forward, with two panel customers lifting December-quarter orders 9-12%.",
+     "email_ids": [
+      "synthetic_000064",
+      "synthetic_000295",
+      "synthetic_000261"
+     ]
+    },
+    {
+     "text": "Against that, a call offer says a former carrier device-finance head sees September-quarter upgrade rates tracking below plan. That is a single source, not yet heard.",
+     "email_ids": [
+      "synthetic_000001"
+     ]
+    },
+    {
+     "text": "Services: Penhallow trims FY2026 Services growth to 10.5% (from 12.0%) and EPS to $7.80 after softer September App Store data, with a Hold and $205 target. Two items concern Google's Safari default arrangement: a forwarded private note and a call on its renewal terms.",
+     "email_ids": [
+      "synthetic_000270",
+      "synthetic_000067",
+      "synthetic_000243"
+     ]
+    },
+    {
+     "text": "Margin: DRAM contract prices are now seen up about 22% quarter on quarter, and a broker cuts its December-quarter gross margin estimate on memory. A separate view puts new India-China handset tariff tiers at roughly 60bp of gross margin.",
+     "email_ids": [
+      "synthetic_000075",
+      "synthetic_000246"
+     ]
+    },
+    {
+     "text": "Early or unconfirmed: foldable hinge assembly yields said to be in the 60s percent against a higher target, anecdotal reports that iOS 27 Siri complex requests route to a Gemini-based partner model, and a financial-services client slowing a Mac fleet commitment.",
+     "email_ids": [
+      "synthetic_000251",
+      "synthetic_000087",
+      "synthetic_000298"
+     ]
+    },
+    {
+     "text": "Watch items: an Indian digital levy is being discussed, and glass-cloth tightness could lengthen substrate lead times, including for Apple packages.",
+     "email_ids": [
+      "synthetic_000186",
+      "synthetic_000112"
+     ]
+    }
+   ],
+   "watch": "Whether upgrade-rate evidence confirms or contradicts the strong sell-through, and the Services growth read after the print."
+  },
+  "GOOGL": {
+   "headline": "Search checks split between AI-answer click loss and steady paid-search data, while Cloud demand looks strong but pricing tone is softening.",
+   "tone": "mixed",
+   "points": [
+    {
+     "text": "Search, the bearish side: Ashcombe Ridley downgrades to Hold (target $200 from $240) and cuts FY2026 Services growth to 8.0%, with the share of commercial queries ending in an AI answer and no paid click up to 31% from 22%. Three of five agency heads say expanded AI answer units have cut commercial-query clicks 9-12% since Sept 22.",
+     "email_ids": [
+      "synthetic_000214",
+      "synthetic_000055"
+     ]
+    },
+    {
+     "text": "Search, the steadier side: Fairmont Hale's September dashboard shows paid clicks up 6.1% year on year, cost per click up 3.2% and implied spend up 9.5%, all in line, with no estimate change. An agency sees cost per click on non-brand shopping up 9-12% on flat impression share.",
+     "email_ids": [
+      "synthetic_000210",
+      "synthetic_000014"
+     ]
+    },
+    {
+     "text": "Advertiser spend: a retailer reported paid-search spend down about 14% while revenue rose about 3%, without naming Google. An unconfirmed report has a large CPG advertiser moving about $150m of Q4 search budget to Amazon ads.",
+     "email_ids": [
+      "synthetic_000150",
+      "synthetic_000221"
+     ]
+    },
+    {
+     "text": "Cloud demand: Marbury Field raises FY2026 Cloud growth to about 32% and capex to $104bn, citing Q3 bookings up 35-40%. Channel checks say Google is placing TPU pods in third-party sites, which is not in Street numbers.",
+     "email_ids": [
+      "synthetic_000009",
+      "synthetic_000049"
+     ]
+    },
+    {
+     "text": "Cloud tone is less one-sided: multiple partner and client checks say Google reps are more flexible on multi-year commit pricing, one partner has three accounts cutting or restructuring Vertex AI commitments, and a former Google pricing lead says inference capacity has moved from constrained to roughly balanced.",
+     "email_ids": [
+      "synthetic_000107",
+      "synthetic_000058",
+      "synthetic_000280",
+      "synthetic_000234"
+     ]
+    },
+    {
+     "text": "Policy and other: a Safari default renewal call is on offer, an EU authority has sent AI-assistant bundling questionnaires that name Google in most filings, India is weighing a digital levy, and permit slowdowns flag some Google campuses.",
+     "email_ids": [
+      "synthetic_000243",
+      "synthetic_000196",
+      "synthetic_000186",
+      "synthetic_000011"
+     ]
+    }
+   ],
+   "watch": "Whether more agencies confirm the click loss against the in-line panel data, and Cloud commit pricing into the Oct 27 print."
+  }
+ },
+ "2026-10-14": {
+  "NVDA": {
+   "headline": "Tilted cautious: China orders, custom-silicon share and non-hyperscaler utilization all weaken, against a stronger Azure inference forecast.",
+   "tone": "negative",
+   "points": [
+    {
+     "text": "China: Harbourgate's checks say orders for the China-compliant Blackwell-class part are on hold, and in a few cases cancelled, after informal guidance to buyers. Consensus is described as carrying about $2.5bn a quarter from FQ4.",
+     "email_ids": [
+      "synthetic_000420"
+     ]
+    },
+    {
+     "text": "Share and mix: Kelmarsh's panel has Trainium at 27% of new accelerated-instance hours on AWS, up from 14% in Q2, with Nvidia's share of new AWS GPU hours down to 71%. An early scrape also shows GB300 availability widening at AWS with softer short-term pricing.",
+     "email_ids": [
+      "synthetic_000512",
+      "synthetic_000384"
+     ]
+    },
+    {
+     "text": "Utilization: GridSense's September index puts non-hyperscaler load factor at 63% and says the move from Hopper to Blackwell is slower than modeled.",
+     "email_ids": [
+      "synthetic_000390"
+     ]
+    },
+    {
+     "text": "The supportive item: a former Azure GPU fleet planner says the CY27 accelerator plan he worked on was revised up by roughly 18-20% versus the spring baseline on an inference re-forecast (call offer, not yet heard).",
+     "email_ids": [
+      "synthetic_000332"
+     ]
+    },
+    {
+     "text": "Supply-chain color, mostly early and unconfirmed: CoWoS-L capacity may be moving from Rubin pilot lots to a hyperscaler's ASIC programs, GB300 commissioning is running long at two sites, the desktop GPU refresh may slip to Q1, and co-packaged optics laser orders were pushed right at a supplier. Rubin backplane, power-shelf and test-socket spec revisions are the subject of expert calls.",
+     "email_ids": [
+      "synthetic_000318",
+      "synthetic_000394",
+      "synthetic_000350",
+      "synthetic_000432",
+      "synthetic_000330",
+      "synthetic_000442",
+      "synthetic_000577"
+     ]
+    },
+    {
+     "text": "Policy: China will license gallium, germanium and heavy rare-earth magnet exports from Nov 16, and AI training-data litigation and a Senate draft are moving at the same time.",
+     "email_ids": [
+      "synthetic_000537",
+      "synthetic_000423"
+     ]
+    }
+   ],
+   "watch": "Whether a second source confirms the China order halt, and whether the Azure forecast revision is echoed by other buyers."
+  },
+  "MSFT": {
+   "headline": "Azure and security demand data are positive, but softer commit terms, a reporting change and several regulatory and capacity items cloud the run-in to the Oct 28 print.",
+   "tone": "mixed",
+   "points": [
+    {
+     "text": "Demand: Redhollow (Buy, $640) says E5 Security attach reached 31% from 26% in March and raises FQ1 M365 and EPS. A data vendor says 38% of its new consumption landed on Azure, up from 34% last quarter, though it also mentioned capacity waits. A former Azure planner says the CY27 accelerator plan was revised up about 18-20%.",
+     "email_ids": [
+      "synthetic_000335",
+      "synthetic_000462",
+      "synthetic_000332"
+     ]
+    },
+    {
+     "text": "Terms and budgets: three of eleven Azure customers say commit terms have become unusually flexible, mid-market CFOs report harder renewals on software, and one reseller saw three cloud-desktop RFPs pick Amazon WorkSpaces over Windows 365.",
+     "email_ids": [
+      "synthetic_000355",
+      "synthetic_000529",
+      "synthetic_000549"
+     ]
+    },
+    {
+     "text": "Reporting and margin: Microsoft IR has told investors that from FQ1 FY27 'Azure and other cloud services' will include some Windows Server and SQL Server license revenue, with recast tables. Penhallow argues depreciation timing puts Microsoft Cloud gross margin well below the numbers circulating internally (the desk's own FQ1 estimate is 67.5% margin and $4.21 EPS against $4.19 consensus).",
+     "email_ids": [
+      "synthetic_000379",
+      "synthetic_000372"
+     ]
+    },
+    {
+     "text": "Capacity and financing: turbine delays of 6-9 months are reported at a roughly 600MW Texas campus leased to Microsoft, and an infrastructure fund is arranging an about $18bn off-balance-sheet JV to hold Microsoft-leased AI campuses.",
+     "email_ids": [
+      "synthetic_000538",
+      "synthetic_000450"
+     ]
+    },
+    {
+     "text": "Regulatory, all early: a reported FTC inquiry into cloud licensing and AI, document-preservation requests to Korean Azure resellers about a possible fair-trade review, a Tax Court transfer-pricing case, and an AI training-data appeal.",
+     "email_ids": [
+      "synthetic_000438",
+      "synthetic_000588",
+      "synthetic_000404",
+      "synthetic_000423"
+     ]
+    },
+    {
+     "text": "Low weight: a promotional 'scorecard', Xbox hardware speculation, and an Edge browser-share panel.",
+     "email_ids": [
+      "synthetic_000482",
+      "synthetic_000514",
+      "synthetic_000570"
+     ]
+    }
+   ],
+   "watch": "How the Azure definition change and the margin debate net out in FQ1, and whether commit flexibility spreads."
+  },
+  "AMZN": {
+   "headline": "AWS billing checks point up, but accelerator mix and commit terms move against the cloud story and consumer and seller signals are mixed.",
+   "tone": "mixed",
+   "points": [
+    {
+     "text": "AWS: Calloway & Dunn's panel of nine AWS resellers shows September acceleration, and it lifts 3Q AWS revenue to $41.5bn against a Street figure it puts near $40.3bn. A migration-programs transcript on pipeline, credits and Q3 commit burn is also in.",
+     "email_ids": [
+      "synthetic_000309",
+      "synthetic_000576"
+     ]
+    },
+    {
+     "text": "Cloud mix and terms: Kelmarsh has Trainium at 27% of new accelerated-instance hours (14% in Q2) and Nvidia's share of new AWS GPU hours at 71%. An early scrape shows GB300 availability widening with softer short-term pricing, and Bellcrest reports a tone shift on 3P seller incentives and AWS commit terms with estimates unchanged.",
+     "email_ids": [
+      "synthetic_000512",
+      "synthetic_000384",
+      "synthetic_000454"
+     ]
+    },
+    {
+     "text": "Retail margin: a former Amazon fulfillment planner (call offer) says cost-to-serve implies 3Q North America margin about 60-70bp above the Street. Hartfield Gray flags something about same-day sites that bears on the Q4 operating income guide and keeps its $270 target.",
+     "email_ids": [
+      "synthetic_000477",
+      "synthetic_000329"
+     ]
+    },
+    {
+     "text": "Consumer and sellers: a card panel shows lower-income shoppers cutting basket sizes at Amazon and trading down to Prime-only buys, Haul order volumes slowed in September per five of six sellers, and a possible $1.99 return drop-off fee test is seen in early posts.",
+     "email_ids": [
+      "synthetic_000455",
+      "synthetic_000497",
+      "synthetic_000572"
+     ]
+    },
+    {
+     "text": "Operations: brokers say Amazon's real estate team may be re-entering the market, while one integrator says sortation cell releases at new fulfillment sites look pushed out.",
+     "email_ids": [
+      "synthetic_000483",
+      "synthetic_000535"
+     ]
+    },
+    {
+     "text": "Other: a multistate attorney-general inquiry reportedly names Amazon among recipients, one reseller saw three cloud-desktop deals go to Amazon WorkSpaces over Windows 365, and an unconfirmed report links Amazon to spectrum interest for direct-to-device service.",
+     "email_ids": [
+      "synthetic_000333",
+      "synthetic_000549",
+      "synthetic_000348"
+     ]
+    }
+   ],
+   "watch": "AWS growth against the Trainium mix shift, and North America margin against the Q4 guide."
+  },
+  "AAPL": {
+   "headline": "Demand signals turn softer at the margin, with several early, mostly unconfirmed checks and no rating or estimate changes.",
+   "tone": "mixed",
+   "points": [
+    {
+     "text": "iPhone demand: carriers are described as pushing Pixel 11 harder and being more cautious on iPhone Pro inventory, and a scrape shows refurbished iPhone 17 Pro listings in 17 of 20 configurations, up from 11 on Sept 23 and 4 on Sept 9 (unconfirmed). Resellers also report trimmed Watch and iPad holiday allotments, in a nine-check anecdotal sample.",
+     "email_ids": [
+      "synthetic_000430",
+      "synthetic_000524",
+      "synthetic_000322"
+     ]
+    },
+    {
+     "text": "Pellcrest's iOS 27 adoption tracker runs slightly ahead of last year's iOS 26 through the early weeks, with no change to estimates.",
+     "email_ids": [
+      "synthetic_000427"
+     ]
+    },
+    {
+     "text": "China: a single unconfirmed source says the national phone trade-in subsidy may lapse after December, and a Shanghai consultant call is offered on the timing of Apple Intelligence in China.",
+     "email_ids": [
+      "synthetic_000439",
+      "synthetic_000479"
+     ]
+    },
+    {
+     "text": "Product and cost: a former program manager says Apple's in-house C2 modem now ships in the base iPhone 18 and the iPad line. Two unconfirmed sources say Apple raised its 1H27 order plan for servers supporting Private Cloud Compute, and a memory-procurement call is offered on LPDDR lock-ins.",
+     "email_ids": [
+      "synthetic_000431",
+      "synthetic_000559",
+      "synthetic_000525"
+     ]
+    },
+    {
+     "text": "Services and platform: a game publisher's guide-down points to web-store purchases taking share of mobile bookings, which bears on app store fees. A multistate attorney-general inquiry on subscriptions and cancellation reportedly includes Apple.",
+     "email_ids": [
+      "synthetic_000305",
+      "synthetic_000333"
+     ]
+    },
+    {
+     "text": "Mac and enterprise: mid-market CFOs say Mac refreshes are being pushed out as tech budgets trim, and a call is offered on Mac share of new enterprise enrollments.",
+     "email_ids": [
+      "synthetic_000529",
+      "synthetic_000324"
+     ]
+    }
+   ],
+   "watch": "Whether carrier caution and the refurbished-listing climb show up in other iPhone checks, and the China trade-in subsidy."
+  },
+  "GOOGL": {
+   "headline": "A better day for Alphabet's growth lines, with YouTube estimates up and search checks steady, but an accounting change adds depreciation and search referral weakness shows up elsewhere.",
+   "tone": "mixed",
+   "points": [
+    {
+     "text": "YouTube and search: Corrigan Hale raises its target to $247 (from $240) and 2027E YouTube ads by $1.4bn, with Shorts effective CPMs near 58% of in-stream (44% in March). Penmarsh's Seoul trip finds search advertiser demand steady and AI Overviews and AI Mode usage rising, with one note on Android distribution economics.",
+     "email_ids": [
+      "synthetic_000373",
+      "synthetic_000551"
+     ]
+    },
+    {
+     "text": "Depreciation: Alphabet IR notified investors of a change in accounting estimate that shortens the useful life of certain AI servers and networking equipment from Oct 1, ahead of the Oct 27 print.",
+     "email_ids": [
+      "synthetic_000366"
+     ]
+    },
+    {
+     "text": "Search signals pull both ways: a publisher cites organic search referrals down 19% year on year in September, while an internal read of the Technical Committee's first remedies status report sees limited use of the data-sharing and syndication remedies.",
+     "email_ids": [
+      "synthetic_000385",
+      "synthetic_000398"
+     ]
+    },
+    {
+     "text": "TPU and Cloud: an early, unconfirmed optical-switch check reports about 30-week lead times and a large U.S. cloud order near twice last year's, read as a possible TPU build signal. A transcript on 1H27 GPU versus TPU mix for external customers and one on Gemini add-on bundling in Workspace renewals are in.",
+     "email_ids": [
+      "synthetic_000419",
+      "synthetic_000488",
+      "synthetic_000499"
+     ]
+    },
+    {
+     "text": "Distribution and devices: carriers are described as pushing Pixel 11 harder, and a supplier sees a pattern in automaker cockpit RFQs involving Google's in-car assistant.",
+     "email_ids": [
+      "synthetic_000430",
+      "synthetic_000591"
+     ]
+    },
+    {
+     "text": "Other: Workspace versus Microsoft 365 in K-12 rebids, and an early read that China export deflation could weigh on APAC retail ad budgets.",
+     "email_ids": [
+      "synthetic_000493",
+      "synthetic_000595"
+     ]
+    }
+   ],
+   "watch": "The depreciation change on Q3 margin, and whether search referral weakness spreads beyond publishers."
+  }
+ }
+}

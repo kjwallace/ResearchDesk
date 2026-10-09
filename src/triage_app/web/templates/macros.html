@@ -122,7 +122,7 @@
           <span class="tag soft">{{ b.period }}</span>{% endif %}
         {% if s.second_look %}<span class="pill second">Second look</span>{% endif %}
         {% if st != 'open' %}{{ status_pill(st) }}{% endif %}
-        {% if eids %}<span class="tag soft above" title="Linked emails">{{ icon('mail') }}<span>Email{{ '' if eids | length == 1 else 's' }}&nbsp;{% for eid in eids %}<a href="/email/{{ eid }}" hx-get="/email/{{ eid }}" hx-select="#detail" hx-target="#pane" data-pane>{{ loop.index }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span></span>{% endif %}
+        {% if eids %}<span class="tag soft above" title="Linked emails">{{ icon('mail') }}<span>Email{{ '' if eids | length == 1 else 's' }}&nbsp;{% for eid in eids %}<a href="/email/{{ eid }}" tabindex="-1" hx-get="/email/{{ eid }}" hx-select="#detail" hx-target="#pane" data-pane>{{ loop.index }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span></span>{% endif %}
       </div>
     </div>
   </div>
@@ -186,10 +186,10 @@
   </table></div>
 {%- endmacro %}
 
-{% macro stat(label, value, hint, ic, href=None) -%}
+{% macro stat(label, value, hint, ic, href=None, key=None) -%}
   <{{ 'a href="' ~ href ~ '"' if href else 'div' }} class="stat">
     <span class="label">{{ label }}</span><span class="ic">{{ icon(ic) }}</span>
-    <span class="value">{{ value }}</span><span class="hint">{{ hint }}</span>
+    <span class="value"{% if key %} data-req-count="{{ key }}"{% endif %}>{{ value }}</span><span class="hint">{{ hint }}</span>
   </{{ 'a' if href else 'div' }}>
 {%- endmacro %}
 

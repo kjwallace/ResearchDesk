@@ -137,13 +137,13 @@ def prose(text: object) -> str:
     return sentence(s)
 
 
-# ---- Attention requests: who is asking, the offer, and when a reply is due ----
+# ---- Attention requests: who is asking, the offer, and the deadline for a reply ----
 
 REQUEST_KINDS: dict[str, str] = {"meeting_request": "meeting", "event_invitation": "event"}
 REQUEST_KIND_NAMES: dict[str, str] = {"meeting": "Meeting requests", "event": "Event invitations",
                                       "other": "Other requests"}
-DUE_BUCKETS: dict[str, str] = {"today": "Due today", "tomorrow": "Due tomorrow", "later": "Due later",
-                               "none": "No deadline stated"}
+DEADLINE_BUCKETS: dict[str, str] = {"today": "Deadline today", "tomorrow": "Deadline tomorrow", "later": "Deadline later",
+                                    "none": "No deadline stated"}
 _SENTENCE_END = re.compile(r"(?<=[.!?])\s+(?=[A-Z])")
 
 
@@ -151,15 +151,15 @@ def request_kind(email_type: str | None) -> str:
     return REQUEST_KINDS.get(email_type or "", "other")
 
 
-def due_bucket(deadline: datetime | None, day: date) -> str:
+def deadline_bucket(deadline: datetime | None, day: date) -> str:
     if deadline is None:
         return "none"
     days = (deadline.date() - day).days
     return "today" if days <= 0 else ("tomorrow" if days == 1 else "later")
 
 
-def due(deadline: datetime | None, day: date) -> str:
-    """When a reply is due, relative to the brief's day: "Today, 5:00 PM", "Wed Oct 21, end of day"."""
+def deadline_text(deadline: datetime | None, day: date) -> str:
+    """The deadline for a reply, relative to the brief's day: "Today, 5:00 PM", "Wed Oct 21, end of day"."""
     if deadline is None:
         return "No deadline stated"
     days = (deadline.date() - day).days

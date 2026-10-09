@@ -254,6 +254,16 @@ class Alert(BaseModel):
     kind: Literal["wrong_if_met", "conviction_review", "human_attention"]
     ref_id: str                         # a suggestion ID or an email ID
 
+class SummaryPoint(BaseModel):          # one line of a daily company summary, with the emails it rests on
+    text: str
+    email_ids: list[str]
+
+class DailySummary(BaseModel):          # display seed (data/seed/daily_summaries.json): written by Claude from the day's emails
+    headline: str
+    tone: Literal["positive", "negative", "mixed"]
+    points: list[SummaryPoint]
+    watch: str
+
 class Brief(BaseModel):                 # stage 9 output; every list is in display order
     day: date
     counts: dict[str, int]              # emails by label, notes, suggestions

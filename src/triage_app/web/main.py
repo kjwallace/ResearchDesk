@@ -16,7 +16,7 @@ import os
 import secrets
 from collections import defaultdict
 from dataclasses import dataclass
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 from pathlib import Path
 from collections.abc import Callable
 from typing import Any, Literal
@@ -37,10 +37,10 @@ from triage_app.schema import (
     Suggestion, Thesis, TriageRecord,
 )
 from triage_app.state import apply
-from triage_app.state.compute import Projection, compute, driver_values, project
+from triage_app.state.compute import Projection, compute, compute_with_notes, driver_values, project
 from triage_app.state.fold import BookState, Seed, fold, load_seed, ticker_of
 from triage_app.web import labels, runner
-from triage_app.web.data import DataStore, DayData, data_dir_from_env, highlight, safe_sections
+from triage_app.web.data import DataStore, DayData, data_dir_from_env, highlight, load_daily_summaries, safe_sections
 from triage_app.web.session import SESSION_KEY, GlobalRuns, SessionState, SessionStore
 
 WEB_DIR = Path(__file__).resolve().parent
@@ -98,6 +98,14 @@ class View:
     def pillar(self, pillar_id: str) -> Any:
         return next((p for t in self.state.theses.values() for p in t.pillars if p.id == pillar_id), None)
 
+    def projections(self, ticker: str) -> dict[str, Projection]:
+        """The company's projections on the folded book, with accepted output-metric projections applied."""
+        notes = [(e.item_id.split(".", 1)[1], e.after) for e in self.state.projections.get(ticker, []) if e.after is not None]
+        model = self.model(ticker)
+        if model is None:
+            raise KeyError(ticker)
+        return compute_with_notes(model, notes)
+
     def thesis(self, ticker: str) -> Thesis | None:
         return next((t for k, t in self.state.theses.items() if k == ticker), None)
 
@@ -136,7 +144,7 @@ class AttentionItem:
     triage: TriageRecord | None
     deadline: datetime | None
     kind: str          # meeting, event or other (labels.REQUEST_KINDS)
-    bucket: str        # today, tomorrow, later or none (labels.DUE_BUCKETS)
+    bucket: str        # today, tomorrow, later or none (labels.DEADLINE_BUCKETS)
     probability: float  # the classifier's human-attention probability (sorts; never shown)
 
 
@@ -155,7 +163,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
     templates.env.filters["pct"] = lambda v: "N/A" if v is None else f"{v * 100:.1f}%"
     templates.env.globals.update(labels=labels, position=labels.position, metric_name=labels.metric_name,
                                  metric_value=labels.metric_value)
-    templates.env.filters.update(due=labels.due, human=labels.human, stage=labels.stage, measure=labels.measure,
+    templates.env.filters.update(deadline_text=labels.deadline_text, human=labels.human, stage=labels.stage, measure=labels.measure,
                                  sentence=labels.sentence, prose=labels.prose, verdict=labels.verdict,
                                  ref=labels.pretty_id, money=labels.money, ids=labels.ids_in_text)
     templates.env.filters["clock"] = _clock
@@ -245,14 +253,14 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
             """Opposite stances on one pillar show together as one card."""
             groups: dict[str, list[Suggestion]] = {}
             for i in ids:
-                if i not in sugg:
+                if i not in sugg or v.status(sugg[i]) != "open":   # acted on, so out of the brief
                     continue
                 s = sugg[i]
                 key = s.body.pillar_id if isinstance(s.body, ExistingThesis) else s.id
                 groups.setdefault(key, []).append(s)
             return list(groups.values())
 
-        extras = list(v.sess.suggestions.values())
+        extras = [x for x in v.sess.suggestions.values() if v.status(x) == "open"]
         return page(
             request, "brief.html", v, brief=brief, alerts=v.alerts(brief), reviews=v.reviews(),
             thesis_changes=grouped(brief.thesis_changes), new_theses=grouped(brief.new_theses),
@@ -279,6 +287,17 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
     def suggestion_page(request: Request, sid: str) -> HTMLResponse:
         v = view(request)
         return page(request, "suggestion.html", v, **suggestion_context(v, get_suggestion(v, sid)))
+
+    @app.get("/compare/{pillar_id}", response_class=HTMLResponse)
+    def compare_page(request: Request, pillar_id: str) -> HTMLResponse:
+        """The supporting and contradicting suggestions on one pillar, side by side."""
+        v = view(request)
+        found = [v.suggestions().get(f"{pillar_id}.{st}") for st in ("supports", "contradicts")]
+        sides = [suggestion_context(v, s) for s in found if s is not None]
+        if len(sides) != 2:
+            raise HTTPException(404, f"{pillar_id} has no pair of opposing suggestions.")
+        return page(request, "compare.html", v, pillar_id=pillar_id, pillar=v.pillar(pillar_id),
+                    ticker=pillar_id.split(".")[0], sides=sides)
 
     def review_queue(v: View) -> list[Suggestion]:
         """Every suggestion for the analyst, in brief order: conviction reviews, thesis changes,
@@ -323,6 +342,22 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
             raise HTTPException(404, f"There is no company {ticker} in the book.")
         return page(request, "research_log.html", v, ticker=ticker)
 
+    @app.get("/summaries", response_class=HTMLResponse)
+    def summaries_page(request: Request, day: str = "") -> HTMLResponse:
+        """One summary per covered company for a day, written from that day's emails."""
+        v = view(request)
+        all_days = load_daily_summaries()
+        loaded = brief_of(v).day.isoformat()
+        shown = day if day in all_days else loaded
+        by_ticker = all_days.get(shown, {})
+        read: dict[str, int] = {}
+        for r in v.data.results.values():
+            if r.gate != "quarantine" and r.triage in ("thesis_relevant", "monitor"):
+                for t in r.affected_tickers:
+                    read[t] = read.get(t, 0) + 1
+        return page(request, "summaries.html", v, day=date.fromisoformat(shown), days=sorted(all_days), loaded=loaded,
+                    summaries=by_ticker, read=read)
+
     @app.get("/book", response_class=HTMLResponse)
     def book_page(request: Request) -> HTMLResponse:
         """All five positions on one screen: stance, size, conviction, projections against
@@ -345,7 +380,13 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
             thesis, model = v.thesis(ticker), v.model(ticker)
             if thesis is None or model is None:
                 continue
-            rows.append({"ticker": ticker, "thesis": thesis, "model": model, "proj": compute(model),
+            seed_model = next(m for m in seed.models if m.ticker == ticker)
+            mine = [e for e in v.state.applied if e.item_id == ticker or e.item_id.startswith(f"{ticker}.")]
+            rows.append({"ticker": ticker, "thesis": thesis, "model": model, "proj": v.projections(ticker),
+                         "seed_proj": compute(seed_model)["analyst"], "changes": mine,
+                         "added": {e.pillar.id for e in mine if e.change == "pillar_added" and e.pillar},
+                         "edited": {e.item_id for e in mine if e.change == "pillar_edited"},
+                         "notes": [e for e in mine if e.change == "projection_noted"],
                          "open": sum(len(open_by_pillar[p.id]) for p in thesis.pillars) + len(new_by_ticker[ticker])
                                  + len(projections_by_ticker[ticker])})
         return page(request, "book.html", v, rows=rows, open_by_pillar=dict(open_by_pillar),
@@ -364,7 +405,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         mine = [s for s in v.suggestions().values() if v.ticker_of(s) == ticker]
         return page(
             request, "company.html", v, ticker=ticker, thesis=thesis, model=model,
-            projections={**compute(model), "seed": compute(seed_model)["analyst"]},
+            projections={**v.projections(ticker), "seed": compute(seed_model)["analyst"]},
             history=list(reversed(history)), reviews=[r for r in v.reviews() if v.ticker_of(r) == ticker],
             dismissed=[s for s in mine if v.status(s) == "dismissed"],
             accepted=[s for s in mine if v.status(s) == "accepted"],
@@ -424,7 +465,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
     def attention_page(request: Request, view_mode: str = Query("list", alias="view"),
                        sort: str = Query("time")) -> HTMLResponse:
         """The brief's "needs your attention" list on its own screen: who is asking, what they
-        offer, when a reply is due and what it bears on. Read-only; it adds no action."""
+        offer, the deadline for a reply and what it bears on. Read-only; it adds no action."""
         v = view(request)
         brief = brief_of(v)
         ids = list(brief.needs_attention) + [e for e in v.sess.notes if e not in brief.needs_attention]
@@ -439,7 +480,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
             items.append(AttentionItem(
                 email=email, note=note, result=v.result(eid), triage=triage, deadline=deadline,
                 kind=labels.request_kind(triage.email_type if triage else None),
-                bucket=labels.due_bucket(deadline, brief.day),
+                bucket=labels.deadline_bucket(deadline, brief.day),
                 probability=triage.human_attention if triage else 0.0,
             ))
         # Time: soonest deadline first. Relevance: the classifier's attention score, which orders the
@@ -452,9 +493,9 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
             items.sort(key=lambda i: (-i.probability, *by_time(i)))
         else:
             items.sort(key=by_time)
-        handled = [i for i in items if i.email.email_id in v.sess.handled]
+        handled = [i for i in items if v.sess.handled.get(i.email.email_id) == "responded"]   # rejected ones are gone
         items = [i for i in items if i.email.email_id not in v.sess.handled]
-        # Calendar columns: the brief's day, then every day a reply is due, in order.
+        # Calendar columns: the brief's day, then every day a reply has a deadline, in order.
         days = sorted({brief.day} | {i.deadline.date() for i in items if i.deadline})
         return page(request, "attention.html", v, brief=brief, items=items, days=days, sort=sort, handled=handled,
                     mode="calendar" if view_mode == "calendar" else "list")
@@ -471,6 +512,8 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
             v.sess.handled.pop(email_id, None)
             return message(request, v, f"{labels.pretty_id(email_id)} is back in the queue.", refresh=True)
         v.sess.handled[email_id] = "responded" if outcome == "respond" else "rejected"
+        if outcome == "reject":   # a rejected request leaves the queue and is not listed again
+            return fragment(request, "fragments/rejected.html", v, email=v.email(email_id))
         return fragment(request, "fragments/handled.html", v, email=v.email(email_id),
                         outcome=v.sess.handled[email_id])
 
@@ -601,10 +644,32 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         before = {r.id for r in v.reviews()}
         v.sess.log.append(entry)
         v.sess.dismissed.discard(s.id)
+        moved: list[str] = []
+        if isinstance(s.body, ExistingThesis):   # linked assumptions take the stated figures: the book changes too
+            for a in s.body.assumptions:
+                try:
+                    change = apply.update_driver(seed, v.sess.log, a.driver_id, a.stated_value,
+                                                 suggestion_id=s.id, sections=list(s.sections))
+                except apply.ActionError:
+                    continue   # already at the stated figure, or outside its bounds: left as it is
+                v.sess.log.append(change)
+                moved.append(f"{labels.metric_name(a.driver_id.split('.')[0], a.driver_id)} to "
+                             f"{labels.metric_value(a.driver_id, a.stated_value)}")
+        auto = None
+        if isinstance(s.body, ExistingThesis):   # accepting one side of a contradicting pair dismisses the other
+            other = v.suggestions().get(f"{s.body.pillar_id}.{'contradicts' if s.body.stance == 'supports' else 'supports'}")
+            if other is not None and v.status(other) == "open":
+                v.sess.dismissed.add(other.id)
+                v.sess.auto_dismissed[other.id] = s.id
+                auto = other
         raised = [r for r in apply.conviction_reviews(seed, v.sess.log, v.sess.dismissed) if r.id not in before]
         what = (f"Logged as evidence on {entry.item_id}" if entry.change == "pillar_evidence"
                 else f"Added pillar {entry.item_id} to the book")
-        return fragment(request, "fragments/status.html", v, s=s, status="accepted", text=what, raised=raised)
+        if moved:
+            what += "; book updated: " + ", ".join(moved)
+        if auto is not None:
+            what += "; the contradicting suggestion was dismissed"
+        return fragment(request, "fragments/status.html", v, s=s, status="accepted", text=what, raised=raised, auto=auto)
 
     @app.post("/suggestion/{sid}/accept")
     def accept_route(request: Request, sid: str) -> Response:
@@ -676,7 +741,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         if s is not None and isinstance(s.body, ExistingThesis):
             a = next((x for x in s.body.assumptions if x.driver_id == driver_id), None)
         name = "fragments/assumption.html" if a is not None else "fragments/driver.html"
-        return fragment(request, name, v, entry=entry, a=a, s=s, projections=compute(model), ticker=ticker)
+        return fragment(request, name, v, entry=entry, a=a, s=s, projections=v.projections(ticker), ticker=ticker)
 
     @app.post("/conviction/{ticker}")
     def conviction_route(request: Request, ticker: str, conviction: int = Form(...),
@@ -775,6 +840,16 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         if entry is None:
             return message(request, v, "Nothing to undo.", ok=False)
         v.sess.log.append(entry)
+        while entry.suggestion_id:   # one accept can log evidence and assumption changes; undo takes them together
+            more = apply.undo(v.sess.log)
+            if more is None or more.suggestion_id != entry.suggestion_id:
+                break
+            v.sess.log.append(more)
+        live = apply.accepted_ids(v.sess.log)
+        for dismissed_id, accepted_id in list(v.sess.auto_dismissed.items()):
+            if accepted_id not in live:   # its opposite is no longer accepted: bring it back
+                v.sess.dismissed.discard(dismissed_id)
+                del v.sess.auto_dismissed[dismissed_id]
         return message(request, v, f"Reversed the last change to {entry.item_id}.", refresh=True)
 
     @app.post("/reset")

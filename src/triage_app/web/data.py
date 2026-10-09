@@ -21,7 +21,7 @@ from triage_app import config
 from triage_app.pipeline.io import normalize_ws, read_list, read_one
 from triage_app.schema import (
     AnalysisRecord, AttentionNote, Brief, Claim, CriteriaHistoryEntry, Email, EmailResult,
-    EvalReport, LinkedSection, RedundancyRecord, Suggestion, TriageRecord, UsageReport,
+    DailySummary, EvalReport, LinkedSection, RedundancyRecord, Suggestion, TriageRecord, UsageReport,
 )
 
 DEFAULT_DATA_DIR = config.OUT_DIR / "day_1"
@@ -53,6 +53,16 @@ def load_emails(path: Path) -> list[Email]:
         return []
     from triage_app.corpus import load as load_corpus
     return load_corpus(path)[0]
+
+
+def load_daily_summaries(path: Path | None = None) -> dict[str, dict[str, DailySummary]]:
+    """The display seed of daily company summaries: day (ISO date) to ticker to summary; empty if absent."""
+    path = path or config.SEED_DIR / "daily_summaries.json"
+    if not path.exists():
+        return {}
+    import json
+    raw = json.loads(path.read_text())
+    return {day: {t: DailySummary.model_validate(v) for t, v in by_ticker.items()} for day, by_ticker in raw.items()}
 
 
 @dataclass

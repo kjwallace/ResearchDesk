@@ -120,8 +120,9 @@
   </div>
   {% endif %}
 
-  {% if siblings %}<div class="callout warn"><div class="eyebrow">{{ icon('repeat') }}Opposite stance on the same pillar</div>
-    <p>{% for x in siblings %}<a href="/suggestion/{{ x.id }}">{{ x.id | ref }}</a>{% endfor %}. Neither is preselected.</p></div>{% endif %}
+  {% if siblings %}<div class="callout warn"><div class="eyebrow">{{ icon('repeat') }}Contradicting evidence on the same pillar</div>
+    <p>Another email takes the opposite side: {% for x in siblings %}<a href="/suggestion/{{ x.id }}">{{ x.id | ref }}</a>{% endfor %}.
+      <a href="/compare/{{ b.pillar_id }}" hx-get="/compare/{{ b.pillar_id }}" hx-select="#detail" hx-target="#pane" hx-swap="innerHTML">Compare side by side</a></p></div>{% endif %}
 
 </section>
 

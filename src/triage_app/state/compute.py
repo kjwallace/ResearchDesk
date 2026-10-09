@@ -9,7 +9,7 @@
 Capex does not feed EPS.
 """
 
-from collections.abc import Mapping
+from collections.abc import Iterable, Mapping
 from typing import Literal
 
 from pydantic import BaseModel
@@ -46,6 +46,36 @@ def compute(model: CompanyModel) -> dict[str, Projection]:
         "analyst": project(model, driver_values(model, "analyst")),
         "consensus": project(model, driver_values(model, "consensus")),
     }
+
+
+def compute_with_notes(model: CompanyModel, notes: Iterable[tuple[str, float]]) -> dict[str, Projection]:
+    """`compute`, with accepted projections on output metrics laid over the analyst's figures.
+
+    `notes` are (metric, value) in the order accepted. Each sets its metric and recomputes what
+    follows from it: revenue feeds operating income, EPS and target price; operating income
+    feeds EPS and target price; EPS feeds target price; target price stands alone.
+    """
+    out = compute(model)
+    p = out["analyst"]
+    margin = driver_values(model, "analyst")[f"{model.ticker}.operating_margin"] / 100
+    revenue, income, eps, target = p.revenue_usd_bn, p.operating_income_usd_bn, p.eps, p.target_price
+    for metric, value in notes:
+        if metric == "revenue":
+            revenue, income = value, value * margin
+        elif metric == "operating_income":
+            income = value
+        elif metric == "eps":
+            eps = value
+        elif metric == "target_price":
+            target = value
+            continue
+        else:
+            continue
+        if metric in ("revenue", "operating_income"):
+            eps = income * (1 - model.tax_rate) / model.diluted_shares_bn
+        target = eps * model.target_multiple
+    out["analyst"] = Projection(revenue_usd_bn=revenue, operating_income_usd_bn=income, eps=eps, target_price=target)
+    return out
 
 
 OUTPUT_METRICS = ("revenue", "operating_income", "eps", "target_price")

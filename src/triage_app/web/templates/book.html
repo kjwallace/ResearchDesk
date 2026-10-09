@@ -14,6 +14,7 @@
   {{ stat('Changes this session', changes, 'Accepted evidence, pillars and assumptions', 'book') }}
 </section>
 
+{% if changes %}<p class="small muted">Figures and pillars below include the {{ changes }} change{{ '' if changes == 1 else 's' }} you accepted this session. They reset when the session ends or you press Reset.</p>{% endif %}
 <div class="eyebrow">Positions</div>
 <div class="table-wrap">
 <table class="book">
@@ -28,8 +29,9 @@
       <td>{{ rating(r.thesis, compact=True) }}</td>
       <td class="num">{{ labels.position_usd(r.thesis.size_bps) | money }}</td>
       <td class="num">{{ '{:,}'.format(labels.position_shares(r.ticker, r.thesis.size_bps)) }}</td>
-      <td class="num">${{ a.eps | num(2) }}</td>
-      <td class="num">${{ a.target_price | num(0) }}</td>
+      {% set sp = r.seed_proj %}
+      <td class="num">${{ a.eps | num(2) }}{% if a.eps != sp.eps %}<div class="xs muted">was ${{ sp.eps | num(2) }}</div>{% endif %}</td>
+      <td class="num">${{ a.target_price | num(0) }}{% if a.target_price != sp.target_price %}<div class="xs muted">was ${{ sp.target_price | num(0) }}</div>{% endif %}</td>
       <td class="num">{{ street_target(r.thesis) }}</td>
       <td class="num">{% if r.open %}<a class="badge on" href="/review">{{ r.open }}</a>{% else %}<span class="muted">0</span>{% endif %}</td>
       <td class="num"><a class="btn" href="/research-log/{{ r.ticker }}">{{ icon('file') }}Full research log</a></td>
@@ -53,11 +55,20 @@
       {% set pending = open_by_pillar.get(p.id, []) %}
       <li>
         <div class="pillar-head"><span class="mono-id">{{ p.id | ref }}</span>
+          {% if p.id in r.added %}<span class="tag info">Added this session</span>{% elif p.id in r.edited %}<span class="tag info">Edited this session</span>{% endif %}
           {% if ev %}<span class="tag {{ 'bad' if ns.net > 0 else 'good' }}">{{ ev | length }} accepted · net {{ ns.net }}</span>{% endif %}
           {% for s in pending %}<a class="pill dot {{ s.body.stance }}" href="/review/{{ s.id }}" title="{{ s.rationale | ids }}">{{ s.body.stance | human }}</a>{% endfor %}
         </div>
         <div class="small">{{ p.statement }}</div>
       </li>
+    {% endfor %}
+    {% for e in r.changes if e.change == 'driver_updated' %}
+      <li class="pillar-new"><div class="pillar-head"><span class="tag good">Accepted</span> <span class="mono-id">{{ metric_name(r.ticker, e.item_id) }}</span></div>
+        <div class="small">Book assumption moved from {{ metric_value(e.item_id, e.before) }} to {{ metric_value(e.item_id, e.after) }}.</div></li>
+    {% endfor %}
+    {% for e in r.notes %}
+      <li class="pillar-new"><div class="pillar-head"><span class="tag good">Accepted</span> <span class="mono-id">Projection noted · {{ metric_name(r.ticker, e.item_id.split('.')[-1]) }}</span></div>
+        <div class="small">Book figure is now {{ metric_value(e.item_id.split('.')[-1], e.after) }}{% if e.before is not none %}, from {{ metric_value(e.item_id.split('.')[-1], e.before) }}{% endif %}; what follows from it is recomputed.</div></li>
     {% endfor %}
     {% for s in projections_by_ticker.get(r.ticker, []) %}
       <li class="pillar-new"><div class="pillar-head"><span class="tag info">Projection change</span>

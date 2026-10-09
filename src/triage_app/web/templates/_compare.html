@@ -1,0 +1,29 @@
+{% from "macros.html" import actions, email_link, icon, avatar, ticker_mark, status_pill %}
+<div id="detail" class="detail compare">
+  <div class="pane-head">{{ icon('repeat') }}<span>Contradicting evidence</span> <span class="mono-id">{{ pillar_id | ref }}</span></div>
+  <h2>{{ ticker }}: one email supports this pillar, another contradicts it</h2>
+  {% if pillar %}<p class="lede"><span class="muted">Pillar:</span> {{ pillar.statement }}</p>
+  <p class="small muted">It is wrong if: {{ pillar.wrong_if }}</p>{% endif %}
+  <p class="small muted">Neither suggestion is accepted for you. Read both, then accept, dismiss or leave each one on its own.</p>
+  <div class="versus">
+  {% for c in sides %}
+    {% set s = c.s %}{% set b = s.body %}
+    <article class="side {{ b.stance }}">
+      <header><span class="pill dot {{ b.stance }}">{{ b.stance | human }}</span> <span class="tag">Strength {{ b.strength }} of 3</span>
+        {{ status_pill(c.status) }}</header>
+      <p class="why"><b>{{ s.rationale | ids }}</b></p>
+      {% if b.assumption_impact is defined and b.assumption_impact %}<p class="small">{{ b.assumption_impact | ids }}</p>{% endif %}
+      {{ actions(v, s, c.status) }}
+      <div class="eyebrow" style="margin-top:14px">{{ icon('link') }}Linked emails <span class="badge">{{ c.linked | length }}</span></div>
+      {% for eid, quotes in c.linked.items() %}{% set e = v.email(eid) %}
+        <div class="panel flat">
+          {% if e %}<div class="who small"><b>{{ e.sender | person }}</b> · {{ e.sender | org }} · {{ e.received_at | clock }}</div>{% endif %}
+          <div class="small">{{ email_link(v, eid) }}</div>
+          {% if e and not v.quarantined(eid) %}{% for q in quotes %}<blockquote>{{ q }}</blockquote>{% endfor %}{% endif %}
+        </div>
+      {% else %}<p class="muted small">No linked emails.</p>{% endfor %}
+      <a class="small" href="/suggestion/{{ s.id }}">Full detail →</a>
+    </article>
+  {% endfor %}
+  </div>
+</div>

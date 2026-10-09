@@ -42,7 +42,7 @@
       r.hidden = !ok;
       if (ok) shown++;
     });
-    list.querySelectorAll("details.group").forEach(function (g) {
+    list.querySelectorAll(".group").forEach(function (g) {
       var any = g.querySelector("[data-row]:not([hidden])");
       g.hidden = !any && !!g.querySelector("[data-row]");
     });
@@ -270,3 +270,89 @@ document.addEventListener("click", function (e) {
 document.addEventListener("keydown", function (e) {
   if (e.key === "Escape") document.querySelectorAll("details.hood[open]").forEach(function (d) { d.open = false; });
 });
+
+// Brief: a suggestion acted on leaves the list; keep each section's count, pair notes and empty state true.
+document.addEventListener("htmx:afterSettle", function () {
+  document.querySelectorAll(".split .list section.group").forEach(function (g) {
+    var rows = g.querySelectorAll(".row").length;
+    var badge = g.querySelector(".group-head .badge");
+    if (badge) badge.textContent = rows;
+    g.querySelectorAll(".pair").forEach(function (p) {
+      var n = p.querySelectorAll(".row").length;
+      if (n === 0) p.remove();
+      else if (n === 1) { var note = p.querySelector(".pair-note.conflict"); if (note) note.remove(); }
+    });
+    if (rows === 0 && !g.querySelector(".empty")) {
+      var d = document.createElement("div"); d.className = "empty"; d.textContent = "None left today."; g.appendChild(d);
+    }
+  });
+});
+
+// Inbox: read and unread (kept in this browser), mark all read, and j / k to move between emails.
+(function () {
+  var list = document.querySelector("[data-inbox]");
+  if (!list) return;
+  var key = "inboxRead:" + list.dataset.inbox, read = {};
+  try { read = JSON.parse(localStorage.getItem(key) || "{}"); } catch (err) { read = {}; }
+  function save() { try { localStorage.setItem(key, JSON.stringify(read)); } catch (err) { /* no storage: unread state lasts the visit */ } }
+  function rows() { return Array.prototype.slice.call(list.querySelectorAll(".row.mail")); }
+  function refilter() {
+    var q = list.querySelector("[data-filter-text]");
+    if (q) q.dispatchEvent(new Event("input", { bubbles: true }));
+  }
+  function paint(r) {
+    var unread = !read[r.dataset.eid];
+    r.classList.toggle("unread", unread);
+    var keys = (r.dataset.keys || "").split(" ").filter(function (k) { return k && k !== "unread"; });
+    if (unread) keys.push("unread");
+    r.dataset.keys = keys.join(" ");
+  }
+  function count() {
+    var n = rows().filter(function (r) { return r.classList.contains("unread"); }).length;
+    var b = list.querySelector("[data-unread-count]"); if (b) b.textContent = n;
+  }
+  function markRead(r) { if (!read[r.dataset.eid]) { read[r.dataset.eid] = 1; save(); paint(r); count(); } }
+  rows().forEach(paint); count();
+  document.addEventListener("htmx:beforeRequest", function (e) {
+    var r = e.target.closest && e.target.closest(".row.mail"); if (r) markRead(r);
+  });
+  list.querySelector("[data-mark-all]").addEventListener("click", function () {
+    rows().forEach(function (r) { read[r.dataset.eid] = 1; paint(r); });
+    save(); count(); refilter();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey || e.target.closest("input, textarea, select, [contenteditable]")) return;
+    var k = e.key.toLowerCase(); if (k !== "j" && k !== "k") return;
+    var vis = rows().filter(function (r) { return !r.hidden; }); if (!vis.length) return;
+    var at = vis.findIndex(function (r) { return r.classList.contains("on"); });
+    var next = vis[Math.max(0, Math.min(vis.length - 1, at + (k === "j" ? 1 : -1)))];
+    e.preventDefault();
+    var a = next.querySelector("a.stretch"); if (a) { a.click(); next.scrollIntoView({ block: "nearest" }); }
+  });
+})();
+
+// Needs attention: when a request is responded to or rejected, every count that includes it counts down.
+(function () {
+  function recount() {
+    var rows = Array.prototype.slice.call(document.querySelectorAll("article.row.req[data-row]"));
+    var by = function (f) { return rows.filter(f).length; };
+    var kind = function (k) { return by(function (r) { return (" " + r.dataset.keys + " ").indexOf(" " + k + " ") !== -1; }); };
+    var counts = { all: rows.length, meeting: kind("meeting"), event: kind("event"), other: kind("other"),
+                   today: by(function (r) { return r.dataset.bucket === "today"; }) };
+    counts.eventother = counts.event + counts.other;
+    document.querySelectorAll("[data-req-count]").forEach(function (el) {
+      var n = counts[el.dataset.reqCount]; if (n !== undefined) el.textContent = n;
+    });
+    document.querySelectorAll("details.group").forEach(function (g) {
+      var b = g.querySelector("[data-group-count]"); if (!b) return;
+      var n = g.querySelectorAll("article.row.req[data-row]").length;
+      b.textContent = n; if (n === 0) g.hidden = true;
+    });
+    var tab = document.querySelector('.tabs a[href="/attention"] .badge');
+    if (tab) { if (rows.length) tab.textContent = rows.length; else tab.remove(); }
+  }
+  document.addEventListener("htmx:afterRequest", function (e) {   // fires even when the answer is empty (a rejection)
+    var el = e.detail && e.detail.requestConfig && e.detail.requestConfig.elt;
+    if (el && el.getAttribute && /^\/attention\/[^/]+\/(respond|reject)$/.test(el.getAttribute("hx-post") || "")) setTimeout(recount, 50);
+  });
+})();

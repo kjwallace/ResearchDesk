@@ -180,7 +180,7 @@ def test_attention_tab_shows_requester_offer_deadline_and_tags(client: TestClien
     card = card[:card.index("</article>")]
     assert str(escape(email.sender.split(",")[0])) in card                       # who is asking
     assert str(escape(labels.split_summary(note.summary)[0])) in card            # the offer
-    assert card.index("Reply by Today, 4:00 PM") < card.index("req-offer")       # due beside the name
+    assert card.index("Reply by Today, 4:00 PM") < card.index("req-offer")       # deadline beside the name
     for t in result.affected_tickers:
         assert f'href="/company/{t}">{t}</a>' in card                            # relevance tags
     assert "/attention" in client.get("/").text                                  # reachable from the brief
@@ -201,19 +201,16 @@ def test_review_queue_walks_open_suggestions_and_counts_decisions(client: TestCl
     assert client.get("/review/NOPE").status_code == 404
 
 
-def test_attention_calendar_puts_requests_on_their_due_day(client: TestClient) -> None:
+def test_attention_calendar_puts_requests_on_their_deadline_day(client: TestClient) -> None:
     text = client.get("/attention?view=calendar").text
     assert 'class="cal-day today"' in text and 'href="/email/fixture_007"' in text and "Calendar" in text
 
 
-def test_scores_sit_behind_view_scores_and_the_classifier_is_unnamed(client: TestClient) -> None:
+def test_the_classifier_is_unnamed_and_the_email_page_has_no_classification_section(client: TestClient) -> None:
     for url in GET_ROUTES:
         assert "Jev" not in client.get(url).text, url
     text = client.get("/email/fixture_001").text
-    panel = text.index('<details class="scores')
-    assert "View scores" in text[panel:]
-    for score in ("Signal score", "Decision record", f"{RESULTS['fixture_001'].signal_score:.2f}"):
-        assert score in text[panel:] and score not in text[:panel], score
+    assert "Classification" not in text and "View scores" not in text and "Signal score" not in text
 
 
 def test_manual_pillar_editing_from_the_company_page(client: TestClient) -> None:
@@ -267,7 +264,10 @@ def test_requests_can_be_responded_to_or_rejected_and_restored(client: TestClien
     assert "/email/fixture_007" not in client.get("/").text.split("Needs your attention")[1].split("</details>")[0]
     assert client.post("/attention/fixture_007/restore", headers=HX).status_code == 200
     assert 'action="/attention/fixture_007/respond"' in client.get("/attention").text
-    assert client.post("/attention/fixture_007/reject", headers=HX).status_code == 200
+    r = client.post("/attention/fixture_007/reject", headers=HX)
+    assert r.status_code == 200 and r.text.strip() == ""   # the card is removed from the page
+    page = client.get("/attention").text
+    assert 'action="/attention/fixture_007/respond"' not in page and "fixture_007/restore" not in page
     assert client.post("/attention/fixture_007/send", headers=HX).status_code == 404
 
 
@@ -283,10 +283,10 @@ def test_requests_order_by_time_or_relevance_and_filter_by_ticker(client: TestCl
     assert "Requested by" not in text and "Received " not in text
 
 
-def test_inbox_tab_follows_the_brief_and_book_shows_street_view(client: TestClient) -> None:
+def test_inbox_tab_leads_the_nav_and_book_shows_street_view(client: TestClient) -> None:
     text = client.get("/").text
     nav = text[text.index('class="tabs"'):text.index("</nav>")]
-    assert nav.index("Morning Brief") < nav.index("Inbox") < nav.index("Review")
+    assert nav.index("Inbox") < nav.index("Morning Brief") < nav.index("Review")
     book = client.get("/book").text
     thesis = next(t for t in load_seed().theses if t.ticker == "MSFT")
     assert "Analyst rating</th>" in book and f'class="rating {thesis.street_view}"' in book
@@ -401,8 +401,9 @@ def test_glossary_is_on_every_page(client: TestClient) -> None:
 def test_brief_lists_every_section(client: TestClient) -> None:
     text = client.get("/").text
     for heading in ("Suggested thesis changes", "New thesis candidates", "Worth watching", "Needs your attention",
-                    "Relevant with no link to your book", "Alerts"):
+                    "Relevant with no link to your book"):
         assert heading in text
+    assert 'id="alerts"' not in text
     for sid in ("MSFT.p1.supports", "AAPL.p1.supports", "AMZN.new1", "NVDA.p2.supports"):
         assert f"/suggestion/{sid}" in text
     assert "Second look" in text and "/email/fixture_007" in text
@@ -562,7 +563,7 @@ def test_verify_with_fake_agent(client: TestClient, monkeypatch: pytest.MonkeyPa
     client.post("/suggestion/MSFT.p1.supports/accept", headers=HX)
     r = client.post("/suggestion/MSFT.p1.supports/verify", headers=HX)
     assert r.status_code == 200 and "Not found" in r.text and "No filing passage found." in r.text
-    assert seen["id"] == "MSFT.p1.supports" and len(seen["log"]) == 1
+    assert seen["id"] == "MSFT.p1.supports" and len(seen["log"]) == 2   # the evidence, and the linked assumption it moved
     assert seen["claims"] == ["fixture_001.c1", "fixture_001.c2"]
     assert "/verify" not in client.get("/suggestion/MSFT.p1.supports").text   # the button is no longer shown
 
@@ -717,8 +718,7 @@ def test_emails_come_from_the_corpus_file(monkeypatch: pytest.MonkeyPatch, tmp_p
     assert web_data.load_emails(tmp_path / "x.jsonl") == []
 
 
-def test_email_page_shows_email_type(client: TestClient) -> None:
-    assert "Primary research" in client.get("/email/fixture_001").text
+def test_audit_shows_email_type(client: TestClient) -> None:
     assert "Email type: News alert" in client.get("/audit").text  # fixture_006, in the audit view
 
 
@@ -789,3 +789,92 @@ def test_audit_shows_every_flagged_repeat(client: TestClient) -> None:
     assert "Flagged as a possible repeat of" in text and "0.81" in text and "0.70" in text
     assert html.escape(CORPUS["fixture_004"].subject) in text
     assert_no_quarantined_body(text)
+
+
+def test_book_shows_accepted_changes_and_reset_clears_them(client: TestClient) -> None:
+    assert "Added this session" not in client.get("/book").text
+    client.post("/company/NVDA/driver/NVDA.data_center_growth", data={"value": "45"})
+    client.post("/company/NVDA/pillars", data={"statement": "Networking attach lifts per-GPU content."})
+    text = client.get("/book").text
+    assert "was $" in text                                   # EPS and target price against the seed
+    assert "Added this session" in text and "Networking attach lifts" in text
+    assert "Book assumption moved from 38.0% to 45.0%" in text
+    client.post("/reset")
+    assert "Added this session" not in client.get("/book").text
+
+
+def test_accepted_projection_on_an_output_metric_changes_the_book_figures(client: TestClient) -> None:
+    from triage_app.state.compute import compute_with_notes
+    from triage_app.state.fold import load_seed
+
+    model = next(m for m in load_seed().models if m.ticker == "NVDA")
+    base = compute_with_notes(model, [])["analyst"]
+    by_eps = compute_with_notes(model, [("eps", base.eps + 1)])["analyst"]
+    assert by_eps.target_price == pytest.approx((base.eps + 1) * model.target_multiple)
+    by_rev = compute_with_notes(model, [("revenue", base.revenue_usd_bn * 1.1)])["analyst"]
+    assert by_rev.eps > base.eps and by_rev.target_price > base.target_price
+    assert compute_with_notes(model, [("target_price", 999.0)])["analyst"].target_price == 999.0
+
+
+def test_opposing_suggestions_on_a_pillar_are_marked_and_compared_side_by_side(presets: Path) -> None:
+    day_1 = Path(__file__).parent.parent / "data" / "out" / "day_1"   # a real run, which has opposing pairs
+    with TestClient(create_app(day_1, make_ctx=fake_ctx, presets_dir=presets)) as c:
+        brief = c.get("/").text
+        assert "Contradicting: one email supports" in brief and "neither is preselected" not in brief.lower()
+        assert 'href="/compare/NVDA.p1"' in brief
+        text = c.get("/compare/NVDA.p1").text
+        assert 'class="versus"' in text and "side supports" in text and "side contradicts" in text
+        assert c.get("/compare/NVDA.p2").status_code == 404
+
+
+def test_accepting_one_side_of_a_contradicting_pair_dismisses_the_other_and_undo_restores_it(presets: Path) -> None:
+    day_1 = Path(__file__).parent.parent / "data" / "out" / "day_1"
+    with TestClient(create_app(day_1, make_ctx=fake_ctx, presets_dir=presets)) as c:
+        r = c.post("/suggestion/NVDA.p1.supports/accept", headers=HX)
+        assert "dismissed" in r.text.lower() and 'id="actions-NVDA-p1-contradicts"' in r.text
+        page = c.get("/suggestion/NVDA.p1.contradicts").text
+        assert "Dismissed" in page
+        c.post("/undo")
+        assert "Dismissed automatically" not in c.get("/suggestion/NVDA.p1.contradicts").text
+        assert 'action="/suggestion/NVDA.p1.contradicts/accept"' in c.get("/suggestion/NVDA.p1.contradicts").text
+
+
+def test_accepting_a_suggestion_applies_its_linked_assumptions_and_undo_reverses_both(presets: Path) -> None:
+    day_1 = Path(__file__).parent.parent / "data" / "out" / "day_1"
+    with TestClient(create_app(day_1, make_ctx=fake_ctx, presets_dir=presets)) as c:
+        before = c.get("/book").text
+        r = c.post("/suggestion/NVDA.p1.supports/accept", headers=HX)
+        assert "book updated" in r.text
+        after = c.get("/book").text
+        assert "Book assumption moved from 38.0% to 41.0%" in after and "was $" in after and after != before
+        c.post("/undo")
+        assert "Book assumption moved" not in c.get("/book").text
+
+
+def test_acted_on_suggestions_leave_the_brief(presets: Path) -> None:
+    day_1 = Path(__file__).parent.parent / "data" / "out" / "day_1"
+    with TestClient(create_app(day_1, make_ctx=fake_ctx, presets_dir=presets)) as c:
+        assert 'id="row-NVDA-p1-supports"' in c.get("/").text
+        r = c.post("/suggestion/NVDA.p1.supports/accept", headers=HX)
+        assert 'hx-swap-oob="delete"' in r.text
+        gone = c.get("/").text
+        assert 'id="row-NVDA-p1-supports"' not in gone and 'id="row-NVDA-p1-contradicts"' not in gone
+        c.post("/undo")
+        assert 'id="row-NVDA-p1-supports"' in c.get("/").text
+
+
+def test_daily_summaries_tab_lists_each_company_and_only_real_non_quarantined_emails(
+        presets: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    from triage_app.web.data import load_daily_summaries
+
+    day_1 = Path(__file__).parent.parent / "data" / "out" / "day_1"
+    with TestClient(create_app(day_1, make_ctx=fake_ctx, presets_dir=presets)) as c:
+        text = c.get("/summaries").text
+        for t in config.TICKERS:
+            assert f'id="summary-{t}"' in text
+        assert 'href="/summaries"' in text and "emails read" in text
+    for by_ticker in load_daily_summaries().values():
+        assert set(by_ticker) == set(config.TICKERS)
+    monkeypatch.setattr("triage_app.web.main.load_daily_summaries", lambda: {})
+    with TestClient(create_app(OUT, make_ctx=fake_ctx, presets_dir=presets)) as c:   # a day with no summaries
+        assert "No summaries have been written" in c.get("/summaries").text

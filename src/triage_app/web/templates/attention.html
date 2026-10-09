@@ -21,10 +21,10 @@
 {%- set n_today = items | selectattr('bucket', 'equalto', 'today') | list | length -%}
 
 <section class="stats" aria-label="Requests in numbers">
-  {{ stat('Needs your attention', items | length, 'Flagged by the classifier; each has a note', 'clock') }}
-  {{ stat('Meeting requests', n_meet, 'Calls and small-group meetings offered', 'mail') }}
-  {{ stat('Reply due today', n_today, brief.day.strftime('%a %b %d').replace(' 0', ' '), 'alert') }}
-  {{ stat('Events and other', n_event + n_other, (n_event ~ ' event invitation' ~ ('' if n_event == 1 else 's')) ~ ', ' ~ n_other ~ ' other', 'book') }}
+  {{ stat('Needs your attention', items | length, 'Flagged by the classifier; each has a note', 'clock', key='all') }}
+  {{ stat('Meeting requests', n_meet, 'Calls and small-group meetings offered', 'mail', key='meeting') }}
+  {{ stat('Reply deadline today', n_today, brief.day.strftime('%a %b %d').replace(' 0', ' '), 'alert', key='today') }}
+  {{ stat('Events and other', n_event + n_other, (n_event ~ ' event invitation' ~ ('' if n_event == 1 else 's')) ~ ', ' ~ n_other ~ ' other', 'book', key='eventother') }}
 </section>
 
 <div class="toggles">
@@ -43,14 +43,14 @@
 </div>
 
 {% if mode == 'calendar' %}
-<p class="xs muted" style="margin:0 0 12px">Each request sits on the day its reply is due, earliest first. The meeting itself may be later; see the offer.</p>
+<p class="xs muted" style="margin:0 0 12px">Each request sits on the day of its reply deadline, earliest first. The meeting itself may be later; see the offer.</p>
 <div class="cal" style="--cols: {{ days | length + (1 if items | selectattr('deadline', 'none') | list else 0) }}">
   {% for d in days %}
     {% set ns = namespace(list=[]) %}{% for it in items if it.deadline and it.deadline.date() == d %}{% set ns.list = ns.list + [it] %}{% endfor %}
     <section class="cal-day {{ 'today' if d == brief.day else '' }}">
       <header><b>{{ 'Today' if d == brief.day else ('Tomorrow' if (d - brief.day).days == 1 else d.strftime('%A')) }}</b>
         <span class="muted">{{ d.strftime('%b %d').replace(' 0', ' ') }}</span><span class="badge">{{ ns.list | length }}</span></header>
-      {% for it in ns.list %}{{ cal_card(it) }}{% else %}<p class="xs muted">Nothing due.</p>{% endfor %}
+      {% for it in ns.list %}{{ cal_card(it) }}{% else %}<p class="xs muted">No deadlines.</p>{% endfor %}
     </section>
   {% endfor %}
   {% set undated = items | selectattr('deadline', 'none') | list %}
@@ -63,10 +63,10 @@
 <div class="split">
 <section aria-label="Requests" data-list>
   <div class="subtabs" role="toolbar" aria-label="Show">
-    <button type="button" class="on" data-filter-tab="" aria-pressed="true">All requests <span class="badge on">{{ items | length }}</span></button>
-    <button type="button" data-filter-tab="meeting" aria-pressed="false">Meeting requests <span class="badge">{{ n_meet }}</span></button>
-    <button type="button" data-filter-tab="event" aria-pressed="false">Event invitations <span class="badge">{{ n_event }}</span></button>
-    {% if n_other %}<button type="button" data-filter-tab="other" aria-pressed="false">Other <span class="badge">{{ n_other }}</span></button>{% endif %}
+    <button type="button" class="on" data-filter-tab="" aria-pressed="true">All requests <span class="badge on" data-req-count="all">{{ items | length }}</span></button>
+    <button type="button" data-filter-tab="meeting" aria-pressed="false">Meeting requests <span class="badge" data-req-count="meeting">{{ n_meet }}</span></button>
+    <button type="button" data-filter-tab="event" aria-pressed="false">Event invitations <span class="badge" data-req-count="event">{{ n_event }}</span></button>
+    {% if n_other %}<button type="button" data-filter-tab="other" aria-pressed="false">Other <span class="badge" data-req-count="other">{{ n_other }}</span></button>{% endif %}
   </div>
   <div class="toolbar req-toolbar">
     <div class="search"><label class="sr-only" for="q">Search requests</label>{{ icon('search') }}
@@ -78,22 +78,22 @@
   </div>
 
   <div class="list">
-    <div class="list-head"><span>{{ 'Requests by deadline' if sort == 'time' else 'Most relevant first' }}</span><span class="muted"><span data-shown>{{ items | length }}</span> shown</span></div>
+    <div class="list-head"><span>{{ 'Requests by deadline' if sort == 'time' else 'Most relevant first' }}</span><span class="muted"><span data-shown data-req-count="all">{{ items | length }}</span> shown</span></div>
     {% for bucket in (['today', 'tomorrow', 'later', 'none'] if sort == 'time' else ['all']) %}
       {% set group = items if bucket == 'all' else items | selectattr('bucket', 'equalto', bucket) | list %}
       {% if group %}
-      <details class="group" open><summary>{{ icon('chev') }}<h2>{{ labels.DUE_BUCKETS[bucket] if bucket != 'all' else 'All requests' }}</h2><span class="badge">{{ group | length }}</span></summary>
+      <details class="group" open><summary>{{ icon('chev') }}<h2>{{ labels.DEADLINE_BUCKETS[bucket] if bucket != 'all' else 'All requests' }}</h2><span class="badge" data-group-count>{{ group | length }}</span></summary>
       {% for it in group %}
         {% set e = it.email %}{% set n = it.note %}{% set r = it.result %}
         {% set who = labels.sender_parts(e.sender) %}
         {% set offer = labels.split_summary(n.summary) if n else ('', '') %}
         <article class="row req" data-row id="req-{{ e.email_id }}"
-                 data-keys="{{ it.kind }} {{ r.affected_tickers | join(' ') if r else '' }}"
+                 data-keys="{{ it.kind }} {{ r.affected_tickers | join(' ') if r else '' }}" data-bucket="{{ it.bucket }}"
                  data-search="{{ (e.sender ~ ' ' ~ e.subject ~ ' ' ~ (n.summary if n else '')) | lower }}">
           <div class="req-head">
             {{ avatar(e.sender) }}
             <span class="req-who"><b>{{ who[0] }}</b>{% if who[2] %} <span class="muted">· {{ who[2] }}</span>{% endif %}</span>
-            <span class="due {{ it.bucket }}">{{ icon('clock') }}{% if it.deadline %}{{ 'Reply' if n and n.action == 'reply' else 'Respond' }} by {{ it.deadline | due(brief.day) }}{% else %}No deadline{% endif %}</span>
+            <span class="deadline-tag {{ it.bucket }}">{{ icon('clock') }}{% if it.deadline %}{{ 'Reply' if n and n.action == 'reply' else 'Respond' }} by {{ it.deadline | deadline_text(brief.day) }}{% else %}No deadline{% endif %}</span>
           </div>
           <p class="req-offer">{{ pane_link('/email/' ~ e.email_id, n.summary if n else e.subject) }}</p>
           {% if n and n.follow_up %}<p class="req-follow"><b>Next step:</b> {{ n.follow_up }}</p>{% endif %}
