@@ -1,7 +1,7 @@
 [
   {
     "name": "alter_existing_thesis",
-    "description": "Assesses whether extracted claims support or contradict a pillar the desk already holds, or meet a pillar's 'wrong if' test. Pass only claim IDs. Code works out which pillars to consider from the claims' tickers and the desk's links file, so do not name companies or pillars. Call it whenever any claim concerns AMZN, NVDA, MSFT, AAPL or GOOGL, and call it before spawn_new_thesis. Do not call it when no claim concerns a company in the book. It only recommends and changes nothing in the book.",
+    "description": "Assesses whether extracted claims bear directly on a pillar the desk already holds: support or contradict its exact statement, or meet its 'wrong if' test. It also notes whether an analyst's email moves the street's buy, hold or sell view against the desk's stance. Pass only claim IDs. Code works out which pillars to consider from the claims' tickers and the desk's links file, so do not name companies or pillars. Call it whenever any claim concerns AMZN, NVDA, MSFT, AAPL or GOOGL, and call it before spawn_new_thesis. Do not call it when no claim concerns a company in the book. A loose match on company or theme is expected to come back as no change. It only recommends and changes nothing in the book.",
     "input_schema": {
       "type": "object",
       "properties": {
@@ -15,14 +15,16 @@
           "minItems": 1
         }
       },
-      "required": ["claim_ids"],
+      "required": [
+        "claim_ids"
+      ],
       "additionalProperties": false
     },
-    "returns": "A list of suggestions on existing pillars (each naming a pillar ID such as NVDA.p1), or a no-change reason."
+    "returns": "Up to two suggestions on existing pillars (each naming a pillar ID such as NVDA.p1, with a relevance from 0 to 1), or a no-change reason."
   },
   {
     "name": "spawn_new_thesis",
-    "description": "Assesses whether extracted claims point to a thesis the book does not hold for one company. Call it only after alter_existing_thesis, and only when no existing pillar covers the debate the claims raise. Do not use it to restate, refine or reverse an existing pillar; use alter_existing_thesis for that. It handles one company per call, so if the claims concern several companies, make a separate call for each with only that company's claims. It only recommends and changes nothing in the book.",
+    "description": "Assesses whether extracted claims point to a thesis the book does not hold for one company. Call it only after alter_existing_thesis, and only when no existing pillar covers the debate the claims raise. Do not use it to restate, refine or reverse an existing pillar; use alter_existing_thesis for that. Do not use it for a stated figure such as EPS or segment growth; use revise_projections for that. It handles one company per call, so if the claims concern several companies, make a separate call for each with only that company's claims. It only recommends and changes nothing in the book.",
     "input_schema": {
       "type": "object",
       "properties": {
@@ -38,12 +40,56 @@
         "ticker": {
           "type": "string",
           "description": "The one company for which a new pillar is being considered.",
-          "enum": ["AMZN", "NVDA", "MSFT", "AAPL", "GOOGL"]
+          "enum": [
+            "AMZN",
+            "NVDA",
+            "MSFT",
+            "AAPL",
+            "GOOGL"
+          ]
         }
       },
-      "required": ["claim_ids", "ticker"],
+      "required": [
+        "claim_ids",
+        "ticker"
+      ],
       "additionalProperties": false
     },
-    "returns": "At most one candidate pillar for the given ticker, or a no-change reason."
+    "returns": "At most one candidate pillar for the given ticker, with a rationale of three to five sentences, or a no-change reason."
+  },
+  {
+    "name": "revise_projections",
+    "description": "Compares the financial projections that extracted claims state for one company (EPS, revenue, operating income, target price, or a figure for one of its drivers such as segment growth, operating margin or capex) with the book's projection for the same metric and the company's modeled fiscal year. Call it when a claim fills a metric, a period, a value and a unit for a forward figure. Do not call it for claims that state no figure, only a change such as 'raised by 4%', a past result, or a figure for another year; those bring no projection to compare. It handles one company per call, so if the claims concern several companies, make a separate call for each with only that company's claims. It never computes or converts a figure, and it only recommends and changes nothing in the book.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "claim_ids": {
+          "type": "array",
+          "description": "The IDs of the extracted claims, all concerning the given ticker, that state a projected figure.",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]+\\.c\\d+$"
+          },
+          "minItems": 1
+        },
+        "ticker": {
+          "type": "string",
+          "description": "The one company whose projections are compared.",
+          "enum": [
+            "AMZN",
+            "NVDA",
+            "MSFT",
+            "AAPL",
+            "GOOGL"
+          ]
+        }
+      },
+      "required": [
+        "claim_ids",
+        "ticker"
+      ],
+      "additionalProperties": false
+    },
+    "returns": "A list of stated projections for the given ticker (metric, modeled fiscal year and the figure as the email states it), or a no-change reason. Code fills in the book's and consensus values."
   }
 ]

@@ -394,6 +394,7 @@ class Thesis(BaseModel):                # data/seed/theses.json
     summary: str = ""                   # the thesis in a short paragraph
     street_view: StreetView = "hold"    # the street's consensus rating
     street_view_note: str = ""          # one sentence: where the street sits versus the desk
+    street_target_price: float | None = None  # the street's consensus target, USD per share (synthetic)
 
 class Link(BaseModel):                  # data/seed/links.json
     from_ticker: Ticker                 # a claim about this company...
