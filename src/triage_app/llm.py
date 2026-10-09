@@ -11,6 +11,8 @@ is never printed or logged. Jev is not served by OpenRouter and keeps its own cl
 
 import json
 import os
+import threading
+import time
 from typing import Any, Protocol
 
 import httpx
@@ -23,6 +25,32 @@ from triage_app.config import ROOT
 from triage_app.monitoring import Recorder, cached_call
 
 DEFAULT_BASE_URL = "https://openrouter.ai/api/v1"
+
+# Process-wide throttle: OpenRouter limits requests per minute per model.
+_next_slot: dict[str, float] = {}
+_slot_lock = threading.Lock()
+
+
+def _throttle(model: str) -> None:
+    interval = 60.0 / thresholds.OPENROUTER_REQUESTS_PER_MINUTE
+    with _slot_lock:
+        now = time.monotonic()
+        slot = max(now, _next_slot.get(model, 0.0))
+        _next_slot[model] = slot + interval
+    if slot > now:
+        time.sleep(slot - now)
+
+
+def _retry_delay(resp: httpx.Response, attempt: int) -> float:
+    """Seconds to wait before retrying: the provider's reset time when given, else backoff."""
+    after = resp.headers.get("retry-after")
+    if after and after.replace(".", "", 1).isdigit():
+        return min(float(after), thresholds.LLM_RETRY_MAX_S)
+    try:
+        reset_ms = resp.json()["error"]["metadata"]["headers"]["X-RateLimit-Reset"]
+        return min(max(float(reset_ms) / 1000 - time.time(), 1.0), thresholds.LLM_RETRY_MAX_S)
+    except (KeyError, TypeError, ValueError):
+        return float(min(thresholds.LLM_RETRY_BASE_S * 2 ** attempt, thresholds.LLM_RETRY_MAX_S))
 
 
 class Message(BaseModel):
@@ -59,11 +87,18 @@ class OpenRouterClient:
     def _post(self, body: dict[str, Any]) -> Completion:
         if not self._api_key:
             raise RuntimeError("OPENROUTER_API_KEY is not set")
-        resp = httpx.post(
-            f"{self.base_url}/chat/completions",
-            headers={"Authorization": f"Bearer {self._api_key}", "Content-Type": "application/json"},
-            json=body, timeout=self.timeout,
-        )
+        for attempt in range(thresholds.LLM_MAX_RETRIES + 1):
+            _throttle(body["model"])
+            resp = httpx.post(
+                f"{self.base_url}/chat/completions",
+                headers={"Authorization": f"Bearer {self._api_key}", "Content-Type": "application/json"},
+                json=body, timeout=self.timeout,
+            )
+            retryable = resp.status_code == 429 or resp.status_code >= 500
+            if retryable and attempt < thresholds.LLM_MAX_RETRIES:
+                time.sleep(_retry_delay(resp, attempt))
+                continue
+            break
         if resp.status_code >= 400:
             raise RuntimeError(f"OpenRouter {resp.status_code}: {resp.text[:500]}")
         data = resp.json()

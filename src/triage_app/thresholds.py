@@ -78,6 +78,10 @@ LLM_MAX_TOKENS = 4096             # fixed  default output cap for a chat call
 DSPY_MAX_TOKENS = 8000            # fixed  output cap for DSPy modules (notes, extraction, skills, agents)
 LLM_TIMEOUT_S = 300.0             # fixed  OpenRouter request timeout
 JEV_TIMEOUT_S = 60.0              # fixed  TypeSafe request timeout
+OPENROUTER_REQUESTS_PER_MINUTE = 20   # fixed  client-side throttle per model (OpenRouter's new-account limit)
+LLM_MAX_RETRIES = 6               # fixed  retries on 429 / 5xx before a call fails
+LLM_RETRY_BASE_S = 5.0            # fixed  first backoff when the provider gives no reset time (doubles each retry)
+LLM_RETRY_MAX_S = 90.0            # fixed  longest single backoff
 
 # ---- Criteria files -----------------------------------------------------------------------
 
