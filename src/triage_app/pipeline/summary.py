@@ -55,7 +55,7 @@ def render(run: RunOutputs) -> str:
             return f"`{email_id}`"
         return f"`{email_id}` {subject[email_id]}"
 
-    day = str(run.brief.day) if run.brief else config.SET_DATES.get(run.corpus_set, "")  # type: ignore[call-overload]
+    day = str(run.brief.day) if run.brief else config.SET_DATES.get(run.corpus_set, "")
     lines = [
         f"# Run summary: {run.corpus_set}",
         "",

@@ -31,7 +31,7 @@ FIXTURES_DIR = ROOT / "tests" / "fixtures"
 CorpusSet = Literal["day_1", "day_2", "tuning"]
 CORPUS_SETS: tuple[CorpusSet, ...] = get_args(CorpusSet)
 TEST_SETS: tuple[CorpusSet, ...] = ("day_1", "day_2")
-SET_DATES: dict[CorpusSet, str] = {
+SET_DATES: dict[str, str] = {
     "day_1": "2026-10-13",
     "day_2": "2026-10-14",
     "tuning": "2026-10-15",

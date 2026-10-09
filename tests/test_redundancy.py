@@ -5,8 +5,8 @@ import numpy as np
 import pytest
 from fakes import FIXTURE_EMAILS, FakeEmbedder, fixture_emails
 
-from triage_app import thresholds
-from triage_app import config
+from triage_app import config, thresholds
+from triage_app.embed import Embedder
 from triage_app.pipeline import redundancy
 from triage_app.pipeline.context import RunContext
 from triage_app.pipeline.io import read_list
@@ -17,8 +17,8 @@ FIXTURES = Path(__file__).parent / "fixtures" / "out"
 T0 = datetime(2026, 10, 13, 8, 0, tzinfo=UTC)
 
 
-def _ctx(embedder: object | None = None) -> RunContext:
-    return RunContext("day_1", embedder=embedder or FakeEmbedder(), use_cache=False, emails_path=FIXTURE_EMAILS)  # type: ignore[arg-type]
+def _ctx(embedder: Embedder | None = None) -> RunContext:
+    return RunContext("day_1", embedder=embedder or FakeEmbedder(), use_cache=False, emails_path=FIXTURE_EMAILS)
 
 
 def _email(n: int, subject: str, body: str) -> Email:
@@ -26,8 +26,11 @@ def _email(n: int, subject: str, body: str) -> Email:
                  sender_email="a@example.com", subject=subject, body=body)
 
 
+FixtureRun = tuple[list[RedundancyRecord], RunContext]
+
+
 @pytest.fixture
-def fixture_run(tmp_path: Path) -> tuple[list[RedundancyRecord], RunContext]:
+def fixture_run(tmp_path: Path) -> FixtureRun:
     ctx = _ctx()
     redundancy.run(tmp_path, tmp_path, ctx)
     return read_list(tmp_path / "redundancy.json", RedundancyRecord), ctx
@@ -39,7 +42,7 @@ def every_comparison() -> list[RedundancyRecord]:
     return [redundancy.process(e, day, ctx) for e in fixture_emails()]
 
 
-def test_file_holds_only_the_flagged_repeat(fixture_run) -> None:  # type: ignore[no-untyped-def]
+def test_file_holds_only_the_flagged_repeat(fixture_run: FixtureRun) -> None:
     records, _ = fixture_run
     assert [r.email_id for r in records] == ["fixture_006"]
     repeat = records[0]
@@ -48,7 +51,7 @@ def test_file_holds_only_the_flagged_repeat(fixture_run) -> None:  # type: ignor
     assert [r.email_id for r in every_comparison() if r.flagged] == ["fixture_006"]
 
 
-def test_no_vectors_are_saved(fixture_run, tmp_path: Path) -> None:  # type: ignore[no-untyped-def]
+def test_no_vectors_are_saved(fixture_run: FixtureRun, tmp_path: Path) -> None:
     assert sorted(p.name for p in tmp_path.iterdir()) == ["redundancy.json"]
 
 
@@ -60,7 +63,7 @@ def test_first_email_has_no_nearest() -> None:
     assert all(r.nearest is not None for r in records[1:])
 
 
-def test_output_matches_contract_and_order(fixture_run) -> None:  # type: ignore[no-untyped-def]
+def test_output_matches_contract_and_order(fixture_run: FixtureRun) -> None:
     _, ctx = fixture_run
     emails = fixture_emails()
     ids = [e.email_id for e in emails]
@@ -69,7 +72,7 @@ def test_output_matches_contract_and_order(fixture_run) -> None:  # type: ignore
         if r.nearest is not None:
             assert ids.index(r.nearest) < ids.index(r.email_id)  # earlier emails only
             assert r.subject_score is not None and 0.0 <= r.subject_score <= 1.0
-    timed = [t.email_id for t in ctx.recorder.timings if t.stage == "redundancy"]
+    timed = [t.email_id for t in ctx.recorder.timings if t.stage == "redundancy" and t.email_id is not None]
     assert sorted(timed) == sorted(ids)
 
 

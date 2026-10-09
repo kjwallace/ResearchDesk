@@ -17,7 +17,7 @@ from triage_app import thresholds
 from triage_app.llm import ChatClient, Message
 
 
-class RouterLM(dspy.BaseLM):  # type: ignore[misc]
+class RouterLM(dspy.BaseLM):
     def __init__(self, model: str, client: ChatClient, *, namespace: str = "dspy",
                  temperature: float = thresholds.LLM_TEMPERATURE,
                  max_tokens: int = thresholds.DSPY_MAX_TOKENS) -> None:

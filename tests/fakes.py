@@ -75,11 +75,13 @@ class FakeEmbedder:
         return [float(x) for x in (v / n if n else v)]
 
     def embed(self, texts: list[str]) -> Vector:
-        rows = [cached_call(namespace="embed", model=self.model, payload=t,
-                            call=lambda t=t: self._vec(t), dump=lambda v: v, load=list,  # type: ignore[misc]
-                            usage=lambda _v, t=t: (self.count_tokens(t), 0))  # type: ignore[misc]
-                for t in texts]
+        rows = [self._embed_one(t) for t in texts]
         return np.asarray(rows, dtype=np.float32)
+
+    def _embed_one(self, text: str) -> list[float]:
+        return cached_call(namespace="embed", model=self.model, payload=text,
+                           call=lambda: self._vec(text), dump=lambda v: v, load=list,
+                           usage=lambda _v: (self.count_tokens(text), 0))
 
 
 class FakeJev:

@@ -654,11 +654,13 @@ class EmailResult(BaseModel):           # stage 4 output: label of record and ga
 class QuoteDraft(BaseModel):
     quote: str
 
-class NoteDraft(BaseModel):             # stage A model output
+class NoteFields(BaseModel):          # what a note says; shared by the draft and the stored note
     summary: str                        # two sentences
     why_attention: str                  # one or two sentences
     action: Literal["reply", "attend", "decide", "read", "other"]
     deadline: datetime | None = None    # only when the email states one
+
+class NoteDraft(NoteFields):           # stage A model output
     sections: list[QuoteDraft]
 
 class ClaimDraft(BaseModel):            # stage 5 model output, one per claim
@@ -721,7 +723,7 @@ class VerifyDraft(BaseModel):           # verify agent output
 
 # ---- Stored records for the attention pathway and analysis ----
 
-class AttentionNote(NoteDraft):         # stage A output
+class AttentionNote(NoteFields):        # stage A output
     email_id: str
     sections: list[LinkedSection]       # code adds the email_id to each quote
 

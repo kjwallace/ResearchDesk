@@ -12,6 +12,7 @@ from pathlib import Path
 
 from pydantic import BaseModel, TypeAdapter
 
+from triage_app.state.fold import ticker_of
 from triage_app import thresholds
 from triage_app import config
 from triage_app.corpus import load as load_corpus
@@ -43,7 +44,7 @@ def check(ok: bool, msg: str) -> None:
 
 def load_list(name: str, model: type[BaseModel]) -> list[Any]:
     try:
-        return TypeAdapter(list[model]).validate_json((OUT / name).read_text())  # type: ignore[valid-type]
+        return [model.model_validate(item) for item in json.loads((OUT / name).read_text())]
     except Exception as e:  # noqa: BLE001
         failures.append(f"{name}: does not load as list[{model.__name__}]: {e}")
         return []
@@ -259,7 +260,7 @@ def check_suggestion(where: str, s: Suggestion, may_mismatch: bool) -> None:
             if d:
                 check(a.book_value == d.analyst and a.consensus_value == d.consensus, f"{where}: book or consensus value not from models.json")
                 check(d.min <= a.stated_value <= d.max, f"{where}: stated value out of bounds")
-                fy = models[a.driver_id.split(".")[0]].fiscal_year  # type: ignore[index]
+                fy = models[ticker_of(a.driver_id)].fiscal_year
                 check(any(CLAIM[c].period == fy and CLAIM[c].value == a.stated_value for c in s.claim_ids if c in CLAIM),
                       f"{where}: stated figure needs a claim with period {fy} and the same value")
     elif isinstance(b, NewThesis):

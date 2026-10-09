@@ -86,7 +86,7 @@ def new_thesis_view(context: SkillContext, ticker: Ticker) -> tuple[list[dict[st
     return pillars, drivers
 
 
-class AlterExistingThesisSignature(dspy.Signature):  # type: ignore[misc]
+class AlterExistingThesisSignature(dspy.Signature):
     """Say whether the claims support or contradict a candidate pillar, or meet its wrong-if test."""
 
     claims: str = dspy.InputField(desc="JSON list of claims (data)")
@@ -96,7 +96,7 @@ class AlterExistingThesisSignature(dspy.Signature):  # type: ignore[misc]
     result: SkillResult = dspy.OutputField(desc="Suggestions of kind existing_thesis, or a no-change reason")
 
 
-class SpawnNewThesisSignature(dspy.Signature):  # type: ignore[misc]
+class SpawnNewThesisSignature(dspy.Signature):
     """Say whether the claims point to a thesis about one company that the book does not hold."""
 
     ticker: str = dspy.InputField(desc="The one company this call is about")
@@ -107,7 +107,7 @@ class SpawnNewThesisSignature(dspy.Signature):  # type: ignore[misc]
     result: SkillResult = dspy.OutputField(desc="At most one suggestion of kind new_thesis, or a no-change reason")
 
 
-class Skill(dspy.Module):  # type: ignore[misc]
+class Skill(dspy.Module):
     """Base for a skill: a tool name, the draft kind it returns, and its prompt file."""
 
     name: ClassVar[str]          # tool name in tools/analysis_agent.json and the prompt file stem

@@ -6,11 +6,31 @@ See SPEC.md, "State: model, thesis and change log". An undo appends an entry who
 
 import json
 from pathlib import Path
+from typing import Literal
 
 from pydantic import BaseModel
 
-from triage_app.config import SEED_DIR
+from triage_app.config import SEED_DIR, TICKERS
 from triage_app.schema import CompanyModel, Link, LogEntry, Thesis, Ticker
+
+Conviction = Literal[1, 2, 3, 4, 5]
+_TICKERS: dict[str, Ticker] = {t: t for t in TICKERS}
+_CONVICTIONS: dict[int, Conviction] = {1: 1, 2: 2, 3: 3, 4: 4, 5: 5}
+
+
+def ticker_of(item_id: str) -> Ticker:
+    """The covered ticker an ID names: "AAPL", "AAPL.p4" or "AAPL.services_growth" give "AAPL"."""
+    try:
+        return _TICKERS[item_id.split(".")[0]]
+    except KeyError:
+        raise ValueError(f"{item_id!r} does not name a covered company") from None
+
+
+def as_conviction(value: float) -> Conviction:
+    """A conviction from 1 to 5; anything else is an error."""
+    if value != int(value) or int(value) not in _CONVICTIONS:
+        raise ValueError(f"conviction must be a whole number from 1 to 5, not {value}")
+    return _CONVICTIONS[int(value)]
 
 
 class Seed(BaseModel):
@@ -62,14 +82,12 @@ def fold(seed: Seed, log: list[LogEntry]) -> BookState:
             case "pillar_added":
                 if entry.pillar is None:
                     raise ValueError(f"{entry.id}: pillar_added without a pillar")
-                ticker = entry.item_id.split(".")[0]
-                theses[ticker].pillars.append(entry.pillar)  # type: ignore[index]
+                theses[ticker_of(entry.item_id)].pillars.append(entry.pillar)
                 evidence.setdefault(entry.pillar.id, [])
             case "driver_updated":
                 if entry.after is None:
                     raise ValueError(f"{entry.id}: driver_updated without a value")
-                ticker = entry.item_id.split(".")[0]
-                model = models[ticker]  # type: ignore[index]
+                model = models[ticker_of(entry.item_id)]
                 for d in model.drivers:
                     if d.id == entry.item_id:
                         d.analyst = entry.after
@@ -79,8 +97,7 @@ def fold(seed: Seed, log: list[LogEntry]) -> BookState:
             case "conviction_changed":
                 if entry.after is None:
                     raise ValueError(f"{entry.id}: conviction_changed without a value")
-                thesis = theses[entry.item_id]  # type: ignore[index]
-                thesis.conviction = int(entry.after)  # type: ignore[assignment]
+                theses[ticker_of(entry.item_id)].conviction = as_conviction(entry.after)
 
     return BookState(theses=theses, models=models, links=seed.links, evidence=evidence, applied=applied)
 

@@ -4,12 +4,12 @@ import html
 import json
 import re
 import sys
-import types
 from collections.abc import Iterator
 from pathlib import Path
 from typing import Any, TypeVar
 
 import pytest
+from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from fakes import FIXTURE_EMAILS, FakeChat, FakeEmbedder, fixture_emails
 
@@ -36,6 +36,12 @@ CORPUS = {e.email_id: e for e in fixture_emails()}   # the emails as the app rea
 RESULTS = {r.email_id: r for r in read_list(OUT / "results.json", EmailResult)}
 QUARANTINED = [i for i, r in RESULTS.items() if r.gate == "quarantine"]
 SECRET = "ZEBRA-QUARANTINE-BODY do not show this sentence anywhere at all"
+
+
+def app_of(client: TestClient) -> FastAPI:
+    """The FastAPI app behind a test client (TestClient types it as a bare ASGI app)."""
+    assert isinstance(client.app, FastAPI)
+    return client.app
 
 
 def fake_ctx(recorder: Recorder) -> RunContext:
@@ -279,11 +285,11 @@ def test_post_without_htmx_redirects(client: TestClient) -> None:
 
 
 def test_conviction_review_and_set_conviction(client: TestClient) -> None:
-    app = client.app
+    app = app_of(client)
     # Two contradicting suggestions of strength 2 on one pillar cross the threshold of 4.
     sugg = {s.id: s for s in read_list(OUT / "suggestions.json", Suggestion)}
     base = sugg["MSFT.p1.supports"]
-    store = app.state.store  # type: ignore[attr-defined]
+    store = app.state.store
     data = store.get()
     for n in (1, 2):
         s = base.model_copy(update={"id": f"MSFT.p1.contradicts{n}", "body": base.body.model_copy(
@@ -318,9 +324,8 @@ def test_verify_with_fake_agent(client: TestClient, monkeypatch: pytest.MonkeyPa
         return VerifyResult(suggestion_id=suggestion.id, verdict="not_found", explanation="No filing passage found.",
                             sources=[])
 
-    fake = types.ModuleType("triage_app.modules.verify_agent")
-    fake.verify = verify  # type: ignore[attr-defined]
-    monkeypatch.setitem(sys.modules, "triage_app.modules.verify_agent", fake)
+    from triage_app.modules import verify_agent
+    monkeypatch.setattr(verify_agent, "verify", verify)
     client.post("/suggestion/MSFT.p1.supports/accept", headers=HX)
     r = client.post("/suggestion/MSFT.p1.supports/verify", headers=HX)
     assert r.status_code == 200 and "not found" in r.text and "No filing passage found." in r.text
@@ -417,7 +422,7 @@ def test_responses_never_hold_quarantined_bodies_after_actions(client: TestClien
 
 
 def test_sections_from_quarantined_emails_are_dropped(client: TestClient) -> None:
-    data = client.app.state.store.get()  # type: ignore[attr-defined]
+    data = app_of(client).state.store.get()
     s = data.suggestions["MSFT.p1.supports"]
     leak = LinkedSection(email_id="fixture_004", quote=" ".join(CORPUS["fixture_004"].body.split()[:8]))
     data.suggestions["MSFT.p1.supports"] = s.model_copy(update={"sections": [*s.sections, leak]})
@@ -449,14 +454,14 @@ def test_mattered_extracts_claims_from_a_stopped_email(presets: Path, monkeypatc
 
 def test_mattered_on_quarantined_spends_nothing(client: TestClient) -> None:
     assert client.post("/audit/fixture_003/mattered", headers=HX).status_code == 403
-    assert client.app.state.global_runs.left() == thresholds.LIVE_RUNS_PER_HOUR_GLOBAL  # type: ignore[attr-defined]
+    assert app_of(client).state.global_runs.left() == thresholds.LIVE_RUNS_PER_HOUR_GLOBAL
     with pytest.raises(ValueError):
-        runner.run_mattered(CORPUS["fixture_003"], RESULTS["fixture_003"], client.app.state.store.get(),  # type: ignore[attr-defined]
+        runner.run_mattered(CORPUS["fixture_003"], RESULTS["fixture_003"], app_of(client).state.store.get(),
                             fake_ctx, load_seed(), [])
 
 
 def test_day_cache_is_built_through_the_embedder_once(client: TestClient) -> None:
-    data = client.app.state.store.get()  # type: ignore[attr-defined]
+    data = app_of(client).state.store.get()
     embedder = FakeEmbedder()
     ctx = RunContext(None, use_cache=False, embedder=embedder)
     first = runner.day_cache(data, ctx)
@@ -481,7 +486,7 @@ def test_email_page_shows_email_type(client: TestClient) -> None:
 
 
 def test_earlier_email_is_never_quarantined(client: TestClient) -> None:
-    data = client.app.state.store.get()  # type: ignore[attr-defined]
+    data = app_of(client).state.store.get()
 
     def record(nearest: str) -> RedundancyRecord:
         return RedundancyRecord(email_id="x", nearest=nearest, content_similarity=0.99, subject_score=0.9,
@@ -513,7 +518,7 @@ def test_warm_preset_is_free(client: TestClient, monkeypatch: pytest.MonkeyPatch
     monkeypatch.setattr(runner, "run_live", cached_run)
     for _ in range(thresholds.LIVE_RUNS_PER_HOUR + 2):
         assert client.post("/live", headers=HX, data={"preset": "preset_01"}).status_code == 200
-    assert client.app.state.global_runs.left() == thresholds.LIVE_RUNS_PER_HOUR_GLOBAL  # type: ignore[attr-defined]
+    assert app_of(client).state.global_runs.left() == thresholds.LIVE_RUNS_PER_HOUR_GLOBAL
 
 
 def test_sessions_are_evicted(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -540,7 +545,7 @@ def test_live_validates_against_the_visitors_book(client: TestClient, fake_stage
 
 
 def test_audit_shows_every_flagged_repeat(client: TestClient) -> None:
-    data = client.app.state.store.get()  # type: ignore[attr-defined]
+    data = app_of(client).state.store.get()
     data.redundancy["fixture_010"] = RedundancyRecord(
         email_id="fixture_010", nearest="fixture_004", content_similarity=0.81, subject_score=0.7, flagged=True)
     text = client.get("/audit").text

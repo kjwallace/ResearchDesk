@@ -49,13 +49,13 @@ class HFEmbedder:
         return [float(x) for x in vec]
 
     def embed(self, texts: list[str]) -> Vector:
-        rows = []
-        for text in texts:
-            rows.append(cached_call(
-                namespace="embed", model=self.model, payload={"model": self.model, "text": text},
-                call=lambda t=text: self._encode(t),  # type: ignore[misc]
-                dump=lambda v: v, load=lambda v: list(v),
-                usage=lambda _v, t=text: (self.count_tokens(t), 0),  # type: ignore[misc]
-                input_text=text, cache=self.cache, recorder=self.recorder,
-            ))
-        return np.asarray(rows, dtype=np.float32)
+        return np.asarray([self._embed_one(text) for text in texts], dtype=np.float32)
+
+    def _embed_one(self, text: str) -> list[float]:
+        return cached_call(
+            namespace="embed", model=self.model, payload={"model": self.model, "text": text},
+            call=lambda: self._encode(text),
+            dump=lambda v: v, load=lambda v: list(v),
+            usage=lambda _v: (self.count_tokens(text), 0),
+            input_text=text, cache=self.cache, recorder=self.recorder,
+        )

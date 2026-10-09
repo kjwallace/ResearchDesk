@@ -45,7 +45,7 @@ def delimit_body(body: str) -> str:
     return f"{BODY_OPEN}\n{body.replace(BODY_CLOSE, '</email_body_>')}\n{BODY_CLOSE}"
 
 
-class WriteAttentionNote(dspy.Signature):  # type: ignore[misc]
+class WriteAttentionNote(dspy.Signature):
     """Write an attention note for one flagged email."""
 
     sender: str = dspy.InputField(desc="Display name of the sender (data)")
@@ -56,7 +56,7 @@ class WriteAttentionNote(dspy.Signature):  # type: ignore[misc]
     note: NoteDraft = dspy.OutputField(desc="The attention note")
 
 
-class AttentionWriter(dspy.Module):  # type: ignore[misc]
+class AttentionWriter(dspy.Module):
     def __init__(self, chat: ChatClient, *, model: str | None = None,
                  instructions: str | None = None) -> None:
         super().__init__()

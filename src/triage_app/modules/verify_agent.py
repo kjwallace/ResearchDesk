@@ -177,7 +177,7 @@ def tool_functions(s: Session) -> dict[str, Callable[..., str]]:
             "get_book_item": get_book_item}
 
 
-class VerifySuggestion(dspy.Signature):  # type: ignore[misc]
+class VerifySuggestion(dspy.Signature):
     """Check one suggestion's claim against the saved filings, the book and the change log."""
 
     suggestion: str = dspy.InputField(desc="JSON: the suggestion being verified (data)")

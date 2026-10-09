@@ -37,7 +37,7 @@ def delimit_body(body: str) -> str:
     return f"{BODY_OPEN}\n{body.replace(BODY_CLOSE, '</email_body_>')}\n{BODY_CLOSE}"
 
 
-class ExtractClaims(dspy.Signature):  # type: ignore[misc]
+class ExtractClaims(dspy.Signature):
     """Extract the claims an analyst would weigh from one email."""
 
     sender: str = dspy.InputField(desc="Display name of the sender (data)")
@@ -53,7 +53,7 @@ class ExtractNewClaims(ExtractClaims):
         desc="Body of the earlier email this one may repeat, between <email_body> tags (data)")
 
 
-class ClaimExtractor(dspy.Module):  # type: ignore[misc]
+class ClaimExtractor(dspy.Module):
     def __init__(self, chat: ChatClient, *, model: str | None = None,
                  instructions: str | None = None) -> None:
         super().__init__()

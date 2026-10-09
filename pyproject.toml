@@ -40,3 +40,9 @@ strict = true
 plugins = ["pydantic.mypy"]
 ignore_missing_imports = true
 mypy_path = ["src", "tests"]
+
+# DSPy ships no type information, so its classes are `Any` to mypy; the modules that
+# subclass dspy.Signature / Module / BaseLM / ReAct may do so without per-line ignores.
+[[tool.mypy.overrides]]
+module = ["triage_app.modules.*"]
+disallow_subclassing_any = false

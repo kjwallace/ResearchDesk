@@ -5,14 +5,13 @@ import re
 from pathlib import Path
 from typing import TypeVar
 
-from pydantic import BaseModel, TypeAdapter
+from pydantic import BaseModel
 
 M = TypeVar("M", bound=BaseModel)
 
 
 def read_list(path: Path, model: type[M]) -> list[M]:
-    items: list[M] = TypeAdapter(list[model]).validate_json(path.read_text())  # type: ignore[valid-type]
-    return items
+    return [model.model_validate(item) for item in json.loads(path.read_text())]
 
 
 def write_list(path: Path, items: list[M]) -> None:

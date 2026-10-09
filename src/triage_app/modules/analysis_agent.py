@@ -71,7 +71,7 @@ class AgentOutcome:
     final_text: str = ""                                        # kept only when no skill was called
 
 
-class AnalyzeEmail(dspy.Signature):  # type: ignore[misc]
+class AnalyzeEmail(dspy.Signature):
     """Choose which skills to run on the claims from one email."""
 
     claims: str = dspy.InputField(desc="JSON list of the email's claims (data)")
@@ -79,7 +79,7 @@ class AnalyzeEmail(dspy.Signature):  # type: ignore[misc]
     summary: str = dspy.OutputField(desc="One sentence; when no tool was called, begin with 'No skill applies:'")
 
 
-class SkillLoop(dspy.ReAct):  # type: ignore[misc]
+class SkillLoop(dspy.ReAct):
     """dspy.ReAct whose closing extract call runs only when no skill was called.
 
     When a skill ran, code collects its result and the agent's final text is not used, so the

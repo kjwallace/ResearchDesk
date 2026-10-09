@@ -35,7 +35,7 @@ from triage_app.schema import (
 )
 from triage_app.state import apply
 from triage_app.state.compute import Projection, compute, driver_values, project
-from triage_app.state.fold import BookState, Seed, fold, load_seed
+from triage_app.state.fold import BookState, Seed, fold, load_seed, ticker_of
 from triage_app.web import runner
 from triage_app.web.data import DataStore, DayData, data_dir_from_env, highlight, safe_sections
 from triage_app.web.session import SESSION_KEY, GlobalRuns, SessionState, SessionStore
@@ -494,7 +494,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         if v.thesis(ticker) is None:
             raise HTTPException(404, f"no company {ticker}")
         try:
-            entry = apply.set_conviction(seed, v.sess.log, ticker, conviction,  # type: ignore[arg-type]
+            entry = apply.set_conviction(seed, v.sess.log, ticker_of(ticker), conviction,
                                          suggestion_id=suggestion_id)
         except apply.ActionError as e:
             return message(request, v, str(e), ok=False, status_code=422)
