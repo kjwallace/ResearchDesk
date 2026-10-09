@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "app.py": {
+      "includeFiles": "{src/**,data/out/day_1/**,data/seed/**,data/corpus/day_1/emails.jsonl,data/live_presets/**,criteria/**,skills/**,instructions/**,tools/**,tuned/**}",
+      "excludeFiles": "{tests/**,transcripts/**,AI_transcripts/**,notebooks/**,docs/**,scripts/**,prompts/**,data/cache/**,.venv/**,data/corpus/**/email_plan.jsonl}"
+    }
+  }
+}
