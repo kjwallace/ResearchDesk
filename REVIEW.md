@@ -20,4 +20,5 @@ Every generated file is committed as a draft and listed here before the pipeline
 
 ## Flags for the reviewer
 
-- **Quarantine on possible MNPI.** In the step 0 spike, a legitimate expert-network call invitation scored `possible_mnpi` 0.64 under provisional wording. The quarantine threshold is fixed at 0.4, so the final wording of the `possible_mnpi` question (from prompt 05) needs a careful look, or real expert-call invitations may be quarantined.
+- **Quarantine on possible MNPI.** Resolved per the person's instruction (DECISIONS #37): threshold 0.65, question focused on insiders and anyone selling inside information. The true fixture cases score 0.86 and 0.99; no tuning email is quarantined (max 0.51). A compliance owner should still sign off on the quarantine rule before any real use.
+- **Jev leans to `monitor`.** In the live fixture run, even clear thesis_relevant emails came out `monitor` (signal scores near 1.0, so they still pass the gate). Worth a criteria rule once the tuning baseline exists.

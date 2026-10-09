@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Live{% endblock %}
+{% block content %}
+<h1>Live run</h1>
+<p class="small muted">Paste a synthetic email or pick a preset, and watch it go through every stage. Only synthetic mail:
+  never paste real email. Pasted emails are capped at {{ '{:,}'.format(thresholds.LIVE_INPUT_CAP_CHARS) }} characters and
+  {{ thresholds.LIVE_RUNS_PER_HOUR }} runs an hour per session; presets replay cached results.</p>
+<div class="grid2">
+<section>
+  {% if presets %}
+  <div class="panel"><h3>Presets</h3>
+    {% for p in presets %}
+      <form method="post" action="/live" hx-post="/live" hx-target="#trace" class="actions">
+        <input type="hidden" name="preset" value="{{ p.email_id }}"><button>Run</button> {{ p.subject }} <span class="muted small">· {{ p.sender }}</span>
+      </form>
+    {% endfor %}
+  </div>
+  {% else %}<p class="muted small">No presets yet.</p>{% endif %}
+  <form class="panel" method="post" action="/live" hx-post="/live" hx-target="#trace">
+    <h3>Paste an email</h3>
+    <label class="small">Sender <input type="text" name="sender"></label>
+    <label class="small">Sender email <input type="text" name="sender_email"></label>
+    <label class="small">Subject <input type="text" name="subject" style="width:100%"></label>
+    <label class="small">Body<textarea name="body" rows="10" maxlength="{{ thresholds.LIVE_INPUT_CAP_CHARS }}"></textarea></label>
+    <div class="actions"><button class="primary">Run the pipeline</button>
+      <span class="small muted">{{ runs_left }} runs left this hour</span></div>
+  </form>
+</section>
+<section id="trace">{% if trace or error %}{% include "fragments/trace.html" %}{% endif %}</section>
+</div>
+{% endblock %}

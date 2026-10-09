@@ -7,6 +7,7 @@ from typing import Any
 
 import numpy as np
 
+from triage_app import thresholds
 from triage_app.embed import Vector
 from triage_app.llm import Completion, Message
 from triage_app.monitoring import cached_call
@@ -25,8 +26,8 @@ class FakeChat:
         self.output_tokens = output_tokens
         self.calls: list[dict[str, Any]] = []
 
-    def complete(self, *, model: str, messages: list[Message], max_tokens: int = 4096,
-                 temperature: float = 0.0, response_format: dict[str, Any] | None = None,
+    def complete(self, *, model: str, messages: list[Message], max_tokens: int = thresholds.LLM_MAX_TOKENS,
+                 temperature: float = thresholds.LLM_TEMPERATURE, response_format: dict[str, Any] | None = None,
                  namespace: str = "chat", criteria_version: str = "") -> Completion:
         self.calls.append({"model": model, "messages": messages, "namespace": namespace})
         if callable(self.reply):

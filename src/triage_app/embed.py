@@ -13,6 +13,7 @@ from typing import Protocol
 import numpy as np
 from numpy.typing import NDArray
 
+from triage_app import thresholds
 from triage_app import config
 from triage_app.cache import DiskCache
 from triage_app.monitoring import Recorder, cached_call
@@ -36,7 +37,7 @@ class HFEmbedder:
 
         self.model = model or config.EMBEDDING_MODEL
         self._st = SentenceTransformer(self.model)
-        self.max_tokens = int(self._st.max_seq_length or config.EMBEDDING_MAX_TOKENS)
+        self.max_tokens = int(self._st.max_seq_length or thresholds.EMBEDDING_MAX_TOKENS)
         self.cache = (cache or DiskCache()) if use_cache else None
         self.recorder = recorder
 

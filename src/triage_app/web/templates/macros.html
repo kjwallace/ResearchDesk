@@ -1,0 +1,67 @@
+{% macro email_link(v, eid) -%}
+  {%- set e = v.email(eid) -%}
+  <a href="/email/{{ eid }}">{{ e.subject if e else eid }}</a>
+  {%- if e %} <span class="muted small">· {{ e.sender }}</span>{% endif %}
+{%- endmacro %}
+
+{% macro status_pill(status) -%}
+  <span class="pill {{ status }}">{{ status }}</span>
+{%- endmacro %}
+
+{% macro actions(v, s, status) -%}
+  <div class="actions" id="actions-{{ s.id | replace('.', '-') }}">
+    {{ status_pill(status) }}
+    {% if status == 'open' and s.body.kind != 'conviction_review' %}
+      <form method="post" action="/suggestion/{{ s.id }}/accept" hx-post="/suggestion/{{ s.id }}/accept"
+            hx-target="#actions-{{ s.id | replace('.', '-') }}" hx-swap="outerHTML"><button class="primary">Accept</button></form>
+    {% endif %}
+    {% if status == 'open' %}
+      <form method="post" action="/suggestion/{{ s.id }}/dismiss" hx-post="/suggestion/{{ s.id }}/dismiss"
+            hx-target="#actions-{{ s.id | replace('.', '-') }}" hx-swap="outerHTML"><button>Dismiss</button></form>
+    {% endif %}
+  </div>
+{%- endmacro %}
+
+{% macro card(v, s, sizes) -%}
+  {%- set b = s.body -%}
+  <div class="panel card">
+    {% if b.kind == 'existing_thesis' %}
+      {%- set p = v.pillar(b.pillar_id) -%}
+      <h3><a href="/suggestion/{{ s.id }}">{{ b.pillar_id }}</a>
+        <span class="pill {{ b.stance }}">{{ b.stance }}</span>
+        <span class="pill">strength {{ b.strength }}</span>
+        {% if b.wrong_if_met %}<span class="pill contradicts">"wrong if" met</span>{% endif %}
+        {% if s.second_look %}<span class="pill second">second look</span>{% endif %}
+        <span class="muted small">{{ v.thesis(v.ticker_of(s)).stance }} · {{ sizes.get(v.ticker_of(s)) }} bps</span></h3>
+      {% if p %}<div class="small muted">{{ p.statement }}</div>{% endif %}
+      {% for a in b.assumptions %}
+        <div class="small">Stated {{ a.driver_id }}: <b>{{ a.stated_value | num }}</b>
+          (book {{ v.driver(a.driver_id).analyst | num if v.driver(a.driver_id) else a.book_value | num }},
+          consensus {{ a.consensus_value | num }})</div>
+      {% endfor %}
+    {% elif b.kind == 'new_thesis' %}
+      <h3><a href="/suggestion/{{ s.id }}">New thesis for {{ b.ticker }}</a>
+        {% if s.second_look %}<span class="pill second">second look</span>{% endif %}</h3>
+      <div>{{ b.statement }}</div>
+      <div class="small muted">Wrong if: {{ b.wrong_if }}</div>
+    {% else %}
+      <h3><a href="/suggestion/{{ s.id }}">Conviction review: {{ b.ticker }}</a></h3>
+      <div class="small">Accepted contradicting evidence on {{ b.pillar_id }} reached the review threshold.</div>
+    {% endif %}
+    <div>{{ s.rationale }}</div>
+    <div class="small">Linked emails:
+      {% for eid in v.sections(s) | map(attribute='email_id') | unique %}{{ email_link(v, eid) }}{% if not loop.last %}; {% endif %}{% endfor %}
+    </div>
+    {{ actions(v, s, v.status(s)) }}
+  </div>
+{%- endmacro %}
+
+{% macro projection_table(projections) -%}
+  <table>
+    <tr><th></th>{% for k in projections %}<th class="num">{{ k }}</th>{% endfor %}</tr>
+    <tr><td>Revenue ($bn)</td>{% for p in projections.values() %}<td class="num">{{ p.revenue_usd_bn | num }}</td>{% endfor %}</tr>
+    <tr><td>Operating income ($bn)</td>{% for p in projections.values() %}<td class="num">{{ p.operating_income_usd_bn | num }}</td>{% endfor %}</tr>
+    <tr><td>EPS ($)</td>{% for p in projections.values() %}<td class="num eps">{{ p.eps | num(2) }}</td>{% endfor %}</tr>
+    <tr><td>Target price ($)</td>{% for p in projections.values() %}<td class="num">{{ p.target_price | num(0) }}</td>{% endfor %}</tr>
+  </table>
+{%- endmacro %}

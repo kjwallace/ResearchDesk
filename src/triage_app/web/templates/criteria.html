@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Criteria{% endblock %}
+{% block content %}
+<h1>Relevance criteria</h1>
+<p class="small muted">Jev classifies each email with these files and never sees the book. Label definitions are fixed; rules are added beneath them.</p>
+<p>{% for name in files %}{% set l = name[:-3] %}<a href="/criteria/{{ l }}">{% if l == label %}<b>{{ l }}</b>{% else %}{{ l }}{% endif %}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>
+
+{% if label %}
+  <h2>{{ label }}.md, as written</h2>
+  {% if error %}<div class="flash err">{{ error }}</div>{% endif %}
+  {% if parsed %}
+    <div class="panel"><b>Definition.</b> {{ parsed.definition }}
+      <ol>{% for r in parsed.rules %}<li value="{{ loop.index }}"><span class="muted">{{ r.id }}</span> {{ r.text }}</li>{% endfor %}</ol></div>
+  {% endif %}
+  <pre class="criteria">{{ files.get(label ~ '.md', '') }}</pre>
+{% else %}
+  {% for name, text in files.items() %}
+    <details class="panel"><summary><a href="/criteria/{{ name[:-3] }}">{{ name }}</a></summary><pre class="criteria">{{ text }}</pre></details>
+  {% endfor %}
+{% endif %}
+
+<h2>Version history</h2>
+{% for h in history | reverse %}
+  <details class="panel">
+    <summary><b>{{ h.criteria_version }}</b> · {{ h.at.strftime('%Y-%m-%d %H:%M') }} · {{ h.changed | length }} tuning emails changed label</summary>
+    <div class="scroll"><table>
+      <tr><th>Measure</th><th class="num">Fit</th><th class="num">Validation</th></tr>
+      {% for k in (h.fit.keys() | list + h.validation.keys() | list) | unique %}
+        <tr><td>{{ k }}</td><td class="num">{{ h.fit.get(k) | pct }}</td><td class="num">{{ h.validation.get(k) | pct }}</td></tr>
+      {% endfor %}
+    </table></div>
+    {% if h.changed %}<h3>Emails whose label changed</h3>
+      <table><tr><th>Email</th><th>Before</th><th>After</th><th>Split</th><th>Now correct</th></tr>
+      {% for c in h.changed %}<tr><td>{{ c.email_id }}: {{ c.subject }}</td><td>{{ c.before }}</td><td>{{ c.after }}</td><td>{{ c.split }}</td><td>{{ 'yes' if c.now_correct else 'no' }}</td></tr>{% endfor %}
+      </table>{% endif %}
+    {% if label and (label ~ '.md') in h.files %}<h3>{{ label }}.md in this version</h3><pre class="criteria">{{ h.files[label ~ '.md'] }}</pre>{% endif %}
+  </details>
+{% else %}<p class="muted">No criteria check has run yet.</p>{% endfor %}
+{% endblock %}

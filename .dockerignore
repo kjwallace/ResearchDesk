@@ -1,0 +1,14 @@
+.env
+.venv
+.venv-finresearch
+.git
+.mypy_cache
+.pytest_cache
+**/__pycache__
+transcripts
+tests
+docs
+scripts
+prompts
+# The app reads stage files, not the labeled corpus.
+data/corpus

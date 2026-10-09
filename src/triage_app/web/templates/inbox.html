@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Inbox{% endblock %}
+{% block content %}
+<h1>Inbox <span class="muted">({{ emails | length }} emails, arrival order)</span></h1>
+<p class="small muted">The raw emails, untouched. Compare with the brief. A quarantined email shows its sender and subject only.</p>
+<div class="scroll"><table>
+  <tr><th>Time</th><th>Sender</th><th>Subject</th><th>Label</th></tr>
+  {% for e in emails %}{% set r = v.result(e.email_id) %}
+    <tr><td class="small">{{ e.received_at.strftime('%H:%M') }}</td><td class="small">{{ e.sender }}</td>
+      <td><a href="/email/{{ e.email_id }}">{{ e.subject }}</a></td>
+      <td>{% if r %}<span class="pill {{ r.gate }}">{{ r.triage or 'quarantined' }}</span>{% endif %}</td></tr>
+  {% endfor %}
+</table></div>
+{% endblock %}

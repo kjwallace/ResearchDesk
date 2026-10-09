@@ -8,6 +8,7 @@ and tests pass fakes in their place:
 
 from typing import Any
 
+from triage_app import thresholds
 from triage_app import config
 from triage_app.cache import DiskCache
 from triage_app.config import CorpusSet
@@ -52,7 +53,7 @@ class RunContext:
             from dotenv import load_dotenv
             from typesafe_sdk import TypeSafeClient
             load_dotenv(config.ROOT / ".env")
-            self._jev = TypeSafeClient(model=config.JEV_MODEL)
+            self._jev = TypeSafeClient(model=config.JEV_MODEL, timeout=thresholds.JEV_TIMEOUT_S)
         return self._jev
 
     @property
@@ -65,5 +66,5 @@ class RunContext:
     @property
     def thresholds(self) -> Thresholds:
         if self._thresholds is None:
-            self._thresholds = config.load_thresholds()
+            self._thresholds = thresholds.load_thresholds()
         return self._thresholds

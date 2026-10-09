@@ -13,12 +13,14 @@ from typing import Any
 import numpy  # noqa: F401  # import before dspy: its lazy importer breaks a later numpy import
 import dspy
 
+from triage_app import thresholds
 from triage_app.llm import ChatClient, Message
 
 
 class RouterLM(dspy.BaseLM):  # type: ignore[misc]
     def __init__(self, model: str, client: ChatClient, *, namespace: str = "dspy",
-                 temperature: float = 0.0, max_tokens: int = 8000) -> None:
+                 temperature: float = thresholds.LLM_TEMPERATURE,
+                 max_tokens: int = thresholds.DSPY_MAX_TOKENS) -> None:
         # DSPy's own cache is off: the project's DiskCache, inside the client, caches instead.
         super().__init__(model=model, model_type="chat", temperature=temperature,
                          max_tokens=max_tokens, cache=False)
@@ -32,8 +34,8 @@ class RouterLM(dspy.BaseLM):  # type: ignore[misc]
         completion = self.client.complete(
             model=self.model,
             messages=[Message(role=m["role"], content=_text(m["content"])) for m in msgs],
-            max_tokens=int(merged.get("max_tokens", 8000)),
-            temperature=float(merged.get("temperature", 0.0)),
+            max_tokens=int(merged.get("max_tokens", thresholds.DSPY_MAX_TOKENS)),
+            temperature=float(merged.get("temperature", thresholds.LLM_TEMPERATURE)),
             namespace=self.namespace,
         )
         return {

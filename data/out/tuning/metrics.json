@@ -1,0 +1,23 @@
+{
+  "corpus": "tuning",
+  "run_at": "2026-10-09T04:21:50.387870Z",
+  "emails": 100,
+  "stages": {
+    "gate": {
+      "calls": 0,
+      "cache_hits": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "uncached_input_tokens": 0,
+      "uncached_output_tokens": 0,
+      "latency_p50_ms": 0.00458303838968277,
+      "latency_p95_ms": 0.009497650898993014,
+      "latency_max_ms": 1.736166886985302
+    }
+  },
+  "by_model": {},
+  "tokens_per_email_mean": 0.0,
+  "email_latency_p50_ms": 0.00458303838968277,
+  "email_latency_p95_ms": 0.009497650898993014,
+  "total_latency_ms": 6.610209122300148
+}

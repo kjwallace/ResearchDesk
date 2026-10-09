@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Monitor{% endblock %}
+{% block content %}
+<h1>Monitor: tokens and latency</h1>
+{% if not m %}<p class="muted">No metrics.json for this set yet.</p>{% else %}
+<p class="small muted">Set {{ m.corpus }} · run at {{ m.run_at.strftime('%Y-%m-%d %H:%M UTC') }} · {{ m.emails }} emails.
+  "Spent" counts cache misses only; "uncached" is what the run would have cost with no cache.</p>
+<div class="counts">
+  <span class="count">tokens per email (spent) <b>{{ m.tokens_per_email_mean | num(0) }}</b></span>
+  <span class="count">email latency p50 <b>{{ m.email_latency_p50_ms | num(0) }} ms</b></span>
+  <span class="count">email latency p95 <b>{{ m.email_latency_p95_ms | num(0) }} ms</b></span>
+  <span class="count">total <b>{{ (m.total_latency_ms / 1000) | num(1) }} s</b></span>
+</div>
+{% macro usage_table(rows, first) %}
+<div class="scroll"><table>
+  <tr><th>{{ first }}</th><th class="num">Calls</th><th class="num">Cache hits</th><th class="num">Spent in</th><th class="num">Spent out</th>
+    <th class="num">Uncached in</th><th class="num">Uncached out</th><th class="num">p50 ms</th><th class="num">p95 ms</th><th class="num">max ms</th></tr>
+  {% for name, u in rows.items() %}
+    <tr><td>{{ name }}</td><td class="num">{{ u.calls }}</td><td class="num">{{ u.cache_hits }}</td>
+      <td class="num">{{ u.input_tokens | num(0) }}</td><td class="num">{{ u.output_tokens | num(0) }}</td>
+      <td class="num">{{ u.uncached_input_tokens | num(0) }}</td><td class="num">{{ u.uncached_output_tokens | num(0) }}</td>
+      <td class="num">{{ u.latency_p50_ms | num(0) }}</td><td class="num">{{ u.latency_p95_ms | num(0) }}</td><td class="num">{{ u.latency_max_ms | num(0) }}</td></tr>
+  {% endfor %}
+</table></div>
+{% endmacro %}
+<h2>Per stage</h2>{{ usage_table(m.stages, 'Stage') }}
+<h2>Per model</h2>{{ usage_table(m.by_model, 'Model') }}
+<div class="grid2">
+<section><h2>Costliest emails</h2>
+  <table><tr><th>Email</th><th class="num">Tokens</th><th class="num">Spent</th></tr>
+  {% for eid, t in costliest %}<tr><td><a href="/email/{{ eid }}">{{ v.email(eid).subject if v.email(eid) else eid }}</a></td><td class="num">{{ t[0] | num(0) }}</td><td class="num">{{ t[1] | num(0) }}</td></tr>{% endfor %}
+  </table></section>
+<section><h2>Slowest emails</h2>
+  <table><tr><th>Email</th><th class="num">ms, all stages</th></tr>
+  {% for eid, ms in slowest %}<tr><td><a href="/email/{{ eid }}">{{ v.email(eid).subject if v.email(eid) else eid }}</a></td><td class="num">{{ ms | num(0) }}</td></tr>{% endfor %}
+  </table></section>
+</div>
+{% endif %}
+{% endblock %}

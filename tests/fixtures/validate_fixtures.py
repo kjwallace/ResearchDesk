@@ -12,7 +12,9 @@ from pathlib import Path
 import numpy as np
 from pydantic import BaseModel, TypeAdapter
 
+from triage_app import thresholds
 from triage_app import config
+from triage_app.pipeline import parse as parse_stage
 from triage_app.monitoring import build_report
 from triage_app.pipeline.io import normalize_ws, quote_in
 from triage_app.schema import (
@@ -112,7 +114,7 @@ for f in ("raw.json", "parsed.json"):
         check(not (set(item) & LABEL_FIELDS), f"{f} {item.get('email_id')}: holds label fields")
 for a, b in zip(raw, parsed):
     check(a.body == ROW[a.email_id]["body"], f"raw.json {a.email_id}: body must be the corpus body")
-    check(b.body == normalize_ws(a.body), f"parsed.json {a.email_id}: body must be the cleaned raw body")
+    check(b.body == parse_stage.process(a).body, f"parsed.json {a.email_id}: body must be the cleaned raw body")
     check((a.sender, a.sender_email, a.subject, a.received_at) == (b.sender, b.sender_email, b.subject, b.received_at),
           f"parsed.json {a.email_id}: header fields differ from raw.json")
     check(str(a.received_at.date()) == config.SET_DATES["day_1"], f"raw.json {a.email_id}: received_at not on day_1")
@@ -137,7 +139,7 @@ for i, r in enumerate(red):
     check(r.content_similarity is not None and abs(r.content_similarity - float(sims[j])) < 1e-3,
           f"redundancy.json {r.email_id}: content_similarity disagrees with vectors.npy")
     c, s = r.content_similarity or 0.0, r.subject_score or 0.0
-    want = c >= config.CONTENT_SIMILARITY or (c >= config.CONTENT_SIMILARITY_WITH_SUBJECT and s >= config.SUBJECT_MATCH)
+    want = c >= thresholds.CONTENT_SIMILARITY or (c >= thresholds.CONTENT_SIMILARITY_WITH_SUBJECT and s >= thresholds.SUBJECT_MATCH)
     check(r.flagged == want, f"redundancy.json {r.email_id}: flagged={r.flagged} disagrees with the thresholds")
 
 # ---- stage 3 and 4 ----
@@ -159,7 +161,7 @@ for r in results:
     sig = t.triage_probs["thesis_relevant"] + t.triage_probs["monitor"]
     check(abs(r.signal_score - sig) < 1e-3, f"results.json {r.email_id}: signal_score must be P(tr)+P(monitor)")
     check("\n" not in r.reason and r.reason.strip() != "", f"results.json {r.email_id}: reason must be one line")
-    quarantined = max(t.safety.values()) >= config.QUARANTINE
+    quarantined = max(t.safety.values()) >= thresholds.QUARANTINE
     if quarantined:
         check(r.triage is None and r.decided_by == "quarantine" and r.gate == "quarantine"
               and r.affected_tickers == [] and r.additional_labels == [] and not r.human_attention
@@ -168,9 +170,9 @@ for r in results:
         check(any(k in r.reason for k in config.SAFETY_QUESTIONS), f"results.json {r.email_id}: reason must name the safety question")
         continue
     check(r.triage is not None and r.gate != "quarantine", f"results.json {r.email_id}: not quarantined but marked so")
-    passed = sig >= config.PASS_SIGNAL or t.truncated
+    passed = sig >= thresholds.PASS_SIGNAL or t.truncated
     check(r.gate == ("pass" if passed else "stop"), f"results.json {r.email_id}: gate disagrees with signal score")
-    check(f"signal score {sig:.2f}" in r.reason and f"{config.PASS_SIGNAL:.2f}" in r.reason,
+    check(f"signal score {sig:.2f}" in r.reason and f"{thresholds.PASS_SIGNAL:.2f}" in r.reason,
           f"results.json {r.email_id}: reason must name the signal score and threshold")
     top = max(t.triage_probs, key=t.triage_probs.get)
     rr = RED[r.email_id]
@@ -181,17 +183,17 @@ for r in results:
     else:
         check(r.decided_by == "jev" and r.triage == top and r.redundant_of is None,
               f"results.json {r.email_id}: jev result must carry Jev's top label and no redundant_of")
-    check(r.affected_tickers == [x for x in config.TICKERS if t.ticker_probs[x] >= config.TICKER_THRESHOLD],
+    check(r.affected_tickers == [x for x in config.TICKERS if t.ticker_probs[x] >= thresholds.TICKER_THRESHOLD],
           f"results.json {r.email_id}: affected_tickers disagree with ticker_probs")
-    check(r.additional_labels == [x for x in config.TOPICS if t.topic_probs[x] >= config.TOPIC_THRESHOLD],
+    check(r.additional_labels == [x for x in config.TOPICS if t.topic_probs[x] >= thresholds.TOPIC_THRESHOLD],
           f"results.json {r.email_id}: additional_labels disagree with topic_probs")
-    check(r.human_attention == (t.attention >= config.ATTENTION), f"results.json {r.email_id}: attention flag")
+    check(r.human_attention == (t.attention >= thresholds.ATTENTION), f"results.json {r.email_id}: attention flag")
 
 QUAR = {r.email_id for r in results if r.gate == "quarantine"}
 PASSED = {r.email_id for r in results if r.gate == "pass"}
 check(len(QUAR) == 2, "results.json: need exactly two quarantine cases")
-check({TRI[i].safety["instructs_ai"] >= config.QUARANTINE for i in QUAR} == {True, False}
-      and any(TRI[i].safety["possible_mnpi"] >= config.QUARANTINE for i in QUAR),
+check({TRI[i].safety["instructs_ai"] >= thresholds.QUARANTINE for i in QUAR} == {True, False}
+      and any(TRI[i].safety["possible_mnpi"] >= thresholds.QUARANTINE for i in QUAR),
       "results.json: one quarantine must be instructs_ai and one possible_mnpi")
 repeats = [r for r in results if r.decided_by == "redundancy_check"]
 check(len(repeats) == 1, "results.json: need one same-day repeat decided by the redundancy check")
@@ -229,7 +231,7 @@ for eid in {c.email_id for c in claims}:
 check([a.email_id for a in analysis] == [i for i in IDS if i in PASSED], "analysis.json: one record per passed email, in order")
 for a in analysis:
     check(bool(a.suggestion_ids) != bool(a.no_change_reason), f"analysis.json {a.email_id}: suggestions xor a no-change reason")
-    check(len(a.skills_called) <= config.SKILL_CALLS_PER_EMAIL, f"analysis.json {a.email_id}: too many skill calls")
+    check(len(a.skills_called) <= thresholds.SKILL_CALLS_PER_EMAIL, f"analysis.json {a.email_id}: too many skill calls")
     if not any(c.email_id == a.email_id for c in claims):
         check(a.no_change_reason == "no claims extracted", f"analysis.json {a.email_id}: no claims must read 'no claims extracted'")
 
@@ -321,7 +323,7 @@ figure_ok = any(isinstance(s.body, ExistingThesis) and s.body.assumptions
 check(figure_ok, "need a thesis_relevant existing-thesis suggestion with a stated figure")
 second = [s for s in s_fin if s.second_look]
 check(any(all(RES[x.email_id].triage in ("low_value", "irrelevant") and RES[x.email_id].gate == "pass"
-              and RES[x.email_id].signal_score >= config.PASS_SIGNAL for x in s.sections) for s in second),
+              and RES[x.email_id].signal_score >= thresholds.PASS_SIGNAL for x in s.sections) for s in second),
       "need a second-look suggestion from a passed low_value or irrelevant email")
 check(any(isinstance(s.body, NewThesis) for s in s_fin), "need a new-thesis suggestion")
 check(any(r.triage == "monitor" for r in results), "need a monitor email")
@@ -366,10 +368,10 @@ if brief is not None:
               f"brief.json: {eid} in relevant_unlinked must be passed signal")
     check(brief.relevant_unlinked == sorted(brief.relevant_unlinked, key=lambda e: -RES[e].signal_score),
           "brief.json: relevant_unlinked must be ordered by signal score")
-    check(len(brief.alerts) <= config.ALERTS_PER_DAY, "brief.json: at most three alerts")
+    check(len(brief.alerts) <= thresholds.ALERTS_PER_DAY, "brief.json: at most three alerts")
     for al in brief.alerts:
         if al.kind == "human_attention":
-            check(TRI[al.ref_id].attention >= config.ALERT_ATTENTION, f"brief.json: alert {al.ref_id} below the alert threshold")
+            check(TRI[al.ref_id].attention >= thresholds.ALERT_ATTENTION, f"brief.json: alert {al.ref_id} below the alert threshold")
     check(brief.counts.get("notes") == len(notes) and brief.counts.get("suggestions") == len(s_fin),
           "brief.json: counts of notes and suggestions")
 

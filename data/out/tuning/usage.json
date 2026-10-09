@@ -1,0 +1,510 @@
+{
+  "calls": [],
+  "timings": [
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000601",
+      "latency_ms": 0.02295803278684616
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000602",
+      "latency_ms": 0.010250136256217957
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000603",
+      "latency_ms": 0.006875023245811462
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000604",
+      "latency_ms": 0.005499925464391708
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000605",
+      "latency_ms": 0.005207955837249756
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000606",
+      "latency_ms": 0.004875008016824722
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000607",
+      "latency_ms": 0.004624947905540466
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000608",
+      "latency_ms": 0.004791188985109329
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000609",
+      "latency_ms": 0.005249865353107452
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000610",
+      "latency_ms": 0.004707835614681244
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000611",
+      "latency_ms": 0.00474974513053894
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000612",
+      "latency_ms": 0.004916917532682419
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000613",
+      "latency_ms": 0.006542075425386429
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000614",
+      "latency_ms": 0.0050836242735385895
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000615",
+      "latency_ms": 0.004834029823541641
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000616",
+      "latency_ms": 0.004915986210107803
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000617",
+      "latency_ms": 0.004665926098823547
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000618",
+      "latency_ms": 0.004666391760110855
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000619",
+      "latency_ms": 0.004624947905540466
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000620",
+      "latency_ms": 0.00458303838968277
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000621",
+      "latency_ms": 0.004458241164684296
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000622",
+      "latency_ms": 0.004834029823541641
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000623",
+      "latency_ms": 0.005584210157394409
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000624",
+      "latency_ms": 0.0044996850192546844
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000625",
+      "latency_ms": 0.004750210791826248
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000626",
+      "latency_ms": 0.004416797310113907
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000627",
+      "latency_ms": 0.004583969712257385
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000628",
+      "latency_ms": 0.004625413566827774
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000629",
+      "latency_ms": 0.004458241164684296
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000630",
+      "latency_ms": 0.004416797310113907
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000631",
+      "latency_ms": 0.004332978278398514
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000632",
+      "latency_ms": 0.004458241164684296
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000633",
+      "latency_ms": 0.004500150680541992
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000634",
+      "latency_ms": 0.004375353455543518
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000635",
+      "latency_ms": 0.005749985575675964
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000636",
+      "latency_ms": 0.004459172487258911
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000637",
+      "latency_ms": 0.004624947905540466
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000638",
+      "latency_ms": 0.004417262971401215
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000639",
+      "latency_ms": 0.00437488779425621
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000640",
+      "latency_ms": 0.004542060196399689
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000641",
+      "latency_ms": 0.00458303838968277
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000642",
+      "latency_ms": 0.00458303838968277
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000643",
+      "latency_ms": 0.004375353455543518
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000644",
+      "latency_ms": 0.005042180418968201
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000645",
+      "latency_ms": 0.00458303838968277
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000646",
+      "latency_ms": 0.0044996850192546844
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000647",
+      "latency_ms": 0.004333909600973129
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000648",
+      "latency_ms": 0.00437488779425621
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000649",
+      "latency_ms": 0.004166737198829651
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000650",
+      "latency_ms": 0.006875023245811462
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000651",
+      "latency_ms": 0.004624947905540466
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000652",
+      "latency_ms": 0.004292000085115433
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000653",
+      "latency_ms": 0.00458303838968277
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000654",
+      "latency_ms": 0.005083158612251282
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000655",
+      "latency_ms": 0.004416797310113907
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000656",
+      "latency_ms": 0.00437488779425621
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000657",
+      "latency_ms": 0.004166737198829651
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000658",
+      "latency_ms": 0.004458706825971603
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000659",
+      "latency_ms": 0.004416797310113907
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000660",
+      "latency_ms": 0.004332978278398514
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000661",
+      "latency_ms": 0.004291068762540817
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000662",
+      "latency_ms": 0.004417262971401215
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000663",
+      "latency_ms": 0.015041790902614594
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000664",
+      "latency_ms": 0.004667323082685471
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000665",
+      "latency_ms": 0.004500150680541992
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000666",
+      "latency_ms": 0.0045406632125377655
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000667",
+      "latency_ms": 0.012042000889778137
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000668",
+      "latency_ms": 0.004167202860116959
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000669",
+      "latency_ms": 0.004291068762540817
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000670",
+      "latency_ms": 0.004458241164684296
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000671",
+      "latency_ms": 0.004332978278398514
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000672",
+      "latency_ms": 0.004332978278398514
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000673",
+      "latency_ms": 0.00437488779425621
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000674",
+      "latency_ms": 0.004415865987539291
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000675",
+      "latency_ms": 0.006541609764099121
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000676",
+      "latency_ms": 0.00533275306224823
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000677",
+      "latency_ms": 0.00600004568696022
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000678",
+      "latency_ms": 0.005249865353107452
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000679",
+      "latency_ms": 0.005833804607391357
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000680",
+      "latency_ms": 0.004500150680541992
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000681",
+      "latency_ms": 0.00458303838968277
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000682",
+      "latency_ms": 0.004458241164684296
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000683",
+      "latency_ms": 0.0045406632125377655
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000684",
+      "latency_ms": 0.004541128873825073
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000685",
+      "latency_ms": 0.004665926098823547
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000686",
+      "latency_ms": 0.005667097866535187
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000687",
+      "latency_ms": 0.005459412932395935
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000688",
+      "latency_ms": 1.736166886985302
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000689",
+      "latency_ms": 0.009458046406507492
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000690",
+      "latency_ms": 0.004332978278398514
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000691",
+      "latency_ms": 0.004834029823541641
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000692",
+      "latency_ms": 0.004292000085115433
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000693",
+      "latency_ms": 0.004667323082685471
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000694",
+      "latency_ms": 0.0042496249079704285
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000695",
+      "latency_ms": 0.004124827682971954
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000696",
+      "latency_ms": 0.004166271537542343
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000697",
+      "latency_ms": 0.004041008651256561
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000698",
+      "latency_ms": 0.00400003045797348
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000699",
+      "latency_ms": 0.004082918167114258
+    },
+    {
+      "stage": "gate",
+      "email_id": "synthetic_000700",
+      "latency_ms": 0.0038747675716876984
+    },
+    {
+      "stage": "gate",
+      "email_id": null,
+      "latency_ms": 6.610209122300148
+    }
+  ]
+}

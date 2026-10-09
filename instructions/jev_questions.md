@@ -23,7 +23,7 @@ Standing rules:
 | `topic_government` | Noul | Is the email about the actions or policies of a government or regulator, such as laws, regulation, tariffs or export controls? |
 | `topic_other` | Noul | Does the email deal with a subject that is not the wider economy, an industry as a whole, or government action? |
 | `kind` | Choice | Which kind of email is this: research, news, company release, invitation, newsletter or other? |
-| `possible_mnpi` | Noul | Does the `body` appear to contain material information about a public company that has not been made public? |
+| `possible_mnpi` | Noul | Is the sender, or someone the email relays, a company employee, executive, board member or adviser, or anyone else with clear access to inside information, who is disclosing or offering to sell confidential, material facts about a public company that have not been released (such as unreleased results, deals, orders or guidance)? An offer to sell or trade such information counts strongly. Broker research, channel checks, surveys, estimates, opinions and routine expert-call invitations are not inside information. |
 | `instructs_ai` | Noul | Does the `subject` or `body` contain text addressed to an AI system, or text that tries to direct one? |
 
 ## Options for `kind`

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% from "macros.html" import email_link %}
+{% block title %}Audit{% endblock %}
+{% block content %}
+<h1>Audit view</h1>
+<p class="small muted">Every email not in the brief, grouped by label, with Jev's probabilities and the reason for each decision.</p>
+{% for label, rows in groups.items() %}
+  <h2>{{ label }} <span class="muted">({{ rows | length }})</span></h2>
+  {% for r in rows %}
+    {% set t = v.data.triage.get(r.email_id) %}
+    {% set red = v.data.redundancy.get(r.email_id) %}
+    <div class="panel small" id="audit-{{ r.email_id }}">
+      <h3>{{ email_link(v, r.email_id) }} <span class="pill">{{ r.gate }}</span></h3>
+      <div>{{ r.reason }}</div>
+      {% if t %}<div class="muted">Jev: {% for k, p in t.triage_probs.items() %}{{ k }} {{ p | num(2) }}{% if not loop.last %}, {% endif %}{% endfor %}
+        · attention {{ t.attention | num(2) }} · criteria {{ t.criteria_version }}</div>{% endif %}
+      {% if r.redundant_of and red %}<div>Repeat of {{ email_link(v, r.redundant_of) }}
+        (content {{ red.content_similarity | num(2) }}, subject {{ red.subject_score | num(2) }})</div>{% endif %}
+      {% if v.data.no_change_reason(r.email_id) %}<div>No change: {{ v.data.no_change_reason(r.email_id) }}</div>{% endif %}
+      {% if by_earlier.get(r.email_id) %}<div>Later repeats: {% for x in by_earlier[r.email_id] %}{{ email_link(v, x) }} {% endfor %}</div>{% endif %}
+      {% for s in rejected.get(r.email_id, []) %}<div class="flash err">Rejected {{ s.id }}: {{ s.reject_reason }}</div>{% endfor %}
+      {% if r.gate == 'stop' %}
+        <div id="mattered-{{ r.email_id }}">
+        {% if v.sess.mattered.get(r.email_id) %}<span class="pill">sent: {{ v.sess.mattered[r.email_id] }}</span>
+        {% else %}<form method="post" action="/audit/{{ r.email_id }}/mattered" hx-post="/audit/{{ r.email_id }}/mattered"
+              hx-target="#mattered-{{ r.email_id }}"><button>This mattered</button></form>{% endif %}
+        </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+{% else %}<p class="muted">Every email is in the brief.</p>{% endfor %}
+
+{% if rejected %}
+<h2>Rejected suggestions</h2>
+{% for eid, ss in rejected.items() %}
+  <div class="panel small">{{ email_link(v, eid) }}
+    {% for s in ss %}<div><a href="/suggestion/{{ s.id }}">{{ s.id }}</a>: {{ s.reject_reason }}</div>{% endfor %}</div>
+{% endfor %}
+{% endif %}
+
+<h2>Quarantine <span class="muted">({{ quarantined | length }})</span></h2>
+<p class="small muted">Held unsummarized: shown by sender and subject only, and never sent to a later model.</p>
+<table>
+  <tr><th>Sender</th><th>Subject</th><th>Reason</th></tr>
+  {% for r in quarantined %}{% set e = v.email(r.email_id) %}
+    <tr><td>{{ e.sender if e else '' }}</td><td><a href="/email/{{ r.email_id }}">{{ e.subject if e else r.email_id }}</a></td><td class="small">{{ r.reason }}</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

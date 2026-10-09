@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Triage{% endblock %} · synthetic</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <meta name="htmx-config" content='{"responseHandling": [{"code": "204", "swap": false}, {"code": "...", "swap": true}]}'>
+  <script src="{{ HTMX_URL }}" defer></script>
+</head>
+<body>
+  <div class="synthetic" role="note"><strong>Synthetic data.</strong> The companies are real; the emails, brokers,
+    positions, theses and estimates are invented. Nothing here is investment advice, and the system never sends mail.</div>
+  <header class="top">
+    <span class="brand">Email triage</span>
+    <nav>
+      <a href="/">Brief</a><a href="/audit">Audit</a><a href="/inbox">Inbox</a>
+      {% for t in config.TICKERS %}<a href="/company/{{ t }}">{{ t }}</a>{% endfor %}
+      <a href="/criteria">Criteria</a><a href="/live">Live</a><a href="/eval">Eval</a><a href="/monitor">Monitor</a>
+    </nav>
+    <form method="post" action="/undo" hx-post="/undo" hx-target="#flash"><button>Undo</button></form>
+    <form method="post" action="/reset" hx-post="/reset" hx-target="#flash"
+          hx-confirm="Restore the seed state? Your accepted changes in this session will be cleared."><button>Reset</button></form>
+  </header>
+  <main>
+    <div id="flash"></div>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

@@ -1,0 +1,702 @@
+[
+  {
+    "email_id": "synthetic_000601",
+    "nearest": null,
+    "content_similarity": null,
+    "subject_score": null,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000602",
+    "nearest": "synthetic_000601",
+    "content_similarity": 0.6341116428375244,
+    "subject_score": 0.4140969162995594,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000603",
+    "nearest": "synthetic_000601",
+    "content_similarity": 0.668627142906189,
+    "subject_score": 0.41558441558441556,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000604",
+    "nearest": "synthetic_000603",
+    "content_similarity": 0.6130059957504272,
+    "subject_score": 0.45320197044334976,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000605",
+    "nearest": "synthetic_000601",
+    "content_similarity": 0.5467698574066162,
+    "subject_score": 0.4124513618677043,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000606",
+    "nearest": "synthetic_000603",
+    "content_similarity": 0.7502073645591736,
+    "subject_score": 0.3925233644859813,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000607",
+    "nearest": "synthetic_000601",
+    "content_similarity": 0.6970797181129456,
+    "subject_score": 0.4380165289256198,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000608",
+    "nearest": "synthetic_000601",
+    "content_similarity": 0.7231786847114563,
+    "subject_score": 0.44255319148936173,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000609",
+    "nearest": "synthetic_000601",
+    "content_similarity": 0.7580553293228149,
+    "subject_score": 0.44015444015444016,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000610",
+    "nearest": "synthetic_000609",
+    "content_similarity": 0.67436683177948,
+    "subject_score": 0.42145593869731796,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000611",
+    "nearest": "synthetic_000601",
+    "content_similarity": 0.7320919036865234,
+    "subject_score": 0.35294117647058826,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000612",
+    "nearest": "synthetic_000606",
+    "content_similarity": 0.7080556154251099,
+    "subject_score": 0.4,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000613",
+    "nearest": "synthetic_000603",
+    "content_similarity": 0.7090892195701599,
+    "subject_score": 0.4409448818897638,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000614",
+    "nearest": "synthetic_000609",
+    "content_similarity": 0.7093002796173096,
+    "subject_score": 0.40506329113924056,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000615",
+    "nearest": "synthetic_000609",
+    "content_similarity": 0.6919956803321838,
+    "subject_score": 0.4415584415584416,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000616",
+    "nearest": "synthetic_000608",
+    "content_similarity": 0.6860132217407227,
+    "subject_score": 0.42990654205607476,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000617",
+    "nearest": "synthetic_000609",
+    "content_similarity": 0.7506157755851746,
+    "subject_score": 0.36134453781512604,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000618",
+    "nearest": "synthetic_000616",
+    "content_similarity": 0.7018158435821533,
+    "subject_score": 0.3980099502487562,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000619",
+    "nearest": "synthetic_000612",
+    "content_similarity": 0.8445254564285278,
+    "subject_score": 0.4022346368715084,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000620",
+    "nearest": "synthetic_000606",
+    "content_similarity": 0.7072127461433411,
+    "subject_score": 0.43137254901960786,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000621",
+    "nearest": "synthetic_000619",
+    "content_similarity": 0.8296444416046143,
+    "subject_score": 0.33789954337899547,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000622",
+    "nearest": "synthetic_000616",
+    "content_similarity": 0.8425255417823792,
+    "subject_score": 0.5851063829787234,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000623",
+    "nearest": "synthetic_000618",
+    "content_similarity": 0.7878621220588684,
+    "subject_score": 0.4086021505376344,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000624",
+    "nearest": "synthetic_000603",
+    "content_similarity": 0.7291712760925293,
+    "subject_score": 0.4642857142857143,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000625",
+    "nearest": "synthetic_000606",
+    "content_similarity": 0.7473196387290955,
+    "subject_score": 0.48,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000626",
+    "nearest": "synthetic_000619",
+    "content_similarity": 0.7427597641944885,
+    "subject_score": 0.39795918367346933,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000627",
+    "nearest": "synthetic_000623",
+    "content_similarity": 0.7378779649734497,
+    "subject_score": 0.45595854922279794,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000628",
+    "nearest": "synthetic_000609",
+    "content_similarity": 0.7813642621040344,
+    "subject_score": 0.45454545454545453,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000629",
+    "nearest": "synthetic_000609",
+    "content_similarity": 0.6957109570503235,
+    "subject_score": 0.3620689655172413,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000630",
+    "nearest": "synthetic_000606",
+    "content_similarity": 0.7646998167037964,
+    "subject_score": 0.5628140703517588,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000631",
+    "nearest": "synthetic_000607",
+    "content_similarity": 0.7644899487495422,
+    "subject_score": 0.484304932735426,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000632",
+    "nearest": "synthetic_000621",
+    "content_similarity": 0.795602023601532,
+    "subject_score": 0.49056603773584906,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000633",
+    "nearest": "synthetic_000619",
+    "content_similarity": 0.7634615898132324,
+    "subject_score": 0.39520958083832336,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000634",
+    "nearest": "synthetic_000623",
+    "content_similarity": 0.8410599231719971,
+    "subject_score": 0.41830065359477125,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000635",
+    "nearest": "synthetic_000621",
+    "content_similarity": 0.864356279373169,
+    "subject_score": 0.36363636363636365,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000636",
+    "nearest": "synthetic_000626",
+    "content_similarity": 0.7255289554595947,
+    "subject_score": 0.4312267657992565,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000637",
+    "nearest": "synthetic_000635",
+    "content_similarity": 0.7809609770774841,
+    "subject_score": 0.4,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000638",
+    "nearest": "synthetic_000635",
+    "content_similarity": 0.7642818689346313,
+    "subject_score": 0.3827160493827161,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000639",
+    "nearest": "synthetic_000602",
+    "content_similarity": 0.7689312696456909,
+    "subject_score": 0.4112903225806452,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000640",
+    "nearest": "synthetic_000617",
+    "content_similarity": 0.7474151849746704,
+    "subject_score": 0.48275862068965514,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000641",
+    "nearest": "synthetic_000637",
+    "content_similarity": 0.820495069026947,
+    "subject_score": 0.3756345177664975,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000642",
+    "nearest": "synthetic_000613",
+    "content_similarity": 0.7234477996826172,
+    "subject_score": 0.3764705882352941,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000643",
+    "nearest": "synthetic_000639",
+    "content_similarity": 0.7856334447860718,
+    "subject_score": 0.35042735042735046,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000644",
+    "nearest": "synthetic_000636",
+    "content_similarity": 0.7196272015571594,
+    "subject_score": 0.4885496183206107,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000645",
+    "nearest": "synthetic_000619",
+    "content_similarity": 0.7093580365180969,
+    "subject_score": 0.38,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000646",
+    "nearest": "synthetic_000638",
+    "content_similarity": 0.759371817111969,
+    "subject_score": 0.422680412371134,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000647",
+    "nearest": "synthetic_000636",
+    "content_similarity": 0.7049766778945923,
+    "subject_score": 0.48398576512455516,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000648",
+    "nearest": "synthetic_000626",
+    "content_similarity": 0.7341493964195251,
+    "subject_score": 0.3946188340807175,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000649",
+    "nearest": "synthetic_000635",
+    "content_similarity": 0.7949033379554749,
+    "subject_score": 0.43037974683544306,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000650",
+    "nearest": "synthetic_000644",
+    "content_similarity": 0.8672923445701599,
+    "subject_score": 0.5248868778280543,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000651",
+    "nearest": "synthetic_000606",
+    "content_similarity": 0.7742692828178406,
+    "subject_score": 0.4210526315789474,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000652",
+    "nearest": "synthetic_000622",
+    "content_similarity": 0.7497967481613159,
+    "subject_score": 0.4252873563218391,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000653",
+    "nearest": "synthetic_000639",
+    "content_similarity": 0.7794177532196045,
+    "subject_score": 0.3534883720930233,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000654",
+    "nearest": "synthetic_000611",
+    "content_similarity": 0.7714232802391052,
+    "subject_score": 0.351219512195122,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000655",
+    "nearest": "synthetic_000635",
+    "content_similarity": 0.8488422632217407,
+    "subject_score": 0.3939393939393939,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000656",
+    "nearest": "synthetic_000650",
+    "content_similarity": 0.7109382748603821,
+    "subject_score": 0.4485981308411215,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000657",
+    "nearest": "synthetic_000649",
+    "content_similarity": 0.7345737218856812,
+    "subject_score": 0.3619047619047619,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000658",
+    "nearest": "synthetic_000634",
+    "content_similarity": 0.8486993908882141,
+    "subject_score": 0.4385026737967915,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000659",
+    "nearest": "synthetic_000619",
+    "content_similarity": 0.8609331250190735,
+    "subject_score": 0.48648648648648646,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000660",
+    "nearest": "synthetic_000612",
+    "content_similarity": 0.7219510674476624,
+    "subject_score": 0.411522633744856,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000661",
+    "nearest": "synthetic_000643",
+    "content_similarity": 0.7463276386260986,
+    "subject_score": 0.4,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000662",
+    "nearest": "synthetic_000649",
+    "content_similarity": 0.7989403605461121,
+    "subject_score": 0.4197530864197531,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000663",
+    "nearest": "synthetic_000656",
+    "content_similarity": 0.7511099576950073,
+    "subject_score": 0.45945945945945943,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000664",
+    "nearest": "synthetic_000658",
+    "content_similarity": 0.8574027419090271,
+    "subject_score": 0.5060240963855421,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000665",
+    "nearest": "synthetic_000620",
+    "content_similarity": 0.7894787192344666,
+    "subject_score": 0.4144144144144144,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000666",
+    "nearest": "synthetic_000619",
+    "content_similarity": 0.7948808670043945,
+    "subject_score": 0.41935483870967744,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000667",
+    "nearest": "synthetic_000635",
+    "content_similarity": 0.7798048257827759,
+    "subject_score": 0.4146341463414634,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000668",
+    "nearest": "synthetic_000653",
+    "content_similarity": 0.8372440934181213,
+    "subject_score": 0.4776119402985075,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000669",
+    "nearest": "synthetic_000635",
+    "content_similarity": 0.8381048440933228,
+    "subject_score": 0.4625,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000670",
+    "nearest": "synthetic_000635",
+    "content_similarity": 0.7614509463310242,
+    "subject_score": 0.39325842696629215,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000671",
+    "nearest": "synthetic_000622",
+    "content_similarity": 0.7559360861778259,
+    "subject_score": 0.4433497536945813,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000672",
+    "nearest": "synthetic_000650",
+    "content_similarity": 0.7575214505195618,
+    "subject_score": 0.3952569169960474,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000673",
+    "nearest": "synthetic_000658",
+    "content_similarity": 0.7997274398803711,
+    "subject_score": 0.4036697247706422,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000674",
+    "nearest": "synthetic_000601",
+    "content_similarity": 0.8159882426261902,
+    "subject_score": 0.5,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000675",
+    "nearest": "synthetic_000611",
+    "content_similarity": 0.7266868352890015,
+    "subject_score": 0.5052631578947369,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000676",
+    "nearest": "synthetic_000621",
+    "content_similarity": 0.7508408427238464,
+    "subject_score": 0.376,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000677",
+    "nearest": "synthetic_000619",
+    "content_similarity": 0.7922233939170837,
+    "subject_score": 0.3815028901734104,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000678",
+    "nearest": "synthetic_000666",
+    "content_similarity": 0.7395961880683899,
+    "subject_score": 0.4298245614035088,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000679",
+    "nearest": "synthetic_000626",
+    "content_similarity": 0.7912532091140747,
+    "subject_score": 0.4483985765124555,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000680",
+    "nearest": "synthetic_000632",
+    "content_similarity": 0.7778606414794922,
+    "subject_score": 0.43478260869565216,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000681",
+    "nearest": "synthetic_000635",
+    "content_similarity": 0.8705114126205444,
+    "subject_score": 0.3870967741935484,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000682",
+    "nearest": "synthetic_000662",
+    "content_similarity": 0.7481184005737305,
+    "subject_score": 0.34782608695652173,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000683",
+    "nearest": "synthetic_000643",
+    "content_similarity": 0.6754002571105957,
+    "subject_score": 0.3695652173913044,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000684",
+    "nearest": "synthetic_000653",
+    "content_similarity": 0.7889214754104614,
+    "subject_score": 0.41558441558441556,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000685",
+    "nearest": "synthetic_000663",
+    "content_similarity": 0.7349854111671448,
+    "subject_score": 0.4474885844748859,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000686",
+    "nearest": "synthetic_000653",
+    "content_similarity": 0.8230729103088379,
+    "subject_score": 0.3961352657004831,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000687",
+    "nearest": "synthetic_000631",
+    "content_similarity": 0.8169800043106079,
+    "subject_score": 0.4732142857142857,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000688",
+    "nearest": "synthetic_000675",
+    "content_similarity": 0.7610953450202942,
+    "subject_score": 0.5067873303167421,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000689",
+    "nearest": "synthetic_000674",
+    "content_similarity": 0.795193076133728,
+    "subject_score": 0.42990654205607476,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000690",
+    "nearest": "synthetic_000646",
+    "content_similarity": 0.714738130569458,
+    "subject_score": 0.4549763033175356,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000691",
+    "nearest": "synthetic_000625",
+    "content_similarity": 0.7406468391418457,
+    "subject_score": 0.46048109965635736,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000692",
+    "nearest": "synthetic_000686",
+    "content_similarity": 0.8405816555023193,
+    "subject_score": 0.41924398625429554,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000693",
+    "nearest": "synthetic_000621",
+    "content_similarity": 0.8671683669090271,
+    "subject_score": 0.45493562231759654,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000694",
+    "nearest": "synthetic_000654",
+    "content_similarity": 0.7378286123275757,
+    "subject_score": 0.45833333333333337,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000695",
+    "nearest": "synthetic_000619",
+    "content_similarity": 0.8105670213699341,
+    "subject_score": 0.3548387096774194,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000696",
+    "nearest": "synthetic_000635",
+    "content_similarity": 0.8929347395896912,
+    "subject_score": 0.34893617021276596,
+    "flagged": true
+  },
+  {
+    "email_id": "synthetic_000697",
+    "nearest": "synthetic_000650",
+    "content_similarity": 0.7348860502243042,
+    "subject_score": 0.43290043290043295,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000698",
+    "nearest": "synthetic_000642",
+    "content_similarity": 0.750381588935852,
+    "subject_score": 0.5701357466063349,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000699",
+    "nearest": "synthetic_000653",
+    "content_similarity": 0.8057945370674133,
+    "subject_score": 0.40641711229946526,
+    "flagged": false
+  },
+  {
+    "email_id": "synthetic_000700",
+    "nearest": "synthetic_000681",
+    "content_similarity": 0.7998613715171814,
+    "subject_score": 0.4170616113744076,
+    "flagged": false
+  }
+]

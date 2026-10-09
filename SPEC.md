@@ -355,14 +355,14 @@ Five mechanics make the agent buildable:
 
 ### Starting values
 
-Every number the pipeline depends on is listed here and lives in `config.py`. Model IDs are not numbers and never live in code: each is read from `.env`, as `JEV_MODEL`, `ANALYSIS_MODEL`, `NOTES_MODEL` and `EMBEDDING_MODEL`, and a stage that needs an unset one fails with a clear error.
+Every number the pipeline depends on is listed here and is defined once, in `src/triage_app/thresholds.py`; all code reads it from there. Model IDs are not numbers and never live in code: each is read from `.env`, as `JEV_MODEL`, `ANALYSIS_MODEL`, `NOTES_MODEL` and `EMBEDDING_MODEL`, and a stage that needs an unset one fails with a clear error.
 
 | Setting | Starting value | Set by |
 | --- | --- | --- |
 | Pass threshold on the signal score | 0.6 | Sweep |
 | Attention threshold | 0.6 | ReAnchor |
 | Ticker and topic thresholds | 0.5 each | ReAnchor |
-| Quarantine threshold | 0.4 | Fixed |
+| Quarantine threshold | 0.65 | Fixed |
 | Content similarity that flags a repeat | 0.85 | Fixed |
 | Content similarity that flags a repeat when subjects match | 0.75 | Fixed |
 | Subject similarity that counts as a match | 0.6 | Fixed |
@@ -791,7 +791,7 @@ class Brief(BaseModel):                 # stage 9 output; every list is in displ
     audit: list[str]                    # every other email ID
     quarantined: list[str]              # email IDs
 
-class Thresholds(BaseModel):            # tuned/thresholds.json; overrides config.py
+class Thresholds(BaseModel):            # tuned/thresholds.json; overrides thresholds.py
     pass_signal: float
     attention: float
     ticker: dict[str, float]
@@ -959,7 +959,7 @@ Five rules cover what the table leaves out:
 
 - **Stage modules share one interface.** Each `pipeline/<stage>.py` exposes `run(in_dir, out_dir, ctx)` for a whole set and `process(...)` for one email. `ctx` is a `RunContext` (`pipeline/context.py`) holding the clients, recorder, cache, criteria and thresholds; tests pass fakes through it. The stage names are parse, redundancy, classify, gate, attention, extract, analyze, validate, merge and deliver. Package 0 commits a typed stub of all ten.
 - **Each set's outputs are kept apart.** The sets are `day_1`, `day_2` and `tuning`, named after their folders in `data/corpus/`. A run on a set writes its stage files to `data/out/<set>/`. The app reads the directory named in `TRIAGE_DATA_DIR`, which defaults to `data/out/day_1`; the deployed app uses the default once the final run exists, and the fixtures until then.
-- **Tuned thresholds override starting values.** Stage 4 reads `tuned/thresholds.json` when it exists and `config.py` otherwise. Stage 2 always uses the fixed values in `config.py`.
+- **Tuned thresholds override starting values.** Stage 4 reads `tuned/thresholds.json` when it exists and `thresholds.py` otherwise. Stage 2 always uses the fixed values in `thresholds.py`.
 - **Code assigns every ID.** A claim is `<email_id>.c<n>` and a raw suggestion is `<email_id>.s<n>`. After merging, a suggestion is `<pillar_id>.<stance>` or `<ticker>.new<n>`. A model never writes an ID of its own.
 - **Session state is not a stage file.** The change log, each suggestion's accepted or dismissed status, and conviction reviews live in the visitor's session. Code raises a conviction review when an accepted entry crosses the threshold.
 
@@ -1208,7 +1208,8 @@ tuned/      thresholds.json
 transcripts/    the lead agent's session and every subagent's brief and report
 src/triage_app/
   schema.py     Pydantic models: the single source of truth
-  config.py     starting values; resolves model IDs from .env
+  config.py     paths, sets, labels; resolves model IDs from .env
+  thresholds.py every threshold, limit and tunable number, in one place
   llm.py        the OpenRouter client every generative call goes through
   embed.py      the Hugging Face embedder
   cache.py      the on-disk cache under data/cache/
@@ -1330,7 +1331,7 @@ The lead agent can hand nine packages to subagents once package 0 has frozen the
 
 | # | Package | Owns | Reads, then writes | Spec sections to read | Done when, on the fixtures |
 | --- | --- | --- | --- | --- | --- |
-| 0 | Foundation, built by the lead | `pyproject.toml`, `uv.lock`, `schema.py`, `config.py`, `criteria.py`, `monitoring.py`, `criteria/`, `state/compute.py`, `state/fold.py`, `state/seed_merge.py`, `data/seed/`, `data/filings/`, `tests/fixtures/`, `pipeline/run.py`, and a typed stub of every stage module | This spec, prompts 01 and 02 and the annual reports, then the seed files, criteria files, fixtures and stubs | Start here; Data contracts; Stage files; The book; State; Relevance criteria; Calling Jev; Starting values; Commands | Build step 0 passes. |
+| 0 | Foundation, built by the lead | `pyproject.toml`, `uv.lock`, `schema.py`, `config.py`, `thresholds.py`, `criteria.py`, `monitoring.py`, `criteria/`, `state/compute.py`, `state/fold.py`, `state/seed_merge.py`, `data/seed/`, `data/filings/`, `tests/fixtures/`, `pipeline/run.py`, and a typed stub of every stage module | This spec, prompts 01 and 02 and the annual reports, then the seed files, criteria files, fixtures and stubs | Start here; Data contracts; Stage files; The book; State; Relevance criteria; Calling Jev; Starting values; Commands | Build step 0 passes. |
 | 1 | Generated drafts | `skills/`, `instructions/`, `tools/` | Prompts 04, 05 and 06, then the drafts | Attention pathway; Analysis agent; Data contracts; `prompts/README.md` | Every file parses and passes its checks in the prompts README. The report lists each file for `REVIEW.md`. |
 | 2 | Corpus and parse | `corpus.py`, `pipeline/parse.py` | The fixture emails and labels, then `parsed.json` | Corpus; Stage files | The fixtures load, split and normalize, and the report prints. Each row of the normalization table has a test. The parse output validates. |
 | 3 | Redundancy | `pipeline/redundancy.py` | `parsed.json`, then `redundancy.json` and `vectors.npy` | Redundancy check; Starting values | The fixture repeat is flagged and points to its earlier email. The first email has no nearest. The output validates. |
@@ -1348,7 +1349,7 @@ The lead then integrates in stage order. Once the tuning set exists, it runs the
 
 Nine rules govern the hand-off:
 
-- **Contracts freeze first.** Only the lead edits `schema.py` and `config.py`. A subagent that needs a contract changed stops and asks.
+- **Contracts freeze first.** Only the lead edits `schema.py`, `config.py` and `thresholds.py`. A subagent that needs a contract changed stops and asks.
 - **One owner per file.** A package edits only the files it owns and adds tests only for them. A subagent returns lines for `REVIEW.md` and `DECISIONS.md` in its report; the lead writes them.
 - **Fixtures stand in for upstream stages.** `tests/fixtures/` holds ten hand-written emails and a valid example of every stage file, so no package waits for another to run. The ten include two quarantine cases, a same-day repeat with its earlier email, an attention email and a second-look case.
 - **A brief stands alone.** A subagent starts with no memory of the lead's session. Its brief names the package row, the spec sections to read, the contracts it uses, the done-when test and the working rules.

@@ -17,6 +17,7 @@ import httpx
 from dotenv import load_dotenv
 from pydantic import BaseModel
 
+from triage_app import thresholds
 from triage_app.cache import DiskCache
 from triage_app.config import ROOT
 from triage_app.monitoring import Recorder, cached_call
@@ -37,8 +38,8 @@ class Completion(BaseModel):
 
 
 class ChatClient(Protocol):
-    def complete(self, *, model: str, messages: list[Message], max_tokens: int = 4096,
-                 temperature: float = 0.0, response_format: dict[str, Any] | None = None,
+    def complete(self, *, model: str, messages: list[Message], max_tokens: int = thresholds.LLM_MAX_TOKENS,
+                 temperature: float = thresholds.LLM_TEMPERATURE, response_format: dict[str, Any] | None = None,
                  namespace: str = "chat", criteria_version: str = "") -> Completion: ...
 
 
@@ -47,7 +48,7 @@ class OpenRouterClient:
 
     def __init__(self, *, api_key: str | None = None, base_url: str | None = None,
                  cache: DiskCache | None = None, use_cache: bool = True,
-                 recorder: Recorder | None = None, timeout: float = 300.0) -> None:
+                 recorder: Recorder | None = None, timeout: float = thresholds.LLM_TIMEOUT_S) -> None:
         load_dotenv(ROOT / ".env")
         self._api_key = api_key or os.environ.get("OPENROUTER_API_KEY", "")
         self.base_url = (base_url or os.environ.get("OPENROUTER_BASE_URL") or DEFAULT_BASE_URL).rstrip("/")
@@ -74,8 +75,8 @@ class OpenRouterClient:
             output_tokens=usage.get("completion_tokens"),
         )
 
-    def complete(self, *, model: str, messages: list[Message], max_tokens: int = 4096,
-                 temperature: float = 0.0, response_format: dict[str, Any] | None = None,
+    def complete(self, *, model: str, messages: list[Message], max_tokens: int = thresholds.LLM_MAX_TOKENS,
+                 temperature: float = thresholds.LLM_TEMPERATURE, response_format: dict[str, Any] | None = None,
                  namespace: str = "chat", criteria_version: str = "") -> Completion:
         body: dict[str, Any] = {
             "model": model,

@@ -230,7 +230,7 @@ class Brief(BaseModel):                 # stage 9 output; every list is in displ
     audit: list[str]                    # every other email ID
     quarantined: list[str]              # email IDs
 
-class Thresholds(BaseModel):            # tuned/thresholds.json; overrides config.py
+class Thresholds(BaseModel):            # tuned/thresholds.json; overrides thresholds.py
     pass_signal: float
     attention: float
     ticker: dict[str, float]

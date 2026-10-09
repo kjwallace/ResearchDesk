@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% from "macros.html" import card, email_link %}
+{% block title %}Brief {{ brief.day }}{% endblock %}
+{% block content %}
+<h1>Morning brief · {{ brief.day.strftime('%a %b %d, %Y') }}</h1>
+<div class="counts">
+  {% for k, n in brief.counts.items() %}<span class="count">{{ k | replace('_', ' ') }} <b>{{ n }}</b></span>{% endfor %}
+</div>
+
+{% if alerts %}
+<div class="alerts panel" id="alerts">
+  <strong>Alerts</strong>
+  <ul>
+  {% for a in alerts %}
+    <li>
+    {% if a.kind == 'human_attention' %}Needs a person: {{ email_link(v, a.ref_id) }}
+    {% elif a.kind == 'wrong_if_met' %}"Wrong if" test met: <a href="/suggestion/{{ a.ref_id }}">{{ a.ref_id }}</a>
+    {% else %}Conviction review: <a href="/suggestion/{{ a.ref_id }}">{{ a.ref_id }}</a>{% endif %}
+    </li>
+  {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+{% if reviews %}
+<h2>Conviction reviews</h2>
+{% for s in reviews %}{{ card(v, s, sizes) }}{% endfor %}
+{% endif %}
+
+<h2>Suggested thesis changes</h2>
+{% for group in thesis_changes %}
+  {% if group | length > 1 %}<div class="panel"><div class="small muted">Two stances on one pillar; neither is preselected.</div>{% endif %}
+  {% for s in group %}{{ card(v, s, sizes) }}{% endfor %}
+  {% if group | length > 1 %}</div>{% endif %}
+{% else %}<p class="muted">None today.</p>{% endfor %}
+
+<h2>New thesis candidates</h2>
+{% for group in new_theses %}{% for s in group %}{{ card(v, s, sizes) }}{% endfor %}{% else %}<p class="muted">None today.</p>{% endfor %}
+
+<h2>Worth watching</h2>
+{% for group in worth_watching %}{% for s in group %}{{ card(v, s, sizes) }}{% endfor %}{% else %}<p class="muted">None today.</p>{% endfor %}
+
+<h2>Needs your attention</h2>
+{% for eid in brief.needs_attention %}
+  {% set n = v.data.notes.get(eid) %}
+  <div class="panel">
+    <h3>{{ email_link(v, eid) }}</h3>
+    {% if n %}
+      <div>{{ n.summary }}</div>
+      <div class="small"><b>Why:</b> {{ n.why_attention }}</div>
+      <div class="small"><b>Action:</b> {{ n.action }}{% if n.deadline %} · <b>Deadline:</b> {{ n.deadline.strftime('%b %d, %H:%M %Z') }}{% endif %}</div>
+    {% endif %}
+  </div>
+{% else %}<p class="muted">Nothing needs a person today.</p>{% endfor %}
+
+<h2>Relevant with no link to your book</h2>
+{% for eid in brief.relevant_unlinked %}
+  <div class="panel small">{{ email_link(v, eid) }}
+    <span class="pill">{{ v.result(eid).triage }}</span>
+    <div class="muted">{{ v.data.no_change_reason(eid) or 'no change reason recorded' }}</div></div>
+{% else %}<p class="muted">None.</p>{% endfor %}
+
+{% if extras or v.sess.notes %}
+<h2>Added in this session</h2>
+<p class="small muted">From the live route and "this mattered".</p>
+{% for s in extras %}{{ card(v, s, sizes) }}{% endfor %}
+{% for eid, n in v.sess.notes.items() %}
+  <div class="panel"><h3>{{ email_link(v, eid) }}</h3><div>{{ n.summary }}</div>
+    <div class="small"><b>Action:</b> {{ n.action }}</div></div>
+{% endfor %}
+{% endif %}
+
+<p><a href="/audit">Audit view: {{ brief.audit | length }} emails not in the brief, and {{ brief.quarantined | length }} quarantined →</a></p>
+{% endblock %}

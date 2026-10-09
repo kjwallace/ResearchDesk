@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Eval{% endblock %}
+{% block content %}
+<h1>Evaluation</h1>
+{% if not ev %}<p class="muted">No eval.json for this set yet.</p>{% else %}
+<p class="small muted">Set {{ ev.corpus }} · criteria {{ ev.criteria_version }}. The labels come from the same generator as the emails,
+  so these scores show internal consistency, not performance on real mail.</p>
+<div class="scroll"><table>
+  <tr><th>Measure</th><th class="num">Value</th></tr>
+  {% for k, val in ev.measures.items() %}
+    <tr><td>{{ k }}</td><td class="num">
+      {% if val is none %}{% if k in review_keys %}<span class="pill second">pending hand review</span>{% else %}n/a{% endif %}
+      {% elif k in ('repeat_flagged', 'stray_suggestions') %}{{ val | num(0) }}
+      {% else %}{{ val | pct }}{% endif %}</td></tr>
+  {% endfor %}
+  {% for k in review_keys if k not in ev.measures %}<tr><td>{{ k }}</td><td class="num"><span class="pill second">pending hand review</span></td></tr>{% endfor %}
+</table></div>
+
+<h2>Confusion <span class="small muted">(rows: corpus label; columns: pipeline label)</span></h2>
+<div class="scroll"><table>
+  <tr><th></th>{% for c in labels %}<th class="num">{{ c }}</th>{% endfor %}</tr>
+  {% for r in labels if r in ev.confusion %}<tr><td>{{ r }}</td>{% for c in labels %}<td class="num">{{ ev.confusion[r].get(c, '') }}</td>{% endfor %}</tr>{% endfor %}
+</table></div>
+
+<h2>Misses <span class="muted">({{ ev.misses | length }})</span></h2>
+<table>
+  <tr><th>Email</th><th>Measure</th><th>Expected</th><th>Got</th></tr>
+  {% for m in ev.misses %}<tr><td><a href="/email/{{ m.email_id }}">{{ m.email_id }}</a></td><td>{{ m.measure }}</td><td>{{ m.expected }}</td><td>{{ m.got }}</td></tr>{% endfor %}
+</table>
+{% endif %}
+{% endblock %}

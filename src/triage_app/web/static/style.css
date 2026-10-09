@@ -1,0 +1,67 @@
+:root {
+  --bg: #f7f7f5; --panel: #ffffff; --ink: #1d1f23; --muted: #646a73; --line: #e2e3e0;
+  --accent: #2557a7; --good: #1f7a4a; --bad: #b3261e; --warn: #8a5a00; --mark: #fff1a8;
+  --banner: #fff4d6; --banner-ink: #6b4a00;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.synthetic { background: var(--banner); color: var(--banner-ink); padding: 6px 16px; font-size: 13px;
+  border-bottom: 1px solid #f0dca0; }
+header.top { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 10px 16px;
+  background: var(--panel); border-bottom: 1px solid var(--line); }
+header.top .brand { font-weight: 600; margin-right: 8px; }
+header.top nav { display: flex; flex-wrap: wrap; gap: 12px; flex: 1; }
+header.top form { display: inline; }
+main { max-width: 1100px; margin: 0 auto; padding: 16px; }
+h1 { font-size: 22px; margin: 8px 0 4px; }
+h2 { font-size: 17px; margin: 24px 0 8px; }
+h3 { font-size: 15px; margin: 12px 0 4px; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px;
+  margin: 8px 0; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 760px) { .grid2 { grid-template-columns: 1fr; } }
+.counts { display: flex; flex-wrap: wrap; gap: 8px; }
+.count { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px;
+  font-size: 13px; }
+.count b { font-variant-numeric: tabular-nums; }
+.alerts { border-left: 4px solid var(--bad); background: #fdecea; padding: 8px 12px; border-radius: 6px; }
+.pill { display: inline-block; padding: 0 8px; border-radius: 10px; font-size: 12px; border: 1px solid var(--line);
+  background: #f0f1ee; white-space: nowrap; }
+.pill.supports, .pill.accepted, .pill.ok { background: #e6f4ec; color: var(--good); border-color: #bfe0cc; }
+.pill.contradicts, .pill.rejected, .pill.failed, .pill.quarantine { background: #fdecea; color: var(--bad);
+  border-color: #f2c4bf; }
+.pill.dismissed, .pill.skipped { color: var(--muted); }
+.pill.second, .pill.unavailable { background: #fff4d6; color: var(--warn); border-color: #f0dca0; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; color: var(--muted); font-size: 13px; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.scroll { overflow-x: auto; }
+mark { background: var(--mark); padding: 0 1px; }
+.body { white-space: pre-wrap; background: var(--panel); border: 1px solid var(--line); border-radius: 6px;
+  padding: 10px 12px; }
+blockquote { margin: 6px 0; padding: 4px 10px; border-left: 3px solid var(--mark); background: #fffbe6; }
+button, .btn { font: inherit; font-size: 13px; padding: 3px 10px; border-radius: 6px; border: 1px solid #c9cbc6;
+  background: #fff; cursor: pointer; color: var(--ink); }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+input[type=text], input[type=number], textarea, select { font: inherit; padding: 4px 6px; border: 1px solid #c9cbc6;
+  border-radius: 6px; max-width: 100%; }
+textarea { width: 100%; }
+.actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 6px; }
+.flash { padding: 6px 10px; border-radius: 6px; margin: 6px 0; }
+.flash.ok { background: #e6f4ec; color: var(--good); }
+.flash.err { background: #fdecea; color: var(--bad); }
+#flash:empty { display: none; }
+.card h3 { margin-top: 0; }
+pre.criteria { white-space: pre-wrap; background: var(--panel); border: 1px solid var(--line); padding: 10px;
+  border-radius: 6px; font-size: 13px; }
+@media (max-width: 600px) {
+  header.top nav { order: 3; flex: 1 1 100%; gap: 10px; }
+  header.top form { margin-left: auto; }
+  header.top form + form { margin-left: 0; }
+}

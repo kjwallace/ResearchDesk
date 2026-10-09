@@ -39,7 +39,7 @@
     "human_attention": false,
     "signal_score": 0.09,
     "gate": "quarantine",
-    "reason": "quarantined: instructs_ai 0.97 reaches 0.40"
+    "reason": "quarantined: instructs_ai 0.97 reaches 0.65"
   },
   {
     "email_id": "fixture_004",
@@ -51,7 +51,7 @@
     "human_attention": false,
     "signal_score": 0.83,
     "gate": "quarantine",
-    "reason": "quarantined: possible_mnpi 0.91 reaches 0.40"
+    "reason": "quarantined: possible_mnpi 0.91 reaches 0.65"
   },
   {
     "email_id": "fixture_005",

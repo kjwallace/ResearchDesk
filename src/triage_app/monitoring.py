@@ -23,7 +23,7 @@ from pathlib import Path
 from typing import Any, Literal, TypeVar
 
 from triage_app.cache import DiskCache, cache_key
-from triage_app.config import CHARS_PER_TOKEN
+from triage_app.thresholds import CHARS_PER_TOKEN
 from triage_app.schema import CallRecord, StageTiming, StageUsage, UsageReport
 
 T = TypeVar("T")

@@ -1,0 +1,26 @@
+{% if error %}<div class="flash err">{{ error }}</div>{% endif %}
+{% if trace %}
+<div class="panel">
+  <h3>Trace: {{ trace.subject }} <span class="muted small">· {{ trace.sender }} · {{ trace.email_id }}</span></h3>
+  <div class="scroll"><table>
+    <tr><th>Stage</th><th>Status</th><th>Result</th><th class="num">Calls</th><th class="num">Tokens in</th><th class="num">Tokens out</th><th class="num">ms</th></tr>
+    {% for st in trace.steps %}
+      <tr><td>{{ st.name }}</td><td><span class="pill {{ st.status }}">{{ st.status }}</span></td><td class="small">{{ st.detail }}</td>
+        <td class="num">{{ st.calls }}{% if st.cache_hits %} <span class="muted">({{ st.cache_hits }} cached)</span>{% endif %}</td>
+        <td class="num">{{ st.input_tokens }}</td><td class="num">{{ st.output_tokens }}</td><td class="num">{{ st.latency_ms | num(0) }}</td></tr>
+    {% endfor %}
+    {% set t = trace.totals %}
+    <tr><th>Total</th><th></th><th></th><th class="num">{{ t.calls }}</th><th class="num">{{ t.input_tokens }}</th><th class="num">{{ t.output_tokens }}</th><th class="num">{{ t.latency_ms | num(0) }}</th></tr>
+  </table></div>
+  {% if trace.quarantined %}<div class="flash err">Quarantined: held unsummarized; no later model saw it.</div>
+  {% elif trace.result %}
+    <p><span class="pill">{{ trace.result.triage }}</span> {{ trace.result.reason }}</p>
+    {% if trace.note %}<p><b>Attention note:</b> {{ trace.note.summary }} <span class="small">(action: {{ trace.note.action }})</span></p>{% endif %}
+    {% for s in trace.suggestions %}<p>Suggestion: <a href="/suggestion/{{ trace.email_id }}.{{ s.id }}">{{ s.id }}</a> · {{ s.rationale }}</p>{% endfor %}
+    {% for s in trace.rejected %}<p class="small muted">Rejected {{ s.id }}: {{ s.reject_reason }}</p>{% endfor %}
+    {% if trace.analysis and trace.analysis.no_change_reason %}<p class="small">No change: {{ trace.analysis.no_change_reason }}</p>{% endif %}
+    {% if trace.note or trace.suggestions %}<p class="small"><a href="/">Added to your brief →</a></p>{% endif %}
+  {% endif %}
+  <p class="small muted">{{ runs_left }} runs left this hour.</p>
+</div>
+{% endif %}

@@ -28,7 +28,7 @@ Return only this JSON:
 
 - `action` is the main thing the email asks of the analyst. Use `reply` when the sender wants an answer, `attend` for a call, meeting or event to join, `decide` when a choice or approval is needed, `read` when a document needs reading, and `other` for anything else.
 - `deadline` is filled only when the email states a date or time. Never infer one. A relative expression such as "by Friday" counts only when `received_at` makes the date unambiguous. If you are unsure, use null. If only a date is stated, use the end of that day (23:59:59). Add a time-zone offset only when the email gives one numerically, such as +01:00 or UTC. Otherwise write the time with no offset.
-- `sections` holds one to three quotes that support the note. Copy each character for character from `subject` or `body`. Do not trim words inside a quote, fix typos or change punctuation. Choose the shortest section that carries the point.
+- `sections` holds one to three quotes that support the note. Copy each character for character from `body` only. Do not trim words inside a quote, fix typos or change punctuation. Choose the shortest section that carries the point.
 
 ## Example 1
 

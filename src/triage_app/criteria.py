@@ -19,7 +19,8 @@ import hashlib
 import re
 from pathlib import Path
 
-from triage_app.config import CRITERIA_DIR, CRITERIA_FILES, RULES_PER_CRITERIA_FILE, TICKERS
+from triage_app.config import CRITERIA_DIR, CRITERIA_FILES, TICKERS
+from triage_app.thresholds import RULES_PER_CRITERIA_FILE
 from triage_app.schema import CriteriaRule, CriteriaSet, LabelCriteria
 
 

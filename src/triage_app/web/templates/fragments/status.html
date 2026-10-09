@@ -1,0 +1,4 @@
+<div class="actions" id="actions-{{ s.id | replace('.', '-') }}">
+  <span class="pill {{ status }}">{{ status }}</span> <span class="small">{{ text }}.</span>
+  {% for r in raised %}<div class="flash err">Conviction review raised: <a href="/suggestion/{{ r.id }}">{{ r.id }}</a></div>{% endfor %}
+</div>
