@@ -20,7 +20,7 @@
 <div class="table-wrap">
 <table class="book">
   <thead><tr><th>Company</th><th>Position</th><th class="num">Conviction</th>
-    <th class="num">EPS</th><th class="num">vs consensus</th><th class="num">Target price</th><th class="num">vs consensus</th>
+    <th class="num">EPS</th><th class="num">Gap to consensus</th><th class="num">Target price</th><th class="num">Gap to consensus</th>
     <th class="num">Open suggestions</th></tr></thead>
   {% for r in rows %}
     {% set a = r.proj['analyst'] %}{% set c = r.proj['consensus'] %}

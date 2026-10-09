@@ -150,7 +150,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
     templates.env.globals.update(HTMX_URL=HTMX_URL, highlight=highlight, config=config, thresholds=thresholds,
                                  ASSET_V=_asset_version())
     templates.env.filters["num"] = lambda v, d=1: "" if v is None else f"{v:,.{d}f}"
-    templates.env.filters["pct"] = lambda v: "n/a" if v is None else f"{v * 100:.1f}%"
+    templates.env.filters["pct"] = lambda v: "N/A" if v is None else f"{v * 100:.1f}%"
     templates.env.globals.update(labels=labels)
     templates.env.filters.update(due=labels.due, human=labels.human, stage=labels.stage, measure=labels.measure,
                                  sentence=labels.sentence, prose=labels.prose)

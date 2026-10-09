@@ -5,8 +5,8 @@
 {%- set total = groups.values() | map('length') | sum -%}
 <section class="stats" aria-label="Audit in numbers">
   {{ stat('Not in the brief', total, 'Each with its reason', 'archive') }}
-  {{ stat('Redundant', groups.get('redundant', []) | length, 'Repeats, by Jev or the repeat check', 'repeat') }}
-  {{ stat('Low value or irrelevant', (groups.get('low_value', []) | length) + (groups.get('irrelevant', []) | length), 'Noise, stopped at the gate', 'x') }}
+  {{ stat('Already known', groups.get('redundant', []) | length, 'Repeats, found by Jev or the repeat check', 'repeat') }}
+  {{ stat('Low priority or not relevant', (groups.get('low_value', []) | length) + (groups.get('irrelevant', []) | length), 'Noise, stopped at the gate', 'x') }}
   {{ stat('Quarantined', quarantined | length, 'Sender and subject only', 'lock') }}
 </section>
 

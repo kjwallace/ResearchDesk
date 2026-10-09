@@ -30,7 +30,7 @@
 
   {% if result %}
   <div class="section">
-    <div class="eyebrow">Classification <span class="grow"></span><span class="chip">Jev · criteria <span class="mono-id">{{ triage.criteria_version if triage else '' }}</span></span></div>
+    <div class="eyebrow">Classification <span class="grow"></span><span class="chip">Jev · Criteria <span class="mono-id">{{ triage.criteria_version if triage else '' }}</span></span></div>
     <dl class="kv">
       <dt>Label</dt><dd>{{ label_pill(result.triage) }}{% if result.decided_by != 'jev' %} <span class="xs muted">by the {{ (result.decided_by | human).lower() }}</span>{% endif %}</dd>
       <dt>Gate</dt><dd><span class="pill {{ result.gate }}">{{ result.gate | human }}</span></dd>
