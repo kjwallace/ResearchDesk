@@ -77,7 +77,7 @@ def split_passages(ticker: str, text: str) -> list[tuple[str, str]]:
     return [(f"{ticker}_10-K#{i + 1}", p) for i, p in enumerate(passages)]
 
 
-def search_filing(ticker: str, query: str, embedder: Embedder, limit: int = 3,
+def search_filing(ticker: str, query: str, embedder: Embedder, limit: int = thresholds.VERIFY_FILING_RESULTS,
                   filings_dir: Path = config.FILINGS_DIR) -> list[tuple[str, str]]:
     """The `limit` passages most similar to `query`; empty when no filing is saved."""
     path = filing_path(ticker, filings_dir)
@@ -109,7 +109,7 @@ def entry_text(entry: LogEntry) -> str:
     return " ".join(parts)
 
 
-def search_log(log: list[LogEntry], query: str, ticker: str | None = None, limit: int = 5) -> list[LogEntry]:
+def search_log(log: list[LogEntry], query: str, ticker: str | None = None, limit: int = thresholds.VERIFY_LOG_RESULTS) -> list[LogEntry]:
     """Entries sharing the most words with `query`, newest first among ties; none share no word."""
     wanted = words(query)
     scored = []
@@ -155,13 +155,13 @@ class Session:
 
 
 def tool_functions(s: Session) -> dict[str, Callable[..., str]]:
-    def search_change_log(query: str, ticker: str | None = None, limit: int = 5) -> str:
+    def search_change_log(query: str, ticker: str | None = None, limit: int = thresholds.VERIFY_LOG_RESULTS) -> str:
         found = search_log(s.log, query, ticker, limit)
         s.seen += [q.quote for e in found for q in e.sections] + [e.item_id for e in found]
         return json.dumps([{"source": e.id, "at": e.at.isoformat(), "item_id": e.item_id, "change": e.change,
                             "quotes": [q.quote for q in e.sections]} for e in found], ensure_ascii=False)
 
-    def get_filing_excerpt(ticker: str, query: str, limit: int = 3) -> str:
+    def get_filing_excerpt(ticker: str, query: str, limit: int = thresholds.VERIFY_FILING_RESULTS) -> str:
         found = search_filing(ticker, query, s.embedder, limit, s.filings_dir)
         s.seen += [text for _, text in found]
         return json.dumps([{"source": pid, "quote": text} for pid, text in found], ensure_ascii=False)

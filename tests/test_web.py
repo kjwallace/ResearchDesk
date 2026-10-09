@@ -81,7 +81,7 @@ def fake_stages(monkeypatch: pytest.MonkeyPatch) -> dict[str, bool]:
 
     Set `quarantine` in the returned options to make the gate quarantine every email.
     """
-    opts = {"quarantine": False}
+    opts: dict[str, Any] = {"quarantine": False}
     triage = {t.email_id: t for t in read_list(OUT / "triage.json", TriageRecord)}["fixture_001"]
     claims = [c for c in read_list(OUT / "claims.json", Claim) if c.email_id == "fixture_001"]
     sugg = {s.id: s for s in read_list(OUT / "suggestions.json", Suggestion)}["MSFT.p1.supports"]
@@ -111,10 +111,16 @@ def fake_stages(monkeypatch: pytest.MonkeyPatch) -> dict[str, bool]:
     monkeypatch.setattr(mods["gate"], "process", gate)
     monkeypatch.setattr(mods["extract"], "process", lambda e, r, earlier, ctx: [_swap(e.email_id, c) for c in claims])
     monkeypatch.setattr(mods["analyze"], "process", analyze)
-    monkeypatch.setattr(mods["validate"], "ValidationInputs", lambda *args: None)
+    def inputs(*args: Any) -> None:
+        opts["validate_seed"] = args[3]
+
+    monkeypatch.setattr(mods["validate"], "ValidationInputs", inputs)
     monkeypatch.setattr(mods["validate"], "process", lambda s, ctx, inputs: s)
-    monkeypatch.setattr(mods["merge"], "process", lambda ss, ctx, results, seed: [
-        s.model_copy(update={"id": "MSFT.p1.supports"}) for s in ss])
+    def merge(ss: list[Suggestion], ctx: RunContext, results: list[EmailResult], seed: Any) -> list[Suggestion]:
+        opts["merge_seed"], opts["merge_results"] = seed, results
+        return [s.model_copy(update={"id": "MSFT.p1.supports"}) for s in ss]
+
+    monkeypatch.setattr(mods["merge"], "process", merge)
     return opts
 
 
@@ -146,9 +152,11 @@ def test_every_page_answers_with_banner_and_no_quarantined_body(client: TestClie
         assert_no_quarantined_body(r.text)
 
 
-def test_unknown_items_404(client: TestClient) -> None:
-    for url in ("/suggestion/NOPE", "/company/TSLA", "/criteria/nope", "/email/nope"):
-        assert client.get(url).status_code == 404, url
+def test_unknown_items_404_as_html_with_banner(client: TestClient) -> None:
+    for url in ("/suggestion/NOPE", "/company/TSLA", "/criteria/nope", "/email/nope", "/no/such/page"):
+        r = client.get(url)
+        assert r.status_code == 404 and r.headers["content-type"].startswith("text/html"), url
+        assert BANNER in r.text and "Not found" in r.text, url
 
 
 def test_brief_lists_every_section(client: TestClient) -> None:
@@ -329,7 +337,7 @@ def test_mattered_not_available(client: TestClient, monkeypatch: pytest.MonkeyPa
     assert r.status_code == 200 and "not available yet" in r.text
 
 
-def test_mattered_with_fakes(client: TestClient, fake_stages: dict[str, bool]) -> None:
+def test_mattered_with_fakes(client: TestClient, fake_stages: dict[str, Any]) -> None:
     r = client.post("/audit/fixture_010/mattered", headers=HX)
     assert r.status_code == 200 and "extract" in r.text and "fixture_010.MSFT.p1.supports" in r.text
     assert "/suggestion/fixture_010.MSFT.p1.supports" in client.get("/").text
@@ -337,7 +345,7 @@ def test_mattered_with_fakes(client: TestClient, fake_stages: dict[str, bool]) -
     assert client.post("/audit/fixture_001/mattered", headers=HX).status_code == 409
 
 
-def test_live_with_fakes_traces_every_stage(client: TestClient, fake_stages: dict[str, bool]) -> None:
+def test_live_with_fakes_traces_every_stage(client: TestClient, fake_stages: dict[str, Any]) -> None:
     body = PARSED["fixture_001"].body
     r = client.post("/live", headers=HX, data={"sender": "A", "subject": "Live check", "body": body})
     assert r.status_code == 200
@@ -364,7 +372,7 @@ def test_live_unbuilt_stages_answer(client: TestClient, monkeypatch: pytest.Monk
     assert r.status_code == 200 and "not available yet" in r.text
 
 
-def test_live_quarantine_never_shows_body(client: TestClient, fake_stages: dict[str, bool]) -> None:
+def test_live_quarantine_never_shows_body(client: TestClient, fake_stages: dict[str, Any]) -> None:
     fake_stages["quarantine"] = True
     r = client.post("/live", headers=HX, data={"sender": "B", "subject": "Odd note", "body": SECRET})
     assert r.status_code == 200 and "Quarantined" in r.text
@@ -377,15 +385,15 @@ def test_live_quarantine_never_shows_body(client: TestClient, fake_stages: dict[
         assert_no_quarantined_body(client.get(url).text)
 
 
-def test_live_input_cap_and_rate_limit(client: TestClient, fake_stages: dict[str, bool]) -> None:
+def test_live_input_cap_and_rate_limit(client: TestClient, fake_stages: dict[str, Any]) -> None:
     big = "x" * (thresholds.LIVE_INPUT_CAP_CHARS + 1)
     assert client.post("/live", headers=HX, data={"body": big}).status_code == 413
     assert client.post("/live", headers=HX, data={"body": ""}).status_code == 422
     codes = [client.post("/live", headers=HX, data={"body": f"note {i}"}).status_code
              for i in range(thresholds.LIVE_RUNS_PER_HOUR + 1)]
     assert codes == [200] * thresholds.LIVE_RUNS_PER_HOUR + [429]
-    # Presets replay cached results and do not spend the allowance.
-    assert client.post("/live", headers=HX, data={"preset": "preset_01"}).status_code == 200
+    # A preset whose results are not cached spends a run like a paste.
+    assert client.post("/live", headers=HX, data={"preset": "preset_01"}).status_code == 429
     # "This mattered" draws on the same allowance.
     assert client.post("/audit/fixture_010/mattered", headers=HX).status_code == 429
     # Reset does not lift the limit.
@@ -393,7 +401,7 @@ def test_live_input_cap_and_rate_limit(client: TestClient, fake_stages: dict[str
     assert client.post("/live", headers=HX, data={"body": "again"}).status_code == 429
 
 
-def test_responses_never_hold_quarantined_bodies_after_actions(client: TestClient, fake_stages: dict[str, bool]) -> None:
+def test_responses_never_hold_quarantined_bodies_after_actions(client: TestClient, fake_stages: dict[str, Any]) -> None:
     responses: list[Any] = [
         client.post("/suggestion/MSFT.p1.supports/accept", headers=HX),
         client.post("/audit/fixture_010/mattered", headers=HX),
@@ -411,3 +419,102 @@ def test_sections_from_quarantined_emails_are_dropped(client: TestClient) -> Non
     data.suggestions["MSFT.p1.supports"] = s.model_copy(update={"sections": [*s.sections, leak]})
     for url in ("/", "/suggestion/MSFT.p1.supports", "/email/fixture_004"):
         assert_no_quarantined_body(client.get(url).text)
+
+
+# ---- Review fixes: mattered override, global limit, sessions, folded book, audit repeats ----
+
+def test_mattered_extracts_claims_from_a_stopped_email(presets: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """No stage is faked: the stopped email reaches the real extraction with the analyst's override."""
+    monkeypatch.setenv("ANALYSIS_MODEL", "fake/analysis-model")
+    quote = ("Sessions cover the final Basel standards, deposit insurance reform and the outlook for "
+             "European bank consolidation.")
+    replies = iter([json.dumps({"claims": [{"quote": quote, "tickers": [], "entities": ["European banks"],
+                                            "kind": "reported_fact", "first_hand": True}]})])
+    chat = FakeChat(lambda _messages: next(replies, "{}"))
+
+    def ctx(recorder: Recorder) -> RunContext:
+        return RunContext(None, recorder=recorder, use_cache=False, chat=chat, embedder=FakeEmbedder())
+
+    with TestClient(create_app(OUT, make_ctx=ctx, presets_dir=presets)) as c:
+        assert RESULTS["fixture_010"].gate == "stop"
+        r = c.post("/audit/fixture_010/mattered", headers=HX)
+        assert r.status_code == 200
+        assert re.search(r"<td>extract</td><td><span class=\"pill ok\">ok</span></td><td class=\"small\">1 claims", r.text)
+        assert chat.calls and chat.calls[0]["namespace"] == "extract"
+
+
+def test_mattered_on_quarantined_spends_nothing(client: TestClient) -> None:
+    assert client.post("/audit/fixture_003/mattered", headers=HX).status_code == 403
+    assert client.app.state.global_runs.left() == thresholds.LIVE_RUNS_PER_HOUR_GLOBAL  # type: ignore[attr-defined]
+    with pytest.raises(ValueError):
+        runner.run_mattered(PARSED["fixture_003"], RESULTS["fixture_003"], client.app.state.store.get(),  # type: ignore[attr-defined]
+                            fake_ctx, load_seed(), [])
+
+
+def test_earlier_email_is_never_quarantined(client: TestClient) -> None:
+    data = client.app.state.store.get()  # type: ignore[attr-defined]
+
+    def record(nearest: str) -> RedundancyRecord:
+        return RedundancyRecord(email_id="x", nearest=nearest, content_similarity=0.99, subject_score=0.9,
+                                flagged=True)
+
+    assert runner.earlier_email(record("fixture_004"), data) is None
+    assert runner.earlier_email(record("fixture_005"), data) == PARSED["fixture_005"]
+    assert runner.earlier_email(record("fixture_005").model_copy(update={"flagged": False}), data) is None
+
+
+def test_global_live_limit_ignores_cookies(client: TestClient, fake_stages: dict[str, Any],
+                                           monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(thresholds, "LIVE_RUNS_PER_HOUR_GLOBAL", 2)
+    codes = []
+    for i in range(3):
+        client.cookies.clear()  # a new visitor each time
+        codes.append(client.post("/live", headers=HX, data={"body": f"note {i}"}).status_code)
+    assert codes == [200, 200, 429]
+    client.cookies.clear()
+    r = client.post("/suggestion/MSFT.p1.supports/verify", headers=HX)
+    assert r.status_code == 429 and "across all visitors" in r.text
+
+
+def test_warm_preset_is_free(client: TestClient, monkeypatch: pytest.MonkeyPatch) -> None:
+    def cached_run(email: Email, *_: Any) -> runner.Trace:
+        return runner.Trace(email_id=email.email_id, sender=email.sender, subject=email.subject,
+                            steps=[runner.Step(name="classify", status="ok", calls=1, cache_hits=1)])
+
+    monkeypatch.setattr(runner, "run_live", cached_run)
+    for _ in range(thresholds.LIVE_RUNS_PER_HOUR + 2):
+        assert client.post("/live", headers=HX, data={"preset": "preset_01"}).status_code == 200
+    assert client.app.state.global_runs.left() == thresholds.LIVE_RUNS_PER_HOUR_GLOBAL  # type: ignore[attr-defined]
+
+
+def test_sessions_are_evicted(monkeypatch: pytest.MonkeyPatch) -> None:
+    from triage_app.web.session import SessionStore
+
+    monkeypatch.setattr(thresholds, "MAX_SESSIONS", 2)
+    store = SessionStore()
+    a = store.get("a", now=0.0)
+    store.get("b", now=1.0)
+    assert store.get("a", now=2.0) is a  # touching "a" makes "b" the least recently used
+    store.get("c", now=3.0)
+    assert "b" not in store and "a" in store and len(store) == 2
+    store.get("d", now=3.0 + thresholds.SESSION_IDLE_TTL_S + 1)
+    assert list(("a" in store, "c" in store, "d" in store)) == [False, False, True]
+
+
+def test_live_validates_against_the_visitors_book(client: TestClient, fake_stages: dict[str, Any]) -> None:
+    client.post("/suggestion/AMZN.new1/accept", headers=HX)
+    client.post("/audit/fixture_010/mattered", headers=HX)
+    for key in ("validate_seed", "merge_seed"):
+        pillars = [p.id for t in fake_stages[key].theses for p in t.pillars]
+        assert "AMZN.p4" in pillars, key
+    assert [r.gate for r in fake_stages["merge_results"]] == ["pass"]  # the analyst's override
+
+
+def test_audit_shows_every_flagged_repeat(client: TestClient) -> None:
+    data = client.app.state.store.get()  # type: ignore[attr-defined]
+    data.redundancy["fixture_010"] = RedundancyRecord(
+        email_id="fixture_010", nearest="fixture_004", content_similarity=0.81, subject_score=0.7, flagged=True)
+    text = client.get("/audit").text
+    assert "Flagged as a possible repeat of" in text and "0.81" in text and "0.70" in text
+    assert html.escape(PARSED["fixture_004"].subject) in text
+    assert_no_quarantined_body(text)

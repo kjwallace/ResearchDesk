@@ -23,6 +23,7 @@ from fastapi import FastAPI, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from starlette.middleware.sessions import SessionMiddleware
 
 from triage_app import config, thresholds
@@ -37,12 +38,11 @@ from triage_app.state.compute import Projection, compute, driver_values, project
 from triage_app.state.fold import BookState, Seed, fold, load_seed
 from triage_app.web import runner
 from triage_app.web.data import DataStore, DayData, data_dir_from_env, highlight, safe_sections
-from triage_app.web.session import SESSION_KEY, SessionState, SessionStore
+from triage_app.web.session import SESSION_KEY, GlobalRuns, SessionState, SessionStore
 
 WEB_DIR = Path(__file__).resolve().parent
 HTMX_URL = "https://unpkg.com/htmx.org@2.0.4/dist/htmx.min.js"
 REVIEW_KEYS = ("note_review", "suggestion_review", "new_thesis_review")
-MONITOR_TOP_EMAILS = 10  # rows in the costliest and slowest lists
 
 
 @dataclass
@@ -141,8 +141,17 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
     seed = load_seed()
     ctx_factory = make_ctx or runner.default_context
     live_ids = itertools.count(1)
+    global_runs = GlobalRuns()
+    warm_presets: set[str] = set()  # presets whose last run was served wholly from the cache
+    app.state.global_runs = global_runs
     app.state.store, app.state.sessions, app.state.seed = store, sessions, seed
     app.state.presets_dir = presets_dir or config.LIVE_PRESETS_DIR
+
+    @app.exception_handler(StarletteHTTPException)
+    def http_error(request: Request, exc: StarletteHTTPException) -> Response:
+        """Errors render as a page with the synthetic banner, not as JSON."""
+        return templates.TemplateResponse(request, "error.html", {"status": exc.status_code, "detail": exc.detail},
+                                          status_code=exc.status_code)
 
     def view(request: Request) -> View:
         sid = request.session.get(SESSION_KEY)
@@ -169,6 +178,21 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         if refresh:
             resp.headers["HX-Refresh"] = "true"
         return resp
+
+    def spend(v: View) -> str | None:
+        """Take one live run from the session's and the process's hourly allowance; the reason when refused."""
+        if v.sess.runs_left() <= 0:
+            return f"this session has used its {thresholds.LIVE_RUNS_PER_HOUR} live runs for the hour"
+        if not global_runs.take():
+            return (f"the app has used its {thresholds.LIVE_RUNS_PER_HOUR_GLOBAL} live runs for the hour "
+                    "across all visitors; try again later")
+        v.sess.take_run()
+        return None
+
+    def refund(v: View) -> None:
+        if v.sess.live_runs:
+            v.sess.live_runs.pop()
+        global_runs.refund()
 
     def brief_of(v: View) -> Brief:
         if v.data.brief is not None:
@@ -333,10 +357,16 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
                 request, "live.html", {"v": v, "now": datetime.now(UTC), "presets": list(presets.values()), **ctx},
                 status_code=code)
 
+        spent = False
         if preset:
             if preset not in presets:
                 return answer(None, f"unknown preset {preset}", 404)
             email = presets[preset]
+            # A preset with a warm cache replays its results and is free; a cold one spends a run.
+            if preset not in warm_presets:
+                if (refused := spend(v)) is not None:
+                    return answer(None, refused, 429)
+                spent = True
         else:
             if not body.strip():
                 return answer(None, "paste an email body, or pick a preset", 422)
@@ -344,14 +374,18 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
             if total > thresholds.LIVE_INPUT_CAP_CHARS:
                 return answer(None, f"the email is {total:,} characters; the cap is "
                                     f"{thresholds.LIVE_INPUT_CAP_CHARS:,}", 413)
-            # Presets replay cached results; only a pasted email spends from the hourly allowance.
-            if not v.sess.take_run():
-                return answer(None, f"this session has used its {thresholds.LIVE_RUNS_PER_HOUR} live runs "
-                                    f"for the hour", 429)
+            if (refused := spend(v)) is not None:
+                return answer(None, refused, 429)
+            spent = True
             email = Email(email_id=f"live_{next(live_ids):03d}", received_at=datetime.now(UTC),
                           sender=sender.strip() or "Pasted email", sender_email=sender_email.strip() or "unknown",
                           subject=subject.strip() or "(no subject)", body=body)
         trace = runner.run_live(email, v.data, ctx_factory, seed, v.sess.log)
+        totals = trace.totals
+        if preset and totals.calls and totals.cache_hits == totals.calls:
+            warm_presets.add(preset)
+        if spent and (not totals.calls or (preset and preset in warm_presets)):
+            refund(v)
         _join_session(v, email, trace)
         return answer(trace, None)
 
@@ -376,8 +410,8 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         for t in v.data.timings:
             if t.email_id is not None:
                 latency[t.email_id] += t.latency_ms
-        costliest = sorted(tokens.items(), key=lambda kv: -kv[1][0])[:MONITOR_TOP_EMAILS]
-        slowest = sorted(latency.items(), key=lambda kv: -kv[1])[:MONITOR_TOP_EMAILS]
+        costliest = sorted(tokens.items(), key=lambda kv: -kv[1][0])[:thresholds.MONITOR_TOP_EMAILS]
+        slowest = sorted(latency.items(), key=lambda kv: -kv[1])[:thresholds.MONITOR_TOP_EMAILS]
         return page(request, "monitor.html", v, m=v.data.metrics, costliest=costliest, slowest=slowest)
 
     # ---------------- Actions ----------------
@@ -432,14 +466,13 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
     def verify_route(request: Request, sid: str) -> Response:
         v = view(request)
         s = get_suggestion(v, sid)
-        if not v.sess.take_run():
-            return message(request, v, f"this session has used its {thresholds.LIVE_RUNS_PER_HOUR} model runs "
-                                       "for the hour", ok=False, status_code=429)
+        if (refused := spend(v)) is not None:
+            return message(request, v, refused, ok=False, status_code=429)
         try:
             cited = [c for c in [*v.data.claims, *v.sess.claims] if c.id in s.claim_ids]
             result = runner.run_verify(s, v.sess.log, cited, ctx_factory)
         except runner.NotAvailable:
-            v.sess.live_runs.pop()
+            refund(v)
             return message(request, v, "Verify is not available yet.", ok=False)
         except Exception as e:  # noqa: BLE001  (type only; never the message)
             return message(request, v, f"Verify failed ({type(e).__name__}).", ok=False, status_code=502)
@@ -494,12 +527,11 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
                            ok=False, status_code=403)
         if result.gate != "stop":
             return message(request, v, "This email already passed the gate.", ok=False, status_code=409)
-        if not v.sess.take_run():
-            return message(request, v, f"this session has used its {thresholds.LIVE_RUNS_PER_HOUR} live runs "
-                                       "for the hour", ok=False, status_code=429)
+        if (refused := spend(v)) is not None:
+            return message(request, v, refused, ok=False, status_code=429)
         trace = runner.run_mattered(email, result, v.data, ctx_factory, seed, v.sess.log)
-        if all(st.status == "unavailable" for st in trace.steps if st.status != "skipped"):
-            v.sess.live_runs.pop()
+        if not trace.totals.calls:
+            refund(v)
         _join_session(v, email, trace, keep_email=False)
         n = len(trace.suggestions)
         v.sess.mattered[email_id] = (f"{n} suggestion{'s' if n != 1 else ''} added to your brief" if n

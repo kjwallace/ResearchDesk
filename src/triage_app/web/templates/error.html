@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}{{ status }}{% endblock %}
+{% block content %}
+<h1>{{ 'Not found' if status == 404 else 'Something went wrong' }}</h1>
+<p>{{ detail }}</p>
+<p><a href="/">← Back to the brief</a></p>
+{% endblock %}

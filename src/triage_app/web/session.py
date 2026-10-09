@@ -4,11 +4,17 @@ Holds the change log, dismissed suggestions and reviews, live-run times, verify 
 and whatever live runs and "this mattered" added to the visitor's brief. A restart clears
 every session. Reset clears the visitor's state but keeps the live-run times, so it cannot
 be used to lift the rate limit.
+
+Live runs are limited twice: per session (`thresholds.LIVE_RUNS_PER_HOUR`) and across the whole
+process (`thresholds.LIVE_RUNS_PER_HOUR_GLOBAL`), so dropping the cookie does not lift the
+limit. Idle sessions are evicted after `thresholds.SESSION_IDLE_TTL_S`, and the store holds at
+most `thresholds.MAX_SESSIONS`, evicting the least recently used.
 """
 
 import secrets
 import threading
 import time
+from collections import OrderedDict
 from dataclasses import dataclass, field
 
 from triage_app import thresholds
@@ -48,15 +54,65 @@ class SessionState:
         return True
 
 
-class SessionStore:
+def _prune(times: list[float], now: float) -> list[float]:
+    return [t for t in times if now - t < thresholds.LIVE_RATE_WINDOW_S]
+
+
+class GlobalRuns:
+    """Live runs across every session in this process, within the rate window."""
+
     def __init__(self) -> None:
-        self._sessions: dict[str, SessionState] = {}
+        self.times: list[float] = []
+        self._lock = threading.Lock()
+
+    def left(self, now: float | None = None) -> int:
+        now = time.time() if now is None else now
+        with self._lock:
+            self.times = _prune(self.times, now)
+            return max(0, thresholds.LIVE_RUNS_PER_HOUR_GLOBAL - len(self.times))
+
+    def take(self, now: float | None = None) -> bool:
+        now = time.time() if now is None else now
+        with self._lock:
+            self.times = _prune(self.times, now)
+            if len(self.times) >= thresholds.LIVE_RUNS_PER_HOUR_GLOBAL:
+                return False
+            self.times.append(now)
+            return True
+
+    def refund(self) -> None:
+        with self._lock:
+            if self.times:
+                self.times.pop()
+
+
+class SessionStore:
+    """Sessions by ID, least recently used first; idle ones are evicted on access."""
+
+    def __init__(self) -> None:
+        self._sessions: OrderedDict[str, tuple[float, SessionState]] = OrderedDict()
         self._lock = threading.Lock()
 
     @staticmethod
     def new_id() -> str:
         return secrets.token_urlsafe(18)
 
-    def get(self, sid: str) -> SessionState:
+    def __len__(self) -> int:
+        return len(self._sessions)
+
+    def __contains__(self, sid: object) -> bool:
+        return sid in self._sessions
+
+    def get(self, sid: str, now: float | None = None) -> SessionState:
+        now = time.time() if now is None else now
         with self._lock:
-            return self._sessions.setdefault(sid, SessionState())
+            while self._sessions:
+                oldest, (seen, _) = next(iter(self._sessions.items()))
+                if now - seen < thresholds.SESSION_IDLE_TTL_S:
+                    break
+                del self._sessions[oldest]
+            state = self._sessions.pop(sid, (now, SessionState()))[1]
+            self._sessions[sid] = (now, state)
+            while len(self._sessions) > thresholds.MAX_SESSIONS:
+                self._sessions.popitem(last=False)
+            return state

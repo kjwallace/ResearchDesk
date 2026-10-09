@@ -67,7 +67,7 @@ CRITERIA_FILES = (
 #   JEV_MODEL         TypeSafe model for stage 3, e.g. a pinned jev-<version>
 #   ANALYSIS_MODEL    OpenRouter slug: extraction, analysis agent, verify agent, generation prompts
 #   NOTES_MODEL       OpenRouter slug: attention notes
-#   EMBEDDING_MODEL   local fastembed model: redundancy check, duplicate checks, filing search
+#   EMBEDDING_MODEL   Hugging Face repo ID, run locally: redundancy check, duplicate checks, filing search
 
 MODEL_ENV_VARS = ("JEV_MODEL", "ANALYSIS_MODEL", "NOTES_MODEL", "EMBEDDING_MODEL")
 

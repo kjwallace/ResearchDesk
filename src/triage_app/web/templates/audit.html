@@ -14,8 +14,8 @@
       <div>{{ r.reason }}</div>
       {% if t %}<div class="muted">Jev: {% for k, p in t.triage_probs.items() %}{{ k }} {{ p | num(2) }}{% if not loop.last %}, {% endif %}{% endfor %}
         · attention {{ t.attention | num(2) }} · criteria {{ t.criteria_version }}</div>{% endif %}
-      {% if r.redundant_of and red %}<div>Repeat of {{ email_link(v, r.redundant_of) }}
-        (content {{ red.content_similarity | num(2) }}, subject {{ red.subject_score | num(2) }})</div>{% endif %}
+      {% if red and red.flagged and red.nearest %}<div>{{ 'Repeat of' if r.redundant_of else 'Flagged as a possible repeat of' }}
+        {{ email_link(v, red.nearest) }} (content {{ red.content_similarity | num(2) }}, subject {{ red.subject_score | num(2) }})</div>{% endif %}
       {% if v.data.no_change_reason(r.email_id) %}<div>No change: {{ v.data.no_change_reason(r.email_id) }}</div>{% endif %}
       {% if by_earlier.get(r.email_id) %}<div>Later repeats: {% for x in by_earlier[r.email_id] %}{{ email_link(v, x) }} {% endfor %}</div>{% endif %}
       {% for s in rejected.get(r.email_id, []) %}<div class="flash err">Rejected {{ s.id }}: {{ s.reject_reason }}</div>{% endfor %}

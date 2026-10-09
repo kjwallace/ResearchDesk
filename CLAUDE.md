@@ -4,11 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project state: read this first
 
-This repo is a **build-from-spec case study**. `SPEC.md` is the source of truth: an email triage and thesis-suggestion prototype (package `src/triage_app/`) for a fictional long/short tech desk covering AMZN, NVDA, MSFT, AAPL, GOOGL. **Almost none of it is built yet.** There is no `src/` or `tests/` code and no commits.
+This repo is a **build-from-spec case study**. `SPEC.md` is the source of truth: an email triage and thesis-suggestion prototype (package `src/triage_app/`) for a fictional long/short tech desk covering AMZN, NVDA, MSFT, AAPL, GOOGL. All stages, the web app and the evals are built (see `DECISIONS.md` for every choice the spec left open and `REVIEW.md` for drafts awaiting a person). Fixtures in `tests/fixtures/` stand in for every stage file.
 
-An earlier, unrelated prototype ("finresearch") is archived in `legacy/finresearch/`. It holds its README, pyproject, uv.lock, .env.example, main.py and `data/skills/`. Ignore it and do not build on it. A fresh `pyproject.toml`, `README.md` and `.env.example` still need writing to the spec. Python is 3.14 (`.python-version`). The `LLM_*` and `EMBEDDING_*` variables in `.env` are also leftovers. The spec does not use them.
+Python is 3.14 (`.python-version`). In `.env`, the `LLM_*` variables and `EMBEDDING_PROVIDER`/`EMBEDDING_DIM` are leftovers from an earlier prototype and unused.
 
-Start with `KICKOFF.md`, then read `SPEC.md` **in full** (about 1,370 lines; do not work from a summary), then `prompts/README.md`. Follow the spec's "Build order" (steps 0–7, each with a "done when" test). If you use subagents, follow "Work packages for subagents".
+Read `SPEC.md` **in full** before changing behaviour (about 1,400 lines; do not work from a summary). Subagent briefs are in `transcripts/briefs/`; the common rules in `_common.md` apply to any new work.
 
 ## Commands (as the spec defines them, to implement under these exact names)
 

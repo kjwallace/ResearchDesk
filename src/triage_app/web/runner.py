@@ -196,21 +196,42 @@ def run_live(email: Email, data: DayData, make_ctx: ContextFactory, seed: Seed, 
             for name in ("extract", "analyze", "validate", "merge"):
                 r.skip(name, "stopped at the gate")
             return trace
-        earlier = data.emails.get(result.redundant_of or "")
-        _analyse(r, trace, parsed, result, earlier, ctx, seed, log)
+        _analyse(r, trace, parsed, result, earlier_email(red, data), ctx, seed, log)
     return trace
+
+
+def earlier_email(record: RedundancyRecord | None, data: DayData) -> Email | None:
+    """The nearest earlier email of a flagged repeat, as extraction context; never a quarantined one."""
+    if record is None or not record.flagged or record.nearest is None or data.quarantined(record.nearest):
+        return None
+    return data.emails.get(record.nearest)
 
 
 def run_mattered(email: Email, result: EmailResult, data: DayData, make_ctx: ContextFactory, seed: Seed,
                  log: list[LogEntry]) -> Trace:
-    """Send one stopped email to extraction and the analysis agent ("this mattered")."""
+    """Send one stopped email to extraction and the analysis agent ("this mattered").
+
+    The analyst's request overrides the gate: the stages see a copy of the result with
+    gate "pass", and keep its label, so validation still marks a suggestion "second look" when
+    no linked email is labeled thesis_relevant or monitor. A quarantined email never runs.
+    """
+    if result.gate == "quarantine" or data.quarantined(email.email_id):
+        raise ValueError("a quarantined email is never sent to a model")
+    override = result.model_copy(update={"gate": "pass"})
     rec = Recorder()
     ctx = make_ctx(rec)
     trace = Trace(email_id=email.email_id, sender=email.sender, subject=email.subject, result=result)
     r = _Runner(trace, rec)
     with recording(rec):
-        _analyse(r, trace, email, result, data.emails.get(result.redundant_of or ""), ctx, seed, log)
+        _analyse(r, trace, email, override, earlier_email(data.redundancy.get(email.email_id), data),
+                 ctx, seed, log)
     return trace
+
+
+def folded_seed(seed: Seed, log: list[LogEntry]) -> Seed:
+    """The visitor's book as a Seed: theses and models folded with the session log, links unchanged."""
+    state = fold(seed, log)
+    return Seed(theses=list(state.theses.values()), models=list(state.models.values()), links=seed.links)
 
 
 def _analyse(r: _Runner, trace: Trace, email: Email, result: EmailResult, earlier: Email | None,
@@ -223,6 +244,7 @@ def _analyse(r: _Runner, trace: Trace, email: Email, result: EmailResult, earlie
         return
     trace.claims = claims
     book = fold(seed, log)
+    current = folded_seed(seed, log)
     out = r.step("analyze", lambda: stage_fn("analyze")(email.email_id, claims, result, ctx, book=book),
                  lambda o: f"{len(o[1])} suggestions" if o[1] else (o[0].no_change_reason or "no suggestion"))
     if out is None:
@@ -236,7 +258,7 @@ def _analyse(r: _Runner, trace: Trace, email: Email, result: EmailResult, earlie
         return
 
     def validate() -> list[Suggestion]:
-        inputs = stage_fn("validate", "ValidationInputs")(claims, [email], [result], seed)
+        inputs = stage_fn("validate", "ValidationInputs")(claims, [email], [result], current)
         check = stage_fn("validate")
         return [check(s, ctx, inputs) for s in raw]
 
@@ -251,7 +273,7 @@ def _analyse(r: _Runner, trace: Trace, email: Email, result: EmailResult, earlie
     if not valid:
         r.skip("merge", "all suggestions rejected in validation")
         return
-    merged = r.step("merge", lambda: stage_fn("merge")(valid, ctx, [result], seed), lambda xs: f"{len(xs)} merged")
+    merged = r.step("merge", lambda: stage_fn("merge")(valid, ctx, [result], current), lambda xs: f"{len(xs)} merged")
     trace.suggestions = merged or []
 
 

@@ -39,10 +39,6 @@ LABEL_FIELDS = ("triage", "additional_labels", "affected_tickers", "human_attent
 GENERATION_FIELDS = ("email_type", "systemic", "angle", "day")  # label-side; never kept
 
 
-# Targets from SPEC.md, "Label targets set by the prompt", per 300 emails.
-TARGET_SHARES: dict[Triage, float] = {
-    "thesis_relevant": 0.10, "monitor": 0.15, "redundant": 0.10, "low_value": 0.35, "irrelevant": 0.30,
-}
 MACRO_SECTOR_GOVERNMENT: tuple[Topic, ...] = ("macro", "sector", "government")
 
 _TRIAGE_ALIASES: dict[str, Triage] = {"relevent": "thesis_relevant", "relevant": "thesis_relevant"}
@@ -235,9 +231,9 @@ def report(result: LoadResult, corpus_set: str) -> str:
     out.append("\nTriage labels (target scaled to the set size):")
     counts = Counter(lb.triage for lb in labels)
     for t in config.TRIAGE_LABELS:
-        target = TARGET_SHARES[t] * n
+        target = thresholds.TARGET_SHARES[t] * n
         share = counts[t] / n if n else 0.0
-        out.append(f"  {t:<16}{counts[t]:>5}  {share:6.1%}   target {target:5.1f} ({TARGET_SHARES[t]:.0%})")
+        out.append(f"  {t:<16}{counts[t]:>5}  {share:6.1%}   target {target:5.1f} ({thresholds.TARGET_SHARES[t]:.0%})")
 
     def check(name: str, value: int, rng: tuple[int, int]) -> None:
         lo, hi = _scaled(*rng, n)

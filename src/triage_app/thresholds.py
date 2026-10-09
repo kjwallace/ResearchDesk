@@ -55,12 +55,21 @@ CONVICTION_REVIEW_STRENGTH = 4    # fixed  net contradicting strength on a pilla
 VERIFY_TOOL_CALLS = 4             # fixed  tool calls per verify request
 PASSAGE_CHARS = 1200              # fixed  filing passages are cut at this length (inside the embedder's limit)
 MIN_PASSAGE_CHARS = 80            # fixed  shorter paragraphs join the next one
+VERIFY_FILING_RESULTS = 3         # fixed  filing passages a filing search returns by default
+VERIFY_LOG_RESULTS = 5            # fixed  change-log entries a log search returns by default
 
 # ---- Live route ---------------------------------------------------------------------------
 
 LIVE_INPUT_CAP_CHARS = 10_000     # fixed  longest pasted email accepted
 LIVE_RUNS_PER_HOUR = 5            # fixed  live runs (and "this mattered") per visitor session
 LIVE_RATE_WINDOW_S = 3600.0       # fixed  window for that limit, in seconds
+LIVE_RUNS_PER_HOUR_GLOBAL = 60    # fixed  live runs per hour across every session (pastes, "this mattered", verify, cold presets)
+SESSION_IDLE_TTL_S = 86400.0      # fixed  a visitor session idle this long is evicted from server memory
+MAX_SESSIONS = 1000               # fixed  sessions held in memory; the least recently used is evicted beyond it
+
+# ---- App screens ----------------------------------------------------------------------------
+
+MONITOR_TOP_EMAILS = 10           # fixed  rows in the Monitor screen's costliest and slowest email lists
 
 # ---- Model calls --------------------------------------------------------------------------
 
@@ -84,6 +93,7 @@ FIT_SHARE = 2 / 3                 # fixed  share of each label that goes to the 
 # ---- Corpus report targets (from the corpus prompt, per 300 emails; scaled by set size) --
 
 TARGET_BASE = 300
+TARGET_SHARES = {"thesis_relevant": 0.10, "monitor": 0.15, "redundant": 0.10, "low_value": 0.35, "irrelevant": 0.30}
 HUMAN_ATTENTION_RANGE = (15, 25)
 MACRO_SECTOR_GOVERNMENT_RANGE = (25, 35)
 
