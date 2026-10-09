@@ -93,6 +93,14 @@ PASS_THRESHOLD_DECIMALS = 4       # fixed  the tuned pass threshold is floored t
 SPLIT_SEED = 13                   # fixed  seed of the tuning set's fit/validation split
 FIT_SHARE = 2 / 3                 # fixed  share of each label that goes to the fit split
 
+# ---- Eval targets (SPEC "Evaluation and guardrails"; proposals, shown on the Eval page) -----
+
+EVAL_TARGETS = {                  # fixed  eval.json key to its target share; keys not listed are reported only
+    "gate_recall": 1.0, "monitor_gate_recall": 0.95, "signal_accuracy": 0.85, "ticker_f1": 0.90,
+    "human_attention_recall": 0.90, "human_attention_precision": 0.80, "quote_faithfulness": 1.0,
+    "note_review": 0.90, "suggestion_review": 0.90,
+}
+
 # ---- Corpus report targets (from the corpus prompt, per 300 emails; scaled by set size) --
 
 TARGET_BASE = 300

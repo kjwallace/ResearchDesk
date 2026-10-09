@@ -1,3 +1,47 @@
+{# Icons: Lucide-style strokes, inline so nothing loads from elsewhere. #}
+{% macro icon(name) -%}
+<svg class="i" viewBox="0 0 24 24" aria-hidden="true">
+{%- if name == 'mail' %}<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>
+{%- elif name == 'trend' %}<path d="m3 17 6-6 4 4 8-8"/><path d="M14 7h7v7"/>
+{%- elif name == 'clock' %}<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+{%- elif name == 'book' %}<path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"/>
+{%- elif name == 'zap' %}<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>
+{%- elif name == 'sliders' %}<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>
+{%- elif name == 'check' %}<path d="m5 12 5 5L20 7"/>
+{%- elif name == 'x' %}<path d="M6 6l12 12M18 6 6 18"/>
+{%- elif name == 'archive' %}<rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9M10 13h4"/>
+{%- elif name == 'file' %}<path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M9 13h6M9 17h6"/>
+{%- elif name == 'chev' %}<path d="m6 9 6 6 6-6"/>
+{%- elif name == 'right' %}<path d="m9 6 6 6-6 6"/>
+{%- elif name == 'left' %}<path d="m15 6-6 6 6 6"/>
+{%- elif name == 'search' %}<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+{%- elif name == 'shield' %}<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/>
+{%- elif name == 'layers' %}<path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/>
+{%- elif name == 'alert' %}<path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h0"/>
+{%- elif name == 'undo' %}<path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/>
+{%- elif name == 'rotate' %}<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>
+{%- elif name == 'play' %}<path d="M7 4v16l13-8z"/>
+{%- elif name == 'activity' %}<path d="M3 12h4l3-8 4 16 3-8h4"/>
+{%- elif name == 'lock' %}<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+{%- elif name == 'link' %}<path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/>
+{%- elif name == 'repeat' %}<path d="m17 2 4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/>
+{%- elif name == 'eye' %}<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>
+{%- elif name == 'plus' %}<path d="M12 5v14M5 12h14"/>
+{%- elif name == 'target' %}<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>
+{%- elif name == 'gauge' %}<path d="M12 14l4-4"/><path d="M3.3 19a10 10 0 1 1 17.4 0"/>
+{%- elif name == 'check-circle' %}<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>
+{%- else %}<circle cx="12" cy="12" r="3"/>{% endif -%}
+</svg>
+{%- endmacro %}
+
+{% macro avatar(sender, lg=False, locked=False) -%}
+  <span class="avatar {{ 'lg' if lg else '' }} {{ 'lock' if locked else (sender | tone) }}" aria-hidden="true">{{ sender | initials }}</span>
+{%- endmacro %}
+
+{% macro ticker_mark(t) -%}
+  <span class="avatar lg t3" aria-hidden="true" style="border-radius:6px;font-size:10px">{{ t }}</span>
+{%- endmacro %}
+
 {% macro email_link(v, eid) -%}
   {%- set e = v.email(eid) -%}
   <a href="/email/{{ eid }}">{{ e.subject if e else eid }}</a>
@@ -5,35 +49,108 @@
 {%- endmacro %}
 
 {% macro status_pill(status) -%}
-  <span class="pill {{ status }}">{{ status }}</span>
+  <span class="pill dot {{ status }}">{{ status }}</span>
+{%- endmacro %}
+
+{% macro label_pill(label) -%}
+  {%- if label %}<span class="pill {{ label }}">{{ label }}</span>{% else %}<span class="pill quarantine">quarantined</span>{% endif -%}
+{%- endmacro %}
+
+{# A row's link to the detail pane: a plain link without JS, an in-place load with it. #}
+{% macro pane_link(href, text) -%}
+  <a class="stretch" href="{{ href }}" data-pane hx-get="{{ href }}" hx-select="#detail" hx-target="#pane" hx-swap="innerHTML">{{ text }}</a>
+{%- endmacro %}
+
+{% macro bar(p, tone='') -%}
+  <div class="bar {{ tone }}" role="presentation"><span style="width: {{ [[(p or 0) * 100, 0] | max, 100] | min }}%"></span></div>
+{%- endmacro %}
+
+{# Probabilities as labelled bars, most probable first. #}
+{% macro prob_bars(probs, limit=None) -%}
+  {%- set items = probs.items() | sort(attribute='1', reverse=True) | list -%}
+  <div class="bars">
+  {% for k, p in (items[:limit] if limit else items) %}
+    <span class="name {{ 'top' if loop.first else '' }}">{{ k }}</span>{{ bar(p, '' if loop.first else 'muted') }}<span class="val">{{ p | num(2) }}</span>
+  {% endfor %}
+  </div>
 {%- endmacro %}
 
 {% macro actions(v, s, status) -%}
   <div class="actions" id="actions-{{ s.id | replace('.', '-') }}">
-    {{ status_pill(status) }}
     {% if status == 'open' and s.body.kind != 'conviction_review' %}
+    <div class="actions-row" style="width:100%">
       <form method="post" action="/suggestion/{{ s.id }}/accept" hx-post="/suggestion/{{ s.id }}/accept"
-            hx-target="#actions-{{ s.id | replace('.', '-') }}" hx-swap="outerHTML"><button class="primary">Accept</button></form>
-    {% endif %}
-    {% if status == 'open' %}
+            hx-target="#actions-{{ s.id | replace('.', '-') }}" hx-swap="outerHTML"><button class="primary block">{{ icon('check') }}Accept</button></form>
       <form method="post" action="/suggestion/{{ s.id }}/dismiss" hx-post="/suggestion/{{ s.id }}/dismiss"
-            hx-target="#actions-{{ s.id | replace('.', '-') }}" hx-swap="outerHTML"><button>Dismiss</button></form>
+            hx-target="#actions-{{ s.id | replace('.', '-') }}" hx-swap="outerHTML"><button class="block">{{ icon('archive') }}Dismiss</button></form>
+    </div>
+    {% elif status == 'open' %}
+      <form method="post" action="/suggestion/{{ s.id }}/dismiss" hx-post="/suggestion/{{ s.id }}/dismiss"
+            hx-target="#actions-{{ s.id | replace('.', '-') }}" hx-swap="outerHTML"><button>{{ icon('archive') }}Dismiss the review</button></form>
+    {% else %}
+      <div class="status-line">{{ status_pill(status) }}</div>
     {% endif %}
+  </div>
+{%- endmacro %}
+
+{# One suggestion as a list row for the brief; the title opens it in the pane. #}
+{% macro suggestion_row(v, s, sizes) -%}
+  {%- set b = s.body -%}
+  {%- set t = v.ticker_of(s) -%}
+  {%- set th = v.thesis(t) -%}
+  {%- set st = v.status(s) -%}
+  {%- set eids = v.sections(s) | map(attribute='email_id') | unique | list -%}
+  <div class="row" data-row id="row-{{ s.id | replace('.', '-') }}">
+    {{ ticker_mark(t) }}
+    <div class="main">
+      <div class="top">
+        <span class="who">{% if b.kind == 'existing_thesis' %}{{ b.pillar_id }}{% elif b.kind == 'new_thesis' %}New thesis · {{ b.ticker }}{% else %}Conviction review · {{ b.ticker }}{% endif %}</span>
+        <span class="when">{% if th %}{{ th.stance }} · {{ sizes.get(t) }} bps{% endif %}</span>
+      </div>
+      <div class="subj clamp">{{ pane_link('/suggestion/' ~ s.id, s.rationale if b.kind != 'conviction_review' else 'Accepted contradicting evidence on ' ~ b.pillar_id ~ ' reached the review threshold.') }}</div>
+      <div class="tags">
+        {% if b.kind == 'existing_thesis' %}
+          <span class="pill dot {{ b.stance }}">{{ b.stance }}</span>
+          <span class="tag">strength {{ b.strength }}</span>
+          {% if b.wrong_if_met %}<span class="pill contradicts">"wrong if" met</span>{% endif %}
+          {% if b.assumptions %}<span class="tag">{{ icon('target') }}stated figure</span>{% endif %}
+        {% elif b.kind == 'new_thesis' %}<span class="tag info">candidate pillar</span>{% endif %}
+        {% if s.second_look %}<span class="pill second">second look</span>{% endif %}
+        {% if st != 'open' %}{{ status_pill(st) }}{% endif %}
+        {% if eids %}<span class="tag soft above" title="Linked emails">{{ icon('mail') }}{% for eid in eids %}<a href="/email/{{ eid }}" hx-get="/email/{{ eid }}" hx-select="#detail" hx-target="#pane" data-pane>{{ loop.index }}</a>{% if not loop.last %},{% endif %}{% endfor %}</span>{% endif %}
+      </div>
+    </div>
+  </div>
+{%- endmacro %}
+
+{# One email as a list row; extra content (tags, a reason) goes in the caller block. #}
+{% macro email_row(v, e, keys='', snippet='') -%}
+  {%- set r = v.result(e.email_id) -%}
+  {%- set q = r is not none and r.gate == 'quarantine' -%}
+  <div class="row" data-row id="row-{{ e.email_id }}" data-keys="{{ keys }}"
+       data-search="{{ (e.sender ~ ' ' ~ e.subject ~ ' ' ~ e.email_id) | lower }}">
+    {{ avatar(e.sender, locked=q) }}
+    <div class="main">
+      <div class="top"><span class="who">{{ e.sender | person }}</span><span class="when">{{ e.received_at | clock }}</span></div>
+      <div class="subj">{{ pane_link('/email/' ~ e.email_id, e.subject) }}</div>
+      {% if snippet %}<div class="snip">{{ snippet }}</div>{% endif %}
+      <div class="tags">{{ caller() if caller else '' }}</div>
+    </div>
   </div>
 {%- endmacro %}
 
 {% macro card(v, s, sizes) -%}
   {%- set b = s.body -%}
-  <div class="panel card">
+  <div class="card">
     {% if b.kind == 'existing_thesis' %}
       {%- set p = v.pillar(b.pillar_id) -%}
       <h3><a href="/suggestion/{{ s.id }}">{{ b.pillar_id }}</a>
-        <span class="pill {{ b.stance }}">{{ b.stance }}</span>
-        <span class="pill">strength {{ b.strength }}</span>
+        <span class="pill dot {{ b.stance }}">{{ b.stance }}</span>
+        <span class="tag">strength {{ b.strength }}</span>
         {% if b.wrong_if_met %}<span class="pill contradicts">"wrong if" met</span>{% endif %}
         {% if s.second_look %}<span class="pill second">second look</span>{% endif %}
         <span class="muted small">{{ v.thesis(v.ticker_of(s)).stance }} · {{ sizes.get(v.ticker_of(s)) }} bps</span></h3>
-      {% if p %}<div class="small muted">{{ p.statement }}</div>{% endif %}
+      {% if p %}<div class="card-meta">{{ p.statement }}</div>{% endif %}
       {% for a in b.assumptions %}
         <div class="small">Stated {{ a.driver_id }}: <b>{{ a.stated_value | num }}</b>
           (book {{ v.driver(a.driver_id).analyst | num if v.driver(a.driver_id) else a.book_value | num }},
@@ -43,25 +160,32 @@
       <h3><a href="/suggestion/{{ s.id }}">New thesis for {{ b.ticker }}</a>
         {% if s.second_look %}<span class="pill second">second look</span>{% endif %}</h3>
       <div>{{ b.statement }}</div>
-      <div class="small muted">Wrong if: {{ b.wrong_if }}</div>
+      <div class="card-meta">Wrong if: {{ b.wrong_if }}</div>
     {% else %}
       <h3><a href="/suggestion/{{ s.id }}">Conviction review: {{ b.ticker }}</a></h3>
       <div class="small">Accepted contradicting evidence on {{ b.pillar_id }} reached the review threshold.</div>
     {% endif %}
-    <div>{{ s.rationale }}</div>
-    <div class="small">Linked emails:
+    <p class="small" style="margin:6px 0">{{ s.rationale }}</p>
+    <div class="small muted">Linked emails:
       {% for eid in v.sections(s) | map(attribute='email_id') | unique %}{{ email_link(v, eid) }}{% if not loop.last %}; {% endif %}{% endfor %}
     </div>
-    {{ actions(v, s, v.status(s)) }}
+    <div style="margin-top:10px">{{ actions(v, s, v.status(s)) }}</div>
   </div>
 {%- endmacro %}
 
 {% macro projection_table(projections) -%}
-  <table>
-    <tr><th></th>{% for k in projections %}<th class="num">{{ k }}</th>{% endfor %}</tr>
+  <div class="table-wrap"><table>
+    <thead><tr><th></th>{% for k in projections %}<th class="num">{{ k }}</th>{% endfor %}</tr></thead>
     <tr><td>Revenue ($bn)</td>{% for p in projections.values() %}<td class="num">{{ p.revenue_usd_bn | num }}</td>{% endfor %}</tr>
     <tr><td>Operating income ($bn)</td>{% for p in projections.values() %}<td class="num">{{ p.operating_income_usd_bn | num }}</td>{% endfor %}</tr>
     <tr><td>EPS ($)</td>{% for p in projections.values() %}<td class="num eps">{{ p.eps | num(2) }}</td>{% endfor %}</tr>
     <tr><td>Target price ($)</td>{% for p in projections.values() %}<td class="num">{{ p.target_price | num(0) }}</td>{% endfor %}</tr>
-  </table>
+  </table></div>
+{%- endmacro %}
+
+{% macro stat(label, value, hint, ic, href=None) -%}
+  <{{ 'a href="' ~ href ~ '"' if href else 'div' }} class="stat">
+    <span class="label">{{ label }}</span><span class="ic">{{ icon(ic) }}</span>
+    <span class="value">{{ value }}</span><span class="hint">{{ hint }}</span>
+  </{{ 'a' if href else 'div' }}>
 {%- endmacro %}

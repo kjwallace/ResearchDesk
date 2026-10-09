@@ -15,7 +15,7 @@ import dspy
 
 from triage_app import config
 from triage_app.llm import ChatClient
-from triage_app.modules.lm import RouterLM
+from triage_app.modules.lm import RouterLM, json_adapter
 from triage_app.schema import ClaimDraft, Email
 
 INSTRUCTIONS_PATH = config.INSTRUCTIONS_DIR / "extract_claims.md"
@@ -64,7 +64,7 @@ class ClaimExtractor(dspy.Module):
 
     def forward(self, email: Email, earlier: Email | None = None) -> list[ClaimDraft]:
         inputs = {"sender": email.sender, "subject": email.subject, "body": delimit_body(email.body)}
-        with dspy.context(adapter=dspy.JSONAdapter()):
+        with dspy.context(adapter=json_adapter()):
             if earlier is None:
                 out = self.first(**inputs, lm=self.lm)
             else:

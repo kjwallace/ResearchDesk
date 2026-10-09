@@ -1,74 +1,117 @@
 {% extends "base.html" %}
-{% from "macros.html" import card, email_link %}
+{% from "macros.html" import icon, stat, suggestion_row, email_row, email_link, label_pill, pane_link %}
 {% block title %}Brief {{ brief.day }}{% endblock %}
 {% block content %}
-<h1>Morning brief · {{ brief.day.strftime('%a %b %d, %Y') }}</h1>
-<div class="counts">
-  {% for k, n in brief.counts.items() %}<span class="count">{{ k | replace('_', ' ') }} <b>{{ n }}</b></span>{% endfor %}
-</div>
+{%- set n_sugg = (thesis_changes + new_theses + worth_watching) | map('length') | sum -%}
+{%- set first = (thesis_changes + new_theses + worth_watching) | first -%}
+{%- if reviews %}{% set first_href = '/suggestion/' ~ reviews[0].id %}
+{%- elif first %}{% set first_href = '/suggestion/' ~ first[0].id %}
+{%- elif brief.needs_attention %}{% set first_href = '/email/' ~ brief.needs_attention[0] %}
+{%- else %}{% set first_href = '' %}{% endif -%}
+
+<section class="stats" aria-label="Today in numbers">
+  {{ stat('Inbox', v.data.inbox | length, 'Emails received, ' ~ brief.day.strftime('%a %b %d'), 'mail', '/inbox') }}
+  {{ stat('Thesis suggestions', n_sugg, 'Evidence for you to decide on', 'trend') }}
+  {{ stat('Needs your attention', brief.needs_attention | length, 'A person is asked to act', 'clock') }}
+  {{ stat('Stopped at the gate', brief.audit | length, (brief.quarantined | length) ~ ' quarantined · each with a reason', 'shield', '/audit') }}
+</section>
 
 {% if alerts %}
-<div class="alerts panel" id="alerts">
-  <strong>Alerts</strong>
+<div class="alerts" id="alerts">
+  <div class="eyebrow">{{ icon('alert') }}Alerts <span class="badge">{{ alerts | length }}</span></div>
   <ul>
   {% for a in alerts %}
     <li>
-    {% if a.kind == 'human_attention' %}Needs a person: {{ email_link(v, a.ref_id) }}
-    {% elif a.kind == 'wrong_if_met' %}"Wrong if" test met: <a href="/suggestion/{{ a.ref_id }}">{{ a.ref_id }}</a>
-    {% else %}Conviction review: <a href="/suggestion/{{ a.ref_id }}">{{ a.ref_id }}</a>{% endif %}
+    {% if a.kind == 'human_attention' %}<span class="pill attention">needs a person</span> {{ email_link(v, a.ref_id) }}
+    {% elif a.kind == 'wrong_if_met' %}<span class="pill contradicts">"wrong if" test met</span> <a href="/suggestion/{{ a.ref_id }}">{{ a.ref_id }}</a>
+    {% else %}<span class="pill second">conviction review</span> <a href="/suggestion/{{ a.ref_id }}">{{ a.ref_id }}</a>{% endif %}
     </li>
   {% endfor %}
   </ul>
 </div>
 {% endif %}
 
-{% if reviews %}
-<h2>Conviction reviews</h2>
-{% for s in reviews %}{{ card(v, s, sizes) }}{% endfor %}
-{% endif %}
-
-<h2>Suggested thesis changes</h2>
-{% for group in thesis_changes %}
-  {% if group | length > 1 %}<div class="panel"><div class="small muted">Two stances on one pillar; neither is preselected.</div>{% endif %}
-  {% for s in group %}{{ card(v, s, sizes) }}{% endfor %}
-  {% if group | length > 1 %}</div>{% endif %}
-{% else %}<p class="muted">None today.</p>{% endfor %}
-
-<h2>New thesis candidates</h2>
-{% for group in new_theses %}{% for s in group %}{{ card(v, s, sizes) }}{% endfor %}{% else %}<p class="muted">None today.</p>{% endfor %}
-
-<h2>Worth watching</h2>
-{% for group in worth_watching %}{% for s in group %}{{ card(v, s, sizes) }}{% endfor %}{% else %}<p class="muted">None today.</p>{% endfor %}
-
-<h2>Needs your attention</h2>
-{% for eid in brief.needs_attention %}
-  {% set n = v.data.notes.get(eid) %}
-  <div class="panel">
-    <h3>{{ email_link(v, eid) }}</h3>
-    {% if n %}
-      <div>{{ n.summary }}</div>
-      <div class="small"><b>Why:</b> {{ n.why_attention }}</div>
-      <div class="small"><b>Action:</b> {{ n.action }}{% if n.deadline %} · <b>Deadline:</b> {{ n.deadline.strftime('%b %d, %H:%M %Z') }}{% endif %}</div>
-    {% endif %}
+<div class="split">
+<section aria-label="Brief items" data-list>
+  <div class="subtabs">
+    <span class="on">Morning brief · {{ brief.day.strftime('%a %b %d, %Y') }}</span>
+    <a href="/audit">Audit <span class="badge">{{ brief.audit | length }}</span></a>
+    <a href="/inbox">Inbox <span class="badge">{{ v.data.inbox | length }}</span></a>
   </div>
-{% else %}<p class="muted">Nothing needs a person today.</p>{% endfor %}
+  <div class="list">
+    <div class="list-head"><span>Today's brief</span><span class="muted">Ordered by position size, then strength</span></div>
 
-<h2>Relevant with no link to your book</h2>
-{% for eid in brief.relevant_unlinked %}
-  <div class="panel small">{{ email_link(v, eid) }}
-    <span class="pill">{{ v.result(eid).triage }}</span>
-    <div class="muted">{{ v.data.no_change_reason(eid) or 'no change reason recorded' }}</div></div>
-{% else %}<p class="muted">None.</p>{% endfor %}
+    {% if reviews %}
+    <details class="group" open><summary>{{ icon('chev') }}<h2>Conviction reviews</h2><span class="badge">{{ reviews | length }}</span></summary>
+      {% for s in reviews %}{{ suggestion_row(v, s, sizes) }}{% endfor %}
+    </details>
+    {% endif %}
 
-{% if extras or v.sess.notes %}
-<h2>Added in this session</h2>
-<p class="small muted">From the live route and "this mattered".</p>
-{% for s in extras %}{{ card(v, s, sizes) }}{% endfor %}
-{% for eid, n in v.sess.notes.items() %}
-  <div class="panel"><h3>{{ email_link(v, eid) }}</h3><div>{{ n.summary }}</div>
-    <div class="small"><b>Action:</b> {{ n.action }}</div></div>
-{% endfor %}
-{% endif %}
+    {% macro groups(items) %}
+      {% for group in items %}
+        {% if group | length > 1 %}<div class="pair"><div class="pair-note">Two stances on one pillar; neither is preselected.</div>{% endif %}
+        {% for s in group %}{{ suggestion_row(v, s, sizes) }}{% endfor %}
+        {% if group | length > 1 %}</div>{% endif %}
+      {% else %}<div class="empty">None today.</div>{% endfor %}
+    {% endmacro %}
 
-<p><a href="/audit">Audit view: {{ brief.audit | length }} emails not in the brief, and {{ brief.quarantined | length }} quarantined →</a></p>
+    <details class="group" open><summary>{{ icon('chev') }}<h2>Suggested thesis changes</h2><span class="badge">{{ thesis_changes | map('length') | sum }}</span></summary>
+      {{ groups(thesis_changes) }}
+    </details>
+    <details class="group" open><summary>{{ icon('chev') }}<h2>New thesis candidates</h2><span class="badge">{{ new_theses | map('length') | sum }}</span></summary>
+      {{ groups(new_theses) }}
+    </details>
+    <details class="group" open><summary>{{ icon('chev') }}<h2>Worth watching</h2><span class="badge">{{ worth_watching | map('length') | sum }}</span></summary>
+      {{ groups(worth_watching) }}
+    </details>
+
+    <details class="group" open><summary>{{ icon('chev') }}<h2>Needs your attention</h2><span class="badge">{{ brief.needs_attention | length }}</span></summary>
+      {% for eid in brief.needs_attention %}
+        {% set e = v.email(eid) %}{% set n = v.data.notes.get(eid) %}{% set t = v.data.triage.get(eid) %}
+        {% if e %}
+        {% call email_row(v, e, snippet=n.summary if n else '') %}
+          {% if n %}<span class="tag warn">{{ n.action }}</span>
+            {% if n.deadline %}<span class="tag">{{ icon('clock') }}{{ n.deadline.strftime('%b %d, %H:%M') }}</span>{% endif %}{% endif %}
+          {% if t %}<span class="tag soft" title="Jev's human-attention probability">attention {{ t.human_attention | num(2) }}</span>{% endif %}
+        {% endcall %}
+        {% endif %}
+      {% else %}<div class="empty">Nothing needs a person today.</div>{% endfor %}
+    </details>
+
+    <details class="group" {% if brief.relevant_unlinked | length <= 12 %}open{% endif %}><summary>{{ icon('chev') }}<h2>Relevant with no link to your book</h2><span class="badge">{{ brief.relevant_unlinked | length }}</span></summary>
+      {% for eid in brief.relevant_unlinked %}
+        {% set e = v.email(eid) %}
+        {% if e %}
+        {% call email_row(v, e, snippet=v.data.no_change_reason(eid) or 'no change reason recorded') %}
+          {{ label_pill(v.result(eid).triage) }}
+          {% for t in v.result(eid).affected_tickers %}<span class="tag">{{ t }}</span>{% endfor %}
+        {% endcall %}
+        {% endif %}
+      {% else %}<div class="empty">None.</div>{% endfor %}
+    </details>
+
+    {% if extras or v.sess.notes %}
+    <details class="group" open><summary>{{ icon('chev') }}<h2>Added in this session</h2><span class="badge">{{ extras | length + v.sess.notes | length }}</span></summary>
+      <div class="pair-note" style="color:var(--muted);background:var(--sunken)">From the live route and "this mattered".</div>
+      {% for s in extras %}{{ suggestion_row(v, s, sizes) }}{% endfor %}
+      {% for eid, n in v.sess.notes.items() %}{% set e = v.email(eid) %}
+        {% if e %}{% call email_row(v, e, snippet=n.summary) %}<span class="tag warn">{{ n.action }}</span>{% endcall %}{% endif %}
+      {% endfor %}
+    </details>
+    {% endif %}
+
+    <div class="list-foot">
+      <span><a href="/audit">Audit view: {{ brief.audit | length }} emails not in the brief, and {{ brief.quarantined | length }} quarantined →</a></span>
+    </div>
+  </div>
+  <p class="xs muted" style="margin-top:12px">Labels today:
+    {% for k, n in brief.counts.items() %}{{ k | replace('_', ' ') }} <b>{{ n }}</b>{% if not loop.last %} · {% endif %}{% endfor %}</p>
+</section>
+
+<aside class="pane" id="pane" hx-disinherit="*" aria-label="Selected item" aria-live="polite"
+  {% if first_href %}hx-get="{{ first_href }}" hx-select="#detail" hx-trigger="load" hx-swap="innerHTML"{% endif %}>
+  <div class="pane-head">{{ icon('zap') }}Research brief</div>
+  <p class="muted small">{% if first_href %}Loading the first item… or <a href="{{ first_href }}">open it</a>.{% else %}Nothing to review today.{% endif %}</p>
+</aside>
+</div>
 {% endblock %}

@@ -8,6 +8,8 @@ the project's disk cache and are recorded by monitoring like any other model cal
     out = predictor(..., lm=lm)
 """
 
+import json
+import re
 from typing import Any
 
 import numpy  # noqa: F401  # import before dspy: its lazy importer breaks a later numpy import
@@ -54,3 +56,42 @@ def _text(content: Any) -> str:
     if isinstance(content, list):
         return "".join(p.get("text", "") for p in content if isinstance(p, dict))
     return str(content)
+
+
+_FENCE = re.compile(r"^\s*```[a-zA-Z]*\s*\n(.*?)\n\s*```\s*$", re.DOTALL)
+
+
+class LenientJSONAdapter(dspy.JSONAdapter):
+    """DSPy's JSON adapter, tolerant of two ways small models answer a one-field signature.
+
+    Some models wrap the JSON in a Markdown code fence, or return the field's value bare
+    (a list of claims) instead of an object keyed by the field name ({"claims": [...]}).
+    Before the usual parse, strip the fence and, when the signature has exactly one output
+    field and the reply is not keyed by it, wrap the value under that field. The value
+    itself is still validated against the signature's type.
+    """
+
+    def parse(self, signature: type[dspy.Signature], completion: str) -> dict[str, Any]:
+        parsed: dict[str, Any] = super().parse(signature, normalize_reply(signature, completion))
+        return parsed
+
+
+def normalize_reply(signature: type[dspy.Signature], completion: str) -> str:
+    text = completion
+    fenced = _FENCE.match(text)
+    if fenced:
+        text = fenced.group(1)
+    outputs = list(signature.output_fields)
+    if len(outputs) == 1:
+        try:
+            value = json.loads(text)
+        except ValueError:
+            return text
+        if not (isinstance(value, dict) and outputs[0] in value):
+            return json.dumps({outputs[0]: value})
+    return text
+
+
+def json_adapter() -> LenientJSONAdapter:
+    """The adapter every DSPy module in this project uses."""
+    return LenientJSONAdapter()

@@ -31,7 +31,7 @@ from triage_app import thresholds
 from triage_app import config
 from triage_app.embed import Embedder, Vector
 from triage_app.llm import ChatClient
-from triage_app.modules.lm import RouterLM
+from triage_app.modules.lm import RouterLM, json_adapter
 from triage_app.pipeline.context import RunContext
 from triage_app.pipeline.io import normalize_ws, quote_in
 from triage_app.schema import Claim, LogEntry, Suggestion, VerifyDraft, VerifyResult
@@ -218,7 +218,7 @@ class VerifyAgent:
         shown = suggestion.model_dump(mode="json", include={"id", "body", "rationale", "sections"})
         cited = ([c.model_dump(mode="json", exclude_none=True) for c in claims]
                  or [{"quote": sec.quote} for sec in suggestion.sections])
-        with dspy.context(lm=self.lm, adapter=dspy.JSONAdapter()):
+        with dspy.context(lm=self.lm, adapter=json_adapter()):
             pred = agent(suggestion=json.dumps(shown, ensure_ascii=False), claim=json.dumps(cited, ensure_ascii=False))
         draft = pred.result if isinstance(pred.result, VerifyDraft) else VerifyDraft.model_validate(pred.result)
         return checked(draft, s.seen, suggestion.id)

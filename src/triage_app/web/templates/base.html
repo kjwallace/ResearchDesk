@@ -1,30 +1,68 @@
-<!doctype html>
+{% from "macros.html" import icon %}<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Triage{% endblock %} · synthetic</title>
-  <link rel="stylesheet" href="/static/style.css">
-  <meta name="htmx-config" content='{"responseHandling": [{"code": "204", "swap": false}, {"code": "...", "swap": true}]}'>
+  <title>{% block title %}Research desk{% endblock %} · synthetic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="/static/style.css?v={{ ASSET_V }}">
+  <meta name="htmx-config" content='{"ignoreTitle": true, "responseHandling": [{"code": "204", "swap": false}, {"code": "...", "swap": true}]}'>
   <script src="{{ HTMX_URL }}" defer></script>
+  <script src="/static/app.js?v={{ ASSET_V }}" defer></script>
 </head>
+{%- set path = request.url.path -%}
+{%- macro tab(href, label, match) -%}
+  <a href="{{ href }}" class="{{ 'on' if match else '' }}"{% if match %} aria-current="page"{% endif %}>{{ label }}</a>
+{%- endmacro %}
 <body>
   <div class="synthetic" role="note"><strong>Synthetic data.</strong> The companies are real; the emails, brokers,
     positions, theses and estimates are invented. Nothing here is investment advice, and the system never sends mail.</div>
-  <header class="top">
-    <span class="brand">Email triage</span>
-    <nav>
-      <a href="/">Brief</a><a href="/audit">Audit</a><a href="/inbox">Inbox</a>
-      {% for t in config.TICKERS %}<a href="/company/{{ t }}">{{ t }}</a>{% endfor %}
-      <a href="/criteria">Criteria</a><a href="/live">Live</a><a href="/eval">Eval</a><a href="/monitor">Monitor</a>
-    </nav>
-    <form method="post" action="/undo" hx-post="/undo" hx-target="#flash"><button>Undo</button></form>
-    <form method="post" action="/reset" hx-post="/reset" hx-target="#flash"
-          hx-confirm="Restore the seed state? Your accepted changes in this session will be cleared."><button>Reset</button></form>
-  </header>
-  <main>
-    <div id="flash"></div>
-    {% block content %}{% endblock %}
-  </main>
+  <div class="wrap">
+    <header class="page-head">
+      <div>
+        <h1>Research desk</h1>
+        <div class="sub">Long/short technology desk · Email triage and thesis suggestions</div>
+      </div>
+      <div class="head-actions">
+        <span class="chip">Synthetic workspace</span>
+        <form method="post" action="/undo" hx-post="/undo" hx-target="#flash"><button title="Reverse the last accepted change">{{ icon('undo') }}Undo</button></form>
+        <form method="post" action="/reset" hx-post="/reset" hx-target="#flash"
+              hx-confirm="Restore the seed state? Your accepted changes in this session will be cleared."><button title="Restore the seed book">{{ icon('rotate') }}Reset</button></form>
+        <a class="btn" href="/criteria">{{ icon('sliders') }}Criteria</a>
+        <a class="btn primary" href="/live">{{ icon('zap') }}Run a live email</a>
+      </div>
+    </header>
+    <div class="tabbar">
+      <nav class="tabs" aria-label="Screens">
+        {{ tab('/', 'Morning brief', path == '/' or path.startswith('/suggestion')) }}
+        {{ tab('/inbox', 'Inbox', path == '/inbox' or path.startswith('/email')) }}
+        {{ tab('/audit', 'Audit', path.startswith('/audit')) }}
+        {{ tab('/company/' ~ config.TICKERS[0], 'Book', path.startswith('/company')) }}
+        {{ tab('/criteria', 'Criteria', path.startswith('/criteria')) }}
+        {{ tab('/live', 'Live', path.startswith('/live')) }}
+        {{ tab('/eval', 'Eval', path.startswith('/eval')) }}
+        {{ tab('/monitor', 'Monitor', path.startswith('/monitor')) }}
+      </nav>
+      <label class="company-pick">Company
+        <select data-nav="/company/" aria-label="Open a company">
+          {% set current = path.split('/')[2] if path.startswith('/company/') else '' %}
+          {% if not current %}<option value="" selected disabled>Pick</option>{% endif %}
+          {% for t in config.TICKERS %}<option value="{{ t }}" {% if t == current %}selected{% endif %}>{{ t }}</option>{% endfor %}
+        </select>
+      </label>
+    </div>
+    <main>
+      <div id="flash" role="status" aria-live="polite"></div>
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="foot">
+      <span>{{ icon('shield') }} Read-only: never sends mail, never touches the inbox</span>
+      <span>Models recommend; only the analyst changes the book</span>
+      <span class="grow"></span>
+      <span>Synthetic data · {{ v.data.directory.name if v else '' }}</span>
+    </footer>
+  </div>
 </body>
 </html>

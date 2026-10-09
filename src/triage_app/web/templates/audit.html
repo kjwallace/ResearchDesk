@@ -1,49 +1,86 @@
 {% extends "base.html" %}
-{% from "macros.html" import email_link %}
+{% from "macros.html" import email_link, icon, avatar, pane_link, label_pill, stat %}
 {% block title %}Audit{% endblock %}
 {% block content %}
-<h1>Audit view</h1>
-<p class="small muted">Every email not in the brief, grouped by label, with Jev's probabilities and the reason for each decision.</p>
-{% for label, rows in groups.items() %}
-  <h2>{{ label }} <span class="muted">({{ rows | length }})</span></h2>
-  {% for r in rows %}
-    {% set t = v.data.triage.get(r.email_id) %}
-    {% set red = v.data.redundancy.get(r.email_id) %}
-    <div class="panel small" id="audit-{{ r.email_id }}">
-      <h3>{{ email_link(v, r.email_id) }} <span class="pill">{{ r.gate }}</span></h3>
-      <div>{{ r.reason }}</div>
-      {% if t %}<div class="muted">Jev: {% for k, p in t.triage_probs.items() %}{{ k }} {{ p | num(2) }}{% if not loop.last %}, {% endif %}{% endfor %}
-        · human_attention {{ t.human_attention | num(2) }} · email_type {{ t.email_type }} · criteria {{ t.criteria_version }}</div>{% endif %}
-      {% if red and red.flagged and red.nearest %}<div>{{ 'Repeat of' if r.redundant_of else 'Flagged as a possible repeat of' }}
-        {{ email_link(v, red.nearest) }} (content {{ red.content_similarity | num(2) }}, subject {{ red.subject_score | num(2) }})</div>{% endif %}
-      {% if v.data.no_change_reason(r.email_id) %}<div>No change: {{ v.data.no_change_reason(r.email_id) }}</div>{% endif %}
-      {% if by_earlier.get(r.email_id) %}<div>Later repeats: {% for x in by_earlier[r.email_id] %}{{ email_link(v, x) }} {% endfor %}</div>{% endif %}
-      {% for s in rejected.get(r.email_id, []) %}<div class="flash err">Rejected {{ s.id }}: {{ s.reject_reason }}</div>{% endfor %}
-      {% if r.gate == 'stop' %}
-        <div id="mattered-{{ r.email_id }}">
-        {% if v.sess.mattered.get(r.email_id) %}<span class="pill">sent: {{ v.sess.mattered[r.email_id] }}</span>
-        {% else %}<form method="post" action="/audit/{{ r.email_id }}/mattered" hx-post="/audit/{{ r.email_id }}/mattered"
-              hx-target="#mattered-{{ r.email_id }}"><button>This mattered</button></form>{% endif %}
+{%- set total = groups.values() | map('length') | sum -%}
+<section class="stats" aria-label="Audit in numbers">
+  {{ stat('Not in the brief', total, 'Each with its reason', 'archive') }}
+  {{ stat('Redundant', groups.get('redundant', []) | length, 'Repeats, by Jev or the repeat check', 'repeat') }}
+  {{ stat('Low value or irrelevant', (groups.get('low_value', []) | length) + (groups.get('irrelevant', []) | length), 'Noise, stopped at the gate', 'x') }}
+  {{ stat('Quarantined', quarantined | length, 'Sender and subject only', 'lock') }}
+</section>
+
+<div class="split">
+<section aria-label="Emails not in the brief" data-list>
+  <div class="page-title"><h2>Audit view</h2><span class="badge">{{ total }}</span></div>
+  <p class="lead-in">Every email not in the brief, grouped by label, with Jev's probabilities and the reason for each decision.
+    "This mattered" overrides the gate and sends a stopped email to the analysis agent.</p>
+  <div class="search"><label class="sr-only" for="q">Search the audit view</label>{{ icon('search') }}
+    <input type="search" id="q" placeholder="Search sender, subject or ID…" data-filter-text autocomplete="off"></div>
+  <div class="list" style="margin-top:12px">
+    <div class="list-head"><span>Not in the brief</span><span class="muted"><span data-shown>{{ total }}</span> shown</span></div>
+  {% for label, rows in groups.items() %}
+    <details class="group" {% if loop.first %}open{% endif %}><summary>{{ icon('chev') }}<h2>{{ label }}</h2><span class="badge">{{ rows | length }}</span></summary>
+    {% for r in rows %}
+      {% set t = v.data.triage.get(r.email_id) %}
+      {% set red = v.data.redundancy.get(r.email_id) %}
+      {% set e = v.email(r.email_id) %}
+      <div class="row" data-row id="audit-{{ r.email_id }}" data-keys="{{ r.gate }}"
+           data-search="{{ ((e.sender ~ ' ' ~ e.subject) if e else '') | lower }} {{ r.email_id }}">
+        {% if e %}{{ avatar(e.sender) }}{% endif %}
+        <div class="main">
+          <div class="top"><span class="who">{{ e.sender | person if e else r.email_id }}</span>
+            <span class="when">{{ e.received_at | clock if e else '' }}</span></div>
+          <div class="subj">{{ pane_link('/email/' ~ r.email_id, e.subject if e else r.email_id) }}</div>
+          <div class="tags">{{ label_pill(r.triage) }} <span class="pill {{ r.gate }}">{{ r.gate }}</span>
+            {% for tk in r.affected_tickers %}<span class="tag">{{ tk }}</span>{% endfor %}</div>
+          <div class="extra small mono" style="color:var(--ink-2)">{{ r.reason }}</div>
+          {% if t %}<div class="xs muted" style="margin-top:4px">Jev: {% for k, p in t.triage_probs.items() %}{{ k }} {{ p | num(2) }}{% if not loop.last %}, {% endif %}{% endfor %}
+            · human_attention {{ t.human_attention | num(2) }} · email_type {{ t.email_type }} · criteria {{ t.criteria_version }}</div>{% endif %}
+          {% if red and red.flagged and red.nearest %}<div class="extra small">{{ icon('repeat') }} {{ 'Repeat of' if r.redundant_of else 'Flagged as a possible repeat of' }}
+            {{ email_link(v, red.nearest) }} <span class="muted">(content {{ red.content_similarity | num(2) }}, subject {{ red.subject_score | num(2) }})</span></div>{% endif %}
+          {% if v.data.no_change_reason(r.email_id) %}<div class="extra small">No change: {{ v.data.no_change_reason(r.email_id) }}</div>{% endif %}
+          {% if by_earlier.get(r.email_id) %}<div class="extra small">Later repeats: {% for x in by_earlier[r.email_id] %}{{ email_link(v, x) }} {% endfor %}</div>{% endif %}
+          {% for s in rejected.get(r.email_id, []) %}<div class="flash err extra">Rejected {{ s.id }}: {{ s.reject_reason }}</div>{% endfor %}
+          {% if r.gate == 'stop' %}
+            <div class="extra" id="mattered-{{ r.email_id }}">
+            {% if v.sess.mattered.get(r.email_id) %}<span class="pill ok">sent: {{ v.sess.mattered[r.email_id] }}</span>
+            {% else %}<form method="post" action="/audit/{{ r.email_id }}/mattered" hx-post="/audit/{{ r.email_id }}/mattered"
+                  hx-target="#mattered-{{ r.email_id }}"><button>{{ icon('zap') }}This mattered</button></form>{% endif %}
+            </div>
+          {% endif %}
         </div>
-      {% endif %}
-    </div>
-  {% endfor %}
-{% else %}<p class="muted">Every email is in the brief.</p>{% endfor %}
+      </div>
+    {% endfor %}
+    </details>
+  {% else %}<div class="empty">Every email is in the brief.</div>{% endfor %}
+  </div>
 
-{% if rejected %}
-<h2>Rejected suggestions</h2>
-{% for eid, ss in rejected.items() %}
-  <div class="panel small">{{ email_link(v, eid) }}
-    {% for s in ss %}<div><a href="/suggestion/{{ s.id }}">{{ s.id }}</a>: {{ s.reject_reason }}</div>{% endfor %}</div>
-{% endfor %}
-{% endif %}
-
-<h2>Quarantine <span class="muted">({{ quarantined | length }})</span></h2>
-<p class="small muted">Held unsummarized: shown by sender and subject only, and never sent to a later model.</p>
-<table>
-  <tr><th>Sender</th><th>Subject</th><th>Reason</th></tr>
-  {% for r in quarantined %}{% set e = v.email(r.email_id) %}
-    <tr><td>{{ e.sender if e else '' }}</td><td><a href="/email/{{ r.email_id }}">{{ e.subject if e else r.email_id }}</a></td><td class="small">{{ r.reason }}</td></tr>
+  {% if rejected %}
+  <h2 style="margin-top:28px">Rejected suggestions</h2>
+  <div class="list">
+  {% for eid, ss in rejected.items() %}
+    <div class="row" style="display:block">{{ email_link(v, eid) }}
+      {% for s in ss %}<div class="small"><a href="/suggestion/{{ s.id }}" class="mono">{{ s.id }}</a>: {{ s.reject_reason }}</div>{% endfor %}</div>
   {% endfor %}
-</table>
+  </div>
+  {% endif %}
+
+  <h2 style="margin-top:28px">Quarantine <span class="badge">{{ quarantined | length }}</span></h2>
+  <p class="lead-in">Held unsummarized: shown by sender and subject only, and never sent to a later model.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Sender</th><th>Subject</th><th>Reason</th></tr></thead>
+    {% for r in quarantined %}{% set e = v.email(r.email_id) %}
+      <tr><td>{{ e.sender if e else '' }}</td><td><a href="/email/{{ r.email_id }}">{{ e.subject if e else r.email_id }}</a></td><td class="small mono">{{ r.reason }}</td></tr>
+    {% else %}<tr><td colspan="3" class="muted">Nothing quarantined in this set.</td></tr>{% endfor %}
+  </table></div>
+</section>
+
+{%- set first_row = (groups.values() | first or [None]) | first -%}
+<aside class="pane" id="pane" hx-disinherit="*" aria-label="Selected email" aria-live="polite"
+  {% if first_row %}hx-get="/email/{{ first_row.email_id }}" hx-select="#detail" hx-trigger="load" hx-swap="innerHTML"{% endif %}>
+  <div class="pane-head">{{ icon('mail') }}Email</div>
+  <p class="muted small">Select an email to see its classification, Jev's answers and its body.</p>
+</aside>
+</div>
 {% endblock %}

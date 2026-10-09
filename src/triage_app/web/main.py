@@ -10,6 +10,7 @@ synthetic-data banner. A quarantined email shows its sender and subject only, ev
 The app never sends mail and never writes to the book on disk.
 """
 
+import hashlib
 import itertools
 import os
 import secrets
@@ -132,9 +133,15 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
     )
     app.mount("/static", StaticFiles(directory=WEB_DIR / "static"), name="static")
     templates = Jinja2Templates(directory=WEB_DIR / "templates")
-    templates.env.globals.update(HTMX_URL=HTMX_URL, highlight=highlight, config=config, thresholds=thresholds)
+    templates.env.globals.update(HTMX_URL=HTMX_URL, highlight=highlight, config=config, thresholds=thresholds,
+                                 ASSET_V=_asset_version())
     templates.env.filters["num"] = lambda v, d=1: "" if v is None else f"{v:,.{d}f}"
     templates.env.filters["pct"] = lambda v: "n/a" if v is None else f"{v * 100:.1f}%"
+    templates.env.filters["clock"] = _clock
+    templates.env.filters["initials"] = _initials
+    templates.env.filters["person"] = lambda s: s.split(",")[0].strip()
+    templates.env.filters["org"] = lambda s: ", ".join(p.strip() for p in s.split(",")[1:])
+    templates.env.filters["tone"] = lambda s: f"t{sum(map(ord, s)) % 4}"
 
     store = DataStore(data_dir or data_dir_from_env(), emails_path)
     sessions = SessionStore()
@@ -541,6 +548,25 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         return message(request, v, "Restored the seed state.", refresh=True)
 
     return app
+
+
+def _asset_version() -> str:
+    """A short hash of the static files, so a new deploy is never served a cached stylesheet."""
+    digest = hashlib.sha256()
+    for path in sorted((WEB_DIR / "static").glob("*")):
+        digest.update(path.read_bytes())
+    return digest.hexdigest()[:10]
+
+
+def _clock(at: datetime) -> str:
+    """9:18 AM: a 12-hour time without a leading zero, the same on every platform."""
+    return at.strftime("%I:%M %p").lstrip("0")
+
+
+def _initials(sender: str) -> str:
+    """Up to two initials from the person's name, the part of the sender before the first comma."""
+    words = [w for w in sender.split(",")[0].split() if w[:1].isalpha()]
+    return "".join(w[0] for w in words[:2]).upper() or "?"
 
 
 def _criteria_files() -> dict[str, str]:

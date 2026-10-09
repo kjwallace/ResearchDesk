@@ -19,6 +19,7 @@ dependencies = [
     "python-multipart>=0.0.9",
     "itsdangerous>=2.2",
     "python-dotenv>=1.0",
+    "jupyter>=1.1.1",
 ]
 
 [dependency-groups]
@@ -49,5 +50,5 @@ mypy_path = ["src", "tests"]
 # DSPy ships no type information, so its classes are `Any` to mypy; the modules that
 # subclass dspy.Signature / Module / BaseLM / ReAct may do so without per-line ignores.
 [[tool.mypy.overrides]]
-module = ["triage_app.modules.*"]
+module = ["triage_app.modules.*", "test_lm"]
 disallow_subclassing_any = false

@@ -1,31 +1,41 @@
 {% extends "base.html" %}
+{% from "macros.html" import icon, avatar %}
 {% block title %}Live{% endblock %}
 {% block content %}
-<h1>Live run</h1>
-<p class="small muted">Paste a synthetic email or pick a preset, and watch it go through every stage. Only synthetic mail:
+<div class="page-title"><h2>Live run</h2><span class="chip">{{ runs_left }} runs left this hour</span></div>
+<p class="lead-in">Paste a synthetic email or pick a preset, and watch it go through every stage. Only synthetic mail:
   never paste real email. Pasted emails are capped at {{ '{:,}'.format(thresholds.LIVE_INPUT_CAP_CHARS) }} characters and
   {{ thresholds.LIVE_RUNS_PER_HOUR }} runs an hour per session; presets replay cached results.</p>
-<div class="grid2">
+<div class="split">
 <section>
-  {% if presets %}
-  <div class="panel"><h3>Presets</h3>
+  <div class="list">
+    <div class="list-head"><span>Presets</span><span class="muted">Cached; free to replay</span></div>
     {% for p in presets %}
-      <form method="post" action="/live" hx-post="/live" hx-target="#trace" class="actions">
-        <input type="hidden" name="preset" value="{{ p.email_id }}"><button>Run</button> {{ p.subject }} <span class="muted small">· {{ p.sender }}</span>
+      <form class="row" method="post" action="/live" hx-post="/live" hx-target="#trace" style="align-items:center">
+        <input type="hidden" name="preset" value="{{ p.email_id }}">
+        {{ avatar(p.sender) }}
+        <div class="main"><div class="top"><span class="who">{{ p.sender | person }}</span></div>
+          <div class="subj" style="margin:0">{{ p.subject }}</div></div>
+        <button title="Run this preset">{{ icon('play') }}Run</button>
       </form>
-    {% endfor %}
+    {% else %}<div class="empty">No presets yet.</div>{% endfor %}
   </div>
-  {% else %}<p class="muted small">No presets yet.</p>{% endif %}
-  <form class="panel" method="post" action="/live" hx-post="/live" hx-target="#trace">
-    <h3>Paste an email</h3>
-    <label class="small">Sender <input type="text" name="sender"></label>
-    <label class="small">Sender email <input type="text" name="sender_email"></label>
-    <label class="small">Subject <input type="text" name="subject" style="width:100%"></label>
-    <label class="small">Body<textarea name="body" rows="10" maxlength="{{ thresholds.LIVE_INPUT_CAP_CHARS }}"></textarea></label>
-    <div class="actions"><button class="primary">Run the pipeline</button>
+
+  <form class="panel" style="margin-top:20px" method="post" action="/live" hx-post="/live" hx-target="#trace">
+    <div class="eyebrow">{{ icon('mail') }}Paste an email</div>
+    <div class="grid2" style="gap:12px">
+      <label class="field">Sender <input type="text" name="sender" placeholder="Name, Firm"></label>
+      <label class="field">Sender email <input type="text" name="sender_email" placeholder="name@example.com"></label>
+    </div>
+    <label class="field">Subject <input type="text" name="subject"></label>
+    <label class="field">Body<textarea name="body" rows="10" maxlength="{{ thresholds.LIVE_INPUT_CAP_CHARS }}" required></textarea></label>
+    <div class="actions"><button class="primary">{{ icon('zap') }}Run the pipeline</button>
       <span class="small muted">{{ runs_left }} runs left this hour</span></div>
   </form>
 </section>
-<section id="trace">{% if trace or error %}{% include "fragments/trace.html" %}{% endif %}</section>
+<section class="pane" id="trace" aria-live="polite">{% if trace or error %}{% include "fragments/trace.html" %}{% else %}
+  <div class="pane-head">{{ icon('activity') }}Trace</div>
+  <p class="muted small">Each stage appears with its result, tokens and latency once the run completes. Any note or suggestion joins your brief.</p>
+{% endif %}</section>
 </div>
 {% endblock %}

@@ -14,7 +14,7 @@ import dspy
 
 from triage_app import config
 from triage_app.llm import ChatClient
-from triage_app.modules.lm import RouterLM
+from triage_app.modules.lm import RouterLM, json_adapter
 from triage_app.schema import Email, NoteDraft
 
 INSTRUCTIONS_PATH = config.INSTRUCTIONS_DIR / "attention_note.md"
@@ -65,7 +65,7 @@ class AttentionWriter(dspy.Module):
             WriteAttentionNote.with_instructions(instructions or load_instructions()))
 
     def forward(self, email: Email) -> NoteDraft:
-        with dspy.context(adapter=dspy.JSONAdapter()):
+        with dspy.context(adapter=json_adapter()):
             out = self.predict(sender=email.sender, sender_email=email.sender_email,
                                subject=email.subject, received_at=email.received_at.isoformat(),
                                body=delimit_body(email.body), lm=self.lm)

@@ -2,24 +2,27 @@
   {% set d = v.driver(a.driver_id) %}
   {% set eff = v.effect(a.driver_id, a.stated_value) %}
   <div class="panel" id="driver-{{ a.driver_id | replace('.', '-') }}">
-    <h3>Linked assumption: {{ d.label if d else a.driver_id }}</h3>
-    <table>
-      <tr><th class="num">Stated in the email</th><th class="num">Book now</th><th class="num">Consensus</th><th>Unit</th></tr>
-      <tr><td class="num"><b>{{ a.stated_value | num }}</b></td><td class="num book-value">{{ d.analyst | num if d else '' }}</td>
-          <td class="num">{{ a.consensus_value | num }}</td><td>{{ d.unit if d else '' }}</td></tr>
-    </table>
+    <h3>{{ d.label if d else a.driver_id }} <span class="mono muted" style="font-weight:400">{{ a.driver_id }}</span></h3>
+    <dl class="kv">
+      <dt>Stated in the email</dt><dd class="big-num">{{ a.stated_value | num }}{{ ' ' ~ d.unit if d else '' }}</dd>
+      <dt>Book now</dt><dd class="book-value">{{ d.analyst | num if d else '' }}</dd>
+      <dt>Consensus</dt><dd>{{ a.consensus_value | num }}</dd>
+    </dl>
     {% if eff %}
-    <div class="small">Effect if the book took the stated figure:
-      EPS {{ eff['now'].eps | num(2) }} → <b>{{ eff['if'].eps | num(2) }}</b>,
-      target price {{ eff['now'].target_price | num(0) }} → <b>{{ eff['if'].target_price | num(0) }}</b>
-      {% if d and d.unit == 'usd_bn' %}<span class="muted">(capex does not feed EPS)</span>{% endif %}</div>
+    <div class="callout plain" style="margin:10px 0">
+      <div class="eyebrow">Effect if the book took the stated figure</div>
+      <p>EPS {{ eff['now'].eps | num(2) }} → <b>{{ eff['if'].eps | num(2) }}</b> ·
+        target price {{ eff['now'].target_price | num(0) }} → <b>{{ eff['if'].target_price | num(0) }}</b>
+        {% if d and d.unit == 'usd_bn' %}<span class="muted">(capex does not feed EPS)</span>{% endif %}</p>
+    </div>
     {% endif %}
     <form class="actions" method="post" action="/driver/{{ a.driver_id }}" hx-post="/driver/{{ a.driver_id }}"
           hx-target="#driver-{{ a.driver_id | replace('.', '-') }}" hx-swap="outerHTML">
       <input type="hidden" name="suggestion_id" value="{{ s.id }}">
-      <input type="number" step="any" name="value" value="{{ a.stated_value }}" min="{{ d.min if d else '' }}" max="{{ d.max if d else '' }}">
+      <input type="number" step="any" name="value" value="{{ a.stated_value }}" min="{{ d.min if d else '' }}" max="{{ d.max if d else '' }}" aria-label="New value for {{ a.driver_id }}" style="width:8em">
       <button>Update the assumption</button>
+      {% if d %}<span class="xs muted">bounds {{ d.min | num }} to {{ d.max | num }}</span>{% endif %}
     </form>
-    {% if entry %}<div class="flash ok">{{ entry.item_id }} updated from {{ entry.before | num }} to {{ entry.after | num }}. Projections for {{ ticker }} recomputed:</div>
+    {% if entry %}<div class="flash ok" style="margin-top:10px">{{ entry.item_id }} updated from {{ entry.before | num }} to {{ entry.after | num }}. Projections for {{ ticker }} recomputed:</div>
     {{ projection_table(projections) }}{% endif %}
   </div>

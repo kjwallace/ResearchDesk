@@ -1,7 +1,11 @@
 {% extends "base.html" %}
+{% from "macros.html" import icon %}
 {% block title %}{{ status }}{% endblock %}
 {% block content %}
-<h1>{{ 'Not found' if status == 404 else 'Something went wrong' }}</h1>
-<p>{{ detail }}</p>
-<p><a href="/">← Back to the brief</a></p>
+<div class="callout plain" style="max-width:560px;margin:40px auto">
+  <div class="eyebrow">{{ icon('alert') }}{{ status }}</div>
+  <h2>{{ 'Not found' if status == 404 else 'Something went wrong' }}</h2>
+  <p>{{ detail }}</p>
+  <p style="margin-top:12px"><a class="btn" href="/">{{ icon('left') }}Back to the brief</a></p>
+</div>
 {% endblock %}

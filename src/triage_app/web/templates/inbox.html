@@ -1,14 +1,58 @@
 {% extends "base.html" %}
+{% from "macros.html" import icon, email_row, label_pill, stat %}
 {% block title %}Inbox{% endblock %}
 {% block content %}
-<h1>Inbox <span class="muted">({{ emails | length }} emails, arrival order)</span></h1>
-<p class="small muted">The raw emails, untouched. Compare with the brief. A quarantined email shows its sender and subject only.</p>
-<div class="scroll"><table>
-  <tr><th>Time</th><th>Sender</th><th>Subject</th><th>Label</th></tr>
-  {% for e in emails %}{% set r = v.result(e.email_id) %}
-    <tr><td class="small">{{ e.received_at.strftime('%H:%M') }}</td><td class="small">{{ e.sender }}</td>
-      <td><a href="/email/{{ e.email_id }}">{{ e.subject }}</a></td>
-      <td>{% if r %}<span class="pill {{ r.gate }}">{{ r.triage or 'quarantined' }}</span>{% endif %}</td></tr>
-  {% endfor %}
-</table></div>
+{%- set ns = namespace(passed=0, attention=0, relevant=0) -%}
+{%- for e in emails %}{% set r = v.result(e.email_id) %}{% if r %}
+  {%- if r.gate == 'pass' %}{% set ns.passed = ns.passed + 1 %}{% endif %}
+  {%- if r.human_attention %}{% set ns.attention = ns.attention + 1 %}{% endif %}
+  {%- if r.triage in ('thesis_relevant', 'monitor') %}{% set ns.relevant = ns.relevant + 1 %}{% endif %}
+{%- endif %}{% endfor -%}
+
+<section class="stats" aria-label="Inbox in numbers">
+  {{ stat('Inbox', emails | length, 'Emails, arrival order, untouched', 'mail') }}
+  {{ stat('Signal', ns.relevant, 'Labeled thesis_relevant or monitor', 'trend') }}
+  {{ stat('Human attention', ns.attention, 'A person is asked to act', 'clock') }}
+  {{ stat('Passed the gate', ns.passed, 'Sent on to the analysis model', 'layers', '/') }}
+</section>
+
+<div class="split">
+<section aria-label="Emails" data-list>
+  <div class="subtabs" role="toolbar" aria-label="Show">
+    <button type="button" class="on" data-filter-tab="" aria-pressed="true">All emails <span class="badge on">{{ emails | length }}</span></button>
+    <button type="button" data-filter-tab="pass" aria-pressed="false">Passed <span class="badge">{{ ns.passed }}</span></button>
+    <button type="button" data-filter-tab="attention" aria-pressed="false">Needs attention <span class="badge">{{ ns.attention }}</span></button>
+  </div>
+  <div class="search"><label class="sr-only" for="q">Search emails</label>{{ icon('search') }}
+    <input type="search" id="q" placeholder="Search sender, subject or ID…" data-filter-text autocomplete="off"></div>
+  <div class="toolbar">
+    <select data-filter-select aria-label="Filter by label">
+      <option value="">All labels</option>
+      {% for l in config.TRIAGE_LABELS %}<option value="{{ l }}">{{ l }}</option>{% endfor %}
+      <option value="quarantine">quarantined</option>
+    </select>
+  </div>
+  <p class="xs muted" style="margin:-4px 0 12px">The raw emails, untouched. Compare with the brief. A quarantined email shows its sender and subject only.</p>
+  <div class="list">
+    <div class="list-head"><span>Incoming emails</span><span class="muted">Arrival order</span></div>
+    {% for e in emails %}{% set r = v.result(e.email_id) %}
+      {% set keys = [r.triage or 'quarantine', r.gate, 'attention' if r.human_attention else ''] | join(' ') if r else '' %}
+      {% call email_row(v, e, keys=keys) %}
+        {% if r %}{{ label_pill(r.triage) }}
+          {% for t in r.affected_tickers %}<span class="tag">{{ t }}</span>{% endfor %}
+          {% if r.human_attention %}<span class="pill attention">attention</span>{% endif %}
+          {% if r.gate == 'pass' %}<span class="pill dot pass">passed</span>{% endif %}{% endif %}
+      {% endcall %}
+    {% else %}<div class="empty">No emails for this set.</div>{% endfor %}
+    <div class="list-foot"><span>Showing <span data-shown>{{ emails | length }}</span> of {{ emails | length }} emails</span>
+      <span>{{ v.data.directory.name }}</span></div>
+  </div>
+</section>
+
+<aside class="pane" id="pane" hx-disinherit="*" aria-label="Selected email" aria-live="polite"
+  {% if emails %}hx-get="/email/{{ emails[0].email_id }}" hx-select="#detail" hx-trigger="load" hx-swap="innerHTML"{% endif %}>
+  <div class="pane-head">{{ icon('mail') }}Email</div>
+  <p class="muted small">Select an email to read it with its classification.</p>
+</aside>
+</div>
 {% endblock %}
