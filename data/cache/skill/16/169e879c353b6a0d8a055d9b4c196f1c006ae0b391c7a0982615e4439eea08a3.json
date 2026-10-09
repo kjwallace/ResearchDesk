@@ -1,1 +1,0 @@
-{"estimated": false, "input_tokens": 4808, "output_tokens": 208, "value": {"input_tokens": 4808, "model": "anthropic/claude-haiku-5.5", "output_tokens": 208, "text": "```json\n{\"result\": {\"suggestions\": [], \"no_change_reason\": \"The only claim comes from a monitor email, which is not enough alone for a new thesis, so no candidate is returned.\"}}\n```"}}

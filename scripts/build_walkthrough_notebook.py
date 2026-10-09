@@ -195,6 +195,8 @@ show(raw_suggestions)
         md("""
 ### Stages 7 and 8: validate and merge (code, no model)
 
+Each suggestion below carries the analyst-facing explanation: why the email matters and what it says about the desk's assumptions, and what accepting it would mean. Evidence that only comes from monitor-labeled emails is read skeptically and must match its pillar more closely.
+
 Validation rejects unknown IDs, quotes that are not in the email, and duplicate theses. It drops a stated figure that is out of bounds, for the wrong period, or not written in the claim's quote, and caps monitor-only evidence at strength 1. Merging then gives one suggestion per pillar and stance.
 """),
         code("""
@@ -205,7 +207,17 @@ for s in checked:
     print(s.id, "->", s.status, s.reject_reason or "")
 with stage("merge"):
     suggestions = merge.process(checked, ctx, [result], SEED)
-show(suggestions)
+for s in suggestions:
+    b = s.body
+    head = (f"{b.pillar_id} {b.stance}, strength {b.strength}, relevance {b.relevance}" if b.kind == "existing_thesis"
+            else f"{b.ticker} {b.metric} {b.period}: email {b.stated_value:g} vs book {b.book_value:.2f}"
+                 if b.kind == "projection_change" else b.kind)
+    text = f"**{s.id}** ({head})\\n\\n{s.rationale}"
+    if b.kind == "existing_thesis":
+        text += f"\\n\\n*Why it matters.* {b.assumption_impact}\\n\\n*If you accept.* {b.if_accepted}"
+        if b.street_view_shift != "none":
+            text += f"\\n\\n*Street view:* {b.street_view_shift.replace('_', ' ')}. {b.street_view_note}"
+    display(Markdown(text))
 """),
         md("""
 ### The analyst decides
@@ -260,6 +272,7 @@ The note explains the flag; it cannot remove it, and it never recommends an inve
 with stage("human_attention"):
     note = human_attention.process(email, result, ctx)
 display(Markdown(f"**Summary.** {note.summary}\\n\\n**Why it needs a person.** {note.why_attention}\\n\\n"
+                 f"**Follow-up.** {note.follow_up or 'none stated'}\\n\\n"
                  f"**Action:** {note.action}  \\n**Deadline:** {note.deadline or 'none stated'}"))
 for s in note.sections:
     print("quote:", s.quote)

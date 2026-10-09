@@ -1,1 +1,0 @@
-{"estimated": false, "input_tokens": 5002, "output_tokens": 115, "value": {"input_tokens": 5002, "model": "anthropic/claude-haiku-5.5", "output_tokens": 115, "text": "```json\n{\"result\": {\"suggestions\": [], \"no_change_reason\": \"The only source email is labelled monitor, and monitor claims are not enough alone to support a new thesis.\"}}\n```"}}
