@@ -23,7 +23,7 @@ body, triage, additional_labels, affected_tickers, human_attention, reason)
 plus the generation labels (email_type, systemic, angle, day).
 
 Usage:
-    python scripts/build_email_jsonl.py --dir "data/corpus/day 1"
+    python scripts/corpus_generation/build_email_jsonl.py --dir "data/corpus/day 1"
 """
 
 import argparse

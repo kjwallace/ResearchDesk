@@ -1,5 +1,7 @@
 # Kickoff brief for the lead coding agent
 
+> The original brief that started the build, kept for the record. `SPEC.md` and `DECISIONS.md` describe the current state.
+
 You are building the email triage prototype that `SPEC.md` specifies. Nothing is built yet.
 
 1. Read `SPEC.md` whole, then `prompts/README.md`. Do not start from a summary.
@@ -17,7 +19,6 @@ You are building the email triage prototype that `SPEC.md` specifies. Nothing is
 | `docs/corpus_documentation/synthetic_data_prompt.md` | The corpus prompt. Use only the text above its cut line. |
 | `data/corpus/day_1/`, `data/corpus/day_2/` | The test corpus: two days of 300 labeled emails each. |
 | `.env` | API keys: `OPENROUTER_API_KEY` for every generative model call, `TYPESAFE_API_KEY` for Jev. Never call the Anthropic API directly. Never commit or print `.env`. |
-| `legacy/finresearch/` | An archived earlier prototype. Not part of this build; do not build on it. |
 
 ## What a person still has to supply
 

@@ -10,9 +10,9 @@ Reads ANTHROPIC_API_KEY, and optionally ANTHROPIC_WORKSPACE_ID and
 ANTHROPIC_MODEL, from the environment or the project .env.
 
 Usage:
-    python scripts/generate_emails_llm.py --day 1 --out-dir "data/corpus/day 1" --limit 6
-    python scripts/generate_emails_llm.py --day 1 --out-dir "data/corpus/day 1"
-    python scripts/generate_emails_llm.py --day 2 --out-dir "data/corpus/day 2" --prior-dir "data/corpus/day 1"
+    python scripts/corpus_generation/generate_emails_llm.py --day 1 --out-dir "data/corpus/day 1" --limit 6
+    python scripts/corpus_generation/generate_emails_llm.py --day 1 --out-dir "data/corpus/day 1"
+    python scripts/corpus_generation/generate_emails_llm.py --day 2 --out-dir "data/corpus/day 2" --prior-dir "data/corpus/day 1"
 """
 
 import argparse
@@ -30,10 +30,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from build_email_jsonl import TICKER_NAMES, full_record, parse_drafts  # noqa: E402
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 PROMPT_PATH = ROOT / "docs" / "corpus_documentation" / "synthetic_data_prompt.md"
 CORPUS_ROOT = ROOT / "data" / "corpus"
-EXAMPLES_PATH = ROOT / "scripts" / "style_examples.json"
+EXAMPLES_PATH = ROOT / "scripts" / "corpus_generation" / "style_examples.json"
 API_URL = "https://api.anthropic.com/v1/messages"
 
 DAY_DATES = {

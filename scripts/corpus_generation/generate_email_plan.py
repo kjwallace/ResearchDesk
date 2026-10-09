@@ -15,9 +15,9 @@ Counts that the prompt states as absolute numbers for a 300-email day (human
 attention, macro/government/sector, systemic, "other") scale with --count.
 
 Usage:
-    python scripts/generate_email_plan.py --day 1 --seed 1101 --start-id 1
-    python scripts/generate_email_plan.py --day 2 --seed 2202 --start-id 301
-    python scripts/generate_email_plan.py --day tuning --seed 3303 --start-id 601 --count 100 --out-dir data/corpus/tuning
+    python scripts/corpus_generation/generate_email_plan.py --day 1 --seed 1101 --start-id 1
+    python scripts/corpus_generation/generate_email_plan.py --day 2 --seed 2202 --start-id 301
+    python scripts/corpus_generation/generate_email_plan.py --day tuning --seed 3303 --start-id 601 --count 100 --out-dir data/corpus/tuning
 """
 
 import argparse

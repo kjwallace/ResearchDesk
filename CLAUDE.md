@@ -27,7 +27,7 @@ uv run --group notebook python scripts/build_walkthrough_notebook.py --set day_1
 uv run python scripts/purge_unparseable_cache.py   # drop cached replies that can never parse, so a rerun retries them
 ```
 
-Corpus generation scripts (already run, they produced the existing corpus): `scripts/generate_email_plan.py`, `scripts/generate_emails_llm.py` (Anthropic API), `scripts/build_email_jsonl.py`. See each script's docstring for usage.
+Corpus generation scripts (already run, they produced the existing corpus): `scripts/corpus_generation/generate_email_plan.py`, `scripts/corpus_generation/generate_emails_llm.py` (Anthropic API), `scripts/corpus_generation/build_email_jsonl.py`. See each script's docstring for usage.
 
 ## Architecture (big picture)
 
