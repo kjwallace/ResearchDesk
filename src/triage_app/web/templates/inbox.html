@@ -11,8 +11,8 @@
 
 <section class="stats" aria-label="Inbox in numbers">
   {{ stat('Inbox', emails | length, 'Emails, arrival order, untouched', 'mail') }}
-  {{ stat('Signal', ns.relevant, 'Labeled thesis_relevant or monitor', 'trend') }}
-  {{ stat('Human attention', ns.attention, 'A person is asked to act', 'clock') }}
+  {{ stat('Actionable or worth watching', ns.relevant, 'Emails with something for the book', 'trend') }}
+  {{ stat('Needs a person', ns.attention, 'A person is asked to act', 'clock') }}
   {{ stat('Passed the gate', ns.passed, 'Sent on to the analysis model', 'layers', '/') }}
 </section>
 
@@ -28,8 +28,8 @@
   <div class="toolbar">
     <select data-filter-select aria-label="Filter by label">
       <option value="">All labels</option>
-      {% for l in config.TRIAGE_LABELS %}<option value="{{ l }}">{{ l }}</option>{% endfor %}
-      <option value="quarantine">quarantined</option>
+      {% for l in config.TRIAGE_LABELS %}<option value="{{ l }}">{{ l | human }}</option>{% endfor %}
+      <option value="quarantine">Quarantined</option>
     </select>
   </div>
   <p class="xs muted" style="margin:-4px 0 12px">The raw emails, untouched. Compare with the brief. A quarantined email shows its sender and subject only.</p>
@@ -40,12 +40,12 @@
       {% call email_row(v, e, keys=keys) %}
         {% if r %}{{ label_pill(r.triage) }}
           {% for t in r.affected_tickers %}<span class="tag">{{ t }}</span>{% endfor %}
-          {% if r.human_attention %}<span class="pill attention">attention</span>{% endif %}
-          {% if r.gate == 'pass' %}<span class="pill dot pass">passed</span>{% endif %}{% endif %}
+          {% if r.human_attention %}<span class="pill attention">Needs attention</span>{% endif %}
+          {% if r.gate == 'pass' %}<span class="pill dot pass">Passed</span>{% endif %}{% endif %}
       {% endcall %}
     {% else %}<div class="empty">No emails for this set.</div>{% endfor %}
     <div class="list-foot"><span>Showing <span data-shown>{{ emails | length }}</span> of {{ emails | length }} emails</span>
-      <span>{{ v.data.directory.name }}</span></div>
+      <span>{{ v.data.directory.name | human }}</span></div>
   </div>
 </section>
 

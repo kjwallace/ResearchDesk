@@ -46,10 +46,13 @@
     var out = list.querySelector("[data-shown]");
     if (out) out.textContent = shown;
   }
-  document.addEventListener("input", function (e) {
+  function onFilterInput(e) {
     var list = e.target.closest("[data-list]");
     if (list && e.target.matches("[data-filter-text], [data-filter-select]")) applyFilter(list);
-  });
+  }
+  // A select fires "change" everywhere and "input" only in some browsers; listen for both.
+  document.addEventListener("input", onFilterInput);
+  document.addEventListener("change", onFilterInput);
   document.addEventListener("click", function (e) {
     var t = e.target.closest("[data-filter-tab]");
     if (!t) return;
@@ -59,5 +62,35 @@
       x.setAttribute("aria-pressed", x === t ? "true" : "false");
     });
     applyFilter(list);
+  });
+})();
+
+// Review queue: keyboard shortcuts, and the next open suggestion once one is decided.
+(function () {
+  if (!document.body.hasAttribute("data-review")) return;
+  function go(sel) { var a = document.querySelector(sel); if (a) window.location = a.getAttribute("href"); }
+  function nextOpen() {
+    var n = document.querySelector("[data-next-open]");
+    window.location = n ? n.getAttribute("data-next-open") : "/review";
+  }
+  document.addEventListener("keydown", function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey || e.target.closest("input, textarea, select, [contenteditable]")) return;
+    var k = e.key.toLowerCase();
+    var actions = document.querySelector('#detail [id^="actions-"]');
+    if (k === "a" && actions) { var acc = actions.querySelector("button.primary"); if (acc) { e.preventDefault(); acc.click(); } }
+    else if (k === "d" && actions) {
+      var dis = Array.prototype.find.call(actions.querySelectorAll("button"), function (b) { return /dismiss/i.test(b.textContent); });
+      if (dis) { e.preventDefault(); dis.click(); }
+    }
+    else if (k === "j" || e.key === "ArrowRight") { e.preventDefault(); go("[data-key-next]"); }
+    else if (k === "k" || e.key === "ArrowLeft") { e.preventDefault(); go("[data-key-prev]"); }
+  });
+  // After accept or dismiss swaps in its status, move on (a raised conviction review stays in view).
+  document.addEventListener("htmx:afterSwap", function (e) {
+    var t = e.detail.target;
+    if (!t || !/^actions-/.test(t.id || "")) return;
+    var swapped = document.getElementById(t.id) || t;
+    if (swapped.querySelector(".flash.err")) return;
+    setTimeout(nextOpen, 700);
   });
 })();

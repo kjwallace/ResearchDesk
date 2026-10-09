@@ -13,6 +13,7 @@ from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from fakes import FIXTURE_EMAILS, FakeChat, FakeEmbedder, fixture_emails
 
+from markupsafe import escape
 from pydantic import BaseModel
 
 from triage_app import config, thresholds
@@ -21,12 +22,12 @@ from triage_app.monitoring import Recorder
 from triage_app.pipeline.context import RunContext
 from triage_app.pipeline.io import read_list
 from triage_app.schema import (
-    AnalysisRecord, Claim, Email, EmailResult, LinkedSection, RedundancyRecord, Suggestion, TriageRecord,
+    AnalysisRecord, AttentionNote, Claim, Email, EmailResult, LinkedSection, RedundancyRecord, Suggestion, TriageRecord,
     VerifyResult,
 )
 from triage_app.state.compute import compute
 from triage_app.state.fold import load_seed
-from triage_app.web import runner
+from triage_app.web import labels, runner
 from triage_app.web.main import create_app
 
 OUT = Path(__file__).parent / "fixtures" / "out"
@@ -138,7 +139,8 @@ def fake_stages(monkeypatch: pytest.MonkeyPatch) -> dict[str, bool]:
 GET_ROUTES = [
     "/", "/suggestion/MSFT.p1.supports", "/suggestion/AMZN.new1", "/suggestion/NVDA.p2.supports",
     "/suggestion/AAPL.p1.supports", "/suggestion/fixture_001.s2", *(f"/company/{t}" for t in config.TICKERS),
-    "/criteria", *(f"/criteria/{label}" for label in config.CRITERIA_FILES), "/audit", "/inbox",
+    "/criteria", *(f"/criteria/{label}" for label in config.CRITERIA_FILES), "/audit", "/inbox", "/attention",
+    "/attention?view=calendar", "/book", "/review", "/review/MSFT.p1.supports",
     *(f"/email/{i}" for i in CORPUS), "/live", "/eval", "/monitor",
 ]
 
@@ -168,6 +170,41 @@ def test_unknown_items_404_as_html_with_banner(client: TestClient) -> None:
         assert BANNER in r.text and "Not found" in r.text, url
 
 
+def test_attention_tab_shows_requester_offer_deadline_and_tags(client: TestClient) -> None:
+    text = client.get("/attention").text
+    email = CORPUS["fixture_007"]
+    note = next(n for n in read_list(OUT / "notes.json", AttentionNote) if n.email_id == "fixture_007")
+    result = RESULTS["fixture_007"]
+    assert 'id="req-fixture_007"' in text and "Requested by" in text
+    assert html.escape(email.sender.split(",")[0]) in text                  # who is asking
+    assert f"<strong>{escape(labels.split_summary(note.summary)[0])}</strong>" in text  # the offer, bold
+    assert "Reply by Today, 4:00 PM" in text                                 # the timeline
+    for t in result.affected_tickers:
+        assert f'href="/company/{t}">{t}</a>' in text                       # relevance tags
+    assert "/attention" in client.get("/").text                              # reachable from the brief
+
+
+def test_book_lists_every_position_with_open_suggestions(client: TestClient) -> None:
+    text = client.get("/book").text
+    for t in config.TICKERS:
+        assert f'href="/company/{t}"' in text
+    assert 'href="/review/MSFT.p1.supports"' in text   # an open suggestion, on its pillar
+
+
+def test_review_queue_walks_open_suggestions_and_counts_decisions(client: TestClient) -> None:
+    first = client.get("/review").text
+    assert "0 of " in first and 'data-next-open="/review/' in first
+    assert client.post("/suggestion/MSFT.p1.supports/accept", headers=HX).status_code == 200
+    after = client.get("/review").text
+    assert "1 of " in after and 'aria-current="true"' in after
+    assert client.get("/review/NOPE").status_code == 404
+
+
+def test_attention_calendar_puts_requests_on_their_due_day(client: TestClient) -> None:
+    text = client.get("/attention?view=calendar").text
+    assert 'class="cal-day today"' in text and 'href="/email/fixture_007"' in text and "Calendar" in text
+
+
 def test_brief_lists_every_section(client: TestClient) -> None:
     text = client.get("/").text
     for heading in ("Suggested thesis changes", "New thesis candidates", "Worth watching", "Needs your attention",
@@ -175,7 +212,7 @@ def test_brief_lists_every_section(client: TestClient) -> None:
         assert heading in text
     for sid in ("MSFT.p1.supports", "AAPL.p1.supports", "AMZN.new1", "NVDA.p2.supports"):
         assert f"/suggestion/{sid}" in text
-    assert "second look" in text and "/email/fixture_007" in text
+    assert "Second look" in text and "/email/fixture_007" in text
 
 
 def test_audit_and_quarantine_list(client: TestClient) -> None:
@@ -183,7 +220,7 @@ def test_audit_and_quarantine_list(client: TestClient) -> None:
     for eid in ("fixture_006", "fixture_010"):
         assert f'id="audit-{eid}"' in text
     assert "Repeat of" in text and "fixture_005" in text
-    assert "quote mismatch" in text  # the rejected suggestion, under its email
+    assert "Quote mismatch" in text  # the rejected suggestion, under its email
     for eid in QUARANTINED:
         assert html.escape(CORPUS[eid].subject) in text and html.escape(CORPUS[eid].sender) in text
 
@@ -204,14 +241,14 @@ def test_suggestion_page_shows_figure_book_consensus_and_effect(client: TestClie
 
 def test_eval_shows_pending_reviews(client: TestClient) -> None:
     text = client.get("/eval").text
-    assert text.count("pending hand review") == 3 and "gate_recall" in text
+    assert text.count("Pending hand review") == 3 and "Gate recall" in text
 
 
 def test_monitor_shows_stages_and_models_only(client: TestClient) -> None:
     text = client.get("/monitor").text
     metrics = json.loads((OUT / "metrics.json").read_text())
     for stage in metrics["stages"]:
-        assert f"<td>{stage}</td>" in text
+        assert f"<td>{labels.stage(stage)}</td>" in text
     for model in metrics["by_model"]:
         assert model in text
     assert "Costliest emails" not in text and "Slowest emails" not in text and "/email/fixture_" not in text
@@ -221,9 +258,9 @@ def test_monitor_shows_stages_and_models_only(client: TestClient) -> None:
 
 def test_accept_logs_evidence(client: TestClient) -> None:
     r = client.post("/suggestion/MSFT.p1.supports/accept", headers=HX)
-    assert r.status_code == 200 and "accepted" in r.text and "Logged as evidence on MSFT.p1" in r.text
+    assert r.status_code == 200 and "Accepted" in r.text and "Logged as evidence on MSFT.p1" in r.text
     company = client.get("/company/MSFT").text
-    assert "supports</span> strength 2" in company and "pillar evidence" in company
+    assert "Supports</span> Strength 2" in company and "Evidence logged" in company
     assert client.post("/suggestion/MSFT.p1.supports/accept", headers=HX).status_code == 409
 
 
@@ -263,7 +300,7 @@ def test_undo_reverses_the_last_change(client: TestClient) -> None:
     client.post("/driver/MSFT.intelligent_cloud_growth", headers=HX, data={"value": "26"})
     assert client.post("/undo", headers=HX).status_code == 200
     page = client.get("/company/MSFT").text
-    assert eps_cells(page) == seed_eps and "supports</span> strength 2" in page
+    assert eps_cells(page) == seed_eps and "Supports</span> Strength 2" in page
     client.post("/undo", headers=HX)
     assert "No accepted evidence yet" in client.get("/company/MSFT").text
     assert "Nothing to undo" in client.post("/undo", headers=HX).text
@@ -271,7 +308,7 @@ def test_undo_reverses_the_last_change(client: TestClient) -> None:
 
 def test_dismiss_and_sessions_are_separate(client: TestClient, presets: Path) -> None:
     r = client.post("/suggestion/NVDA.p2.supports/dismiss", headers=HX)
-    assert r.status_code == 200 and "dismissed" in r.text
+    assert r.status_code == 200 and "Dismissed" in r.text
     assert "Dismissed suggestions" in client.get("/company/NVDA").text
     client.post("/suggestion/MSFT.p1.supports/accept", headers=HX)
     with TestClient(create_app(OUT, make_ctx=fake_ctx, presets_dir=presets)) as other:
@@ -303,7 +340,7 @@ def test_conviction_review_and_set_conviction(client: TestClient) -> None:
     assert client.get("/suggestion/MSFT.p1.review").status_code == 200
     r = client.post("/conviction/MSFT", headers=HX, data={"conviction": "2", "suggestion_id": "MSFT.p1.review"})
     assert r.status_code == 200 and "from 3 to 2" in r.text
-    assert "conviction 2 of 5" in client.get("/company/MSFT").text
+    assert "Conviction 2 of 5" in client.get("/company/MSFT").text
     assert "MSFT.p1.review" not in client.get("/").text
     assert client.post("/conviction/MSFT", headers=HX, data={"conviction": "9"}).status_code == 422
 
@@ -328,7 +365,7 @@ def test_verify_with_fake_agent(client: TestClient, monkeypatch: pytest.MonkeyPa
     monkeypatch.setattr(verify_agent, "verify", verify)
     client.post("/suggestion/MSFT.p1.supports/accept", headers=HX)
     r = client.post("/suggestion/MSFT.p1.supports/verify", headers=HX)
-    assert r.status_code == 200 and "not found" in r.text and "No filing passage found." in r.text
+    assert r.status_code == 200 and "Not found" in r.text and "No filing passage found." in r.text
     assert seen["id"] == "MSFT.p1.supports" and len(seen["log"]) == 1
     assert seen["claims"] == ["fixture_001.c1", "fixture_001.c2"]
     assert "No filing passage found." in client.get("/suggestion/MSFT.p1.supports").text
@@ -342,12 +379,12 @@ def test_mattered_not_available(client: TestClient, monkeypatch: pytest.MonkeyPa
 
     monkeypatch.setattr(extract, "process", unbuilt)
     r = client.post("/audit/fixture_010/mattered", headers=HX)
-    assert r.status_code == 200 and "not available yet" in r.text
+    assert r.status_code == 200 and "Not available yet" in r.text
 
 
 def test_mattered_with_fakes(client: TestClient, fake_stages: dict[str, Any]) -> None:
     r = client.post("/audit/fixture_010/mattered", headers=HX)
-    assert r.status_code == 200 and "extract" in r.text and "fixture_010.MSFT.p1.supports" in r.text
+    assert r.status_code == 200 and "Extract claims" in r.text and "fixture_010.MSFT.p1.supports" in r.text
     assert "/suggestion/fixture_010.MSFT.p1.supports" in client.get("/").text
     assert client.post("/audit/fixture_003/mattered", headers=HX).status_code == 403
     assert client.post("/audit/fixture_001/mattered", headers=HX).status_code == 409
@@ -358,8 +395,8 @@ def test_live_with_fakes_traces_every_stage(client: TestClient, fake_stages: dic
     r = client.post("/live", headers=HX, data={"sender": "A", "subject": "Live check", "body": body})
     assert r.status_code == 200
     for stage in ("redundancy", "classify", "gate", "human_attention", "extract", "analyze", "validate", "merge"):
-        assert f"<td>{stage}</td>" in r.text
-    assert "<td>parse</td>" not in r.text
+        assert f"<td>{labels.stage(stage)}</td>" in r.text
+    assert "<td>parse</td>" not in r.text and "<td>Parse</td>" not in r.text
     assert "100" in r.text  # FakeChat's input tokens, shown beside a stage
     sid = re.search(r"/suggestion/(live_\d+\.MSFT\.p1\.supports)", r.text)
     assert sid is not None
@@ -378,7 +415,7 @@ def test_live_unbuilt_stages_answer(client: TestClient, monkeypatch: pytest.Monk
 
     monkeypatch.setattr(classify, "process", unbuilt)
     r = client.post("/live", headers=HX, data={"preset": "preset_01"})
-    assert r.status_code == 200 and "not available yet" in r.text
+    assert r.status_code == 200 and "Not available yet" in r.text
 
 
 def test_live_quarantine_never_shows_body(client: TestClient, fake_stages: dict[str, Any]) -> None:
@@ -448,7 +485,7 @@ def test_mattered_extracts_claims_from_a_stopped_email(presets: Path, monkeypatc
         assert RESULTS["fixture_010"].gate == "stop"
         r = c.post("/audit/fixture_010/mattered", headers=HX)
         assert r.status_code == 200
-        assert re.search(r"<td>extract</td><td><span class=\"pill ok\">ok</span></td><td class=\"small\">1 claims", r.text)
+        assert re.search(r"<td>Extract claims</td><td><span class=\"pill ok\">Done</span></td><td class=\"small\">1 claim<", r.text)
         assert chat.calls and chat.calls[0]["namespace"] == "extract"
 
 
@@ -481,8 +518,8 @@ def test_emails_come_from_the_corpus_file(monkeypatch: pytest.MonkeyPatch, tmp_p
 
 
 def test_email_page_shows_email_type(client: TestClient) -> None:
-    assert "primary_research" in client.get("/email/fixture_001").text
-    assert "email_type news_alert" in client.get("/audit").text  # fixture_006, in the audit view
+    assert "Primary research" in client.get("/email/fixture_001").text
+    assert "Email type: News alert" in client.get("/audit").text  # fixture_006, in the audit view
 
 
 def test_earlier_email_is_never_quarantined(client: TestClient) -> None:

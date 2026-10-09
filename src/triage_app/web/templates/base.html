@@ -13,10 +13,10 @@
   <script src="/static/app.js?v={{ ASSET_V }}" defer></script>
 </head>
 {%- set path = request.url.path -%}
-{%- macro tab(href, label, match) -%}
-  <a href="{{ href }}" class="{{ 'on' if match else '' }}"{% if match %} aria-current="page"{% endif %}>{{ label }}</a>
+{%- macro tab(href, label, match, count=None) -%}
+  <a href="{{ href }}" class="{{ 'on' if match else '' }}"{% if match %} aria-current="page"{% endif %}>{{ label }}{% if count %} <span class="badge {{ 'on' if match else '' }}">{{ count }}</span>{% endif %}</a>
 {%- endmacro %}
-<body>
+<body{% block body_attrs %}{% endblock %}>
   <div class="synthetic" role="note"><strong>Synthetic data.</strong> The companies are real; the emails, brokers,
     positions, theses and estimates are invented. Nothing here is investment advice, and the system never sends mail.</div>
   <div class="wrap">
@@ -30,26 +30,39 @@
         <form method="post" action="/undo" hx-post="/undo" hx-target="#flash"><button title="Reverse the last accepted change">{{ icon('undo') }}Undo</button></form>
         <form method="post" action="/reset" hx-post="/reset" hx-target="#flash"
               hx-confirm="Restore the seed state? Your accepted changes in this session will be cleared."><button title="Restore the seed book">{{ icon('rotate') }}Reset</button></form>
-        <a class="btn" href="/criteria">{{ icon('sliders') }}Criteria</a>
         <a class="btn primary" href="/live">{{ icon('zap') }}Run a live email</a>
       </div>
     </header>
     <div class="tabbar">
       <nav class="tabs" aria-label="Screens">
-        {{ tab('/', 'Morning brief', path == '/' or path.startswith('/suggestion')) }}
+        {{ tab('/', 'Morning brief', path == '/') }}
+        {{ tab('/review', 'Review', path.startswith('/review') or path.startswith('/suggestion')) }}
+        {{ tab('/attention', 'Needs attention', path.startswith('/attention'),
+               v.data.brief.needs_attention | length if v and v.data.brief else None) }}
         {{ tab('/inbox', 'Inbox', path == '/inbox' or path.startswith('/email')) }}
-        {{ tab('/audit', 'Audit', path.startswith('/audit')) }}
-        {{ tab('/company/' ~ config.TICKERS[0], 'Book', path.startswith('/company')) }}
-        {{ tab('/criteria', 'Criteria', path.startswith('/criteria')) }}
-        {{ tab('/live', 'Live', path.startswith('/live')) }}
-        {{ tab('/eval', 'Eval', path.startswith('/eval')) }}
-        {{ tab('/monitor', 'Monitor', path.startswith('/monitor')) }}
+        {{ tab('/book', 'Book', path == '/book' or path.startswith('/company')) }}
       </nav>
+      {%- set hood = path.startswith('/audit') or path.startswith('/criteria') or path.startswith('/live')
+                     or path.startswith('/eval') or path.startswith('/monitor') %}
+      <details class="hood {{ 'on' if hood else '' }}">
+        <summary>{{ icon('sliders') }}Under the hood {{ icon('chev') }}</summary>
+        <div class="hood-menu" role="menu">
+          {% for href, label, ic, hint in [
+              ('/audit', 'Audit', 'archive', 'Every email not in the brief, with its reason'),
+              ('/criteria', 'Criteria', 'file', 'The rules Jev classifies with'),
+              ('/live', 'Live run', 'zap', 'Send a new email through the pipeline'),
+              ('/eval', 'Eval', 'target', 'Scores against the corpus labels'),
+              ('/monitor', 'Monitor', 'activity', 'Tokens and latency per stage')] %}
+            <a role="menuitem" href="{{ href }}" class="{{ 'on' if path.startswith(href) else '' }}">{{ icon(ic) }}
+              <span><b>{{ label }}</b><span class="xs muted">{{ hint }}</span></span></a>
+          {% endfor %}
+        </div>
+      </details>
       <label class="company-pick">Company
         <select data-nav="/company/" aria-label="Open a company">
-          {% set current = path.split('/')[2] if path.startswith('/company/') else '' %}
-          {% if not current %}<option value="" selected disabled>Pick</option>{% endif %}
-          {% for t in config.TICKERS %}<option value="{{ t }}" {% if t == current %}selected{% endif %}>{{ t }}</option>{% endfor %}
+          {% set current_co = path.split('/')[2] if path.startswith('/company/') else '' %}
+          {% if not current_co %}<option value="" selected disabled>Pick</option>{% endif %}
+          {% for t in config.TICKERS %}<option value="{{ t }}" {% if t == current_co %}selected{% endif %}>{{ t }}</option>{% endfor %}
         </select>
       </label>
     </div>
@@ -61,7 +74,7 @@
       <span>{{ icon('shield') }} Read-only: never sends mail, never touches the inbox</span>
       <span>Models recommend; only the analyst changes the book</span>
       <span class="grow"></span>
-      <span>Synthetic data · {{ v.data.directory.name if v else '' }}</span>
+      <span>Synthetic data{{ (' · ' ~ (v.data.directory.name | human)) if v else '' }}</span>
     </footer>
   </div>
 </body>

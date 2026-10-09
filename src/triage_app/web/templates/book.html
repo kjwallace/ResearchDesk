@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% from "macros.html" import icon, stat, ticker_mark %}
+{% block title %}Book{% endblock %}
+{% block content %}
+{%- set n_long = rows | selectattr('thesis.stance', 'equalto', 'long') | list -%}
+{%- set n_short = rows | selectattr('thesis.stance', 'equalto', 'short') | list -%}
+{%- set n_open = rows | sum(attribute='open') -%}
+<div class="page-title"><h2>Book</h2><span class="chip">Synthetic positions</span></div>
+<p class="lead-in">The desk's five positions, with the thesis behind each and what today's email suggests about it.
+  Only an accepted suggestion changes the book; this session has {{ changes }} change{{ '' if changes == 1 else 's' }} so far.</p>
+
+<section class="stats" aria-label="Book in numbers">
+  {{ stat('Long', n_long | length, (n_long | sum(attribute='thesis.size_bps')) ~ ' bps gross', 'trend') }}
+  {{ stat('Short', n_short | length, (n_short | sum(attribute='thesis.size_bps')) ~ ' bps gross', 'layers') }}
+  {{ stat('Open suggestions', n_open, 'On these pillars, waiting for you', 'zap', '/review') }}
+  {{ stat('Changes this session', changes, 'Accepted evidence, pillars and assumptions', 'book') }}
+</section>
+
+<div class="eyebrow">Positions</div>
+<div class="table-wrap">
+<table class="book">
+  <thead><tr><th>Company</th><th>Position</th><th class="num">Conviction</th>
+    <th class="num">EPS</th><th class="num">vs consensus</th><th class="num">Target price</th><th class="num">vs consensus</th>
+    <th class="num">Open suggestions</th></tr></thead>
+  {% for r in rows %}
+    {% set a = r.proj['analyst'] %}{% set c = r.proj['consensus'] %}
+    {% set eps_gap = (a.eps / c.eps - 1) * 100 if c.eps else 0 %}
+    {% set tp_gap = (a.target_price / c.target_price - 1) * 100 if c.target_price else 0 %}
+    <tr>
+      <td><a class="book-co" href="/company/{{ r.ticker }}">{{ ticker_mark(r.ticker) }}<span><b>{{ r.ticker }}</b><span class="xs muted">{{ r.model.fiscal_year }}</span></span></a></td>
+      <td><span class="pill dot {{ r.thesis.stance }}">{{ r.thesis.stance | human }}</span> <span class="small">{{ r.thesis.size_bps }} bps</span></td>
+      <td class="num"><span class="dots" title="Conviction {{ r.thesis.conviction }} of 5">{% for i in range(1, 6) %}<i class="{{ 'on' if i <= r.thesis.conviction else '' }}"></i>{% endfor %}</span></td>
+      <td class="num">${{ a.eps | num(2) }}</td>
+      <td class="num {{ 'gap-pos' if eps_gap > 0.05 else ('gap-neg' if eps_gap < -0.05 else 'muted') }}">{{ '+' if eps_gap > 0 else '' }}{{ eps_gap | num(1) }}%</td>
+      <td class="num">${{ a.target_price | num(0) }}</td>
+      <td class="num {{ 'gap-pos' if tp_gap > 0.05 else ('gap-neg' if tp_gap < -0.05 else 'muted') }}">{{ '+' if tp_gap > 0 else '' }}{{ tp_gap | num(1) }}%</td>
+      <td class="num">{% if r.open %}<a class="badge on" href="/review">{{ r.open }}</a>{% else %}<span class="muted">0</span>{% endif %}</td>
+    </tr>
+  {% endfor %}
+</table>
+</div>
+<p class="xs muted">EPS and target price are computed by code from the analyst's drivers and from consensus; models never supply a number.</p>
+
+<div class="eyebrow" style="margin-top:28px">Theses</div>
+<div class="book-grid">
+{% for r in rows %}
+  <article class="card">
+    <h3>{{ ticker_mark(r.ticker) }} <a href="/company/{{ r.ticker }}">{{ r.ticker }}</a>
+      <span class="pill dot {{ r.thesis.stance }}">{{ r.thesis.stance | human }}</span>
+      <span class="grow" style="flex:1"></span><a class="btn" href="/company/{{ r.ticker }}">Model {{ icon('right') }}</a></h3>
+    <ul class="pillars">
+    {% for p in r.thesis.pillars %}
+      {% set ev = v.state.evidence.get(p.id, []) %}
+      {% set ns = namespace(net=0) %}{% for e in ev %}{% set ns.net = ns.net + (e.strength if e.stance == 'contradicts' else -e.strength) %}{% endfor %}
+      {% set pending = open_by_pillar.get(p.id, []) %}
+      <li>
+        <div class="pillar-head"><span class="mono-id">{{ p.id }}</span>
+          {% if ev %}<span class="tag {{ 'bad' if ns.net > 0 else 'good' }}">{{ ev | length }} accepted · net {{ ns.net }}</span>{% endif %}
+          {% for s in pending %}<a class="pill dot {{ s.body.stance }}" href="/review/{{ s.id }}" title="{{ s.rationale }}">{{ s.body.stance | human }}</a>{% endfor %}
+        </div>
+        <div class="small">{{ p.statement }}</div>
+      </li>
+    {% endfor %}
+    {% for s in new_by_ticker.get(r.ticker, []) %}
+      <li class="pillar-new"><div class="pillar-head"><span class="tag info">{{ s.body.kind | human }}</span>
+        <a href="/review/{{ s.id }}" class="mono-id">{{ s.id }}</a></div>
+        <div class="small">{{ s.body.statement if s.body.kind == 'new_thesis' else s.rationale }}</div></li>
+    {% endfor %}
+    </ul>
+  </article>
+{% endfor %}
+</div>
+{% endblock %}

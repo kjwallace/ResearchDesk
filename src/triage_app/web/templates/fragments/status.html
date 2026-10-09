@@ -1,4 +1,4 @@
 <div class="actions" id="actions-{{ s.id | replace('.', '-') }}">
-  <div class="status-line"><span class="pill dot {{ status }}">{{ status }}</span> <span>{{ text }}.</span></div>
-  {% for r in raised %}<div class="flash err" style="width:100%;margin-top:8px">Conviction review raised: <a href="/suggestion/{{ r.id }}">{{ r.id }}</a></div>{% endfor %}
+  <div class="status-line"><span class="pill dot {{ status }}">{{ status | human }}</span> <span>{{ text }}.</span></div>
+  {% for r in raised %}<div class="flash err" style="width:100%;margin-top:8px">Conviction review raised: <a href="/suggestion/{{ r.id }}" class="mono-id">{{ r.id }}</a></div>{% endfor %}
 </div>

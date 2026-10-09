@@ -27,7 +27,7 @@ import dspy
 from triage_app import thresholds
 from triage_app import config
 from triage_app.llm import ChatClient
-from triage_app.modules.lm import RouterLM, json_adapter
+from triage_app.modules.lm import RouterLM, json_adapter, retry_unparseable
 from triage_app.modules.skills import SKILLS, Skill, SkillContext, claim_view, dumps
 from triage_app.schema import Claim, SkillResult
 from triage_app.state.fold import BookState
@@ -165,13 +165,17 @@ class AnalysisAgent:
         return dspy.Tool(call, name=spec["name"], desc=desc, args=schema["properties"])
 
     def __call__(self, claims: list[Claim], context: SkillContext) -> AgentOutcome:
-        outcome = AgentOutcome()
         by_id = {c.id: c for c in claims}
-        tools = [self._tool(spec, by_id, context, outcome) for spec in self.tool_defs]
-        loop = SkillLoop(self.signature, tools, self.max_calls, outcome)
-        with dspy.context(lm=self.lm, adapter=json_adapter()):
-            pred = loop(claims=dumps(claim_view(claims)),
-                        candidate_pillars=dumps(pillar_statements(context.candidate_pillar_ids, context.book)))
+
+        def attempt() -> tuple[AgentOutcome, Any]:
+            outcome = AgentOutcome()  # fresh per attempt: a failed attempt leaves nothing behind
+            tools = [self._tool(spec, by_id, context, outcome) for spec in self.tool_defs]
+            loop = SkillLoop(self.signature, tools, self.max_calls, outcome)
+            with dspy.context(lm=self.lm, adapter=json_adapter()):
+                pred = loop(claims=dumps(claim_view(claims)),
+                            candidate_pillars=dumps(pillar_statements(context.candidate_pillar_ids, context.book)))
+            return outcome, pred
+        outcome, pred = retry_unparseable(self.lm, attempt)
         if not outcome.skills_called:
             outcome.final_text = str(pred.summary or "").strip()
         return outcome

@@ -22,7 +22,7 @@ import dspy
 
 from triage_app import config
 from triage_app.llm import ChatClient
-from triage_app.modules.lm import RouterLM, json_adapter
+from triage_app.modules.lm import RouterLM, json_adapter, retry_unparseable
 from triage_app.schema import Claim, SkillResult, Ticker
 from triage_app.state.fold import BookState
 
@@ -120,8 +120,10 @@ class Skill(dspy.Module):
         self.predict = dspy.Predict(self.signature.with_instructions(load_instructions(self.name)))
 
     def _call(self, **inputs: str) -> SkillResult:
-        with dspy.context(adapter=json_adapter()):
-            out = self.predict(**inputs, lm=self.lm)
+        def predict() -> Any:
+            with dspy.context(adapter=json_adapter()):
+                return self.predict(**inputs, lm=self.lm)
+        out = retry_unparseable(self.lm, predict)
         result = out.result if isinstance(out.result, SkillResult) else SkillResult.model_validate(out.result)
         # Code keeps only drafts of this skill's own kind.
         return result.model_copy(update={"suggestions": [s for s in result.suggestions if s.kind == self.kind]})

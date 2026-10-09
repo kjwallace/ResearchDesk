@@ -81,6 +81,7 @@ OPENROUTER_REQUESTS_PER_MINUTE = 20   # fixed  client-side throttle per model (O
 LLM_MAX_RETRIES = 6               # fixed  retries on 429 / 5xx before a call fails
 LLM_RETRY_BASE_S = 5.0            # fixed  first backoff when the provider gives no reset time (doubles each retry)
 LLM_RETRY_MAX_S = 90.0            # fixed  longest single backoff
+LLM_PARSE_RETRIES = 2             # fixed  fresh calls when a reply cannot be parsed, before the email fails
 
 # ---- Criteria files -----------------------------------------------------------------------
 

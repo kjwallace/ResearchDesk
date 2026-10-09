@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% from "macros.html" import icon, bar %}
+{% block title %}Review{% endblock %}
+{% block body_attrs %} data-review{% endblock %}
+{% block content %}
+{%- set total = queue | length -%}
+<div class="review-bar">
+  <div class="page-title" style="margin:0"><h2>Review</h2></div>
+  <div class="progress">
+    <div class="small" style="display:flex;justify-content:space-between"><span><b>{{ decided }} of {{ total }}</b> decided</span>
+      <span class="muted">{{ total - decided }} open</span></div>
+    {{ bar(decided / total if total else 1) }}
+  </div>
+  {% if current %}
+  <div class="review-nav">
+    {% if prev %}<a class="btn" href="/review/{{ prev.id }}" data-key-prev>{{ icon('left') }}Previous</a>{% endif %}
+    {% if following %}<a class="btn" href="/review/{{ following.id }}" data-key-next>Next{{ icon('right') }}</a>{% endif %}
+  </div>
+  {% endif %}
+</div>
+<p class="xs muted" style="margin:-8px 0 16px">Keys: <kbd>A</kbd> accept · <kbd>D</kbd> dismiss · <kbd>J</kbd>/<kbd>→</kbd> next · <kbd>K</kbd>/<kbd>←</kbd> previous.
+  After you decide, the next open suggestion opens.</p>
+<span hidden data-next-open="{{ '/review/' ~ next_open.id if next_open else '/review' }}"></span>
+
+<div class="review">
+<nav class="queue" aria-label="Suggestions to review">
+  <div class="eyebrow">Queue</div>
+  {% for s in queue %}{% set st = statuses[s.id] %}{% set b = s.body %}
+    <a href="/review/{{ s.id }}" class="{{ 'on' if current and s.id == current.id else '' }} {{ 'done' if st != 'open' else '' }}"
+       {% if current and s.id == current.id %}aria-current="true"{% endif %}>
+      <span class="st {{ st }}" title="{{ st | human }}"></span>
+      <span class="q-text"><b>{% if b.kind == 'existing_thesis' %}{{ b.pillar_id }} · {{ b.stance | human }}{% else %}{{ b.ticker }} · {{ b.kind | human }}{% endif %}</b>
+        <span class="muted">{{ s.rationale }}</span></span>
+    </a>
+  {% else %}<p class="small muted">No suggestions today.</p>{% endfor %}
+</nav>
+
+<section>
+{% if current %}
+  {% include "_suggestion_detail.html" %}
+{% else %}
+  <div class="card done-card">
+    <div class="ic-round" style="margin:0 auto 12px;width:40px;height:40px">{{ icon('check-circle') }}</div>
+    <h2>{{ 'Every suggestion is decided' if total else 'No suggestions today' }}</h2>
+    <p class="muted">{% if total %}{{ decided }} of {{ total }} decided this session. Accepted changes are on each company's page; undo reverses the last one.{% else %}Nothing in today's email bears on the book.{% endif %}</p>
+    <p><a class="btn" href="/book">{{ icon('book') }}Open the book</a> <a class="btn" href="/attention">{{ icon('clock') }}Needs attention</a></p>
+  </div>
+{% endif %}
+</section>
+</div>
+{% endblock %}

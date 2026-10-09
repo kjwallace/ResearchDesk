@@ -49,11 +49,11 @@
 {%- endmacro %}
 
 {% macro status_pill(status) -%}
-  <span class="pill dot {{ status }}">{{ status }}</span>
+  <span class="pill dot {{ status }}">{{ status | human }}</span>
 {%- endmacro %}
 
 {% macro label_pill(label) -%}
-  {%- if label %}<span class="pill {{ label }}">{{ label }}</span>{% else %}<span class="pill quarantine">quarantined</span>{% endif -%}
+  {%- if label %}<span class="pill {{ label }}">{{ label | human }}</span>{% else %}<span class="pill quarantine">Quarantined</span>{% endif -%}
 {%- endmacro %}
 
 {# A row's link to the detail pane: a plain link without JS, an in-place load with it. #}
@@ -70,7 +70,7 @@
   {%- set items = probs.items() | sort(attribute='1', reverse=True) | list -%}
   <div class="bars">
   {% for k, p in (items[:limit] if limit else items) %}
-    <span class="name {{ 'top' if loop.first else '' }}">{{ k }}</span>{{ bar(p, '' if loop.first else 'muted') }}<span class="val">{{ p | num(2) }}</span>
+    <span class="name {{ 'top' if loop.first else '' }}">{{ k | human }}</span>{{ bar(p, '' if loop.first else 'muted') }}<span class="val">{{ p | num(2) }}</span>
   {% endfor %}
   </div>
 {%- endmacro %}
@@ -105,19 +105,18 @@
     <div class="main">
       <div class="top">
         <span class="who">{% if b.kind == 'existing_thesis' %}{{ b.pillar_id }}{% elif b.kind == 'new_thesis' %}New thesis · {{ b.ticker }}{% else %}Conviction review · {{ b.ticker }}{% endif %}</span>
-        <span class="when">{% if th %}{{ th.stance }} · {{ sizes.get(t) }} bps{% endif %}</span>
+        <span class="when">{% if th %}{{ th.stance | human }} · {{ sizes.get(t) }} bps{% endif %}</span>
       </div>
       <div class="subj clamp">{{ pane_link('/suggestion/' ~ s.id, s.rationale if b.kind != 'conviction_review' else 'Accepted contradicting evidence on ' ~ b.pillar_id ~ ' reached the review threshold.') }}</div>
       <div class="tags">
         {% if b.kind == 'existing_thesis' %}
-          <span class="pill dot {{ b.stance }}">{{ b.stance }}</span>
-          <span class="tag">strength {{ b.strength }}</span>
-          {% if b.wrong_if_met %}<span class="pill contradicts">"wrong if" met</span>{% endif %}
-          {% if b.assumptions %}<span class="tag">{{ icon('target') }}stated figure</span>{% endif %}
-        {% elif b.kind == 'new_thesis' %}<span class="tag info">candidate pillar</span>{% endif %}
-        {% if s.second_look %}<span class="pill second">second look</span>{% endif %}
+          <span class="pill dot {{ b.stance }}">{{ b.stance | human }}</span>
+          <span class="tag">Strength {{ b.strength }}</span>
+          {% if b.assumptions %}<span class="tag">{{ icon('target') }}Stated figure</span>{% endif %}
+        {% elif b.kind == 'new_thesis' %}<span class="tag info">Candidate pillar</span>{% endif %}
+        {% if s.second_look %}<span class="pill second">Second look</span>{% endif %}
         {% if st != 'open' %}{{ status_pill(st) }}{% endif %}
-        {% if eids %}<span class="tag soft above" title="Linked emails">{{ icon('mail') }}{% for eid in eids %}<a href="/email/{{ eid }}" hx-get="/email/{{ eid }}" hx-select="#detail" hx-target="#pane" data-pane>{{ loop.index }}</a>{% if not loop.last %},{% endif %}{% endfor %}</span>{% endif %}
+        {% if eids %}<span class="tag soft above" title="Linked emails">{{ icon('mail') }}<span>Email{{ '' if eids | length == 1 else 's' }}&nbsp;{% for eid in eids %}<a href="/email/{{ eid }}" hx-get="/email/{{ eid }}" hx-select="#detail" hx-target="#pane" data-pane>{{ loop.index }}</a>{% if not loop.last %}, {% endif %}{% endfor %}</span></span>{% endif %}
       </div>
     </div>
   </div>
@@ -145,11 +144,10 @@
     {% if b.kind == 'existing_thesis' %}
       {%- set p = v.pillar(b.pillar_id) -%}
       <h3><a href="/suggestion/{{ s.id }}">{{ b.pillar_id }}</a>
-        <span class="pill dot {{ b.stance }}">{{ b.stance }}</span>
-        <span class="tag">strength {{ b.strength }}</span>
-        {% if b.wrong_if_met %}<span class="pill contradicts">"wrong if" met</span>{% endif %}
-        {% if s.second_look %}<span class="pill second">second look</span>{% endif %}
-        <span class="muted small">{{ v.thesis(v.ticker_of(s)).stance }} · {{ sizes.get(v.ticker_of(s)) }} bps</span></h3>
+        <span class="pill dot {{ b.stance }}">{{ b.stance | human }}</span>
+        <span class="tag">Strength {{ b.strength }}</span>
+        {% if s.second_look %}<span class="pill second">Second look</span>{% endif %}
+        <span class="muted small">{{ v.thesis(v.ticker_of(s)).stance | human }} · {{ sizes.get(v.ticker_of(s)) }} bps</span></h3>
       {% if p %}<div class="card-meta">{{ p.statement }}</div>{% endif %}
       {% for a in b.assumptions %}
         <div class="small">Stated {{ a.driver_id }}: <b>{{ a.stated_value | num }}</b>
@@ -158,9 +156,8 @@
       {% endfor %}
     {% elif b.kind == 'new_thesis' %}
       <h3><a href="/suggestion/{{ s.id }}">New thesis for {{ b.ticker }}</a>
-        {% if s.second_look %}<span class="pill second">second look</span>{% endif %}</h3>
+        {% if s.second_look %}<span class="pill second">Second look</span>{% endif %}</h3>
       <div>{{ b.statement }}</div>
-      <div class="card-meta">Wrong if: {{ b.wrong_if }}</div>
     {% else %}
       <h3><a href="/suggestion/{{ s.id }}">Conviction review: {{ b.ticker }}</a></h3>
       <div class="small">Accepted contradicting evidence on {{ b.pillar_id }} reached the review threshold.</div>
@@ -175,7 +172,7 @@
 
 {% macro projection_table(projections) -%}
   <div class="table-wrap"><table>
-    <thead><tr><th></th>{% for k in projections %}<th class="num">{{ k }}</th>{% endfor %}</tr></thead>
+    <thead><tr><th></th>{% for k in projections %}<th class="num">{{ k | human }}</th>{% endfor %}</tr></thead>
     <tr><td>Revenue ($bn)</td>{% for p in projections.values() %}<td class="num">{{ p.revenue_usd_bn | num }}</td>{% endfor %}</tr>
     <tr><td>Operating income ($bn)</td>{% for p in projections.values() %}<td class="num">{{ p.operating_income_usd_bn | num }}</td>{% endfor %}</tr>
     <tr><td>EPS ($)</td>{% for p in projections.values() %}<td class="num eps">{{ p.eps | num(2) }}</td>{% endfor %}</tr>

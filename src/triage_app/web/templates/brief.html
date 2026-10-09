@@ -1,20 +1,13 @@
 {% extends "base.html" %}
-{% from "macros.html" import icon, stat, suggestion_row, email_row, email_link, label_pill, pane_link %}
+{% from "macros.html" import icon, suggestion_row, email_row, email_link, label_pill, pane_link %}
 {% block title %}Brief {{ brief.day }}{% endblock %}
 {% block content %}
-{%- set n_sugg = (thesis_changes + new_theses + worth_watching) | map('length') | sum -%}
 {%- set first = (thesis_changes + new_theses + worth_watching) | first -%}
 {%- if reviews %}{% set first_href = '/suggestion/' ~ reviews[0].id %}
 {%- elif first %}{% set first_href = '/suggestion/' ~ first[0].id %}
 {%- elif brief.needs_attention %}{% set first_href = '/email/' ~ brief.needs_attention[0] %}
 {%- else %}{% set first_href = '' %}{% endif -%}
 
-<section class="stats" aria-label="Today in numbers">
-  {{ stat('Inbox', v.data.inbox | length, 'Emails received, ' ~ brief.day.strftime('%a %b %d'), 'mail', '/inbox') }}
-  {{ stat('Thesis suggestions', n_sugg, 'Evidence for you to decide on', 'trend') }}
-  {{ stat('Needs your attention', brief.needs_attention | length, 'A person is asked to act', 'clock') }}
-  {{ stat('Stopped at the gate', brief.audit | length, (brief.quarantined | length) ~ ' quarantined · each with a reason', 'shield', '/audit') }}
-</section>
 
 {% if alerts %}
 <div class="alerts" id="alerts">
@@ -22,9 +15,9 @@
   <ul>
   {% for a in alerts %}
     <li>
-    {% if a.kind == 'human_attention' %}<span class="pill attention">needs a person</span> {{ email_link(v, a.ref_id) }}
-    {% elif a.kind == 'wrong_if_met' %}<span class="pill contradicts">"wrong if" test met</span> <a href="/suggestion/{{ a.ref_id }}">{{ a.ref_id }}</a>
-    {% else %}<span class="pill second">conviction review</span> <a href="/suggestion/{{ a.ref_id }}">{{ a.ref_id }}</a>{% endif %}
+    {% if a.kind == 'human_attention' %}<span class="pill attention">Needs a person</span> {{ email_link(v, a.ref_id) }}
+    {% elif a.kind == 'wrong_if_met' %}<span class="pill contradicts">Pillar at risk</span> <a href="/suggestion/{{ a.ref_id }}">{{ a.ref_id }}</a>
+    {% else %}<span class="pill second">Conviction review</span> <a href="/suggestion/{{ a.ref_id }}">{{ a.ref_id }}</a>{% endif %}
     </li>
   {% endfor %}
   </ul>
@@ -35,8 +28,8 @@
 <section aria-label="Brief items" data-list>
   <div class="subtabs">
     <span class="on">Morning brief · {{ brief.day.strftime('%a %b %d, %Y') }}</span>
+    <a href="/review">Review one by one {{ icon('right') }}</a>
     <a href="/audit">Audit <span class="badge">{{ brief.audit | length }}</span></a>
-    <a href="/inbox">Inbox <span class="badge">{{ v.data.inbox | length }}</span></a>
   </div>
   <div class="list">
     <div class="list-head"><span>Today's brief</span><span class="muted">Ordered by position size, then strength</span></div>
@@ -66,13 +59,14 @@
     </details>
 
     <details class="group" open><summary>{{ icon('chev') }}<h2>Needs your attention</h2><span class="badge">{{ brief.needs_attention | length }}</span></summary>
+      {% if brief.needs_attention %}<div class="pair-note" style="color:var(--ink-2);background:var(--sunken)"><a href="/attention">Open them by deadline, with who is asking, in Needs attention →</a></div>{% endif %}
       {% for eid in brief.needs_attention %}
         {% set e = v.email(eid) %}{% set n = v.data.notes.get(eid) %}{% set t = v.data.triage.get(eid) %}
         {% if e %}
         {% call email_row(v, e, snippet=n.summary if n else '') %}
-          {% if n %}<span class="tag warn">{{ n.action }}</span>
+          {% if n %}<span class="tag warn">{{ n.action | human }}</span>
             {% if n.deadline %}<span class="tag">{{ icon('clock') }}{{ n.deadline.strftime('%b %d, %H:%M') }}</span>{% endif %}{% endif %}
-          {% if t %}<span class="tag soft" title="Jev's human-attention probability">attention {{ t.human_attention | num(2) }}</span>{% endif %}
+          {% if t %}<span class="tag soft" title="Jev's human-attention probability">Attention {{ t.human_attention | num(2) }}</span>{% endif %}
         {% endcall %}
         {% endif %}
       {% else %}<div class="empty">Nothing needs a person today.</div>{% endfor %}
@@ -82,7 +76,7 @@
       {% for eid in brief.relevant_unlinked %}
         {% set e = v.email(eid) %}
         {% if e %}
-        {% call email_row(v, e, snippet=v.data.no_change_reason(eid) or 'no change reason recorded') %}
+        {% call email_row(v, e, snippet=(v.data.no_change_reason(eid) or 'No change reason recorded') | prose) %}
           {{ label_pill(v.result(eid).triage) }}
           {% for t in v.result(eid).affected_tickers %}<span class="tag">{{ t }}</span>{% endfor %}
         {% endcall %}
@@ -95,7 +89,7 @@
       <div class="pair-note" style="color:var(--muted);background:var(--sunken)">From the live route and "this mattered".</div>
       {% for s in extras %}{{ suggestion_row(v, s, sizes) }}{% endfor %}
       {% for eid, n in v.sess.notes.items() %}{% set e = v.email(eid) %}
-        {% if e %}{% call email_row(v, e, snippet=n.summary) %}<span class="tag warn">{{ n.action }}</span>{% endcall %}{% endif %}
+        {% if e %}{% call email_row(v, e, snippet=n.summary) %}<span class="tag warn">{{ n.action | human }}</span>{% endcall %}{% endif %}
       {% endfor %}
     </details>
     {% endif %}
@@ -104,8 +98,8 @@
       <span><a href="/audit">Audit view: {{ brief.audit | length }} emails not in the brief, and {{ brief.quarantined | length }} quarantined →</a></span>
     </div>
   </div>
-  <p class="xs muted" style="margin-top:12px">Labels today:
-    {% for k, n in brief.counts.items() %}{{ k | replace('_', ' ') }} <b>{{ n }}</b>{% if not loop.last %} · {% endif %}{% endfor %}</p>
+  <p class="xs muted" style="margin-top:12px">Today's counts:
+    {% for k, n in brief.counts.items() %}{{ k | human }} <b>{{ n }}</b>{% if not loop.last %} · {% endif %}{% endfor %}</p>
 </section>
 
 <aside class="pane" id="pane" hx-disinherit="*" aria-label="Selected item" aria-live="polite"

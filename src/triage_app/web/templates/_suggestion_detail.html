@@ -1,0 +1,114 @@
+{% from "macros.html" import actions, email_link, icon, avatar, ticker_mark, status_pill, bar, label_pill %}
+{% set b = s.body %}
+{% set th = v.thesis(ticker) %}
+<div id="detail" class="detail sugg">
+<section class="sugg-main">
+  <div class="pane-head">{{ icon('zap') }}<span>Suggestion</span> <span class="mono-id">{{ s.id }}</span><span class="grow"></span>
+    {{ status_pill(status) }}<a class="btn" href="/suggestion/{{ s.id }}" title="Open on its own page">{{ icon('eye') }}Full page</a></div>
+
+  {% if b.kind == 'existing_thesis' %}
+    {% set p = v.pillar(b.pillar_id) %}
+    <h2>{{ b.stance | human }} pillar <span class="mono-id">{{ b.pillar_id }}</span></h2>
+  {% elif b.kind == 'new_thesis' %}
+    <h2>New thesis candidate for {{ b.ticker }}</h2>
+  {% else %}
+    <h2>Conviction review for {{ b.ticker }}</h2>
+  {% endif %}
+
+  <div class="byline">{{ ticker_mark(ticker) }}
+    <div><div class="who"><a href="/company/{{ ticker }}">{{ ticker }}</a>{% if th %} · {{ th.stance | human }} · {{ th.size_bps }} bps{% endif %}</div>
+      <div class="meta">{% if th %}Conviction {{ th.conviction }} of 5 · {% endif %}{{ linked | length }} linked email{{ '' if linked | length == 1 else 's' }}</div></div>
+  </div>
+
+  {% if b.kind == 'existing_thesis' %}
+    {% if p %}<p class="lede">{{ p.statement }}</p>{% endif %}
+  {% elif b.kind == 'new_thesis' %}
+    <p class="lede">{{ b.statement }}</p>
+  {% else %}
+    <p class="lede">Accepted contradicting evidence on {{ b.pillar_id }} reached the review threshold.
+      Current conviction: <b>{{ th.conviction }}</b> of 5. Pick a value, or dismiss the review. The app never proposes one.</p>
+  {% endif %}
+
+  <div class="section">
+    <div class="eyebrow">Suggested change <span class="grow"></span><span class="chip">Recommendation only</span></div>
+    <dl class="kv">
+    {% if b.kind == 'existing_thesis' %}
+      <dt>Stance</dt><dd><span class="pill dot {{ b.stance }}">{{ b.stance | human }}</span></dd>
+      <dt>Strength</dt><dd class="big-num">{{ b.strength }} of 3</dd>
+    {% elif b.kind == 'new_thesis' %}
+      <dt>Linked drivers</dt><dd>{% for d in b.driver_ids %}<span class="mono-id">{{ d }}</span>{% else %}None{% endfor %}</dd>
+    {% else %}
+      <dt>Pillar</dt><dd><span class="mono-id">{{ b.pillar_id }}</span></dd>
+    {% endif %}
+      {% if s.second_look %}<dt>Second look</dt><dd><span class="pill second">Yes: no linked email is labeled as signal</span></dd>{% endif %}
+    </dl>
+    {% if b.kind == 'existing_thesis' %}<div class="bar lg"><span style="width: {{ (b.strength / 3 * 100) | round }}%"></span></div>{% endif %}
+  </div>
+
+  {% if b.kind != 'conviction_review' %}
+  <div class="callout">
+    <div class="eyebrow">{{ icon('zap') }}Why the model suggests it</div>
+    <p>{{ s.rationale }}</p>
+  </div>
+  {% endif %}
+  {% if s.status == 'rejected' %}<div class="callout bad"><div class="eyebrow">{{ icon('x') }}Rejected in validation</div><p>{{ s.reject_reason | prose }}</p></div>{% endif %}
+
+  {{ actions(v, s, status) }}
+
+  {% if b.kind == 'existing_thesis' and status == 'open' %}
+  <details class="more"><summary>Edit strength, then accept</summary>
+    <form class="actions" method="post" action="/suggestion/{{ s.id }}/edit" hx-post="/suggestion/{{ s.id }}/edit" hx-target="#actions-{{ s.id | replace('.', '-') }}" hx-swap="outerHTML">
+      <label class="small">Strength <select name="strength">{% for n in [1, 2, 3] %}<option value="{{ n }}" {% if n == b.strength %}selected{% endif %}>{{ n }}</option>{% endfor %}</select></label>
+      <button class="primary">Accept with this strength</button>
+    </form></details>
+  {% elif b.kind == 'new_thesis' and status == 'open' %}
+  <details class="more"><summary>Edit wording, then accept</summary>
+    <form method="post" action="/suggestion/{{ s.id }}/edit" hx-post="/suggestion/{{ s.id }}/edit" hx-target="#actions-{{ s.id | replace('.', '-') }}" hx-swap="outerHTML">
+      <label class="field">Statement<textarea name="statement" rows="3">{{ b.statement }}</textarea></label>
+      <button class="primary">Accept as edited</button>
+    </form></details>
+  {% elif b.kind == 'conviction_review' and status == 'open' %}
+    <form class="actions" style="margin-top:10px" method="post" action="/conviction/{{ b.ticker }}" hx-post="/conviction/{{ b.ticker }}" hx-target="#flash">
+      <input type="hidden" name="suggestion_id" value="{{ s.id }}">
+      <label class="small">Conviction <select name="conviction" required><option value="" disabled selected>Pick</option>{% for n in range(1, 6) %}<option value="{{ n }}">{{ n }}</option>{% endfor %}</select></label>
+      <button class="primary">Set conviction</button>
+    </form>
+  {% endif %}
+
+  {% if b.kind == 'existing_thesis' and b.assumptions %}
+  <div class="section">
+    <div class="eyebrow">Linked assumptions</div>
+    {% for a in b.assumptions %}{% include "fragments/assumption.html" %}{% endfor %}
+  </div>
+  {% endif %}
+
+  {% if siblings %}<div class="callout warn"><div class="eyebrow">{{ icon('repeat') }}Opposite stance on the same pillar</div>
+    <p>{% for x in siblings %}<a href="/suggestion/{{ x.id }}">{{ x.id }}</a>{% endfor %}. Neither is preselected.</p></div>{% endif %}
+
+  {% if b.kind != 'conviction_review' %}
+  <div class="section" id="verify">
+    <div class="eyebrow">Verify <span class="grow"></span>
+      <form method="post" action="/suggestion/{{ s.id }}/verify" hx-post="/suggestion/{{ s.id }}/verify" hx-target="#verify-out">
+        <button>{{ icon('check-circle') }}Verify against filings and the change log</button></form></div>
+    <div id="verify-out">{% if verify %}{% include "fragments/verify.html" %}{% else %}<p class="small muted">An agent checks the claim against the saved annual reports and this session's change log, and returns a cited verdict. Uses one live run.</p>{% endif %}</div>
+  </div>
+  {% endif %}
+</section>
+
+<section class="sugg-emails">
+  <div class="eyebrow">{{ icon('link') }}Linked emails <span class="badge">{{ linked | length }}</span></div>
+  {% for eid, quotes in linked.items() %}
+    {% set e = v.email(eid) %}
+    <article class="panel">
+      {% if e %}<div class="byline" style="margin-bottom:8px">{{ avatar(e.sender) }}
+        <div><div class="who">{{ e.sender | person }}</div><div class="meta">{{ e.sender | org }} · {{ e.received_at | clock }}</div></div></div>{% endif %}
+      <h3>{{ email_link(v, eid) }}</h3>
+      {% if e and not v.quarantined(eid) %}
+        {% for q in quotes %}<blockquote>{{ q }}</blockquote>{% endfor %}
+        <details class="more"><summary>Whole email, quotes highlighted</summary>
+          <div class="body">{{ highlight(e.body, quotes) }}</div></details>
+      {% endif %}
+    </article>
+  {% else %}<p class="muted">No linked emails.</p>{% endfor %}
+</section>
+</div>

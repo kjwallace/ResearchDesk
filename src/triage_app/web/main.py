@@ -20,7 +20,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, Form, HTTPException, Request
+from fastapi import FastAPI, Form, HTTPException, Query, Request
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -31,13 +31,13 @@ from triage_app import config, thresholds
 from triage_app.criteria import CriteriaError, parse_file, read_files
 from triage_app.pipeline import deliver
 from triage_app.schema import (
-    Brief, CompanyModel, ConvictionReview, Email, EmailResult, ExistingThesis, NewThesis,
-    Suggestion, Thesis,
+    AttentionNote, Brief, CompanyModel, ConvictionReview, Email, EmailResult, ExistingThesis, NewThesis,
+    Suggestion, Thesis, TriageRecord,
 )
 from triage_app.state import apply
 from triage_app.state.compute import Projection, compute, driver_values, project
 from triage_app.state.fold import BookState, Seed, fold, load_seed, ticker_of
-from triage_app.web import runner
+from triage_app.web import labels, runner
 from triage_app.web.data import DataStore, DayData, data_dir_from_env, highlight, safe_sections
 from triage_app.web.session import SESSION_KEY, GlobalRuns, SessionState, SessionStore
 
@@ -124,6 +124,20 @@ class View:
         return out[:thresholds.ALERTS_PER_DAY]
 
 
+@dataclass
+class AttentionItem:
+    """One email that needs a person, with what the Needs attention screen shows about it."""
+
+    email: Email
+    note: AttentionNote | None
+    result: EmailResult | None
+    triage: TriageRecord | None
+    deadline: datetime | None
+    kind: str          # meeting, event or other (labels.REQUEST_KINDS)
+    bucket: str        # today, tomorrow, later or none (labels.DUE_BUCKETS)
+    probability: float  # Jev's human-attention probability
+
+
 def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory | None = None,
                presets_dir: Path | None = None, emails_path: Path | None = None) -> FastAPI:
     app = FastAPI(title="Email triage (synthetic)", docs_url=None, redoc_url=None, openapi_url=None)
@@ -137,6 +151,9 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
                                  ASSET_V=_asset_version())
     templates.env.filters["num"] = lambda v, d=1: "" if v is None else f"{v:,.{d}f}"
     templates.env.filters["pct"] = lambda v: "n/a" if v is None else f"{v * 100:.1f}%"
+    templates.env.globals.update(labels=labels)
+    templates.env.filters.update(due=labels.due, human=labels.human, stage=labels.stage, measure=labels.measure,
+                                 sentence=labels.sentence, prose=labels.prose)
     templates.env.filters["clock"] = _clock
     templates.env.filters["initials"] = _initials
     templates.env.filters["person"] = lambda s: s.split(",")[0].strip()
@@ -189,10 +206,10 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
     def spend(v: View) -> str | None:
         """Take one live run from the session's and the process's hourly allowance; the reason when refused."""
         if v.sess.runs_left() <= 0:
-            return f"this session has used its {thresholds.LIVE_RUNS_PER_HOUR} live runs for the hour"
+            return f"This session has used its {thresholds.LIVE_RUNS_PER_HOUR} live runs for the hour."
         if not global_runs.take():
-            return (f"the app has used its {thresholds.LIVE_RUNS_PER_HOUR_GLOBAL} live runs for the hour "
-                    "across all visitors; try again later")
+            return (f"The app has used its {thresholds.LIVE_RUNS_PER_HOUR_GLOBAL} live runs for the hour "
+                    "across all visitors. Try again later.")
         v.sess.take_run()
         return None
 
@@ -213,7 +230,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
     def get_suggestion(v: View, sid: str) -> Suggestion:
         s = v.suggestions().get(sid)
         if s is None:
-            raise HTTPException(404, f"no suggestion {sid}")
+            raise HTTPException(404, f"There is no suggestion {sid}.")
         return s
 
     # ---------------- Pages ----------------
@@ -243,10 +260,8 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
             extras=extras, sizes={t.ticker: t.size_bps for t in v.state.theses.values()},
         )
 
-    @app.get("/suggestion/{sid}", response_class=HTMLResponse)
-    def suggestion_page(request: Request, sid: str) -> HTMLResponse:
-        v = view(request)
-        s = get_suggestion(v, sid)
+    def suggestion_context(v: View, s: Suggestion) -> dict[str, Any]:
+        """What the suggestion detail needs: status, the opposite stance, linked quotes, verify."""
         b = s.body
         siblings = []
         if isinstance(b, ExistingThesis):
@@ -255,16 +270,79 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         linked: dict[str, list[str]] = defaultdict(list)
         for x in v.sections(s):
             linked[x.email_id].append(x.quote)
-        return page(request, "suggestion.html", v, s=s, status=v.status(s), siblings=siblings,
-                    linked=dict(linked), verify=v.sess.verify.get(s.id),
-                    ticker=b.ticker if isinstance(b, (NewThesis, ConvictionReview)) else v.ticker_of(s))
+        return {"s": s, "status": v.status(s), "siblings": siblings, "linked": dict(linked),
+                "verify": v.sess.verify.get(s.id),
+                "ticker": b.ticker if isinstance(b, (NewThesis, ConvictionReview)) else v.ticker_of(s)}
+
+    @app.get("/suggestion/{sid}", response_class=HTMLResponse)
+    def suggestion_page(request: Request, sid: str) -> HTMLResponse:
+        v = view(request)
+        return page(request, "suggestion.html", v, **suggestion_context(v, get_suggestion(v, sid)))
+
+    def review_queue(v: View) -> list[Suggestion]:
+        """Every suggestion for the analyst, in brief order: conviction reviews, thesis changes,
+        new theses, worth watching, then what this session's live runs added."""
+        brief = brief_of(v)
+        sugg = v.suggestions()
+        ids = [r.id for r in v.reviews()] + brief.thesis_changes + brief.new_theses + brief.worth_watching
+        ids += [i for i in v.sess.suggestions if i not in ids]
+        return [sugg[i] for i in dict.fromkeys(ids) if i in sugg]
+
+    def review_page(request: Request, v: View, current: Suggestion | None) -> HTMLResponse:
+        queue = review_queue(v)
+        statuses = {s.id: v.status(s) for s in queue}
+        ctx: dict[str, Any] = suggestion_context(v, current) if current else {}
+        pos = next((i for i, s in enumerate(queue) if current and s.id == current.id), -1)
+        after = queue[pos + 1:] + queue[:max(pos, 0)]
+        nxt = next((s for s in after if statuses[s.id] == "open" and (current is None or s.id != current.id)), None)
+        return page(request, "review.html", v, queue=queue, statuses=statuses, current=current,
+                    prev=queue[pos - 1] if pos > 0 else None,
+                    following=queue[pos + 1] if 0 <= pos < len(queue) - 1 else None, next_open=nxt,
+                    decided=sum(st != "open" for st in statuses.values()),
+                    sizes={t.ticker: t.size_bps for t in v.state.theses.values()}, **ctx)
+
+    @app.get("/review", response_class=HTMLResponse)
+    def review_start(request: Request) -> HTMLResponse:
+        """The first open suggestion in brief order, or the summary when every one is decided."""
+        v = view(request)
+        first = next((s for s in review_queue(v) if v.status(s) == "open"), None)
+        return review_page(request, v, first)
+
+    @app.get("/review/{sid}", response_class=HTMLResponse)
+    def review_item(request: Request, sid: str) -> HTMLResponse:
+        v = view(request)
+        return review_page(request, v, get_suggestion(v, sid))
+
+    @app.get("/book", response_class=HTMLResponse)
+    def book_page(request: Request) -> HTMLResponse:
+        """All five positions on one screen: stance, size, conviction, projections against
+        consensus, accepted evidence and the open suggestions on each pillar."""
+        v = view(request)
+        open_by_pillar: dict[str, list[Suggestion]] = defaultdict(list)
+        new_by_ticker: dict[str, list[Suggestion]] = defaultdict(list)
+        for s in review_queue(v):
+            if v.status(s) != "open":
+                continue
+            if isinstance(s.body, ExistingThesis):
+                open_by_pillar[s.body.pillar_id].append(s)
+            elif isinstance(s.body, (NewThesis, ConvictionReview)):
+                new_by_ticker[s.body.ticker].append(s)
+        rows = []
+        for ticker in config.TICKERS:
+            thesis, model = v.thesis(ticker), v.model(ticker)
+            if thesis is None or model is None:
+                continue
+            rows.append({"ticker": ticker, "thesis": thesis, "model": model, "proj": compute(model),
+                         "open": sum(len(open_by_pillar[p.id]) for p in thesis.pillars) + len(new_by_ticker[ticker])})
+        return page(request, "book.html", v, rows=rows, open_by_pillar=dict(open_by_pillar),
+                    new_by_ticker=dict(new_by_ticker), changes=len(v.sess.log))
 
     @app.get("/company/{ticker}", response_class=HTMLResponse)
     def company_page(request: Request, ticker: str) -> HTMLResponse:
         v = view(request)
         thesis, model = v.thesis(ticker), v.model(ticker)
         if thesis is None or model is None:
-            raise HTTPException(404, f"no company {ticker}")
+            raise HTTPException(404, f"There is no company {ticker} in the book.")
         seed_model = next(m for m in seed.models if m.ticker == ticker)
         history = [e for e in v.sess.log if e.item_id == ticker or e.item_id.startswith(f"{ticker}.")]
         mine = [s for s in v.suggestions().values() if v.ticker_of(s) == ticker]
@@ -285,7 +363,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
     def criteria_label(request: Request, label: str) -> HTMLResponse:
         v = view(request)
         if label not in config.CRITERIA_FILES:
-            raise HTTPException(404, f"no criteria file {label}")
+            raise HTTPException(404, f"There is no criteria file named {label}.")
         parsed: Any = None
         error = None
         try:
@@ -317,6 +395,34 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         return page(request, "audit.html", v, groups=dict(groups), rejected=dict(rejected),
                     quarantined=quarantined, by_earlier=dict(by_earlier))
 
+    @app.get("/attention", response_class=HTMLResponse)
+    def attention_page(request: Request, view_mode: str = Query("list", alias="view")) -> HTMLResponse:
+        """The brief's "needs your attention" list on its own screen: who is asking, what they
+        offer, when a reply is due and what it bears on. Read-only; it adds no action."""
+        v = view(request)
+        brief = brief_of(v)
+        ids = list(brief.needs_attention) + [e for e in v.sess.notes if e not in brief.needs_attention]
+        items = []
+        for eid in ids:
+            email = v.email(eid)
+            if email is None or v.quarantined(eid):
+                continue
+            note = v.data.notes.get(eid) or v.sess.notes.get(eid)
+            triage = v.data.triage.get(eid)
+            deadline = note.deadline.replace(tzinfo=None) if note and note.deadline else None
+            items.append(AttentionItem(
+                email=email, note=note, result=v.result(eid), triage=triage, deadline=deadline,
+                kind=labels.request_kind(triage.email_type if triage else None),
+                bucket=labels.due_bucket(deadline, brief.day),
+                probability=triage.human_attention if triage else 0.0,
+            ))
+        # Timeline order: soonest deadline first, then the most probable request.
+        items.sort(key=lambda i: (i.deadline is None, i.deadline or datetime.max, -i.probability))
+        # Calendar columns: the brief's day, then every day a reply is due, in order.
+        days = sorted({brief.day} | {i.deadline.date() for i in items if i.deadline})
+        return page(request, "attention.html", v, brief=brief, items=items, days=days,
+                    mode="calendar" if view_mode == "calendar" else "list")
+
     @app.get("/inbox", response_class=HTMLResponse)
     def inbox_page(request: Request) -> HTMLResponse:
         v = view(request)
@@ -327,7 +433,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         v = view(request)
         email = v.email(email_id)
         if email is None:
-            raise HTTPException(404, f"no email {email_id}")
+            raise HTTPException(404, f"There is no email {email_id}.")
         quarantined = v.quarantined(email_id)
         quotes: list[str] = [] if quarantined else v.data.quotes_for(email_id)
         if not quarantined:
@@ -366,7 +472,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         spent = False
         if preset:
             if preset not in presets:
-                return answer(None, f"unknown preset {preset}", 404)
+                return answer(None, f"There is no preset {preset}.", 404)
             email = presets[preset]
             # A preset with a warm cache replays its results and is free; a cold one spends a run.
             if preset not in warm_presets:
@@ -375,11 +481,11 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
                 spent = True
         else:
             if not body.strip():
-                return answer(None, "paste an email body, or pick a preset", 422)
+                return answer(None, "Paste an email body, or pick a preset.", 422)
             total = len(sender) + len(sender_email) + len(subject) + len(body)
             if total > thresholds.LIVE_INPUT_CAP_CHARS:
-                return answer(None, f"the email is {total:,} characters; the cap is "
-                                    f"{thresholds.LIVE_INPUT_CAP_CHARS:,}", 413)
+                return answer(None, f"The email is {total:,} characters; the cap is "
+                                    f"{thresholds.LIVE_INPUT_CAP_CHARS:,}.", 413)
             if (refused := spend(v)) is not None:
                 return answer(None, refused, 429)
             spent = True
@@ -436,9 +542,9 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         if isinstance(s.body, ExistingThesis):
             if strength is not None:
                 if strength not in (1, 2, 3):
-                    return message(request, v, "strength must be 1, 2 or 3", ok=False, status_code=422)
+                    return message(request, v, "Strength must be 1, 2 or 3.", ok=False, status_code=422)
                 if v.all_monitor(s) and strength > 1:
-                    return message(request, v, "suggestions from monitor emails are capped at strength 1",
+                    return message(request, v, "Suggestions from monitor emails are capped at strength 1.",
                                    ok=False, status_code=422)
                 edits["strength"] = strength
         elif isinstance(s.body, NewThesis):
@@ -450,7 +556,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         v = view(request)
         s = get_suggestion(v, sid)
         if v.status(s) == "accepted":
-            return message(request, v, "already accepted; use undo to reverse it", ok=False, status_code=409)
+            return message(request, v, "Already accepted. Use Undo to reverse it.", ok=False, status_code=409)
         v.sess.dismissed.add(s.id)
         return fragment(request, "fragments/status.html", v, s=s, status="dismissed",
                         text="Dismissed; it stays visible in the company's history", raised=[])
@@ -499,7 +605,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
                          suggestion_id: str = Form("")) -> Response:
         v = view(request)
         if v.thesis(ticker) is None:
-            raise HTTPException(404, f"no company {ticker}")
+            raise HTTPException(404, f"There is no company {ticker} in the book.")
         try:
             entry = apply.set_conviction(seed, v.sess.log, ticker_of(ticker), conviction,
                                          suggestion_id=suggestion_id)
@@ -514,7 +620,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         v = view(request)
         email, result = v.data.emails.get(email_id), v.data.results.get(email_id)
         if email is None or result is None:
-            raise HTTPException(404, f"no email {email_id}")
+            raise HTTPException(404, f"There is no email {email_id}.")
         if result.gate == "quarantine":
             return message(request, v, "A quarantined email is held unsummarized and never sent to a model.",
                            ok=False, status_code=403)
@@ -528,7 +634,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         _join_session(v, email, trace, keep_email=False)
         n = len(trace.suggestions)
         v.sess.mattered[email_id] = (f"{n} suggestion{'s' if n != 1 else ''} added to your brief" if n
-                                     else "no suggestion")
+                                     else "No suggestion")
         return fragment(request, "fragments/trace.html", v, trace=trace, error=None,
                         runs_left=v.sess.runs_left())
 

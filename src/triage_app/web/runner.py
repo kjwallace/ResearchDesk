@@ -30,6 +30,10 @@ StepStatus = Literal["ok", "skipped", "unavailable", "failed"]
 ContextFactory = Callable[[Recorder], RunContext]
 
 
+def _count(n: int, noun: str) -> str:
+    return f"{n} {noun}{'' if n == 1 else 's'}"
+
+
 class NotAvailable(Exception):
     """The other package's function is not built yet."""
 
@@ -100,9 +104,9 @@ class _Runner:
             with self.rec.stage(name, self.trace.email_id):
                 value = fn()
         except NotImplementedError:
-            status, detail = "unavailable", "not available yet: this stage is not built"
+            status, detail = "unavailable", "Not available yet: this stage is not built"
         except Exception as e:  # noqa: BLE001  (shown by type only; see module docstring)
-            status, detail = "failed", f"failed ({type(e).__name__})"
+            status, detail = "failed", f"Failed ({type(e).__name__})"
         calls = self.rec.calls[first_call:]
         timing = self.rec.timings[-1].latency_ms if self.rec.timings else 0.0
         if status == "ok":
@@ -157,7 +161,7 @@ def run_live(email: Email, data: DayData, make_ctx: ContextFactory, seed: Seed, 
             return record
 
         red = r.step("redundancy", redundancy, lambda x: (
-            f"nearest {x.nearest} (content {x.content_similarity or 0:.2f}, subject {x.subject_score or 0:.2f})"
+            f"Nearest earlier email {x.nearest} (content {x.content_similarity or 0:.2f}, subject {x.subject_score or 0:.2f})"
             + ("; flagged as a possible repeat" if x.flagged else "") if x.nearest else "no earlier email"))
         if red is None:
             red = RedundancyRecord(email_id=email.email_id, nearest=None, content_similarity=None,
@@ -165,31 +169,31 @@ def run_live(email: Email, data: DayData, make_ctx: ContextFactory, seed: Seed, 
             trace.steps[-1].detail += "; treated as no repeat"
 
         trace.triage = r.step("classify", lambda: stage_fn("classify")(email, ctx),
-                              lambda t: f"top label {max(t.triage_probs, key=t.triage_probs.get)}")
+                              lambda t: f"Top label: {max(t.triage_probs, key=t.triage_probs.get)}")
         if trace.triage is None:
             for name in ("gate", "human_attention", "extract", "analyze", "validate", "merge"):
-                r.skip(name, "needs a classification")
+                r.skip(name, "Needs a classification")
             return trace
         triage = trace.triage
         trace.result = r.step("gate", lambda: stage_fn("gate")(triage, red, ctx.thresholds),
                               lambda x: x.reason)
         if trace.result is None:
             for name in ("human_attention", "extract", "analyze", "validate", "merge"):
-                r.skip(name, "needs a gate decision")
+                r.skip(name, "Needs a gate decision")
             return trace
         result = trace.result
         if result.gate == "quarantine":
             for name in ("human_attention", "extract", "analyze", "validate", "merge"):
-                r.skip(name, "quarantined: held unsummarized")
+                r.skip(name, "Quarantined: held unsummarized")
             return trace
         if result.human_attention:
             trace.note = r.step("human_attention", lambda: stage_fn("human_attention")(email, result, ctx),
-                                lambda n: f"note written; action {n.action}")
+                                lambda n: f"Note written; action: {n.action}")
         else:
-            r.skip("human_attention", "not flagged for attention")
+            r.skip("human_attention", "Not flagged for attention")
         if result.gate != "pass":
             for name in ("extract", "analyze", "validate", "merge"):
-                r.skip(name, "stopped at the gate")
+                r.skip(name, "Stopped at the gate")
             return trace
         _analyse(r, trace, email, result, earlier_email(red, data), ctx, seed, log)
     return trace
@@ -232,24 +236,24 @@ def folded_seed(seed: Seed, log: list[LogEntry]) -> Seed:
 def _analyse(r: _Runner, trace: Trace, email: Email, result: EmailResult, earlier: Email | None,
              ctx: RunContext, seed: Seed, log: list[LogEntry]) -> None:
     claims = r.step("extract", lambda: stage_fn("extract")(email, result, earlier, ctx),
-                    lambda cs: f"{len(cs)} claims")
+                    lambda cs: _count(len(cs), "claim"))
     if claims is None:
         for name in ("analyze", "validate", "merge"):
-            r.skip(name, "needs claims")
+            r.skip(name, "Needs claims")
         return
     trace.claims = claims
     book = fold(seed, log)
     current = folded_seed(seed, log)
     out = r.step("analyze", lambda: stage_fn("analyze")(email.email_id, claims, result, ctx, book=book),
-                 lambda o: f"{len(o[1])} suggestions" if o[1] else (o[0].no_change_reason or "no suggestion"))
+                 lambda o: _count(len(o[1]), "suggestion") if o[1] else (o[0].no_change_reason or "No suggestion"))
     if out is None:
         for name in ("validate", "merge"):
-            r.skip(name, "needs the analysis")
+            r.skip(name, "Needs the analysis")
         return
     trace.analysis, raw = out
     if not raw:
         for name in ("validate", "merge"):
-            r.skip(name, "no suggestions to check")
+            r.skip(name, "No suggestions to check")
         return
 
     def validate() -> list[Suggestion]:
@@ -261,14 +265,14 @@ def _analyse(r: _Runner, trace: Trace, email: Email, result: EmailResult, earlie
                      lambda xs: f"{sum(s.status == 'open' for s in xs)} valid, "
                                 f"{sum(s.status == 'rejected' for s in xs)} rejected")
     if checked is None:
-        r.skip("merge", "needs validated suggestions")
+        r.skip("merge", "Needs validated suggestions")
         return
     trace.rejected = [s for s in checked if s.status == "rejected"]
     valid = [s for s in checked if s.status == "open"]
     if not valid:
-        r.skip("merge", "all suggestions rejected in validation")
+        r.skip("merge", "All suggestions rejected in validation")
         return
-    merged = r.step("merge", lambda: stage_fn("merge")(valid, ctx, [result], current), lambda xs: f"{len(xs)} merged")
+    merged = r.step("merge", lambda: stage_fn("merge")(valid, ctx, [result], current), lambda xs: f"{len(xs)} after merging")
     trace.suggestions = merged or []
 
 

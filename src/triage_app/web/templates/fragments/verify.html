@@ -1,5 +1,5 @@
 <div class="callout {{ 'plain' if verify.verdict == 'not_found' else ('bad' if verify.verdict == 'contradicted' else '') }}">
-  <div class="eyebrow"><span class="pill {{ 'ok' if verify.verdict == 'confirmed' else ('failed' if verify.verdict == 'contradicted' else 'skipped') }}">{{ verify.verdict | replace('_', ' ') }}</span></div>
+  <div class="eyebrow"><span class="pill {{ 'ok' if verify.verdict == 'confirmed' else ('failed' if verify.verdict == 'contradicted' else 'skipped') }}">{{ verify.verdict | human }}</span></div>
   <p>{{ verify.explanation }}</p>
   {% for src in verify.sources %}<blockquote><span class="muted mono">{{ src.source }}</span><br>{{ src.quote }}</blockquote>{% endfor %}
 </div>

@@ -20,7 +20,7 @@
   <div class="list" style="margin-top:12px">
     <div class="list-head"><span>Not in the brief</span><span class="muted"><span data-shown>{{ total }}</span> shown</span></div>
   {% for label, rows in groups.items() %}
-    <details class="group" {% if loop.first %}open{% endif %}><summary>{{ icon('chev') }}<h2>{{ label }}</h2><span class="badge">{{ rows | length }}</span></summary>
+    <details class="group" {% if loop.first %}open{% endif %}><summary>{{ icon('chev') }}<h2>{{ label | human }}</h2><span class="badge">{{ rows | length }}</span></summary>
     {% for r in rows %}
       {% set t = v.data.triage.get(r.email_id) %}
       {% set red = v.data.redundancy.get(r.email_id) %}
@@ -32,19 +32,19 @@
           <div class="top"><span class="who">{{ e.sender | person if e else r.email_id }}</span>
             <span class="when">{{ e.received_at | clock if e else '' }}</span></div>
           <div class="subj">{{ pane_link('/email/' ~ r.email_id, e.subject if e else r.email_id) }}</div>
-          <div class="tags">{{ label_pill(r.triage) }} <span class="pill {{ r.gate }}">{{ r.gate }}</span>
+          <div class="tags">{{ label_pill(r.triage) }} <span class="pill {{ r.gate }}">{{ r.gate | human }}</span>
             {% for tk in r.affected_tickers %}<span class="tag">{{ tk }}</span>{% endfor %}</div>
-          <div class="extra small mono" style="color:var(--ink-2)">{{ r.reason }}</div>
-          {% if t %}<div class="xs muted" style="margin-top:4px">Jev: {% for k, p in t.triage_probs.items() %}{{ k }} {{ p | num(2) }}{% if not loop.last %}, {% endif %}{% endfor %}
-            · human_attention {{ t.human_attention | num(2) }} · email_type {{ t.email_type }} · criteria {{ t.criteria_version }}</div>{% endif %}
+          <div class="extra small" style="color:var(--ink-2)">{{ r.reason | prose }}</div>
+          {% if t %}<div class="xs muted" style="margin-top:4px">Jev: {% for k, p in t.triage_probs | dictsort(by='value', reverse=True) %}{{ k | human }} {{ p | num(2) }}{% if not loop.last %}, {% endif %}{% endfor %}
+            · Needs a person {{ t.human_attention | num(2) }} · Email type: {{ t.email_type | human }} · Criteria <span class="mono-id">{{ t.criteria_version }}</span></div>{% endif %}
           {% if red and red.flagged and red.nearest %}<div class="extra small">{{ icon('repeat') }} {{ 'Repeat of' if r.redundant_of else 'Flagged as a possible repeat of' }}
             {{ email_link(v, red.nearest) }} <span class="muted">(content {{ red.content_similarity | num(2) }}, subject {{ red.subject_score | num(2) }})</span></div>{% endif %}
-          {% if v.data.no_change_reason(r.email_id) %}<div class="extra small">No change: {{ v.data.no_change_reason(r.email_id) }}</div>{% endif %}
+          {% if v.data.no_change_reason(r.email_id) %}<div class="extra small">No change: {{ v.data.no_change_reason(r.email_id) | prose }}</div>{% endif %}
           {% if by_earlier.get(r.email_id) %}<div class="extra small">Later repeats: {% for x in by_earlier[r.email_id] %}{{ email_link(v, x) }} {% endfor %}</div>{% endif %}
-          {% for s in rejected.get(r.email_id, []) %}<div class="flash err extra">Rejected {{ s.id }}: {{ s.reject_reason }}</div>{% endfor %}
+          {% for s in rejected.get(r.email_id, []) %}<div class="flash err extra">Rejected <span class="mono-id">{{ s.id }}</span>: {{ s.reject_reason | prose }}</div>{% endfor %}
           {% if r.gate == 'stop' %}
             <div class="extra" id="mattered-{{ r.email_id }}">
-            {% if v.sess.mattered.get(r.email_id) %}<span class="pill ok">sent: {{ v.sess.mattered[r.email_id] }}</span>
+            {% if v.sess.mattered.get(r.email_id) %}<span class="pill ok">Sent: {{ v.sess.mattered[r.email_id] }}</span>
             {% else %}<form method="post" action="/audit/{{ r.email_id }}/mattered" hx-post="/audit/{{ r.email_id }}/mattered"
                   hx-target="#mattered-{{ r.email_id }}"><button>{{ icon('zap') }}This mattered</button></form>{% endif %}
             </div>
@@ -61,7 +61,7 @@
   <div class="list">
   {% for eid, ss in rejected.items() %}
     <div class="row" style="display:block">{{ email_link(v, eid) }}
-      {% for s in ss %}<div class="small"><a href="/suggestion/{{ s.id }}" class="mono">{{ s.id }}</a>: {{ s.reject_reason }}</div>{% endfor %}</div>
+      {% for s in ss %}<div class="small"><a href="/suggestion/{{ s.id }}" class="mono-id">{{ s.id }}</a> {{ s.reject_reason | prose }}</div>{% endfor %}</div>
   {% endfor %}
   </div>
   {% endif %}
@@ -71,7 +71,7 @@
   <div class="table-wrap"><table>
     <thead><tr><th>Sender</th><th>Subject</th><th>Reason</th></tr></thead>
     {% for r in quarantined %}{% set e = v.email(r.email_id) %}
-      <tr><td>{{ e.sender if e else '' }}</td><td><a href="/email/{{ r.email_id }}">{{ e.subject if e else r.email_id }}</a></td><td class="small mono">{{ r.reason }}</td></tr>
+      <tr><td>{{ e.sender if e else '' }}</td><td><a href="/email/{{ r.email_id }}">{{ e.subject if e else r.email_id }}</a></td><td class="small">{{ r.reason | prose }}</td></tr>
     {% else %}<tr><td colspan="3" class="muted">Nothing quarantined in this set.</td></tr>{% endfor %}
   </table></div>
 </section>

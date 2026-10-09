@@ -2,9 +2,9 @@
 {% from "macros.html" import icon, stat %}
 {% block title %}Monitor{% endblock %}
 {% block content %}
-<div class="page-title"><h2>Monitor: tokens and latency</h2>{% if m %}<span class="chip">{{ m.corpus }}</span>{% endif %}</div>
+<div class="page-title"><h2>Monitor: tokens and latency</h2>{% if m %}<span class="chip">{{ m.corpus | human }}</span>{% endif %}</div>
 {% if not m %}<div class="callout plain"><p>No metrics.json for this set yet.</p></div>{% else %}
-<p class="lead-in">Set {{ m.corpus }} · run at {{ m.run_at.strftime('%Y-%m-%d %H:%M UTC') }} · {{ m.emails }} emails.
+<p class="lead-in">{{ m.corpus | human }} · run on {{ m.run_at.strftime('%b %d, %Y at %H:%M UTC') }} · {{ m.emails }} emails.
   "Spent" counts cache misses only; "uncached" is what the run would have cost with no cache.</p>
 {% set calls = m.stages.values() | sum(attribute='calls') %}{% set hits = m.stages.values() | sum(attribute='cache_hits') %}
 <section class="stats" aria-label="Run in numbers">
@@ -13,19 +13,19 @@
   {{ stat('Total latency', ((m.total_latency_ms / 1000) | num(1)) ~ ' s', m.emails ~ ' emails', 'gauge') }}
   {{ stat('Cache hits', hits ~ ' / ' ~ calls, ((hits / calls * 100) | round | int if calls else 0) ~ '% of model and embedding calls', 'layers') }}
 </section>
-{% macro usage_table(rows, first) %}
+{% macro usage_table(rows, first, stages=False) %}
 <div class="table-wrap"><table>
   <thead><tr><th>{{ first }}</th><th class="num">Calls</th><th class="num">Cache hits</th><th class="num">Spent in</th><th class="num">Spent out</th>
-    <th class="num">Uncached in</th><th class="num">Uncached out</th><th class="num">p50 ms</th><th class="num">p95 ms</th><th class="num">max ms</th></tr></thead>
+    <th class="num">Uncached in</th><th class="num">Uncached out</th><th class="num">p50 (ms)</th><th class="num">p95 (ms)</th><th class="num">Max (ms)</th></tr></thead>
   {% for name, u in rows.items() %}
-    <tr><td>{{ name }}</td><td class="num">{{ u.calls }}</td><td class="num">{{ u.cache_hits }}</td>
+    <tr><td>{{ name | stage if stages else name }}</td><td class="num">{{ u.calls }}</td><td class="num">{{ u.cache_hits }}</td>
       <td class="num">{{ u.input_tokens | num(0) }}</td><td class="num">{{ u.output_tokens | num(0) }}</td>
       <td class="num">{{ u.uncached_input_tokens | num(0) }}</td><td class="num">{{ u.uncached_output_tokens | num(0) }}</td>
       <td class="num">{{ u.latency_p50_ms | num(0) }}</td><td class="num">{{ u.latency_p95_ms | num(0) }}</td><td class="num">{{ u.latency_max_ms | num(0) }}</td></tr>
   {% endfor %}
 </table></div>
 {% endmacro %}
-<div class="eyebrow">Per stage</div>{{ usage_table(m.stages, 'Stage') }}
+<div class="eyebrow">Per stage</div>{{ usage_table(m.stages, 'Stage', stages=True) }}
 <div class="eyebrow" style="margin-top:28px">Per model</div>{{ usage_table(m.by_model, 'Model') }}
 {% endif %}
 {% endblock %}

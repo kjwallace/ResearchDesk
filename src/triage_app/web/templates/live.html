@@ -2,7 +2,7 @@
 {% from "macros.html" import icon, avatar %}
 {% block title %}Live{% endblock %}
 {% block content %}
-<div class="page-title"><h2>Live run</h2><span class="chip">{{ runs_left }} runs left this hour</span></div>
+<div class="page-title"><h2>Live run</h2><span class="chip">{{ runs_left }} {{ 'run' if runs_left == 1 else 'runs' }} left this hour</span></div>
 <p class="lead-in">Paste a synthetic email or pick a preset, and watch it go through every stage. Only synthetic mail:
   never paste real email. Pasted emails are capped at {{ '{:,}'.format(thresholds.LIVE_INPUT_CAP_CHARS) }} characters and
   {{ thresholds.LIVE_RUNS_PER_HOUR }} runs an hour per session; presets replay cached results.</p>
@@ -30,7 +30,7 @@
     <label class="field">Subject <input type="text" name="subject"></label>
     <label class="field">Body<textarea name="body" rows="10" maxlength="{{ thresholds.LIVE_INPUT_CAP_CHARS }}" required></textarea></label>
     <div class="actions"><button class="primary">{{ icon('zap') }}Run the pipeline</button>
-      <span class="small muted">{{ runs_left }} runs left this hour</span></div>
+      <span class="small muted">{{ runs_left }} {{ 'run' if runs_left == 1 else 'runs' }} left this hour</span></div>
   </form>
 </section>
 <section class="pane" id="trace" aria-live="polite">{% if trace or error %}{% include "fragments/trace.html" %}{% else %}

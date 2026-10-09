@@ -2,7 +2,7 @@
 {% from "macros.html" import icon %}
 {% block title %}Criteria{% endblock %}
 {% block content %}
-<div class="page-title"><h2>Relevance criteria</h2>{% if history %}<span class="chip mono">{{ history[-1].criteria_version }}</span>{% endif %}</div>
+<div class="page-title"><h2>Relevance criteria</h2>{% if history %}<span class="mono-id">{{ history[-1].criteria_version }}</span>{% endif %}</div>
 <p class="lead-in">Jev classifies each email with these files and never sees the book. Label definitions are fixed; rules are added beneath them,
   at most {{ thresholds.RULES_PER_CRITERIA_FILE }} per file, and each one describes a kind of information, never a view.</p>
 
@@ -10,15 +10,15 @@
 <nav class="side-nav" aria-label="Criteria files">
   <a href="/criteria" class="{{ 'on' if not label else '' }}">All files <span class="badge">{{ files | length }}</span></a>
   {% for name in files %}{% set l = name[:-3] %}
-    <a href="/criteria/{{ l }}" class="{{ 'on' if l == label else '' }}">{{ l }}</a>
+    <a href="/criteria/{{ l }}" class="{{ 'on' if l == label else '' }}">{{ l | human }}</a>
   {% endfor %}
 </nav>
 <section>
 {% if label %}
-  <div class="eyebrow">{{ icon('file') }}{{ label }}.md, as written</div>
+  <div class="eyebrow">{{ icon('file') }}{{ label | human }} <span class="mono-id">criteria/{{ label }}.md</span></div>
   {% if error %}<div class="flash err">{{ error }}</div>{% endif %}
   {% if parsed %}
-    <div class="callout plain"><div class="eyebrow">Definition · fixed</div><p>{{ parsed.definition }}</p></div>
+    <div class="callout plain"><div class="eyebrow">Definition (fixed)</div><p>{{ parsed.definition }}</p></div>
     <div class="panel">
       <div class="eyebrow">Rules <span class="badge">{{ parsed.rules | length }}</span></div>
       <ol class="rules">{% for r in parsed.rules %}<li value="{{ loop.index }}"><span class="rid mono">{{ r.id }}</span><span>{{ r.text }}</span></li>{% else %}<li class="muted">No rules yet.</li>{% endfor %}</ol>
@@ -27,25 +27,25 @@
   <details class="more"><summary>The raw file</summary><pre class="criteria">{{ files.get(label ~ '.md', '') }}</pre></details>
 {% else %}
   {% for name, text in files.items() %}
-    <details class="panel"><summary><a href="/criteria/{{ name[:-3] }}">{{ name }}</a></summary><pre class="criteria" style="margin-top:10px">{{ text }}</pre></details>
+    <details class="panel"><summary><a href="/criteria/{{ name[:-3] }}">{{ name[:-3] | human }}</a> <span class="mono-id">{{ name }}</span></summary><pre class="criteria" style="margin-top:10px">{{ text }}</pre></details>
   {% endfor %}
 {% endif %}
 
 <div class="eyebrow" style="margin-top:28px">Version history</div>
 {% for h in history | reverse %}
   <details class="panel" {% if loop.first %}open{% endif %}>
-    <summary><b class="mono">{{ h.criteria_version }}</b> <span class="muted">· {{ h.at.strftime('%Y-%m-%d %H:%M') }} · {{ h.changed | length }} tuning emails changed label</span></summary>
+    <summary>Version <span class="mono-id">{{ h.criteria_version }}</span> <span class="muted">· {{ h.at.strftime('%b %d, %Y, %H:%M') }} · {{ h.changed | length }} tuning emails changed label</span></summary>
     <div class="table-wrap" style="margin-top:12px"><table>
       <thead><tr><th>Measure</th><th class="num">Fit</th><th class="num">Validation</th></tr></thead>
       {% for k in (h.fit.keys() | list + h.validation.keys() | list) | unique %}
-        <tr><td>{{ k }}</td><td class="num">{{ h.fit.get(k) | pct }}</td><td class="num">{{ h.validation.get(k) | pct }}</td></tr>
+        <tr><td>{{ k | measure }}</td><td class="num">{{ h.fit.get(k) | pct }}</td><td class="num">{{ h.validation.get(k) | pct }}</td></tr>
       {% endfor %}
     </table></div>
     {% if h.changed %}<h3 style="margin-top:14px">Emails whose label changed</h3>
       <div class="table-wrap"><table><thead><tr><th>Email</th><th>Before</th><th>After</th><th>Split</th><th>Now correct</th></tr></thead>
-      {% for c in h.changed %}<tr><td>{{ c.email_id }}: {{ c.subject }}</td><td>{{ c.before }}</td><td>{{ c.after }}</td><td>{{ c.split }}</td><td>{{ 'yes' if c.now_correct else 'no' }}</td></tr>{% endfor %}
+      {% for c in h.changed %}<tr><td><span class="mono-id">{{ c.email_id }}</span> {{ c.subject }}</td><td>{{ c.before | human or 'Quarantined' }}</td><td>{{ c.after | human or 'Quarantined' }}</td><td>{{ c.split | human }}</td><td>{{ 'Yes' if c.now_correct else 'No' }}</td></tr>{% endfor %}
       </table></div>{% endif %}
-    {% if label and (label ~ '.md') in h.files %}<h3 style="margin-top:14px">{{ label }}.md in this version</h3><pre class="criteria">{{ h.files[label ~ '.md'] }}</pre>{% endif %}
+    {% if label and (label ~ '.md') in h.files %}<h3 style="margin-top:14px">{{ label | human }} in this version</h3><pre class="criteria">{{ h.files[label ~ '.md'] }}</pre>{% endif %}
   </details>
 {% else %}<div class="callout plain"><p>No criteria check has run yet. It needs the tuning set; until then the pipeline runs at starting values.</p></div>{% endfor %}
 </section>

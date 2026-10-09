@@ -1,31 +1,31 @@
 {% from "macros.html" import icon %}
-{% if error %}<div class="flash err">{{ error }}</div>{% endif %}
+{% if error %}<div class="flash err">{{ error | sentence }}</div>{% endif %}
 {% if trace %}
 <div class="trace">
-  <div class="pane-head">{{ icon('activity') }}<span>Trace</span> <span class="mono muted">{{ trace.email_id }}</span></div>
+  <div class="pane-head">{{ icon('activity') }}<span>Trace</span> <span class="mono-id">{{ trace.email_id }}</span></div>
   <h2 style="font-size:17px">{{ trace.subject }}</h2>
   <p class="small muted" style="margin-top:-8px">{{ trace.sender }}</p>
   {% if trace.quarantined %}<div class="callout bad"><div class="eyebrow">{{ icon('lock') }}Quarantined</div><p>Quarantined: held unsummarized; no later model saw it.</p></div>
   {% elif trace.result %}
     <div class="callout {{ '' if trace.result.gate == 'pass' else 'plain' }}">
-      <div class="eyebrow"><span class="pill {{ trace.result.triage }}">{{ trace.result.triage }}</span> <span class="pill {{ trace.result.gate }}">{{ trace.result.gate }}</span></div>
-      <p class="mono small">{{ trace.result.reason }}</p></div>
-    {% if trace.note %}<div class="callout warn"><div class="eyebrow">{{ icon('clock') }}Attention note · {{ trace.note.action }}</div><p>{{ trace.note.summary }}</p></div>{% endif %}
-    {% for s in trace.suggestions %}<div class="linked-item"><span class="ic-round">{{ icon('trend') }}</span><div>Suggestion: <a href="/suggestion/{{ trace.email_id }}.{{ s.id }}">{{ s.id }}</a><div class="small muted">{{ s.rationale }}</div></div></div>{% endfor %}
-    {% for s in trace.rejected %}<p class="small muted">Rejected {{ s.id }}: {{ s.reject_reason }}</p>{% endfor %}
-    {% if trace.analysis and trace.analysis.no_change_reason %}<p class="small">No change: {{ trace.analysis.no_change_reason }}</p>{% endif %}
+      <div class="eyebrow"><span class="pill {{ trace.result.triage }}">{{ trace.result.triage | human }}</span> <span class="pill {{ trace.result.gate }}">{{ trace.result.gate | human }}</span></div>
+      <p class="small">{{ trace.result.reason | prose }}</p></div>
+    {% if trace.note %}<div class="callout warn"><div class="eyebrow">{{ icon('clock') }}Attention note · {{ trace.note.action | human }}</div><p>{{ trace.note.summary }}</p></div>{% endif %}
+    {% for s in trace.suggestions %}<div class="linked-item"><span class="ic-round">{{ icon('trend') }}</span><div>Suggestion <a href="/suggestion/{{ trace.email_id }}.{{ s.id }}" class="mono-id">{{ s.id }}</a><div class="small muted">{{ s.rationale }}</div></div></div>{% endfor %}
+    {% for s in trace.rejected %}<p class="small muted">Rejected <span class="mono-id">{{ s.id }}</span>: {{ s.reject_reason | prose }}</p>{% endfor %}
+    {% if trace.analysis and trace.analysis.no_change_reason %}<p class="small">No change: {{ trace.analysis.no_change_reason | prose }}</p>{% endif %}
     {% if trace.note or trace.suggestions %}<p class="small"><a href="/">Added to your brief →</a></p>{% endif %}
   {% endif %}
   <div class="table-wrap" style="margin-top:14px"><table>
     <thead><tr><th>Stage</th><th>Status</th><th>Result</th><th class="num">Calls</th><th class="num">Tokens in</th><th class="num">Tokens out</th><th class="num">ms</th></tr></thead>
     {% for st in trace.steps %}
-      <tr><td>{{ st.name }}</td><td><span class="pill {{ st.status }}">{{ st.status }}</span></td><td class="small">{{ st.detail }}</td>
+      <tr><td>{{ st.name | stage }}</td><td><span class="pill {{ st.status }}">{{ st.status | human }}</span></td><td class="small">{{ st.detail | prose }}</td>
         <td class="num">{{ st.calls }}{% if st.cache_hits %} <span class="muted">({{ st.cache_hits }} cached)</span>{% endif %}</td>
         <td class="num">{{ st.input_tokens }}</td><td class="num">{{ st.output_tokens }}</td><td class="num">{{ st.latency_ms | num(0) }}</td></tr>
     {% endfor %}
     {% set t = trace.totals %}
     <tr class="total"><th>Total</th><th></th><th></th><th class="num">{{ t.calls }}</th><th class="num">{{ t.input_tokens }}</th><th class="num">{{ t.output_tokens }}</th><th class="num">{{ t.latency_ms | num(0) }}</th></tr>
   </table></div>
-  <p class="xs muted">{{ runs_left }} runs left this hour.</p>
+  <p class="xs muted">{{ runs_left }} {{ 'run' if runs_left == 1 else 'runs' }} left this hour.</p>
 </div>
 {% endif %}
