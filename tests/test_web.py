@@ -339,7 +339,8 @@ def test_projection_changes_render_and_accept(tmp_path: Path, presets: Path) -> 
     with TestClient(create_app(out, make_ctx=fake_ctx, presets_dir=presets, emails_path=FIXTURE_EMAILS)) as c:
         assert "Projection changes" in c.get("/").text and f"/suggestion/{proj.id}" in c.get("/").text
         detail = c.get(f"/suggestion/{proj.id}").text
-        assert "Stated in the email" in detail and f"{stated:,.1f}%" in detail and "Gap to the book" in detail
+        assert f"Update MSFT {driver.label} to {stated:,.1f}%" in detail and "EPS and target price recompute" in detail
+        assert "Consensus <b>" in detail and "Gap " in detail
         assert f'href="/review/{proj.id}"' in c.get("/book").text
         assert proj.id in c.get("/review").text
         r = c.post(f"/suggestion/{proj.id}/accept", headers=HX)
@@ -362,6 +363,28 @@ def test_suggestion_explains_impact_and_what_accepting_means(tmp_path: Path, pre
         assert "Reseller checks show Azure consumption" in page and "If you accept" in page
         assert "The evidence is logged against MSFT pillar 1" in page
         assert "Reseller checks show Azure consumption" in c.get("/").text   # on the brief's card too
+
+
+def test_suggestion_states_the_change_plainly(client: TestClient) -> None:
+    text = client.get("/suggestion/MSFT.p1.supports").text
+    assert "Log supporting evidence on MSFT pillar 1" in text and "What changes if you accept" in text
+    assert "strength" in text and "Reasoning" in text
+    for gone in ("Suggested change", "Recommendation only", "Why the model suggests it", "Verify against filings"):
+        assert gone not in text, gone
+    new = client.get("/suggestion/AMZN.new1").text
+    assert "Add a new pillar to AMZN" in new and "The pillar is added to the AMZN thesis" in new
+
+
+def test_eval_explains_measures_collapses_detail_and_shows_example_feedback(client: TestClient) -> None:
+    text = client.get("/eval").text
+    assert 'Misses <span class="badge">' not in text and "<th>Expected</th>" not in text   # no misses list
+    feedback = text.split("Analyst feedback on labels")[1]
+    assert "/email/fixture_" in feedback or "No misclassified emails" in feedback
+    assert labels.MEASURE_EXPLAINERS["gate_recall"] in text
+    assert '<details class="panel collapsed-section">' in text and "All measures" in text and "Confusion table" in text
+    assert "Analyst feedback on labels" in text and "Example" in text and "isn't connected yet" in text
+    assert "Target " not in text   # targets colour the values; they are not printed
+    assert "<details class=\"panel\" open>" not in client.get("/criteria").text
 
 
 def test_brief_lists_every_section(client: TestClient) -> None:
@@ -530,7 +553,7 @@ def test_verify_with_fake_agent(client: TestClient, monkeypatch: pytest.MonkeyPa
     assert r.status_code == 200 and "Not found" in r.text and "No filing passage found." in r.text
     assert seen["id"] == "MSFT.p1.supports" and len(seen["log"]) == 1
     assert seen["claims"] == ["fixture_001.c1", "fixture_001.c2"]
-    assert "No filing passage found." in client.get("/suggestion/MSFT.p1.supports").text
+    assert "/verify" not in client.get("/suggestion/MSFT.p1.supports").text   # the button is no longer shown
 
 
 def test_mattered_not_available(client: TestClient, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -593,21 +616,22 @@ def test_live_quarantine_never_shows_body(client: TestClient, fake_stages: dict[
         assert_no_quarantined_body(client.get(url).text)
 
 
-def test_live_input_cap_and_rate_limit(client: TestClient, fake_stages: dict[str, Any]) -> None:
+def test_live_input_cap_and_app_wide_limit(client: TestClient, fake_stages: dict[str, Any],
+                                           monkeypatch: pytest.MonkeyPatch) -> None:
     big = "x" * (thresholds.LIVE_INPUT_CAP_CHARS + 1)
     assert client.post("/live", headers=HX, data={"body": big}).status_code == 413
     assert client.post("/live", headers=HX, data={"body": ""}).status_code == 422
-    codes = [client.post("/live", headers=HX, data={"body": f"note {i}"}).status_code
-             for i in range(thresholds.LIVE_RUNS_PER_HOUR + 1)]
-    assert codes == [200] * thresholds.LIVE_RUNS_PER_HOUR + [429]
-    # A preset whose results are not cached spends a run like a paste.
-    assert client.post("/live", headers=HX, data={"preset": "preset_01"}).status_code == 429
-    # "This mattered" draws on the same allowance.
-    assert client.post("/audit/fixture_010/mattered", headers=HX).status_code == 429
-    # Reset does not lift the limit.
-    client.post("/reset", headers=HX)
+    # No per-visitor limit: one session can run more than the old five an hour.
+    codes = [client.post("/live", headers=HX, data={"body": f"note {i}"}).status_code for i in range(8)]
+    assert codes == [200] * 8
+    assert "left this hour" not in client.get("/live").text
+    # The app-wide cap still applies, to pastes, cold presets and "this mattered" alike.
+    monkeypatch.setattr(thresholds, "LIVE_RUNS_PER_HOUR_GLOBAL", 8)
     assert client.post("/live", headers=HX, data={"body": "again"}).status_code == 429
-
+    assert client.post("/live", headers=HX, data={"preset": "preset_01"}).status_code == 429
+    assert client.post("/audit/fixture_010/mattered", headers=HX).status_code == 429
+    client.post("/reset", headers=HX)   # reset does not lift it
+    assert client.post("/live", headers=HX, data={"body": "again"}).status_code == 429
 
 def test_responses_never_hold_quarantined_bodies_after_actions(client: TestClient, fake_stages: dict[str, Any]) -> None:
     responses: list[Any] = [
@@ -718,7 +742,7 @@ def test_warm_preset_is_free(client: TestClient, monkeypatch: pytest.MonkeyPatch
                             steps=[runner.Step(name="classify", status="ok", calls=1, cache_hits=1)])
 
     monkeypatch.setattr(runner, "run_live", cached_run)
-    for _ in range(thresholds.LIVE_RUNS_PER_HOUR + 2):
+    for _ in range(7):
         assert client.post("/live", headers=HX, data={"preset": "preset_01"}).status_code == 200
     assert app_of(client).state.global_runs.left() == thresholds.LIVE_RUNS_PER_HOUR_GLOBAL
 

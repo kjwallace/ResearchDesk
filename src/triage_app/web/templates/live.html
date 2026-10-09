@@ -2,20 +2,20 @@
 {% from "macros.html" import icon, avatar %}
 {% block title %}Live{% endblock %}
 {% block content %}
-<div class="page-title"><h2>Live run</h2><span class="chip">{{ runs_left }} {{ 'run' if runs_left == 1 else 'runs' }} left this hour</span></div>
+<div class="page-title"><h2>Live run</h2></div>
 <p class="lead-in">Paste a synthetic email or pick a preset, and watch it go through every stage. Only synthetic mail:
-  never paste real email. Pasted emails are capped at {{ '{:,}'.format(thresholds.LIVE_INPUT_CAP_CHARS) }} characters and
-  {{ thresholds.LIVE_RUNS_PER_HOUR }} runs an hour per session; presets replay cached results.</p>
+  never paste real email. Pasted emails are capped at {{ '{:,}'.format(thresholds.LIVE_INPUT_CAP_CHARS) }} characters; presets replay cached results.</p>
 <div class="split">
 <section>
   <div class="list">
-    <div class="list-head"><span>Presets</span><span class="muted">Cached; free to replay</span></div>
+    <div class="list-head"><span>Presets from day 2</span><span class="muted">Free to replay once cached</span></div>
     {% for p in presets %}
       <form class="row" method="post" action="/live" hx-post="/live" hx-target="#trace" style="align-items:center">
         <input type="hidden" name="preset" value="{{ p.email_id }}">
         {{ avatar(p.sender) }}
         <div class="main"><div class="top"><span class="who">{{ p.sender | person }}</span></div>
-          <div class="subj" style="margin:0">{{ p.subject }}</div></div>
+          <div class="subj" style="margin:0">{{ p.subject }}</div>
+          {% if preset_notes is defined and preset_notes.get(p.email_id) %}<div class="tags" style="margin-top:4px"><span class="tag soft">{{ preset_notes[p.email_id] }}</span></div>{% endif %}</div>
         <button title="Run this preset">{{ icon('play') }}Run</button>
       </form>
     {% else %}<div class="empty">No presets yet.</div>{% endfor %}
@@ -29,8 +29,7 @@
     </div>
     <label class="field">Subject <input type="text" name="subject"></label>
     <label class="field">Body<textarea name="body" rows="10" maxlength="{{ thresholds.LIVE_INPUT_CAP_CHARS }}" required></textarea></label>
-    <div class="actions"><button class="primary">{{ icon('zap') }}Run the pipeline</button>
-      <span class="small muted">{{ runs_left }} {{ 'run' if runs_left == 1 else 'runs' }} left this hour</span></div>
+    <div class="actions"><button class="primary">{{ icon('zap') }}Run the pipeline</button></div>
   </form>
 </section>
 <section class="pane" id="trace" aria-live="polite">{% if trace or error %}{% include "fragments/trace.html" %}{% else %}

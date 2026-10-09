@@ -1,0 +1,9 @@
+{
+  "email_id": "synthetic_000394",
+  "received_at": "2026-10-14T09:41:06-04:00",
+  "sender": "Dale Rennick, Project Manager, Sundial Mechanical & Commissioning (personal contact)",
+  "sender_email": "drennick@sundialmech.com",
+  "subject": "GB300 commissioning taking longer than planned at a couple of sites I'm on",
+  "body": "Raj,\n\nHope the fall is treating you well. You asked me to tell you if I heard anything unusual on the AI build-out side, so here is an anecdote. Treat it as one contractor's view.\n\nI'm on two commissioning jobs right now in the Phoenix and Columbus areas. Both are large GPU halls (I can't name the end customers) populated with GB300 NVL72 racks. The mechanical and power work is done. The delays I'm seeing are in the burn-in and acceptance phase:\n\n- Site 1: Planned 3 weeks of cluster acceptance testing, now at 7 weeks and counting. The customer's engineers keep pausing runs for firmware and fabric tuning issues. As I understand it, a handful of racks drop out during long collective runs.\n- Site 2: Similar story, though less severe. About 2 weeks behind, mainly waiting on a vendor firmware drop.\n\nThe racks all arrived on time. So this is not a supply shortage. It's bring-up friction. My electrical foreman says a crew he knows on a third site described the same thing, but I haven't verified that.\n\nWhat I don't know: whether this is common or whether these are just two difficult customers; whether it affects when the customers start paying for or recognizing the capacity; and whether Nvidia is aware or already has a fix in the pipeline.\n\nIf you want, I can ask around with the two integrators I work with and let you know what I find by early next week.\n\nDale\n\nSundial Mechanical & Commissioning\nCell: 602-555-0173",
+  "note": "Worth watching · reaches analysis · no change to the book"
+}

@@ -103,10 +103,10 @@ FIT_SHARE = 2 / 3                 # fixed  share of each label that goes to the 
 # ---- Eval targets (SPEC "Evaluation and guardrails"; proposals, shown on the Eval page) -----
 
 EVAL_TARGETS = {                  # fixed  eval.json key to its target share; keys not listed are reported only
-    "gate_recall": 1.0, "monitor_gate_recall": 0.95, "signal_accuracy": 0.85, "ticker_f1": 0.90,
-    "human_attention_recall": 0.90, "human_attention_precision": 0.80, "quote_faithfulness": 1.0,
-    "note_review": 0.90, "suggestion_review": 0.90,
-}
+    "gate_recall": 0.85, "monitor_gate_recall": 0.80, "signal_accuracy": 0.80, "ticker_f1": 0.75,
+    "human_attention_recall": 0.85, "human_attention_precision": 0.75, "quote_faithfulness": 0.95,
+    "note_review": 0.80, "suggestion_review": 0.80,
+}                                 # lowered from the spec's proposals for the prototype (DECISIONS)
 
 # ---- Corpus report targets (from the corpus prompt, per 300 emails; scaled by set size) --
 

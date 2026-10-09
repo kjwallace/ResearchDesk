@@ -103,7 +103,7 @@
 
 <div class="eyebrow" style="margin-top:28px">Version history</div>
 {% for h in history | reverse %}
-  <details class="panel" {% if loop.first %}open{% endif %}>
+  <details class="panel">
     <summary>Version {{ loop.revindex }}{% if loop.first %} (current){% endif %} <span class="muted">· {{ h.at.strftime('%b %d, %Y, %H:%M') }} · {{ h.changed | length }} tuning emails changed label</span></summary>
     <div class="table-wrap" style="margin-top:12px"><table>
       <thead><tr><th>Measure</th><th class="num">Fit</th><th class="num">Validation</th></tr></thead>

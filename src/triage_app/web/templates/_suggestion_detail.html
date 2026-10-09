@@ -8,13 +8,13 @@
 
   {% if b.kind == 'existing_thesis' %}
     {% set p = v.pillar(b.pillar_id) %}
-    <h2>{{ b.stance | human }} {{ b.pillar_id | ref }}</h2>
+    <h2>Log {{ 'supporting' if b.stance == 'supports' else 'contradicting' }} evidence on {{ b.pillar_id | ref }}</h2>
   {% elif b.kind == 'new_thesis' %}
-    <h2>New thesis candidate for {{ b.ticker }}</h2>
+    <h2>Add a new pillar to {{ b.ticker }}</h2>
   {% elif b.kind == 'projection_change' %}
-    <h2>{{ b.ticker }} {{ metric_name(b.ticker, b.metric) }}, {{ b.period }}</h2>
+    <h2>{{ 'Update' if '.' in b.metric else 'Note' }} {{ b.ticker }} {{ metric_name(b.ticker, b.metric) }}{{ ' to ' if '.' in b.metric else ' of ' }}{{ metric_value(b.metric, b.stated_value) }}</h2>
   {% else %}
-    <h2>Conviction review for {{ b.ticker }}</h2>
+    <h2>Review {{ b.ticker }} conviction</h2>
   {% endif %}
 
   <div class="byline">{{ ticker_mark(ticker) }}
@@ -23,9 +23,9 @@
   </div>
 
   {% if b.kind == 'existing_thesis' %}
-    {% if p %}<p class="lede">{{ p.statement }}</p>{% endif %}
+    {% if p %}<p class="lede"><span class="muted">Pillar:</span> {{ p.statement }}</p>{% endif %}
   {% elif b.kind == 'new_thesis' %}
-    <p class="lede">{{ b.statement }}</p>
+    <p class="lede"><span class="muted">New pillar:</span> “{{ b.statement }}”</p>
   {% elif b.kind == 'projection_change' %}
     <p class="lede">An email states {{ metric_name(b.ticker, b.metric) }} of <b>{{ metric_value(b.metric, b.stated_value) }}</b> for {{ b.period }};
       the book has {{ metric_value(b.metric, b.book_value) }} and consensus {{ metric_value(b.metric, b.consensus_value) }}.</p>
@@ -34,29 +34,42 @@
       Current conviction: <b>{{ th.conviction }}</b> of 5. Pick a value, or dismiss the review. The app never proposes one.</p>
   {% endif %}
 
-  <div class="section">
-    <div class="eyebrow">Suggested change <span class="grow"></span><span class="chip">Recommendation only</span></div>
-    <dl class="kv">
+  <div class="change-box">
+    <div class="eyebrow">{{ icon('check-circle') }}What changes if you accept</div>
+    <ul class="changes">
     {% if b.kind == 'existing_thesis' %}
-      <dt>Stance</dt><dd><span class="pill dot {{ b.stance }}">{{ b.stance | human }}</span></dd>
-      <dt>Strength</dt><dd class="big-num">{{ b.strength }} of 3</dd>
-      {% if b.street_view_shift != 'none' %}<dt>Street view</dt><dd><span class="rating {{ 'buy' if b.street_view_shift == 'toward_buy' else 'sell' }}">{{ b.street_view_shift | human }}</span></dd>{% endif %}
+      <li><span class="pill dot {{ b.stance }}">{{ b.stance | human }}</span> Evidence is logged against {{ b.pillar_id | ref }} at
+        <b>strength {{ b.strength }} of 3</b>{% if b.stance == 'contradicts' %}, counting toward a review of the position{% endif %}.</li>
+      {% for a in b.assumptions %}{% set d = v.driver(a.driver_id) %}
+      <li>{{ icon('target') }} You can update <b>{{ d.label if d else (a.driver_id | ref) }}</b> from {{ metric_value(a.driver_id, d.analyst if d else a.book_value) }}
+        to <b>{{ metric_value(a.driver_id, a.stated_value) }}</b>, the figure the email states (see below).</li>
+      {% endfor %}
+      {% if b.street_view_shift != 'none' %}
+      <li><span class="rating {{ 'buy' if b.street_view_shift == 'toward_buy' else 'sell' }}">Street {{ b.street_view_shift | human | lower }}</span>
+        {{ b.street_view_note or "Analysts' emails move the Street's rating." }}</li>
+      {% endif %}
+    {% elif b.kind == 'new_thesis' %}
+      <li>{{ icon('plus') }} The pillar is added to the {{ b.ticker }} thesis as its next pillar.</li>
+      <li>{{ icon('target') }} Linked assumptions: {% for d in b.driver_ids %}<span class="mono-id">{{ d | ref }}</span> {% else %}none{% endfor %}</li>
     {% elif b.kind == 'projection_change' %}
       {% set gap = b.stated_value - b.book_value %}
-      <dt>Stated in the email</dt><dd class="big-num">{{ metric_value(b.metric, b.stated_value) }}</dd>
-      <dt>Book now</dt><dd>{{ metric_value(b.metric, b.book_value) }}</dd>
-      <dt>Consensus</dt><dd>{{ metric_value(b.metric, b.consensus_value) }}</dd>
-      <dt>Gap to the book</dt><dd class="{{ 'gap-pos' if gap > 0 else ('gap-neg' if gap < 0 else '') }}">{{ '+' if gap > 0 else ('−' if gap < 0 else '') }}{{ metric_value(b.metric, gap | abs) }}</dd>
-      <dt>On accept</dt><dd>{{ 'Updates the assumption; EPS and target price recompute' if '.' in b.metric else 'Noted against the book’s projection' }}</dd>
-    {% elif b.kind == 'new_thesis' %}
-      <dt>Linked assumptions</dt><dd>{% for d in b.driver_ids %}<span class="mono-id">{{ d | ref }}</span>{% else %}None{% endfor %}</dd>
+      {% if '.' in b.metric %}
+      <li>{{ icon('target') }} <b>{{ metric_name(b.ticker, b.metric) }}</b> changes from {{ metric_value(b.metric, b.book_value) }} to
+        <b>{{ metric_value(b.metric, b.stated_value) }}</b> for {{ b.period }}; EPS and target price recompute.</li>
+      {% else %}
+      <li>{{ icon('target') }} The email's {{ metric_name(b.ticker, b.metric) }} of <b>{{ metric_value(b.metric, b.stated_value) }}</b> is noted
+        against the book's {{ metric_value(b.metric, b.book_value) }} for {{ b.period }}; no assumption changes.</li>
+      {% endif %}
+      <li class="figures"><span>Book <b>{{ metric_value(b.metric, b.book_value) }}</b></span>
+        <span>Email <b>{{ metric_value(b.metric, b.stated_value) }}</b></span>
+        <span>Consensus <b>{{ metric_value(b.metric, b.consensus_value) }}</b></span>
+        <span class="{{ 'gap-pos' if gap > 0 else ('gap-neg' if gap < 0 else '') }}">Gap {{ '+' if gap > 0 else ('−' if gap < 0 else '') }}{{ metric_value(b.metric, gap | abs) }}</span></li>
     {% else %}
-      <dt>Pillar</dt><dd><span class="mono-id">{{ b.pillar_id | ref }}</span></dd>
+      <li>{{ icon('gauge') }} Set a new conviction for {{ b.ticker }} (now {{ th.conviction }} of 5), or dismiss the review.</li>
     {% endif %}
-      {% if s.second_look %}<dt>Second look</dt><dd><span class="pill second">Yes: no linked email is labeled as signal</span></dd>{% endif %}
-    </dl>
-    {% if b.kind == 'existing_thesis' %}<div class="bar lg"><span style="width: {{ (b.strength / 3 * 100) | round }}%"></span></div>
-      {% if b.street_view_shift != 'none' and b.street_view_note %}<p class="small muted" style="margin:8px 0 0">{{ b.street_view_note }}</p>{% endif %}
+    {% if s.second_look %}<li><span class="pill second">Second look</span> No linked email is labeled actionable or worth watching.</li>{% endif %}
+    </ul>
+    {% if b.kind == 'existing_thesis' %}
       <details class="scores compact"><summary>{{ icon('gauge') }}View scores</summary>
         <div class="scores-body"><dl class="kv"><dt>Relevance to this pillar</dt><dd class="big-num">{{ b.relevance | num(2) }}</dd></dl>
           {{ bar(b.relevance) }}</div></details>
@@ -65,7 +78,7 @@
 
   {% if b.kind != 'conviction_review' %}
   <div class="callout">
-    <div class="eyebrow">{{ icon('zap') }}Why the model suggests it</div>
+    <div class="eyebrow">{{ icon('zap') }}Reasoning</div>
     <p><b>{{ s.rationale }}</b></p>
     {% if b.assumption_impact is defined and b.assumption_impact %}<p class="impact">{{ b.assumption_impact }}</p>{% endif %}
   </div>
@@ -110,14 +123,6 @@
   {% if siblings %}<div class="callout warn"><div class="eyebrow">{{ icon('repeat') }}Opposite stance on the same pillar</div>
     <p>{% for x in siblings %}<a href="/suggestion/{{ x.id }}">{{ x.id | ref }}</a>{% endfor %}. Neither is preselected.</p></div>{% endif %}
 
-  {% if b.kind != 'conviction_review' %}
-  <div class="section" id="verify">
-    <div class="eyebrow">Verify <span class="grow"></span>
-      <form method="post" action="/suggestion/{{ s.id }}/verify" hx-post="/suggestion/{{ s.id }}/verify" hx-target="#verify-out">
-        <button>{{ icon('check-circle') }}Verify against filings and the change log</button></form></div>
-    <div id="verify-out">{% if verify %}{% include "fragments/verify.html" %}{% else %}<p class="small muted">An agent checks the claim against the saved annual reports and this session's change log, and returns a cited verdict. Uses one live run.</p>{% endif %}</div>
-  </div>
-  {% endif %}
 </section>
 
 <section class="sugg-emails">

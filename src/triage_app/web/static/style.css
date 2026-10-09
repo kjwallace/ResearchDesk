@@ -651,3 +651,20 @@ button.tag:hover, button.tagbtn:hover .pill { filter: brightness(.95); outline: 
 /* A suggestion's headline (rationale) and its fuller explanation. */
 .callout p.impact { margin-top: 8px; color: var(--ink-2); }
 .row .impact-snip { -webkit-line-clamp: 3; margin-top: 2px; }
+
+/* ---- Suggestion: what changes if accepted ---- */
+.change-box { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); padding: 14px 16px;
+  margin: 4px 0 16px; background: var(--panel); }
+ul.changes { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 10px; font-size: 14px; line-height: 1.5; }
+ul.changes li { display: block; }
+ul.changes li svg { color: var(--accent); margin-right: 4px; }
+ul.changes li .pill, ul.changes li .rating { margin-right: 6px; }
+ul.changes li.figures { display: flex; flex-wrap: wrap; gap: 6px 18px; padding: 8px 10px; background: var(--sunken);
+  border-radius: var(--radius-sm); font-size: 13px; }
+
+/* ---- Eval: collapsed sections and the feedback read-out ---- */
+details.collapsed-section > summary { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+details.collapsed-section > summary .xs { margin-left: auto; }
+.panel.feedback { margin-bottom: 16px; }
+.stat .value.gap-pos { color: var(--good); }
+.stat .value.gap-neg { color: var(--bad); }

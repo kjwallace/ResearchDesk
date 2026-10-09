@@ -5,9 +5,9 @@ and whatever live runs and "this mattered" added to the visitor's brief. A resta
 every session. Reset clears the visitor's state but keeps the live-run times, so it cannot
 be used to lift the rate limit.
 
-Live runs are limited twice: per session (`thresholds.LIVE_RUNS_PER_HOUR`) and across the whole
-process (`thresholds.LIVE_RUNS_PER_HOUR_GLOBAL`), so dropping the cookie does not lift the
-limit. Idle sessions are evicted after `thresholds.SESSION_IDLE_TTL_S`, and the store holds at
+Live runs are limited only across the whole process (`thresholds.LIVE_RUNS_PER_HOUR_GLOBAL`);
+there is no per-visitor limit (DECISIONS #122), so `runs_left` / `take_run` are no longer used
+by the app. Idle sessions are evicted after `thresholds.SESSION_IDLE_TTL_S`, and the store holds at
 most `thresholds.MAX_SESSIONS`, evicting the least recently used.
 """
 

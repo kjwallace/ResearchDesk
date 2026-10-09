@@ -4,7 +4,7 @@
   <div class="panel" id="driver-{{ a.driver_id | replace('.', '-') }}">
     <h3>{{ d.label if d else (a.driver_id | ref) }}</h3>
     <dl class="kv">
-      <dt>Stated in the email</dt><dd class="big-num">{{ a.stated_value | num }}{{ (' ' ~ (d.unit | human)) if d else '' }}</dd>
+      <dt>Stated in the email</dt><dd class="big-num">{{ metric_value(a.driver_id, a.stated_value) }}</dd>
       <dt>Book now</dt><dd class="book-value">{{ d.analyst | num if d else '' }}</dd>
       <dt>Consensus</dt><dd>{{ a.consensus_value | num }}</dd>
     </dl>

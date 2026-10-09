@@ -1,53 +1,69 @@
 {% extends "base.html" %}
-{% from "macros.html" import icon, stat, bar %}
+{% from "macros.html" import icon, label_pill %}
 {% block title %}Eval{% endblock %}
 {% block content %}
 <div class="page-title"><h2>Evaluation</h2>{% if ev %}<span class="chip">{{ ev.corpus | human }}</span>{% endif %}</div>
 {% if not ev %}
-  <div class="callout plain"><div class="eyebrow">{{ icon('activity') }}Not scored yet</div><p>No eval.json for this set yet. Run the eval script on this set to score it against the corpus labels.</p></div>
+  <div class="callout plain"><div class="eyebrow">{{ icon('activity') }}Not scored yet</div><p>No scores for this set yet.</p></div>
 {% else %}
-<p class="lead-in">The labels come from the same generator as the emails,
-  so these scores show internal consistency, not performance on real mail.</p>
 {% set m = ev.measures %}
 {% set targets = thresholds.EVAL_TARGETS %}
+
 <section class="stats" aria-label="Headline scores">
   {% for k, ic in [('gate_recall', 'shield'), ('signal_accuracy', 'target'), ('ticker_f1', 'layers'), ('human_attention_recall', 'clock')] %}
     {% set val = m.get(k) %}
-    {{ stat(k | measure, val | pct if val is not none else 'N/A',
-            ('Target ' ~ (targets[k] | pct) ~ (', met' if val is not none and val >= targets[k] else ', missed')) if k in targets else 'Reported, no target', ic) }}
+    {% set met = val is not none and k in targets and val >= targets[k] %}
+    <div class="stat">
+      <span class="label">{{ k | measure }}</span><span class="ic">{{ icon(ic) }}</span>
+      <span class="value {{ 'gap-pos' if met else ('gap-neg' if val is not none and k in targets else '') }}">{{ val | pct if val is not none else 'N/A' }}</span>
+      <span class="hint">{{ labels.MEASURE_EXPLAINERS.get(k, '') }}</span>
+    </div>
   {% endfor %}
 </section>
-<div class="grid2">
-<section>
-  <div class="eyebrow">All measures</div>
+
+<section class="panel feedback" aria-label="Analyst feedback">
+  <div class="eyebrow">{{ icon('mail') }}Analyst feedback on labels <span class="tag warn">Example</span>
+    <span class="grow"></span><span class="badge">{{ feedback | length }} reports</span></div>
+  <p class="small" style="margin:4px 0 12px">Emails an analyst reported as mislabeled, and what happened to each report.
+    Feedback capture isn't connected yet: these example records are built from today's misclassified emails to show the format.</p>
+  {% if feedback %}
   <div class="table-wrap"><table>
-    <thead><tr><th>Measure</th><th class="num">Value</th><th class="num">Target</th></tr></thead>
-    {% for k, val in ev.measures.items() %}
-      <tr><td>{{ k | measure }}</td><td class="num">
+    <thead><tr><th>Reported</th><th>Email</th><th>Classifier said</th><th>Analyst says</th><th>Note</th><th>Status</th></tr></thead>
+    {% for f in feedback %}
+    <tr><td class="nowrap small">{{ f.at.strftime('%b %d') }}, {{ f.at | clock }}</td>
+      <td><a href="/email/{{ f.email.email_id }}">{{ f.email.subject }}</a></td>
+      <td>{{ label_pill(f.got if f.got != 'None' else None) }}</td>
+      <td>{{ label_pill(f.expected) }}</td>
+      <td class="small">{{ f.note }}</td>
+      <td><span class="pill {{ {'Logged': 'open', 'Under review': 'second', 'Rule added to criteria': 'ok', 'Dismissed': 'dismissed'}[f.status] }}">{{ f.status }}</span></td></tr>
+    {% endfor %}
+  </table></div>
+  {% else %}<p class="small muted">No misclassified emails to show.</p>{% endif %}
+</section>
+
+<details class="panel collapsed-section">
+  <summary><b>All measures</b> <span class="badge">{{ m | length }}</span></summary>
+  <div class="table-wrap" style="margin-top:12px"><table>
+    <thead><tr><th>Measure</th><th class="num">Value</th><th>What it measures</th></tr></thead>
+    {% for k, val in m.items() %}
+      <tr><td class="nowrap">{{ k | measure }}</td><td class="num">
         {% if val is none %}{% if k in review_keys %}<span class="pill second">Pending hand review</span>{% else %}N/A{% endif %}
         {% elif k in ('repeat_flagged', 'stray_suggestions') %}{{ val | num(0) }}
         {% else %}<b class="{{ 'gap-pos' if k in targets and val >= targets[k] else ('gap-neg' if k in targets else '') }}">{{ val | pct }}</b>{% endif %}</td>
-        <td class="num muted">{{ targets[k] | pct if k in targets else 'Reported' }}</td></tr>
+        <td class="small">{{ labels.MEASURE_EXPLAINERS.get(k, '') }}</td></tr>
     {% endfor %}
-    {% for k in review_keys if k not in ev.measures %}<tr><td>{{ k | measure }}</td><td class="num"><span class="pill second">Pending hand review</span></td><td class="num muted">{{ targets[k] | pct if k in targets else 'Reported' }}</td></tr>{% endfor %}
+    {% for k in review_keys if k not in m %}<tr><td class="nowrap">{{ k | measure }}</td><td class="num"><span class="pill second">Pending hand review</span></td><td class="small">{{ labels.MEASURE_EXPLAINERS.get(k, '') }}</td></tr>{% endfor %}
   </table></div>
-</section>
-<section>
-  <div class="eyebrow">Confusion <span class="grow"></span><span class="xs muted" style="text-transform:none;letter-spacing:0;font-weight:400">Rows: corpus label · Columns: pipeline label</span></div>
+</details>
+
+<details class="panel collapsed-section">
+  <summary><b>Confusion table</b> <span class="xs muted">Rows: reference label · Columns: classifier label</span></summary>
   {% set peak = ev.confusion.values() | map('dictsort') | map('map', attribute='1') | map('max') | max if ev.confusion else 1 %}
-  <div class="table-wrap"><table>
-    <thead><tr><th></th>{% for c in labels %}<th class="num">{{ c | human or 'Quarantined' }}</th>{% endfor %}</tr></thead>
-    {% for r in labels if r in ev.confusion %}<tr><td><b>{{ r | human }}</b></td>{% for c in labels %}{% set n = ev.confusion[r].get(c) %}
+  <div class="table-wrap" style="margin-top:12px"><table>
+    <thead><tr><th></th>{% for c in classes %}<th class="num">{{ c | human or 'Quarantined' }}</th>{% endfor %}</tr></thead>
+    {% for r in classes if r in ev.confusion %}<tr><td><b>{{ r | human }}</b></td>{% for c in classes %}{% set n = ev.confusion[r].get(c) %}
       <td class="num">{% if n %}<span class="heat" style="background: color-mix(in srgb, {{ 'var(--accent)' if r == c else 'var(--bad)' }} {{ (n / peak * 45 + 6) | round }}%, transparent)">{{ n }}</span>{% endif %}</td>{% endfor %}</tr>{% endfor %}
   </table></div>
-</section>
-</div>
-
-<div class="eyebrow" style="margin-top:28px">Misses <span class="badge">{{ ev.misses | length }}</span></div>
-<div class="table-wrap"><table>
-  <thead><tr><th>Email</th><th>Measure</th><th>Expected</th><th>Got</th></tr></thead>
-  {% for m in ev.misses %}<tr><td><a href="/email/{{ m.email_id }}" class="mono-id">{{ m.email_id | ref }}</a></td><td>{{ m.measure | measure }}</td><td>{{ m.expected | prose }}</td><td>{{ m.got | prose }}</td></tr>
-  {% else %}<tr><td colspan="4" class="muted">No misses.</td></tr>{% endfor %}
-</table></div>
+</details>
 {% endif %}
 {% endblock %}

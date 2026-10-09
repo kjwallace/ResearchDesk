@@ -129,6 +129,18 @@ class _Runner:
 
 # ---- Live route ----
 
+def preset_notes(directory: Path = config.LIVE_PRESETS_DIR) -> dict[str, str]:
+    """Each preset's one-line note on what it shows (the optional "note" key; not part of the Email)."""
+    out: dict[str, str] = {}
+    if directory.exists():
+        for path in sorted(directory.glob("*.json")):
+            raw = json.loads(path.read_text())
+            for item in raw if isinstance(raw, list) else [raw]:
+                if isinstance(item, dict) and item.get("note"):
+                    out[str(item["email_id"])] = str(item["note"])
+    return out
+
+
 def load_presets(directory: Path = config.LIVE_PRESETS_DIR) -> list[Email]:
     """The preset emails: each JSON file holds one Email or a list of them."""
     out: list[Email] = []

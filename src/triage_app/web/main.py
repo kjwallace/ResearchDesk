@@ -208,18 +208,14 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         return resp
 
     def spend(v: View) -> str | None:
-        """Take one live run from the session's and the process's hourly allowance; the reason when refused."""
-        if v.sess.runs_left() <= 0:
-            return f"This session has used its {thresholds.LIVE_RUNS_PER_HOUR} live runs for the hour."
+        """Take one live run from the app-wide hourly allowance; the reason when refused. There is no
+        per-visitor limit (person's instruction); the app-wide cap protects a public URL."""
         if not global_runs.take():
             return (f"The app has used its {thresholds.LIVE_RUNS_PER_HOUR_GLOBAL} live runs for the hour "
                     "across all visitors. Try again later.")
-        v.sess.take_run()
         return None
 
     def refund(v: View) -> None:
-        if v.sess.live_runs:
-            v.sess.live_runs.pop()
         global_runs.refund()
 
     def brief_of(v: View) -> Brief:
@@ -516,7 +512,8 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
     def live_page(request: Request) -> HTMLResponse:
         v = view(request)
         return page(request, "live.html", v, presets=runner.load_presets(app.state.presets_dir),
-                    runs_left=v.sess.runs_left(), trace=None, error=None)
+                    preset_notes=runner.preset_notes(app.state.presets_dir),
+                    trace=None, error=None)
 
     @app.post("/live", response_class=HTMLResponse)
     def live_run(request: Request, preset: str = Form(""), sender: str = Form(""), sender_email: str = Form(""),
@@ -525,11 +522,12 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         presets = {e.email_id: e for e in runner.load_presets(app.state.presets_dir)}
 
         def answer(trace: runner.Trace | None, error: str | None, code: int = 200) -> Response:
-            ctx = {"trace": trace, "error": error, "runs_left": v.sess.runs_left()}
+            ctx = {"trace": trace, "error": error}
             if request.headers.get("HX-Request") == "true":
                 return templates.TemplateResponse(request, "fragments/trace.html", {"v": v, **ctx}, status_code=code)
             return templates.TemplateResponse(
-                request, "live.html", {"v": v, "now": datetime.now(UTC), "presets": list(presets.values()), **ctx},
+                request, "live.html", {"v": v, "now": datetime.now(UTC), "presets": list(presets.values()),
+                                       "preset_notes": runner.preset_notes(app.state.presets_dir), **ctx},
                 status_code=code)
 
         spent = False
@@ -568,8 +566,25 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
     def eval_page(request: Request) -> HTMLResponse:
         v = view(request)
         ev = v.data.eval
-        labels = sorted({k for row in ev.confusion.values() for k in row} | set(ev.confusion)) if ev else []
-        return page(request, "eval.html", v, ev=ev, labels=labels, review_keys=REVIEW_KEYS)
+        classes = sorted({k for row in ev.confusion.values() for k in row} | set(ev.confusion)) if ev else []
+        # Example analyst feedback: the shape of a record, built from today's misclassified emails.
+        # Feedback capture is not connected yet, so every row is marked as an example on the page.
+        statuses = ["Logged", "Under review", "Rule added to criteria", "Logged", "Dismissed"]
+        feedback = []
+        if ev is not None:
+            day = brief_of(v).day
+            for n, miss in enumerate(m for m in ev.misses if m.measure == "triage_accuracy" and v.email(m.email_id)):
+                if n == 5:
+                    break
+                email = v.email(miss.email_id)
+                assert email is not None
+                feedback.append({
+                    "email": email, "expected": miss.expected, "got": miss.got, "status": statuses[n],
+                    "at": datetime(day.year, day.month, day.day, 9 + n, 15 * (n % 4)),
+                    "note": (f"Should be {labels.human(miss.expected).lower()}: "
+                             f"the classifier labeled it {labels.human(miss.got).lower()}."),
+                })
+        return page(request, "eval.html", v, ev=ev, classes=classes, review_keys=REVIEW_KEYS, feedback=feedback)
 
     @app.get("/monitor", response_class=HTMLResponse)
     def monitor_page(request: Request) -> HTMLResponse:
@@ -698,8 +713,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         n = len(trace.suggestions)
         v.sess.mattered[email_id] = (f"{n} suggestion{'s' if n != 1 else ''} added to your brief" if n
                                      else "No suggestion")
-        return fragment(request, "fragments/trace.html", v, trace=trace, error=None,
-                        runs_left=v.sess.runs_left())
+        return fragment(request, "fragments/trace.html", v, trace=trace, error=None)
 
     # ---- Manual edits to the book (no suggestion behind them) ----
 

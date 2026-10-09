@@ -326,3 +326,27 @@ def metric_value(metric: str, value: float | None, unit: str | None = None) -> s
     if unit == "usd":
         return f"${value:,.2f}"
     return f"{value:,.1f}%"
+
+
+# ---- What each evaluation measure means, in a sentence ----
+
+MEASURE_EXPLAINERS: dict[str, str] = {
+    "gate_recall": "Of the emails that should reach analysis, the share that did. Misses here are insights lost.",
+    "monitor_gate_recall": "The same for emails worth watching: how many reached analysis.",
+    "gate_reduction": "The share of all email stopped before analysis, so no analyst or model spends time on it.",
+    "signal_accuracy": "How often the classifier sorts an email correctly into signal, already known, or noise.",
+    "triage_accuracy": "How often the exact category (one of five) matches the reference label.",
+    "ticker_f1": "How well the companies tagged on each email match the companies it really affects.",
+    "human_attention_precision": "Of the emails flagged as needing a person, the share that really did.",
+    "human_attention_recall": "Of the emails that needed a person, the share that were flagged.",
+    "topic_f1": "How well the topic tags (macro, sector, government, other) match the reference tags.",
+    "repeat_flagged": "How many emails the repeat check flagged as repeating an earlier one today.",
+    "repeat_precision": "Of the flagged repeats, the share the reference labels call already known.",
+    "stray_suggestions": "Suggestions whose only emails were low priority, not relevant or already known.",
+    "quote_faithfulness": "The share of quoted passages that appear word for word in their email.",
+    "meetings_share": "The share of email that is meeting requests, event invitations or newsletters.",
+    "email_type_accuracy": "How often the email type (research, news alert, meeting request…) matches the reference.",
+    "note_review": "Share of attention notes a reviewer judged accurate, with the reason and action stated.",
+    "suggestion_review": "Share of suggestions a reviewer judged to have the right pillar, stance and evidence.",
+    "new_thesis_review": "Share of new-thesis candidates a reviewer judged new to the book and well supported.",
+}
