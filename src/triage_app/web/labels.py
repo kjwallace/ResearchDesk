@@ -7,6 +7,7 @@ driver, suggestion, criteria version) are shown as written, in a monospace style
 
 import re
 from datetime import date, datetime
+from functools import cache
 
 from triage_app import config
 
@@ -14,13 +15,14 @@ NAMES: dict[str, str] = {
     # Triage labels and flags
     # Triage labels, in plain words; the pipeline's values are unchanged.
     "thesis_relevant": "Actionable", "monitor": "Worth watching", "redundant": "Already known",
-    "low_value": "Low priority", "irrelevant": "Not relevant", "human_attention": "Needs a person",
+    "low_value": "Low priority", "irrelevant": "Not relevant", "human_attention": "Attention required",
     "quarantined": "Quarantined", "unlabeled": "Unlabeled",
     # Topics
     "macro": "Macro", "sector": "Sector", "government": "Government", "other": "Other",
+    "affected_tickers": "Companies affected",
     # Gate and who decided
     "pass": "Passed", "stop": "Stopped", "quarantine": "Quarantined",
-    "jev": "Jev", "redundancy_check": "Repeat check",
+    "jev": "The classifier", "redundancy_check": "Repeat check",
     # Safety questions
     "possible_mnpi": "Possible MNPI", "instructs_ai": "Instructs an AI",
     # Email types
@@ -39,6 +41,7 @@ NAMES: dict[str, str] = {
     # Change log
     "pillar_evidence": "Evidence logged", "pillar_added": "Pillar added",
     "driver_updated": "Assumption updated", "conviction_changed": "Conviction changed",
+    "pillar_edited": "Pillar edited", "pillar_removed": "Pillar removed",
     # Verify verdicts
     "confirmed": "Confirmed", "contradicted": "Contradicted", "not_found": "Not found",
     # Live-trace step status
@@ -63,7 +66,7 @@ MEASURES: dict[str, str] = {
     "gate_recall": "Gate recall", "monitor_gate_recall": "Monitor recall at the gate",
     "gate_reduction": "Gate reduction", "signal_accuracy": "Signal accuracy",
     "triage_accuracy": "Triage accuracy", "ticker_f1": "Ticker F1",
-    "human_attention_precision": "Needs-a-person precision", "human_attention_recall": "Needs-a-person recall",
+    "human_attention_precision": "Attention-required precision", "human_attention_recall": "Attention-required recall",
     "topic_f1": "Topic F1", "repeat_flagged": "Repeats flagged", "repeat_precision": "Repeat precision",
     "stray_suggestions": "Stray suggestions", "quote_faithfulness": "Quote faithfulness",
     "meetings_share": "Meeting-like share", "email_type_accuracy": "Email type accuracy",
@@ -99,17 +102,17 @@ def measure(key: str) -> str:
 
 def sentence(text: object) -> str:
     """Capitalize the first letter only; the rest is left as written (IDs, tickers, figures)."""
-    s = "" if text is None else str(text)
+    s = ids_in_text("" if text is None else str(text))
     return s[:1].upper() + s[1:]
 
 
 def _lower(token: str) -> str:
-    name = NAMES.get(token) or STAGES.get(token) or MEASURES.get(token)
+    name = NAMES.get(token) or MEASURES.get(token) or STAGES.get(token)
     if name is None:
         return token.replace("_", " ")
     # Mid-sentence, keep proper nouns and acronyms (Jev, MNPI, AI) and lower the rest.
     words = name.split(" ")
-    return " ".join(w if (w.isupper() or w == "Jev") else w.lower() for w in words)
+    return " ".join(w if w.isupper() else w.lower() for w in words)
 
 
 def prose(text: object) -> str:
@@ -117,7 +120,11 @@ def prose(text: object) -> str:
     known snake_case keys become words and the first letter is capitalized. IDs such as
     `synthetic_000001` or `NVDA.p2` are kept as written."""
     s = "" if text is None else str(text)
-    s = re.sub(r"\bjev\b", "Jev", s)
+    s = ids_in_text(s)
+    s = re.sub(r"\bjev\b", "classifier", s)
+    # One-word labels where a reason names them: "monitor 0.76", "redundant: repeat of ...".
+    s = re.sub(r"\b(monitor|redundant|irrelevant)\b(?=:| \d)", lambda m: _lower(m.group(1)), s)
+    s = re.sub(r"\bclassifier (?=[a-z][a-z ]* \d)", "classifier: ", s)
     s = _SNAKE.sub(lambda m: m.group(0) if re.search(r"\d{3,}", m.group(0)) else _lower(m.group(0)), s)
     return sentence(s)
 
@@ -168,3 +175,111 @@ def sender_parts(sender: str) -> tuple[str, str, str]:
     if len(parts) == 2:
         return parts[0], "", parts[1]
     return parts[0], ", ".join(parts[1:-1]), parts[-1]
+
+
+def verdict(result: object) -> str:
+    """What happened to an email, in words and without scores (the scores sit behind "View scores")."""
+    gate = getattr(result, "gate", None)
+    if gate == "quarantine":
+        return "Held in quarantine: the body is never summarized or sent to a model."
+    label = human(getattr(result, "triage", None)).lower()
+    if getattr(result, "decided_by", None) == "redundancy_check":
+        first = "Already known: it repeats an earlier email."
+    else:
+        first = f"Classified as {label}."
+    second = "Passed on for analysis." if gate == "pass" else "Stopped before analysis."
+    return f"{first} {second}"
+
+
+# ---- IDs as words: "AAPL.p1" -> "AAPL pillar 1", "synthetic_000197" -> "Email 197" ----
+
+_STANCE_WORDS = {"supports": "Supports", "contradicts": "Contradicts", "review": "Conviction review"}
+_EMAIL_ID = r"(?:synthetic|fixture|live)_\d+"
+_ID_PATTERN = re.compile(
+    rf"\b(?P<email>{_EMAIL_ID})(?:\.(?P<rest>[A-Za-z0-9_.]+?))?(?=[^A-Za-z0-9_.]|\.(?:\s|$)|$)"
+    r"|\b(?P<ticker>[A-Z]{2,5})\.(?P<item>p\d+(?:\.(?:supports|contradicts|review))?|new\d+|[a-z][a-z_]*[a-z])\b"
+)
+
+
+@cache
+def _driver_labels() -> dict[str, str]:
+    from triage_app.state.fold import load_seed
+    return {d.id: d.label for m in load_seed().models for d in m.drivers}
+
+
+def _email_name(email_id: str) -> str:
+    kind, _, number = email_id.partition("_")
+    return f"{'Live email' if kind == 'live' else 'Email'} {int(number)}"
+
+
+def _item_name(ticker: str, item: str) -> str:
+    if m := re.fullmatch(r"p(\d+)(?:\.(supports|contradicts|review))?", item):
+        name = f"{ticker} pillar {m.group(1)}"
+        return f"{name} · {_STANCE_WORDS[m.group(2)]}" if m.group(2) else name
+    if m := re.fullmatch(r"new(\d+)", item):
+        return f"{ticker} new thesis {m.group(1)}"
+    return _driver_labels().get(f"{ticker}.{item}", f"{ticker} {item.replace('_', ' ')}")
+
+
+def pretty_id(value: object) -> str:
+    """One ID as words; anything that is not an ID is returned as written."""
+    text = "" if value is None else str(value)
+    m = _ID_PATTERN.fullmatch(text)
+    if m is None:
+        return text
+    if m.group("email"):
+        email = _email_name(m.group("email"))
+        rest = m.group("rest")
+        if not rest:
+            return email
+        if s := re.fullmatch(r"s(\d+)", rest):
+            return f"Suggestion {s.group(1)} from {email.lower()}"
+        inner = pretty_id(rest)
+        return f"{inner} (from {email.lower()})"
+    return _item_name(m.group("ticker"), m.group("item"))
+
+
+def ids_in_text(text: str) -> str:
+    """Every ID inside a sentence rewritten as words."""
+    return _ID_PATTERN.sub(lambda m: pretty_id(m.group(0)), text)
+
+
+# ---- Positions in dollars and shares (synthetic NAV and reference prices, display only) ----
+
+def position_usd(size_bps: float) -> float:
+    from triage_app import thresholds
+    return size_bps / 10_000 * thresholds.SYNTHETIC_NAV_USD
+
+
+def position_shares(ticker: str, size_bps: float) -> int:
+    from triage_app import thresholds
+    return round(position_usd(size_bps) / thresholds.SYNTHETIC_PRICE_USD[ticker])
+
+
+def money(usd: float) -> str:
+    """$30.0m, $1.2bn, $950k."""
+    if abs(usd) >= 1e9:
+        return f"${usd / 1e9:,.1f}bn"
+    if abs(usd) >= 1e6:
+        return f"${usd / 1e6:,.1f}m"
+    return f"${usd / 1e3:,.0f}k"
+
+
+def position(ticker: str, size_bps: float) -> str:
+    """'$30.0m · 166,667 shares'."""
+    return f"{money(position_usd(size_bps))} · {position_shares(ticker, size_bps):,} shares"
+
+
+# ---- The criteria page: files grouped by what they decide ----
+
+CRITERIA_GROUPS: list[tuple[str, str, str, list[str]]] = [
+    ("categories", "Email categories",
+     "Which of the five categories each email falls into. Every email gets exactly one.",
+     ["thesis_relevant", "monitor", "redundant", "low_value", "irrelevant"]),
+    ("attention", "Attention required",
+     "Whether an email asks a person on the desk to act, such as accept a meeting or answer a question.",
+     ["human_attention"]),
+    ("topics", "Topics and companies",
+     "Which topics an email touches and which of the five covered companies it materially affects.",
+     ["macro", "sector", "government", "other", "affected_tickers"]),
+]

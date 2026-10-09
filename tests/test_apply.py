@@ -137,3 +137,60 @@ def test_accept_never_mutates_seed(seed: Seed, sugg: dict[str, Suggestion]) -> N
     log = [apply.accept(seed, [], sugg["AMZN.new1"], at=datetime(2026, 10, 13, tzinfo=UTC))]
     fold(seed, log)
     assert seed == before
+
+
+# ---- Manual changes to pillars ----
+
+def test_manual_add_edit_remove_and_undo(seed: Seed) -> None:
+    log: list[LogEntry] = []
+    log.append(apply.add_pillar(seed, log, "AAPL", "Enterprise demand grows on AI features.",
+                                driver_ids=["AAPL.other_products_growth"]))
+    state = fold(seed, log)
+    added = state.theses["AAPL"].pillars[-1]
+    assert added.id == "AAPL.p4" and added.driver_ids == ["AAPL.other_products_growth"]
+    assert log[-1].suggestion_id == "" and state.evidence["AAPL.p4"] == []
+
+    log.append(apply.edit_pillar(seed, log, "AAPL.p1", statement="The upgrade cycle disappoints."))
+    state = fold(seed, log)
+    p1 = next(p for p in state.theses["AAPL"].pillars if p.id == "AAPL.p1")
+    assert p1.statement == "The upgrade cycle disappoints." and log[-1].pillar_before is not None
+    assert [p.id for p in state.theses["AAPL"].pillars][0] == "AAPL.p1"   # edited in place
+
+    log.append(apply.remove_pillar(seed, log, "AAPL.p4"))
+    state = fold(seed, log)
+    assert "AAPL.p4" not in [p.id for p in state.theses["AAPL"].pillars] and "AAPL.p4" in state.removed
+    # A removed pillar's ID is never reused.
+    assert apply.add_pillar(seed, log, "AAPL", "Another.").item_id == "AAPL.p5"
+
+    undo = apply.undo(log)
+    assert undo is not None
+    log.append(undo)
+    assert "AAPL.p4" in [p.id for p in fold(seed, log).theses["AAPL"].pillars]
+
+
+def test_manual_changes_are_checked(seed: Seed) -> None:
+    with pytest.raises(apply.ActionError):
+        apply.add_pillar(seed, [], "AAPL", "   ")
+    with pytest.raises(apply.ActionError):
+        apply.add_pillar(seed, [], "AAPL", "Uses an NVDA driver.", driver_ids=["NVDA.capex"])
+    with pytest.raises(apply.ActionError):
+        apply.edit_pillar(seed, [], "AAPL.p9", statement="No such pillar.")
+    p1 = next(p for t in seed.theses for p in t.pillars if p.id == "AAPL.p1")
+    with pytest.raises(apply.ActionError):
+        apply.edit_pillar(seed, [], "AAPL.p1", statement=p1.statement)   # nothing changed
+
+
+def test_manual_evidence_counts_toward_conviction_review(seed: Seed) -> None:
+    log: list[LogEntry] = []
+    for _ in range(2):
+        log.append(apply.log_evidence(seed, log, "MSFT.p1", "contradicts", 3))
+    assert net_contradicting(fold(seed, log), "MSFT.p1") == 6
+    assert any(r.id == "MSFT.p1.review" for r in apply.conviction_reviews(seed, log))
+
+
+def test_suggestion_on_a_removed_pillar_cannot_be_accepted(seed: Seed) -> None:
+    log = [apply.remove_pillar(seed, [], "MSFT.p1")]
+    s = Suggestion(id="MSFT.p1.supports", body=ExistingThesis(kind="existing_thesis", pillar_id="MSFT.p1",
+                   stance="supports", strength=1), rationale="r", claim_ids=[], sections=[], status="open")
+    with pytest.raises(apply.ActionError):
+        apply.accept(seed, log, s)

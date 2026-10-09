@@ -1,3 +1,3 @@
 {% from "macros.html" import projection_table %}
-<div class="flash ok">{{ entry.item_id }} updated from {{ entry.before | num }} to {{ entry.after | num }}. Projections for {{ ticker }} recomputed:</div>
+<div class="flash ok">{{ entry.item_id | ref }} updated from {{ entry.before | num }} to {{ entry.after | num }}. Projections for {{ ticker }} recomputed:</div>
 {{ projection_table(projections) }}

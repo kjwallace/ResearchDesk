@@ -2,39 +2,109 @@
 {% from "macros.html" import icon %}
 {% block title %}Criteria{% endblock %}
 {% block content %}
-<div class="page-title"><h2>Relevance criteria</h2>{% if history %}<span class="mono-id">{{ history[-1].criteria_version }}</span>{% endif %}</div>
-<p class="lead-in">Jev classifies each email with these files and never sees the book. Label definitions are fixed; rules are added beneath them,
-  at most {{ thresholds.RULES_PER_CRITERIA_FILE }} per file, and each one describes a kind of information, never a view.</p>
+{%- set max_rules = thresholds.RULES_PER_CRITERIA_FILE -%}
+<div class="page-title"><h2>Relevance criteria</h2><span class="grow" style="flex:1"></span>
+  <button type="button" class="primary" data-act="open-new-category">{{ icon('plus') }}Add a new category</button></div>
+<p class="lead-in">The classifier reads each email against these criteria and never sees the book. Each category has a fixed
+  definition and up to {{ max_rules }} rules beneath it; rules describe kinds of information, never views.</p>
 
-<div class="split" style="grid-template-columns: minmax(180px, 2fr) minmax(0, 7fr)">
-<nav class="side-nav" aria-label="Criteria files">
-  <a href="/criteria" class="{{ 'on' if not label else '' }}">All files <span class="badge">{{ files | length }}</span></a>
-  {% for name in files %}{% set l = name[:-3] %}
-    <a href="/criteria/{{ l }}" class="{{ 'on' if l == label else '' }}">{{ l | human }}</a>
+<div class="callout warn example-note" role="note">
+  <div class="eyebrow">{{ icon('alert') }}Editing is an example feature</div>
+  <p>You can try editing, adding and removing rules and categories below. These changes are <b>not saved</b>: they stay on this
+    page only, disappear when you reload or leave it, and do not change the criteria files or how any email is classified.</p>
+</div>
+
+<form class="panel new-category" data-new-category hidden>
+  <div class="eyebrow">{{ icon('plus') }}New category <span class="grow"></span><span class="tag warn">Example, not saved</span></div>
+  <div class="new-cat-grid">
+    <label class="field">Name<input type="text" name="name" required placeholder="For example: Supply chain"></label>
+    <label class="field">Section<select name="section">
+      {% for key, title, _, _ in groups %}<option value="{{ key }}">{{ title }}</option>{% endfor %}</select></label>
+  </div>
+  <label class="field">Definition<textarea name="definition" rows="2" placeholder="What this category means, in a sentence or two."></textarea></label>
+  <div class="actions"><button class="primary">{{ icon('check') }}Add category</button>
+    <button type="button" class="ghost" data-act="close-new-category">Cancel</button></div>
+</form>
+
+<div class="crit-layout">
+<nav class="side-nav crit-nav" aria-label="Criteria">
+  <a href="/criteria" class="{{ 'on' if not label else '' }}">Overview</a>
+  {% for key, title, _, names in groups %}
+    <div class="nav-h {{ key }}">{{ title }}</div>
+    {% for n in names %}<a href="/criteria/{{ n }}" class="{{ 'on' if n == label else '' }}">{{ n | human }}</a>{% endfor %}
   {% endfor %}
+  <button type="button" class="nav-add" data-act="open-new-category">{{ icon('plus') }}Add a new category</button>
+  <div class="nav-h safety"><b>Safety</b></div>
+  <a href="/criteria#safety"><b>Safety checks</b></a>
 </nav>
+
 <section>
-{% if label %}
-  <div class="eyebrow">{{ icon('file') }}{{ label | human }} <span class="mono-id">criteria/{{ label }}.md</span></div>
-  {% if error %}<div class="flash err">{{ error }}</div>{% endif %}
-  {% if parsed %}
-    <div class="callout plain"><div class="eyebrow">Definition (fixed)</div><p>{{ parsed.definition }}</p></div>
-    <div class="panel">
-      <div class="eyebrow">Rules <span class="badge">{{ parsed.rules | length }}</span></div>
-      <ol class="rules">{% for r in parsed.rules %}<li value="{{ loop.index }}"><span class="rid mono">{{ r.id }}</span><span>{{ r.text }}</span></li>{% else %}<li class="muted">No rules yet.</li>{% endfor %}</ol>
+{% if not label %}
+  {# ---------- Overview: one section per group, then Safety ---------- #}
+  {% for key, title, blurb, names in groups %}
+  <section class="crit-section {{ key }}" id="{{ key }}" data-crit-section>
+    <header><h3>{{ title }}</h3><span class="badge">{{ names | length }}</span>
+      <span class="grow"></span><button type="button" data-act="add-category">{{ icon('plus') }}Add a category</button></header>
+    <p class="small muted">{{ blurb }}</p>
+    <div class="crit-cards">
+    {% for n in names %}{% set c = parsed_all.get(n) %}
+      <a class="crit-card" href="/criteria/{{ n }}">
+        <b>{{ n | human }}</b>
+        {% if c %}<span class="small muted clamp3">{{ c.definition }}</span>
+          <span class="xs">{{ c.rules | length }} of {{ max_rules }} rules</span>
+        {% else %}<span class="small" style="color:var(--bad)">{{ errors.get(n, 'Missing') }}</span>{% endif %}
+      </a>
+    {% endfor %}
     </div>
-  {% endif %}
-  <details class="more"><summary>The raw file</summary><pre class="criteria">{{ files.get(label ~ '.md', '') }}</pre></details>
-{% else %}
-  {% for name, text in files.items() %}
-    <details class="panel"><summary><a href="/criteria/{{ name[:-3] }}">{{ name[:-3] | human }}</a> <span class="mono-id">{{ name }}</span></summary><pre class="criteria" style="margin-top:10px">{{ text }}</pre></details>
+  </section>
   {% endfor %}
+
+  <section class="crit-section safety" id="safety">
+    <header><h3>{{ icon('lock') }}<b>Safety</b></h3><span class="tag bad">Read-only</span></header>
+    <p class="small"><b>Every email is checked for both before anything else runs.</b> If either check reaches
+      {{ thresholds.QUARANTINE | num(2) }}, the email is quarantined: only its sender and subject are ever shown, and no later model sees it.
+      These questions are fixed and cannot be edited here.</p>
+    <div class="crit-cards">
+    {% for q in safety %}
+      <div class="crit-card safety-card"><b>{{ q.key | human }}</b><span class="small">{{ q.question }}</span></div>
+    {% else %}<p class="small muted">The safety questions could not be read.</p>{% endfor %}
+    </div>
+  </section>
+
+{% else %}
+  {# ---------- One category: fixed definition, editable (example) rules ---------- #}
+  {% set g = group_of.get(label) %}
+  {% set gtitle = (groups | selectattr('0', 'equalto', g) | first)[1] if g else '' %}
+  <div class="crumbs"><a href="/criteria">Criteria</a> / <a href="/criteria#{{ g }}">{{ gtitle }}</a> / <span>{{ label | human }}</span></div>
+  <section class="crit-section {{ g }}">
+    <header><h3>{{ label | human }}</h3><span class="tag">{{ gtitle }}</span></header>
+    {% if error %}<div class="flash err">{{ error }}</div>{% endif %}
+    {% if parsed %}
+    <div class="callout plain"><div class="eyebrow">{{ icon('lock') }}Definition (fixed)</div><p>{{ parsed.definition }}</p></div>
+    <div class="panel" data-crit-editor data-max="{{ max_rules }}">
+      <div class="eyebrow">Rules <span class="badge" data-count>{{ parsed.rules | length }} of {{ max_rules }}</span>
+        <span class="grow"></span><span class="tag warn" data-dirty hidden>Example edits, not saved</span>
+        <button type="button" data-act="discard" hidden>{{ icon('rotate') }}Discard</button></div>
+      <ol class="rules" data-rules>
+        {% for r in parsed.rules %}
+        <li data-rule><span class="rid">{{ loop.index }}.</span><span class="rtext">{{ r.text }}</span>
+          <span class="rule-tools"><button type="button" class="ghost" data-act="edit">Edit</button><button type="button" class="ghost danger" data-act="delete">Remove</button></span></li>
+        {% endfor %}
+      </ol>
+      <form class="add-rule" data-act="add-rule">
+        <input type="text" name="rule" placeholder="Add a rule: one sentence describing a kind of information" aria-label="New rule" required>
+        <button class="primary">{{ icon('plus') }}Add rule</button>
+      </form>
+      <p class="xs muted" style="margin:8px 0 0">One sentence per rule. Rules describe kinds of information, never a view or a position.</p>
+    </div>
+    {% endif %}
+  </section>
 {% endif %}
 
 <div class="eyebrow" style="margin-top:28px">Version history</div>
 {% for h in history | reverse %}
   <details class="panel" {% if loop.first %}open{% endif %}>
-    <summary>Version <span class="mono-id">{{ h.criteria_version }}</span> <span class="muted">· {{ h.at.strftime('%b %d, %Y, %H:%M') }} · {{ h.changed | length }} tuning emails changed label</span></summary>
+    <summary>Version {{ loop.revindex }}{% if loop.first %} (current){% endif %} <span class="muted">· {{ h.at.strftime('%b %d, %Y, %H:%M') }} · {{ h.changed | length }} tuning emails changed label</span></summary>
     <div class="table-wrap" style="margin-top:12px"><table>
       <thead><tr><th>Measure</th><th class="num">Fit</th><th class="num">Validation</th></tr></thead>
       {% for k in (h.fit.keys() | list + h.validation.keys() | list) | unique %}
@@ -43,7 +113,7 @@
     </table></div>
     {% if h.changed %}<h3 style="margin-top:14px">Emails whose label changed</h3>
       <div class="table-wrap"><table><thead><tr><th>Email</th><th>Before</th><th>After</th><th>Split</th><th>Now correct</th></tr></thead>
-      {% for c in h.changed %}<tr><td><span class="mono-id">{{ c.email_id }}</span> {{ c.subject }}</td><td>{{ c.before | human or 'Quarantined' }}</td><td>{{ c.after | human or 'Quarantined' }}</td><td>{{ c.split | human }}</td><td>{{ 'Yes' if c.now_correct else 'No' }}</td></tr>{% endfor %}
+      {% for c in h.changed %}<tr><td><span class="mono-id">{{ c.email_id | ref }}</span> {{ c.subject }}</td><td>{{ c.before | human or 'Quarantined' }}</td><td>{{ c.after | human or 'Quarantined' }}</td><td>{{ c.split | human }}</td><td>{{ 'Yes' if c.now_correct else 'No' }}</td></tr>{% endfor %}
       </table></div>{% endif %}
     {% if label and (label ~ '.md') in h.files %}<h3 style="margin-top:14px">{{ label | human }} in this version</h3><pre class="criteria">{{ h.files[label ~ '.md'] }}</pre>{% endif %}
   </details>

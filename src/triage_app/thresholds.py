@@ -144,3 +144,10 @@ def load_thresholds(path: Path | None = None) -> Thresholds:
         "content_similarity_with_subject": CONTENT_SIMILARITY_WITH_SUBJECT,
         "subject_match": SUBJECT_MATCH,
     })
+
+# ---- Display only: positions in dollars and shares (synthetic; the book stores basis points) --
+
+SYNTHETIC_NAV_USD = 1_000_000_000     # fixed  synthetic fund size; a position's dollars = bps / 10,000 x this
+SYNTHETIC_PRICE_USD = {               # fixed  synthetic reference price per share, for share counts only
+    "AMZN": 220.0, "NVDA": 180.0, "MSFT": 510.0, "AAPL": 250.0, "GOOGL": 240.0,
+}

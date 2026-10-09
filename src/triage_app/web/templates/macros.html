@@ -39,7 +39,7 @@
 {%- endmacro %}
 
 {% macro ticker_mark(t) -%}
-  <span class="avatar lg t3" aria-hidden="true" style="border-radius:6px;font-size:10px">{{ t }}</span>
+  <span class="logo {{ 'wide' if t == 'NVDA' else '' }}" aria-hidden="true"><img src="/static/logos/{{ t }}.svg?v={{ ASSET_V }}" alt=""></span>
 {%- endmacro %}
 
 {% macro email_link(v, eid) -%}
@@ -104,8 +104,8 @@
     {{ ticker_mark(t) }}
     <div class="main">
       <div class="top">
-        <span class="who">{% if b.kind == 'existing_thesis' %}{{ b.pillar_id }}{% elif b.kind == 'new_thesis' %}New thesis · {{ b.ticker }}{% else %}Conviction review · {{ b.ticker }}{% endif %}</span>
-        <span class="when">{% if th %}{{ th.stance | human }} · {{ sizes.get(t) }} bps{% endif %}</span>
+        <span class="who">{% if b.kind == 'existing_thesis' %}{{ b.pillar_id | ref }}{% elif b.kind == 'new_thesis' %}New thesis · {{ b.ticker }}{% else %}Conviction review · {{ b.ticker }}{% endif %}</span>
+        <span class="when">{% if th %}{{ th.stance | human }} · {{ labels.position_usd(sizes.get(t)) | money }}{% endif %}</span>
       </div>
       <div class="subj clamp">{{ pane_link('/suggestion/' ~ s.id, s.rationale if b.kind != 'conviction_review' else 'Accepted contradicting evidence on ' ~ b.pillar_id ~ ' reached the review threshold.') }}</div>
       <div class="tags">
@@ -143,14 +143,14 @@
   <div class="card">
     {% if b.kind == 'existing_thesis' %}
       {%- set p = v.pillar(b.pillar_id) -%}
-      <h3><a href="/suggestion/{{ s.id }}">{{ b.pillar_id }}</a>
+      <h3><a href="/suggestion/{{ s.id }}">{{ b.pillar_id | ref }}</a>
         <span class="pill dot {{ b.stance }}">{{ b.stance | human }}</span>
         <span class="tag">Strength {{ b.strength }}</span>
         {% if s.second_look %}<span class="pill second">Second look</span>{% endif %}
-        <span class="muted small">{{ v.thesis(v.ticker_of(s)).stance | human }} · {{ sizes.get(v.ticker_of(s)) }} bps</span></h3>
+        <span class="muted small">{{ v.thesis(v.ticker_of(s)).stance | human }} · {{ labels.position_usd(sizes.get(v.ticker_of(s))) | money }}</span></h3>
       {% if p %}<div class="card-meta">{{ p.statement }}</div>{% endif %}
       {% for a in b.assumptions %}
-        <div class="small">Stated {{ a.driver_id }}: <b>{{ a.stated_value | num }}</b>
+        <div class="small">Stated {{ a.driver_id | ref }}: <b>{{ a.stated_value | num }}</b>
           (book {{ v.driver(a.driver_id).analyst | num if v.driver(a.driver_id) else a.book_value | num }},
           consensus {{ a.consensus_value | num }})</div>
       {% endfor %}
@@ -160,7 +160,7 @@
       <div>{{ b.statement }}</div>
     {% else %}
       <h3><a href="/suggestion/{{ s.id }}">Conviction review: {{ b.ticker }}</a></h3>
-      <div class="small">Accepted contradicting evidence on {{ b.pillar_id }} reached the review threshold.</div>
+      <div class="small">Accepted contradicting evidence on {{ b.pillar_id | ref }} reached the review threshold.</div>
     {% endif %}
     <p class="small" style="margin:6px 0">{{ s.rationale }}</p>
     <div class="small muted">Linked emails:
@@ -185,4 +185,33 @@
     <span class="label">{{ label }}</span><span class="ic">{{ icon(ic) }}</span>
     <span class="value">{{ value }}</span><span class="hint">{{ hint }}</span>
   </{{ 'a' if href else 'div' }}>
+{%- endmacro %}
+
+{# Every score behind one email's classification, collapsed until asked for. #}
+{% macro scores(v, triage, result, redundancy=None, compact=False) -%}
+  <details class="scores {{ 'compact' if compact else '' }}">
+    <summary>{{ icon('gauge') }}View scores</summary>
+    <div class="scores-body">
+      {% if result %}
+      <dl class="kv">
+        <dt>Signal score <span class="xs muted">(actionable + worth watching)</span></dt><dd class="big-num">{{ result.signal_score | num(2) }}</dd>
+      </dl>
+      {{ bar(result.signal_score, '' if result.gate == 'pass' else 'muted') }}
+      <div class="score-note"><b>Decision record</b> <span class="xs muted">(written by code, not a model)</span><br>{{ result.reason | prose }}</div>
+      {% endif %}
+      {% if redundancy and redundancy.flagged and redundancy.nearest %}
+      <div class="score-note"><b>Similarity to the earlier email</b> {{ email_link(v, redundancy.nearest) }}<br>
+        Content {{ redundancy.content_similarity | num(2) }} · Subject {{ redundancy.subject_score | num(2) }}</div>
+      {% endif %}
+      {% if triage %}
+      <div class="score-group"><div class="score-h">Label</div>{{ prob_bars(triage.triage_probs) }}</div>
+      <div class="score-group"><div class="score-h">Companies</div>{{ prob_bars(triage.ticker_probs) }}</div>
+      <div class="score-group"><div class="score-h">Topics</div>{{ prob_bars(triage.topic_probs) }}</div>
+      <div class="score-group"><div class="score-h">Attention required, and safety checks</div>{{ prob_bars(dict(triage.safety, human_attention=triage.human_attention)) }}</div>
+      <div class="score-group"><div class="score-h">Email type: {{ triage.email_type | human }}</div>{{ prob_bars(triage.email_type_probs, 4) }}</div>
+      <p class="xs muted" style="margin:10px 0 0">Classifier probabilities, 0 to 1.
+        {% if triage.truncated %}· The body was trimmed to the classifier's input limit; trimmed emails always pass.{% endif %}</p>
+      {% endif %}
+    </div>
+  </details>
 {%- endmacro %}

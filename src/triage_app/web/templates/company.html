@@ -4,8 +4,7 @@
 {% block content %}
 {%- set a = projections['analyst'] -%}{%- set c = projections['consensus'] -%}
 <div class="page-title">{{ ticker_mark(ticker) }}<h2>{{ ticker }}</h2>
-  <span class="pill dot {{ thesis.stance }}">{{ thesis.stance | human }}</span> <span class="tag">{{ thesis.size_bps }} bps</span>
-  <span class="tag">Conviction {{ thesis.conviction }} of 5</span>
+  <span class="pill dot {{ thesis.stance }}">{{ thesis.stance | human }}</span> <span class="tag">{{ position(ticker, thesis.size_bps) }}</span>
   <span class="grow" style="flex:1"></span>
   <nav class="actions" aria-label="Other companies">{% for t in config.TICKERS if t != ticker %}<a class="btn" href="/company/{{ t }}">{{ t }}</a>{% endfor %}</nav>
 </div>
@@ -14,67 +13,104 @@
   {% elif model.source_url %}Base revenue, tax rate and share count from the latest annual report: <a href="{{ model.source_url }}">source</a>.{% endif %}</p>
 
 <section class="stats" aria-label="{{ ticker }} in numbers">
-  {{ stat('Position', (thesis.stance | human) ~ ' ' ~ thesis.size_bps ~ ' bps', 'Synthetic size', 'layers') }}
-  {{ stat('Conviction', thesis.conviction ~ ' of 5', 'Set only by the analyst', 'gauge') }}
+  {{ stat('Position', (thesis.stance | human) ~ ' ' ~ (labels.position_usd(thesis.size_bps) | money), '{:,}'.format(labels.position_shares(ticker, thesis.size_bps)) ~ ' shares at a synthetic $' ~ thresholds.SYNTHETIC_PRICE_USD[ticker] | int, 'layers') }}
+  {{ stat('Pillars', thesis.pillars | length, 'The beliefs behind this position', 'layers') }}
   {{ stat('EPS, analyst', '$' ~ (a.eps | num(2)), 'Consensus $' ~ (c.eps | num(2)) ~ ' · ' ~ model.fiscal_year, 'trend') }}
   {{ stat('Target price', '$' ~ (a.target_price | num(0)), 'Consensus $' ~ (c.target_price | num(0)) ~ ' · ' ~ model.target_multiple ~ '× EPS', 'target') }}
 </section>
 
-{% for r in reviews %}{{ card(v, r, {ticker: thesis.size_bps}) }}{% endfor %}
 
 <div class="grid2">
 <section>
-  <div class="eyebrow">Drivers</div>
+  <div class="eyebrow">Assumptions <span class="grow"></span><span class="xs muted" style="font-weight:400">Edit a value and press Enter; EPS and target price recompute</span></div>
   <div class="table-wrap"><table>
-    <thead><tr><th>Driver</th><th class="num">Analyst</th><th class="num">Consensus</th><th class="num">Gap</th><th>Unit</th></tr></thead>
+    <thead><tr><th>Assumption</th><th class="num">Analyst</th><th class="num">Consensus</th><th class="num">Gap</th></tr></thead>
     {% for d in model.drivers %}
       {% set sd = v.seed_driver(d.id) %}{% set gap = d.analyst - d.consensus %}
-      <tr id="row-{{ d.id | replace('.', '-') }}"><td>{{ d.label }}<div class="muted xs mono">{{ d.id }}</div></td>
-        <td class="num"><b>{{ d.analyst | num }}</b>{% if sd and sd.analyst != d.analyst %} <span class="muted small">(seed {{ sd.analyst | num }})</span>{% endif %}</td>
+      <tr id="row-{{ d.id | replace('.', '-') }}"><td>{{ d.label }} <span class="xs muted">({{ d.unit | human }})</span>
+          {% if sd and sd.analyst != d.analyst %}<div class="xs muted">Seed {{ sd.analyst | num }}</div>{% endif %}</td>
+        <td class="num"><form class="inline-edit" method="post" action="/company/{{ ticker }}/driver/{{ d.id }}"
+              hx-post="/company/{{ ticker }}/driver/{{ d.id }}" hx-target="#flash">
+            <input type="number" step="any" name="value" value="{{ d.analyst }}" min="{{ d.min }}" max="{{ d.max }}"
+                   aria-label="{{ d.label }}" title="Bounds {{ d.min | num }} to {{ d.max | num }}"></form></td>
         <td class="num">{{ d.consensus | num }}</td>
-        <td class="num {{ 'gap-pos' if gap > 0 else ('gap-neg' if gap < 0 else '') }}">{{ '+' if gap > 0 else '' }}{{ gap | num }}</td><td class="muted">{{ d.unit | human }}</td></tr>
+        <td class="num {{ 'gap-pos' if gap > 0 else ('gap-neg' if gap < 0 else '') }}">{{ '+' if gap > 0 else '' }}{{ gap | num }}</td></tr>
     {% endfor %}
   </table></div>
 </section>
 <section>
   <div class="eyebrow">Projections</div>
   <div id="projections">{{ projection_table(projections) }}</div>
-  <p class="xs muted">"seed" is the analyst's values before this session's changes. Capex does not feed EPS.</p>
+  <p class="xs muted">"Seed" is the analyst's values before this session's changes. Capital expenditure does not feed EPS.</p>
 </section>
 </div>
 
-<div class="eyebrow" style="margin-top:28px">Pillars</div>
+<div class="eyebrow" style="margin-top:28px">Pillars <span class="grow"></span><span class="xs muted" style="font-weight:400">Changes apply to this session; undo reverses the last one</span></div>
 <div class="grid3">
 {% for p in thesis.pillars %}
   {% set ev = v.state.evidence.get(p.id, []) %}
   {% set ns = namespace(net=0) %}{% for e in ev %}{% set ns.net = ns.net + (e.strength if e.stance == 'contradicts' else -e.strength) %}{% endfor %}
-  <article class="card" id="pillar-{{ p.id | replace('.', '-') }}">
-    <h3><span class="mono-id">{{ p.id }}</span>{% if ev %}<span class="tag {{ 'bad' if ns.net > 0 else 'good' }}" title="Net contradicting strength">Net contradicting {{ ns.net }}</span>{% endif %}</h3>
+  <article class="card pillar-card" id="pillar-{{ p.id | replace('.', '-') }}">
+    <h3>{{ p.id | ref }}{% if ev %}<span class="tag {{ 'bad' if ns.net > 0 else 'good' }}" title="Net contradicting strength">Net contradicting {{ ns.net }}</span>{% endif %}</h3>
     <p style="margin:4px 0 10px">{{ p.statement }}</p>
-    <div class="tags" style="display:flex;flex-wrap:wrap;gap:5px">{% for d in p.driver_ids %}<span class="mono-id">{{ d }}</span>{% endfor %}</div>
+    <div class="tags" style="display:flex;flex-wrap:wrap;gap:5px">{% for d in p.driver_ids %}<span class="mono-id">{{ d | ref }}</span>{% else %}<span class="xs muted">No linked assumptions</span>{% endfor %}</div>
     {% if ev %}<ul class="small" style="padding-left:18px;margin:10px 0 0">
       {% for e in ev %}<li><span class="pill {{ e.stance }}">{{ e.stance | human }}</span> Strength {{ e.strength }}
-        from <a href="/suggestion/{{ e.suggestion_id }}" class="mono-id">{{ e.suggestion_id }}</a></li>{% endfor %}
+        {% if e.suggestion_id %}from <a href="/suggestion/{{ e.suggestion_id }}" class="mono-id">{{ e.suggestion_id | ref }}</a>{% else %}<span class="muted">added by hand</span>{% endif %}</li>{% endfor %}
     </ul>{% else %}<div class="small muted" style="margin-top:10px">No accepted evidence yet.</div>{% endif %}
+
+    <div class="pillar-tools">
+      <details class="tool"><summary>{{ icon('file') }}Edit</summary>
+        <form method="post" action="/pillar/{{ p.id }}/edit" hx-post="/pillar/{{ p.id }}/edit" hx-target="#flash">
+          <label class="field">Statement<textarea name="statement" rows="3" required>{{ p.statement }}</textarea></label>
+          <fieldset class="checks"><legend>Linked assumptions</legend>
+            {% for d in model.drivers %}<label><input type="checkbox" name="driver_ids" value="{{ d.id }}" {% if d.id in p.driver_ids %}checked{% endif %}> {{ d.label }}</label>{% endfor %}
+          </fieldset>
+          <button class="primary">{{ icon('check') }}Save</button>
+        </form>
+      </details>
+      <details class="tool"><summary>{{ icon('plus') }}Log evidence</summary>
+        <form class="actions" method="post" action="/pillar/{{ p.id }}/evidence" hx-post="/pillar/{{ p.id }}/evidence" hx-target="#flash">
+          <select name="stance" aria-label="Stance"><option value="supports">Supports</option><option value="contradicts">Contradicts</option></select>
+          <select name="strength" aria-label="Strength">{% for n in [1, 2, 3] %}<option value="{{ n }}">Strength {{ n }}</option>{% endfor %}</select>
+          <button class="primary">Log</button>
+        </form>
+      </details>
+      <form method="post" action="/pillar/{{ p.id }}/remove" hx-post="/pillar/{{ p.id }}/remove" hx-target="#flash"
+            hx-confirm="Remove {{ p.id | ref }} from the thesis? Undo restores it.">
+        <button class="danger ghost">{{ icon('x') }}Remove</button></form>
+    </div>
   </article>
 {% endfor %}
+  <article class="card pillar-card add-pillar">
+    <h3>{{ icon('plus') }}Add a pillar</h3>
+    <form method="post" action="/company/{{ ticker }}/pillars" hx-post="/company/{{ ticker }}/pillars" hx-target="#flash">
+      <label class="field">Statement<textarea name="statement" rows="3" required placeholder="What the desk believes about {{ ticker }}, in one sentence."></textarea></label>
+      <fieldset class="checks"><legend>Linked assumptions</legend>
+        {% for d in model.drivers %}<label><input type="checkbox" name="driver_ids" value="{{ d.id }}"> {{ d.label }}</label>{% endfor %}
+      </fieldset>
+      <button class="primary">{{ icon('plus') }}Add pillar</button>
+    </form>
+  </article>
 </div>
 
 <div class="eyebrow" style="margin-top:28px">Change history</div>
 <div class="list">
 {% for e in history %}
   <div class="row" style="display:block">
-    <div class="top"><span class="who">{{ e.change | human }}: <span class="mono-id">{{ e.item_id }}</span>{% if e.reverses %} <span class="tag warn">Undo of {{ e.reverses }}</span>{% endif %}</span>
-      <span class="when">{{ e.at.strftime('%H:%M:%S') }} · {{ e.id }}</span></div>
+    <div class="top"><span class="who">{{ e.change | human }}: <span class="mono-id">{{ e.item_id | ref }}</span>{% if e.reverses %} <span class="tag warn">Undone</span>{% endif %}</span>
+      <span class="when">{{ e.at.strftime('%H:%M:%S') }}</span></div>
     <div class="small">
     {% if e.before is not none or e.after is not none %}{{ e.before | num }} → <b>{{ e.after | num }}</b>{% endif %}
     {% if e.stance %}<span class="pill {{ e.stance }}">{{ e.stance | human }}</span> Strength {{ e.strength }}{% endif %}
-    {% if e.suggestion_id %}· From <a href="/suggestion/{{ e.suggestion_id }}" class="mono-id">{{ e.suggestion_id }}</a>{% endif %}</div>
+    {% if e.change == 'pillar_edited' and e.pillar and e.pillar_before %}“{{ e.pillar.statement }}” <span class="muted">(was “{{ e.pillar_before.statement }}”)</span>
+    {% elif e.change in ('pillar_added', 'pillar_removed') and e.pillar %}“{{ e.pillar.statement }}”{% endif %}
+    {% if e.suggestion_id %}· From <a href="/suggestion/{{ e.suggestion_id }}" class="mono-id">{{ e.suggestion_id | ref }}</a>{% endif %}</div>
     {% set eids = e.sections | map(attribute='email_id') | unique | list %}
     {% if eids %}<div class="small muted">Emails: {% for eid in eids %}{{ email_link(v, eid) }}{% if not loop.last %}; {% endif %}{% endfor %}</div>{% endif %}
   </div>
 {% else %}<div class="empty" style="border:0">No changes in this session.</div>{% endfor %}
 </div>
 {% if dismissed %}<div class="eyebrow" style="margin-top:20px">Dismissed suggestions</div>
-  <ul class="small">{% for s in dismissed %}<li><a href="/suggestion/{{ s.id }}" class="mono-id">{{ s.id }}</a> {{ s.rationale }}</li>{% endfor %}</ul>{% endif %}
+  <ul class="small">{% for s in dismissed %}<li><a href="/suggestion/{{ s.id }}" class="mono-id">{{ s.id | ref }}</a> {{ s.rationale }}</li>{% endfor %}</ul>{% endif %}
 {% endblock %}

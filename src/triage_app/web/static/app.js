@@ -94,3 +94,116 @@
     setTimeout(nextOpen, 700);
   });
 })();
+
+// Criteria: example editing only. Nothing is sent to the server; a reload discards every change.
+(function () {
+  function markDirty(root) {
+    var d = root.querySelector("[data-dirty]"); if (d) d.hidden = false;
+    var b = root.querySelector('[data-act="discard"]'); if (b) b.hidden = false;
+  }
+  function renumber(root) {
+    var items = root.querySelectorAll("[data-rule]");
+    items.forEach(function (li, i) { li.querySelector(".rid").textContent = (i + 1) + "."; });
+    var c = root.querySelector("[data-count]");
+    if (c) c.textContent = items.length + " of " + root.dataset.max;
+    var add = root.querySelector("form.add-rule");
+    if (add) add.querySelector("button").disabled = items.length >= +root.dataset.max;
+  }
+  function ruleItem(text) {
+    var li = document.createElement("li");
+    li.setAttribute("data-rule", ""); li.className = "draft";
+    li.innerHTML = '<span class="rid"></span><span class="rtext"></span><span class="rule-tools">' +
+      '<button type="button" class="ghost" data-act="edit">Edit</button>' +
+      '<button type="button" class="ghost danger" data-act="delete">Remove</button></span>';
+    li.querySelector(".rtext").textContent = text;
+    return li;
+  }
+  document.addEventListener("submit", function (e) {
+    var form = e.target.closest('form[data-act="add-rule"]');
+    if (!form) return;
+    e.preventDefault();
+    var root = form.closest("[data-crit-editor]"), input = form.querySelector("input");
+    var text = input.value.trim();
+    if (!text || root.querySelectorAll("[data-rule]").length >= +root.dataset.max) return;
+    root.querySelector("[data-rules]").appendChild(ruleItem(text));
+    input.value = ""; renumber(root); markDirty(root);
+  });
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-act]");
+    if (!btn || btn.tagName === "FORM") return;
+    var act = btn.getAttribute("data-act");
+    var root = btn.closest("[data-crit-editor]");
+    if (act === "discard") { window.__discarding = true; window.location.reload(); return; }
+    if (act === "delete" && root) { btn.closest("[data-rule]").remove(); renumber(root); markDirty(root); return; }
+    if (act === "edit" && root) {
+      var li = btn.closest("[data-rule]"), span = li.querySelector(".rtext");
+      if (!li.querySelector("input")) {
+        var inp = document.createElement("input"); inp.type = "text"; inp.value = span.textContent;
+        span.hidden = true; span.after(inp); inp.focus(); btn.textContent = "Save";
+        inp.addEventListener("keydown", function (k) { if (k.key === "Enter") { k.preventDefault(); btn.click(); } });
+      } else {
+        var inp2 = li.querySelector("input");
+        var next = inp2.value.trim();
+        if (next && next !== span.textContent) { span.textContent = next; li.classList.add("draft"); markDirty(root); }
+        inp2.remove(); span.hidden = false; btn.textContent = "Edit";
+      }
+      return;
+    }
+    if (act === "add-category") {
+      var sec = btn.closest("[data-crit-section]"), cards = sec.querySelector(".crit-cards");
+      var card = document.createElement("div"); card.className = "crit-card draft";
+      card.innerHTML = '<input type="text" placeholder="Category name" aria-label="Category name">' +
+        '<textarea rows="3" placeholder="What this category means" aria-label="Definition"></textarea>' +
+        '<span class="actions"><button type="button" class="primary" data-act="keep-category">Add</button>' +
+        '<button type="button" class="ghost" data-act="drop-category">Cancel</button></span>';
+      cards.appendChild(card); card.querySelector("input").focus(); return;
+    }
+    if (act === "drop-category") { btn.closest(".crit-card").remove(); return; }
+    if (act === "keep-category") {
+      var c = btn.closest(".crit-card"), name = c.querySelector("input").value.trim(), def = c.querySelector("textarea").value.trim();
+      if (!name) { c.querySelector("input").focus(); return; }
+      c.innerHTML = "<b></b><span class='small muted clamp3'></span><span class='tag warn' style='justify-self:start'>Example, not saved</span>";
+      c.querySelector("b").textContent = name; c.querySelector("span").textContent = def || "No definition yet.";
+    }
+  });
+  // A changed page warns before it is left, since nothing is kept.
+  window.addEventListener("beforeunload", function (e) {
+    if (!window.__discarding && document.querySelector(".crit-card.draft, li.draft")) { e.preventDefault(); e.returnValue = ""; }
+  });
+})();
+
+// Criteria: "Add a new category" (example only) puts a card in the chosen section of the overview.
+(function () {
+  var form = document.querySelector("[data-new-category]");
+  if (!form) return;
+  function open() {
+    if (!document.querySelector("[data-crit-section]")) { window.location = "/criteria#new"; return; }
+    form.hidden = false; form.scrollIntoView({ behavior: "smooth", block: "center" }); form.querySelector("input").focus();
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest('[data-act="open-new-category"], [data-act="close-new-category"]');
+    if (!b) return;
+    if (b.getAttribute("data-act") === "open-new-category") open(); else { form.reset(); form.hidden = true; }
+  });
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = form.name.value.trim(), def = form.definition.value.trim();
+    if (!name) return;
+    var sec = document.getElementById(form.section.value);
+    var card = document.createElement("div");
+    card.className = "crit-card draft";
+    card.innerHTML = "<b></b><span class='small muted clamp3'></span><span class='tag warn' style='justify-self:start'>Example, not saved</span>";
+    card.querySelector("b").textContent = name;
+    card.querySelector("span").textContent = def || "No definition yet.";
+    sec.querySelector(".crit-cards").appendChild(card);
+    form.reset(); form.hidden = true;
+    card.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+  if (location.hash === "#new") open();
+})();
+
+// Saving from any edit panel closes it and returns it to rest, whether or not anything changed.
+document.addEventListener("submit", function (e) {
+  var panel = e.target.closest("details.tool, details.more");
+  if (panel) setTimeout(function () { panel.open = false; }, 0);
+});

@@ -18,7 +18,8 @@ from collections import defaultdict
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from collections.abc import Callable
+from typing import Any, Literal
 
 from fastapi import FastAPI, Form, HTTPException, Query, Request
 from fastapi.responses import HTMLResponse, RedirectResponse, Response
@@ -31,7 +32,7 @@ from triage_app import config, thresholds
 from triage_app.criteria import CriteriaError, parse_file, read_files
 from triage_app.pipeline import deliver
 from triage_app.schema import (
-    AttentionNote, Brief, CompanyModel, ConvictionReview, Email, EmailResult, ExistingThesis, NewThesis,
+    AttentionNote, Brief, CompanyModel, LogEntry, ConvictionReview, Email, EmailResult, ExistingThesis, NewThesis,
     Suggestion, Thesis, TriageRecord,
 )
 from triage_app.state import apply
@@ -151,9 +152,10 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
                                  ASSET_V=_asset_version())
     templates.env.filters["num"] = lambda v, d=1: "" if v is None else f"{v:,.{d}f}"
     templates.env.filters["pct"] = lambda v: "N/A" if v is None else f"{v * 100:.1f}%"
-    templates.env.globals.update(labels=labels)
+    templates.env.globals.update(labels=labels, position=labels.position)
     templates.env.filters.update(due=labels.due, human=labels.human, stage=labels.stage, measure=labels.measure,
-                                 sentence=labels.sentence, prose=labels.prose)
+                                 sentence=labels.sentence, prose=labels.prose, verdict=labels.verdict,
+                                 ref=labels.pretty_id, money=labels.money)
     templates.env.filters["clock"] = _clock
     templates.env.filters["initials"] = _initials
     templates.env.filters["person"] = lambda s: s.split(",")[0].strip()
@@ -313,6 +315,14 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         v = view(request)
         return review_page(request, v, get_suggestion(v, sid))
 
+    @app.get("/research-log/{ticker}", response_class=HTMLResponse)
+    def research_log_page(request: Request, ticker: str) -> HTMLResponse:
+        """A placeholder for the desk's full research log; it is not connected to anything."""
+        v = view(request)
+        if v.thesis(ticker) is None:
+            raise HTTPException(404, f"There is no company {ticker} in the book.")
+        return page(request, "research_log.html", v, ticker=ticker)
+
     @app.get("/book", response_class=HTMLResponse)
     def book_page(request: Request) -> HTMLResponse:
         """All five positions on one screen: stance, size, conviction, projections against
@@ -325,7 +335,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
                 continue
             if isinstance(s.body, ExistingThesis):
                 open_by_pillar[s.body.pillar_id].append(s)
-            elif isinstance(s.body, (NewThesis, ConvictionReview)):
+            elif isinstance(s.body, NewThesis):
                 new_by_ticker[s.body.ticker].append(s)
         rows = []
         for ticker in config.TICKERS:
@@ -344,7 +354,8 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         if thesis is None or model is None:
             raise HTTPException(404, f"There is no company {ticker} in the book.")
         seed_model = next(m for m in seed.models if m.ticker == ticker)
-        history = [e for e in v.sess.log if e.item_id == ticker or e.item_id.startswith(f"{ticker}.")]
+        history = [e for e in v.sess.log if (e.item_id == ticker or e.item_id.startswith(f"{ticker}."))
+                   and e.change != "conviction_changed"]
         mine = [s for s in v.suggestions().values() if v.ticker_of(s) == ticker]
         return page(
             request, "company.html", v, ticker=ticker, thesis=thesis, model=model,
@@ -354,24 +365,31 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
             accepted=[s for s in mine if v.status(s) == "accepted"],
         )
 
+    def criteria_context(label: str | None) -> dict[str, Any]:
+        """Every criteria file parsed for the grouped overview, plus the fixed safety questions."""
+        parsed: dict[str, Any] = {}
+        errors: dict[str, str] = {}
+        for name in config.CRITERIA_FILES:
+            try:
+                parsed[name] = parse_file(config.CRITERIA_DIR / f"{name}.md")
+            except (CriteriaError, FileNotFoundError) as e:
+                errors[name] = str(e)
+        return {"files": _criteria_files(), "parsed_all": parsed, "errors": errors, "label": label,
+                "parsed": parsed.get(label) if label else None, "error": errors.get(label) if label else None,
+                "groups": labels.CRITERIA_GROUPS, "safety": _safety_questions(),
+                "group_of": {n: g for g, _, _, names in labels.CRITERIA_GROUPS for n in names}}
+
     @app.get("/criteria", response_class=HTMLResponse)
     def criteria_page(request: Request) -> HTMLResponse:
         v = view(request)
-        return page(request, "criteria.html", v, files=_criteria_files(), history=v.data.history, label=None)
+        return page(request, "criteria.html", v, history=v.data.history, **criteria_context(None))
 
     @app.get("/criteria/{label}", response_class=HTMLResponse)
     def criteria_label(request: Request, label: str) -> HTMLResponse:
         v = view(request)
         if label not in config.CRITERIA_FILES:
             raise HTTPException(404, f"There is no criteria file named {label}.")
-        parsed: Any = None
-        error = None
-        try:
-            parsed = parse_file(config.CRITERIA_DIR / f"{label}.md")
-        except CriteriaError as e:
-            error = str(e)
-        return page(request, "criteria.html", v, files=_criteria_files(), history=v.data.history, label=label,
-                    parsed=parsed, error=error)
+        return page(request, "criteria.html", v, history=v.data.history, **criteria_context(label))
 
     @app.get("/audit", response_class=HTMLResponse)
     def audit_page(request: Request) -> HTMLResponse:
@@ -638,6 +656,59 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         return fragment(request, "fragments/trace.html", v, trace=trace, error=None,
                         runs_left=v.sess.runs_left())
 
+    # ---- Manual edits to the book (no suggestion behind them) ----
+
+    def record(request: Request, v: View, make: Callable[[], LogEntry], done: str) -> Response:
+        try:
+            entry = make()
+        except apply.ActionError as e:
+            return message(request, v, str(e), ok=False, status_code=422)
+        v.sess.log.append(entry)
+        return message(request, v, done.format(item=labels.pretty_id(entry.item_id)), refresh=True)
+
+    @app.post("/company/{ticker}/pillars")
+    def add_pillar_route(request: Request, ticker: str, statement: str = Form(""),
+                         driver_ids: list[str] = Form([])) -> Response:
+        v = view(request)
+        if v.thesis(ticker) is None:
+            raise HTTPException(404, f"There is no company {ticker} in the book.")
+        return record(request, v, lambda: apply.add_pillar(seed, v.sess.log, ticker_of(ticker), statement,
+                                                           driver_ids=driver_ids), "Added {item}.")
+
+    @app.post("/pillar/{pillar_id}/edit")
+    def edit_pillar_route(request: Request, pillar_id: str, statement: str = Form(""),
+                          driver_ids: list[str] = Form([])) -> Response:
+        v = view(request)
+        current = v.pillar(pillar_id)
+        if current is not None and (statement.strip() or current.statement) == current.statement \
+                and set(driver_ids) == set(current.driver_ids):
+            return message(request, v, "No changes to save.")
+        return record(request, v, lambda: apply.edit_pillar(seed, v.sess.log, pillar_id, statement=statement,
+                                                            driver_ids=driver_ids), "Saved {item}.")
+
+    @app.post("/pillar/{pillar_id}/remove")
+    def remove_pillar_route(request: Request, pillar_id: str) -> Response:
+        v = view(request)
+        return record(request, v, lambda: apply.remove_pillar(seed, v.sess.log, pillar_id),
+                      "Removed {item}. Undo restores it.")
+
+    @app.post("/pillar/{pillar_id}/evidence")
+    def evidence_route(request: Request, pillar_id: str, stance: str = Form(...),
+                       strength: int = Form(...)) -> Response:
+        v = view(request)
+        if stance not in ("supports", "contradicts") or strength not in (1, 2, 3):
+            return message(request, v, "Pick a stance and a strength from 1 to 3.", ok=False, status_code=422)
+        st: Literal["supports", "contradicts"] = "supports" if stance == "supports" else "contradicts"
+        sg: Literal[1, 2, 3] = 1 if strength == 1 else (2 if strength == 2 else 3)
+        return record(request, v, lambda: apply.log_evidence(seed, v.sess.log, pillar_id, st, sg),
+                      "Logged evidence on {item}.")
+
+    @app.post("/company/{ticker}/driver/{driver_id}")
+    def company_driver_route(request: Request, ticker: str, driver_id: str, value: float = Form(...)) -> Response:
+        v = view(request)
+        return record(request, v, lambda: apply.update_driver(seed, v.sess.log, driver_id, value),
+                      "Updated {item}; projections recomputed.")
+
     @app.post("/undo")
     def undo_route(request: Request) -> Response:
         v = view(request)
@@ -659,8 +730,9 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
 def _asset_version() -> str:
     """A short hash of the static files, so a new deploy is never served a cached stylesheet."""
     digest = hashlib.sha256()
-    for path in sorted((WEB_DIR / "static").glob("*")):
-        digest.update(path.read_bytes())
+    for path in sorted((WEB_DIR / "static").rglob("*")):
+        if path.is_file():
+            digest.update(path.read_bytes())
     return digest.hexdigest()[:10]
 
 
@@ -673,6 +745,19 @@ def _initials(sender: str) -> str:
     """Up to two initials from the person's name, the part of the sender before the first comma."""
     words = [w for w in sender.split(",")[0].split() if w[:1].isalpha()]
     return "".join(w[0] for w in words[:2]).upper() or "?"
+
+
+def _safety_questions() -> list[dict[str, str]]:
+    """The two safety questions as the classifier is asked them, from instructions/jev_questions.md."""
+    path = config.INSTRUCTIONS_DIR / "jev_questions.md"
+    if not path.exists():
+        return []
+    out = []
+    for line in path.read_text().splitlines():
+        cells = [c.strip() for c in line.strip().strip("|").split("|")]
+        if len(cells) >= 3 and cells[0].strip("`") in config.SAFETY_QUESTIONS:
+            out.append({"key": cells[0].strip("`"), "question": cells[-1].replace("`", "")})
+    return out
 
 
 def _criteria_files() -> dict[str, str]:

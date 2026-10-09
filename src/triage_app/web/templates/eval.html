@@ -2,7 +2,7 @@
 {% from "macros.html" import icon, stat, bar %}
 {% block title %}Eval{% endblock %}
 {% block content %}
-<div class="page-title"><h2>Evaluation</h2>{% if ev %}<span class="chip">{{ ev.corpus | human }}</span><span class="chip">Criteria <span class="mono-id">{{ ev.criteria_version }}</span></span>{% endif %}</div>
+<div class="page-title"><h2>Evaluation</h2>{% if ev %}<span class="chip">{{ ev.corpus | human }}</span>{% endif %}</div>
 {% if not ev %}
   <div class="callout plain"><div class="eyebrow">{{ icon('activity') }}Not scored yet</div><p>No eval.json for this set yet. Run the eval script on this set to score it against the corpus labels.</p></div>
 {% else %}
@@ -46,7 +46,7 @@
 <div class="eyebrow" style="margin-top:28px">Misses <span class="badge">{{ ev.misses | length }}</span></div>
 <div class="table-wrap"><table>
   <thead><tr><th>Email</th><th>Measure</th><th>Expected</th><th>Got</th></tr></thead>
-  {% for m in ev.misses %}<tr><td><a href="/email/{{ m.email_id }}" class="mono-id">{{ m.email_id }}</a></td><td>{{ m.measure | measure }}</td><td>{{ m.expected | prose }}</td><td>{{ m.got | prose }}</td></tr>
+  {% for m in ev.misses %}<tr><td><a href="/email/{{ m.email_id }}" class="mono-id">{{ m.email_id | ref }}</a></td><td>{{ m.measure | measure }}</td><td>{{ m.expected | prose }}</td><td>{{ m.got | prose }}</td></tr>
   {% else %}<tr><td colspan="4" class="muted">No misses.</td></tr>{% endfor %}
 </table></div>
 {% endif %}

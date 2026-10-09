@@ -8,10 +8,10 @@ import json
 from pathlib import Path
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from triage_app.config import SEED_DIR, TICKERS
-from triage_app.schema import CompanyModel, Link, LogEntry, Thesis, Ticker
+from triage_app.schema import CompanyModel, Link, LogEntry, Pillar, Thesis, Ticker
 
 Conviction = Literal[1, 2, 3, 4, 5]
 _TICKERS: dict[str, Ticker] = {t: t for t in TICKERS}
@@ -45,6 +45,7 @@ class BookState(BaseModel):
     links: list[Link]
     evidence: dict[str, list[LogEntry]]   # pillar ID to accepted pillar_evidence entries
     applied: list[LogEntry]               # log entries in effect, in log order
+    removed: dict[str, Pillar] = Field(default_factory=dict)  # pillars removed this session; their IDs are never reused
 
 
 def load_seed(seed_dir: Path = SEED_DIR) -> Seed:
@@ -74,6 +75,7 @@ def fold(seed: Seed, log: list[LogEntry]) -> BookState:
     models = {m.ticker: m.model_copy(deep=True) for m in seed.models}
     evidence: dict[str, list[LogEntry]] = {p.id: [] for t in theses.values() for p in t.pillars}
     applied = effective_entries(log)
+    removed: dict[str, Pillar] = {}
 
     for entry in applied:
         match entry.change:
@@ -98,8 +100,25 @@ def fold(seed: Seed, log: list[LogEntry]) -> BookState:
                 if entry.after is None:
                     raise ValueError(f"{entry.id}: conviction_changed without a value")
                 theses[ticker_of(entry.item_id)].conviction = as_conviction(entry.after)
+            case "pillar_edited":
+                if entry.pillar is None:
+                    raise ValueError(f"{entry.id}: pillar_edited without a pillar")
+                pillars = theses[ticker_of(entry.item_id)].pillars
+                at = next((i for i, p in enumerate(pillars) if p.id == entry.item_id), None)
+                if at is None:
+                    raise ValueError(f"{entry.id}: unknown pillar {entry.item_id}")
+                pillars[at] = entry.pillar
+            case "pillar_removed":
+                thesis = theses[ticker_of(entry.item_id)]
+                gone = next((p for p in thesis.pillars if p.id == entry.item_id), None)
+                if gone is None:
+                    raise ValueError(f"{entry.id}: unknown pillar {entry.item_id}")
+                thesis.pillars = [p for p in thesis.pillars if p.id != entry.item_id]
+                removed[gone.id] = gone
+                evidence.pop(gone.id, None)
 
-    return BookState(theses=theses, models=models, links=seed.links, evidence=evidence, applied=applied)
+    return BookState(theses=theses, models=models, links=seed.links, evidence=evidence, applied=applied,
+                     removed=removed)
 
 
 def net_contradicting(state: BookState, pillar_id: str) -> int:
@@ -113,5 +132,6 @@ def net_contradicting(state: BookState, pillar_id: str) -> int:
 
 def next_pillar_id(state: BookState, ticker: Ticker) -> str:
     """The next free pillar ID for a company, such as AAPL.p4."""
-    numbers = [int(p.id.split(".p")[1]) for p in state.theses[ticker].pillars]
+    ids = [p.id for p in state.theses[ticker].pillars] + [i for i in state.removed if i.startswith(f"{ticker}.")]
+    numbers = [int(i.split(".p")[1]) for i in ids]
     return f"{ticker}.p{max(numbers, default=0) + 1}"

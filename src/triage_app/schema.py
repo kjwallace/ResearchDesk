@@ -400,17 +400,19 @@ class Link(BaseModel):                  # data/seed/links.json
     to_pillar_ids: list[str]            # ...also brings in these pillars
     why: str
 
-class LogEntry(BaseModel):              # written only when the analyst accepts
+class LogEntry(BaseModel):              # written only by the analyst: an accept, or a manual change
     id: str
     at: datetime
-    suggestion_id: str
+    suggestion_id: str                  # "" for a manual change
     change: Literal["pillar_evidence", "pillar_added",
-                    "driver_updated", "conviction_changed", "projection_noted"]
+                    "driver_updated", "conviction_changed",
+                    "pillar_edited", "pillar_removed", "projection_noted"]
     item_id: str                        # pillar ID, driver ID or ticker; "<ticker>.<metric>" for a projection
     before: float | None = None         # driver or conviction; filled by code
     after: float | None = None
     stance: Stance | None = None        # pillar evidence
     strength: Literal[1, 2, 3] | None = None   # pillar evidence
-    pillar: Pillar | None = None        # the pillar added
+    pillar: Pillar | None = None        # the pillar added, as edited, or removed
+    pillar_before: Pillar | None = None  # pillar_edited: the wording it replaced
     reverses: str | None = None         # the entry an undo cancels
     sections: list[LinkedSection]

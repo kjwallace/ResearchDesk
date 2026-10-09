@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% block title %}{{ s.id }}{% endblock %}
+{% block title %}{{ s.id | ref }}{% endblock %}
 {% block content %}
-<nav class="crumbs"><a href="/book">Book</a> / <a href="/company/{{ ticker }}">{{ ticker }}</a> / <span class="mono-id">{{ s.id }}</span></nav>
+<nav class="crumbs"><a href="/book">Book</a> / <a href="/company/{{ ticker }}">{{ ticker }}</a> / <span class="mono-id">{{ s.id | ref }}</span></nav>
 {% include "_suggestion_detail.html" %}
 {% endblock %}
