@@ -2,12 +2,6 @@
 {% from "macros.html" import icon, label_pill, avatar, pane_link %}
 {% block title %}Inbox{% endblock %}
 {% block content %}
-{%- set ns = namespace(passed=0, attention=0) -%}
-{%- for e in emails %}{% set r = v.result(e.email_id) %}{% if r %}
-  {%- if r.gate == 'pass' %}{% set ns.passed = ns.passed + 1 %}{% endif %}
-  {%- if r.human_attention %}{% set ns.attention = ns.attention + 1 %}{% endif %}
-{%- endif %}{% endfor -%}
-
 
 <div class="split">
 <section aria-label="Emails" data-list data-inbox="{{ v.data.directory.name }}">
@@ -20,15 +14,28 @@
   <div class="subtabs" role="toolbar" aria-label="Show">
     <button type="button" class="on" data-filter-tab="" aria-pressed="true">All emails <span class="badge on">{{ emails | length }}</span></button>
     <button type="button" data-filter-tab="unread" aria-pressed="false">Unread <span class="badge" data-unread-count>{{ emails | length }}</span></button>
-    <button type="button" data-filter-tab="pass" aria-pressed="false">Passed <span class="badge">{{ ns.passed }}</span></button>
-    <button type="button" data-filter-tab="attention" aria-pressed="false">Needs attention <span class="badge">{{ ns.attention }}</span></button>
   </div>
   <div class="search tag-search" data-taginput data-tags='{{ tags | tojson }}'>
     <label class="sr-only" for="q">Search emails, or add a tag</label>{{ icon('search') }}
     <span class="chips" data-chips></span>
-    <input type="search" id="q" list="inbox-tags" placeholder="Search, or type a tag (AAPL, Actionable, Macro) and press Enter" data-filter-text autocomplete="off">
+    <input type="search" id="q" list="inbox-tags" placeholder="Search words, \"phrases\", from:amazon, body:capex, -exclude, or type a tag and press Enter" data-filter-text autocomplete="off">
     <datalist id="inbox-tags">{% for name in tags %}<option value="{{ name }}">{% endfor %}</datalist>
   </div>
+  <details class="search-help"><summary>Search syntax</summary>
+    <div class="search-help-body">
+      <p>Words are ANDed across sender, subject and body. Combine with <code>OR</code>, exclude with <code>-</code>, group words with quotes.</p>
+      <dl>
+        {% for ex, what in [('from:harbor', 'Sender name, title, firm or address'), ('subject:downgrade', 'Subject line only'),
+                            ('body:"capex guidance"', 'Body text only'), ('company:NVDA', 'Tagged with a company (or ticker:)'),
+                            ('label:monitor', 'Category: thesis_relevant, monitor, redundant, low_value, irrelevant'),
+                            ('topic:macro', 'Topic tag'), ('is:unread', 'unread, read, passed, stopped, flagged, quarantined'),
+                            ('after:9:00 before:11:30', 'Received between two times (also 9am, 2:15pm)'),
+                            ('-is:read OR from:okafor', 'Exclusions and OR')] %}
+        <dt><button type="button" class="linklike" data-search-example="{{ ex }}">{{ ex }}</button></dt><dd>{{ what }}</dd>
+        {% endfor %}
+      </dl>
+    </div>
+  </details>
   <div class="quick-tags">{% for t in config.TICKERS %}<button type="button" class="tag ticker" data-add-tag="{{ t }}">{{ t }}</button>{% endfor %}</div>
   <p class="xs muted" style="margin:-4px 0 12px">The raw emails, untouched. Compare with the brief. A quarantined email shows its sender and subject only.</p>
   <div class="list">
@@ -38,6 +45,9 @@
       {% set keys = ([r.triage or 'quarantine', r.gate, 'attention' if r.human_attention else ''] + r.affected_tickers + r.additional_labels) | join(' ') if r else '' %}
       {% set q = r is not none and r.gate == 'quarantine' %}
       <div class="row mail" data-row id="row-{{ e.email_id }}" data-keys="{{ keys }}" data-eid="{{ e.email_id }}"
+           data-from="{{ (e.sender ~ ' ' ~ e.sender_email) | lower }}" data-subject="{{ e.subject | lower }}"
+           data-minutes="{{ e.received_at.hour * 60 + e.received_at.minute }}"
+           {% if not q %}data-body="{{ e.body.split() | join(' ') | lower }}"{% endif %}
            data-search="{{ (e.sender ~ ' ' ~ e.subject ~ ' ' ~ e.email_id) | lower }}">
         <span class="unread-dot" aria-hidden="true"></span>
         {{ avatar(e.sender, locked=q) }}

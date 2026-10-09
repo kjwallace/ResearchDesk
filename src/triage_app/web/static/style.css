@@ -771,3 +771,12 @@ section.group + section.group > .group-head { border-top: 1px solid var(--line);
 [data-inbox] .list > .row.mail:not(.unread) { border-left-color: var(--line-2); }
 [data-inbox] .list > .row.mail.on { border-color: var(--accent); border-left-color: var(--accent); }
 [data-inbox] .list > .list-foot { margin-top: 8px; border-top: 1px solid var(--line); }
+
+/* ---- Inbox search help ---- */
+.search-help { margin: -4px 0 10px; font-size: 12.5px; }
+.search-help > summary { cursor: pointer; color: var(--accent-ink); }
+.search-help-body { margin-top: 8px; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--sunken); }
+.search-help-body p { margin: 0 0 8px; }
+.search-help-body dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; }
+.search-help-body dt, .search-help-body dd { margin: 0; }
+.search-help-body code { background: var(--panel); padding: 0 4px; border-radius: 3px; }

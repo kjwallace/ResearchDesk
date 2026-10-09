@@ -878,3 +878,13 @@ def test_daily_summaries_tab_lists_each_company_and_only_real_non_quarantined_em
     monkeypatch.setattr("triage_app.web.main.load_daily_summaries", lambda: {})
     with TestClient(create_app(OUT, make_ctx=fake_ctx, presets_dir=presets)) as c:   # a day with no summaries
         assert "No summaries have been written" in c.get("/summaries").text
+
+
+def test_inbox_has_only_all_and_unread_tabs_and_searchable_fields_without_quarantined_bodies(client: TestClient) -> None:
+    text = client.get("/inbox").text
+    assert 'data-filter-tab="unread"' in text and 'data-filter-tab="pass"' not in text and 'data-filter-tab="attention"' not in text
+    assert "Search syntax" in text and "data-from=" in text and "data-minutes=" in text
+    assert SECRET not in text
+    for eid in QUARANTINED:
+        row = text[text.index(f'id="row-{eid}"'):]
+        assert "data-body=" not in row[:row.index(">")]

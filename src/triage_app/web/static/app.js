@@ -23,6 +23,47 @@
     }
   });
 
+  // Inbox search: words, "phrases", -exclusions, OR, and field operators (from: subject: body: company: label:
+  // topic: is: after: before:). All terms in a group must match; any group may match.
+  function parseQuery(q) {
+    var groups = [[]], re = /(-?)(?:([a-z]+):)?(?:"([^"]*)"|(\S+))/g, m;
+    while ((m = re.exec(q))) {
+      var val = (m[3] !== undefined ? m[3] : m[4]);
+      if (m[2] === undefined && m[3] === undefined && val === "or") { groups.push([]); continue; }
+      groups[groups.length - 1].push({ neg: m[1] === "-", field: m[2] || "", val: val });
+    }
+    return groups.filter(function (g) { return g.length; });
+  }
+  function minutes(v) {
+    var m = /^(\d{1,2})(?::(\d{2}))?\s*(am|pm)?$/.exec(v.trim()); if (!m) return null;
+    var h = +m[1] % 12 + (m[3] === "pm" ? 12 : 0); if (!m[3]) h = +m[1];
+    return h * 60 + (m[2] ? +m[2] : 0);
+  }
+  function termMatches(r, t) {
+    var d = r.dataset, v = t.val, keys = " " + (d.keys || "").toLowerCase() + " ";
+    var has = function (k) { return keys.indexOf(" " + k.replace(/[\s-]+/g, "_") + " ") !== -1; };
+    switch (t.field) {
+      case "from": return (d.from || "").indexOf(v) !== -1;
+      case "subject": return (d.subject || "").indexOf(v) !== -1;
+      case "body": return (d.body || "").indexOf(v) !== -1;
+      case "company": case "ticker": return has(v);
+      case "label": case "topic": return has(v);
+      case "is":
+        if (v === "read") return !has("unread");
+        return has({ passed: "pass", stopped: "stop", quarantined: "quarantine", flagged: "attention" }[v] || v);
+      case "after": var a = minutes(v); return a === null || +d.minutes >= a;
+      case "before": var b = minutes(v); return b === null || +d.minutes < b;
+      default: return (d.search + " " + (d.body || "")).indexOf(v) !== -1;
+    }
+  }
+  function matchQuery(r, q) {
+    var groups = parseQuery(q);
+    if (!groups.length) return true;
+    return groups.some(function (g) {
+      return g.every(function (t) { return termMatches(r, t) !== t.neg; });
+    });
+  }
+
   // Client-side filtering of a long list: search text, a select, and sub-tabs.
   function applyFilter(list) {
     var q = (list.querySelector("[data-filter-text]") || {}).value || "";
@@ -35,7 +76,7 @@
     var chips = Array.prototype.map.call(list.querySelectorAll("[data-chip]"), function (c) { return c.dataset.chip; });
     list.querySelectorAll("[data-row]").forEach(function (r) {
       var keys = " " + (r.dataset.keys || "") + " ";
-      var ok = (!q || r.dataset.search.indexOf(q) !== -1) &&
+      var ok = (!q || (list.hasAttribute("data-inbox") ? matchQuery(r, q) : r.dataset.search.indexOf(q) !== -1)) &&
                chips.every(function (k) { return keys.indexOf(" " + k + " ") !== -1; }) &&
                (!key || (" " + r.dataset.keys + " ").indexOf(" " + key + " ") !== -1) &&
                (!tabKey || (" " + r.dataset.keys + " ").indexOf(" " + tabKey + " ") !== -1);
@@ -356,3 +397,11 @@ document.addEventListener("htmx:afterSettle", function () {
     if (el && el.getAttribute && /^\/attention\/[^/]+\/(respond|reject)$/.test(el.getAttribute("hx-post") || "")) setTimeout(recount, 50);
   });
 })();
+
+// Inbox search help: a click on an example puts it in the search box.
+document.addEventListener("click", function (e) {
+  var ex = e.target.closest("[data-search-example]"); if (!ex) return;
+  var list = ex.closest("[data-list]"), input = list && list.querySelector("[data-filter-text]"); if (!input) return;
+  input.value = (input.value.trim() + " " + ex.dataset.searchExample).trim();
+  input.dispatchEvent(new Event("input", { bubbles: true })); input.focus();
+});
