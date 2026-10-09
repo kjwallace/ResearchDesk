@@ -468,9 +468,45 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
                         outcome=v.sess.handled[email_id])
 
     @app.get("/inbox", response_class=HTMLResponse)
-    def inbox_page(request: Request) -> HTMLResponse:
+    def inbox_page(request: Request, sort: str = Query("arrival")) -> HTMLResponse:
+        """The day's emails, in arrival order, by relevance, or grouped by ticker, category or topic.
+        Scores order the list and are never shown."""
         v = view(request)
-        return page(request, "inbox.html", v, emails=v.data.inbox)
+        sort = sort if sort in ("arrival", "relevance", "ticker", "category", "topic") else "arrival"
+        emails = sorted(v.data.inbox, key=lambda e: e.received_at)   # arrival time, not ID order
+
+        def signal(e: Email) -> float:
+            r = v.result(e.email_id)
+            return r.signal_score if r else 0.0
+
+        def strongest(e: Email, kind: str) -> str | None:
+            """The ticker or topic the email most bears on, among those its result lists."""
+            r, t = v.result(e.email_id), v.data.triage.get(e.email_id)
+            if r is None or r.gate == "quarantine":
+                return None
+            listed = r.affected_tickers if kind == "ticker" else r.additional_labels
+            probs = (t.ticker_probs if kind == "ticker" else t.topic_probs) if t else {}
+            return max(listed, key=lambda x: probs.get(x, 0.0)) if listed else None
+
+        groups: list[tuple[str, list[Email]]]
+        if sort == "relevance":
+            groups = [("", sorted(emails, key=signal, reverse=True))]
+        elif sort == "category":
+            order = [*config.TRIAGE_LABELS, None]
+            groups = [(labels.human(k) if k else "Quarantined",
+                       [e for e in emails if (r := v.result(e.email_id)) is not None and r.triage == k])
+                      for k in order]
+        elif sort in ("ticker", "topic"):
+            keys: list[str] = list(config.TICKERS if sort == "ticker" else config.TOPICS)
+            by: dict[str | None, list[Email]] = defaultdict(list)
+            for e in emails:
+                by[strongest(e, sort)].append(e)
+            groups = [(labels.human(k), sorted(by[k], key=signal, reverse=True)) for k in keys]
+            groups.append(("No company" if sort == "ticker" else "No topic", by[None]))
+        else:
+            groups = [("", emails)]
+        groups = [(title, rows) for title, rows in groups if rows]
+        return page(request, "inbox.html", v, emails=emails, groups=groups, sort=sort)
 
     @app.get("/email/{email_id}", response_class=HTMLResponse)
     def email_page(request: Request, email_id: str) -> HTMLResponse:

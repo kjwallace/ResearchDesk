@@ -11,6 +11,12 @@
 
 <div class="split">
 <section aria-label="Emails" data-list>
+  <div class="view-toggle inbox-order" role="group" aria-label="Order emails by">
+    <span class="toggle-label">Order by</span>
+    {% for key, name, ic in [('arrival', 'Arrival', 'clock'), ('relevance', 'Relevance', 'gauge'), ('ticker', 'Ticker', 'trend'), ('category', 'Category', 'layers'), ('topic', 'Topic', 'file')] %}
+    <a href="/inbox?sort={{ key }}" class="{{ 'on' if sort == key else '' }}" {% if sort == key %}aria-current="true"{% endif %}>{{ icon(ic) }}{{ name }}</a>
+    {% endfor %}
+  </div>
   <div class="subtabs" role="toolbar" aria-label="Show">
     <button type="button" class="on" data-filter-tab="" aria-pressed="true">All emails <span class="badge on">{{ emails | length }}</span></button>
     <button type="button" data-filter-tab="pass" aria-pressed="false">Passed <span class="badge">{{ ns.passed }}</span></button>
@@ -27,8 +33,10 @@
   </div>
   <p class="xs muted" style="margin:-4px 0 12px">The raw emails, untouched. Compare with the brief. A quarantined email shows its sender and subject only.</p>
   <div class="list">
-    <div class="list-head"><span>Incoming emails</span><span class="muted">Arrival order</span></div>
-    {% for e in emails %}{% set r = v.result(e.email_id) %}
+    <div class="list-head"><span>Incoming emails</span><span class="muted">{{ {'arrival': 'Arrival order', 'relevance': 'Most relevant first', 'ticker': 'By company', 'category': 'By category', 'topic': 'By topic'}[sort] }}</span></div>
+    {% for title, rows in groups %}
+      {% if title %}<details class="group" open><summary>{{ icon('chev') }}<h2>{{ title }}</h2><span class="badge">{{ rows | length }}</span></summary>{% endif %}
+      {% for e in rows %}{% set r = v.result(e.email_id) %}
       {% set keys = [r.triage or 'quarantine', r.gate, 'attention' if r.human_attention else ''] | join(' ') if r else '' %}
       {% call email_row(v, e, keys=keys) %}
         {% if r %}{{ label_pill(r.triage) }}
@@ -36,6 +44,8 @@
           {% if r.human_attention %}<span class="pill attention">Needs attention</span>{% endif %}
           {% if r.gate == 'pass' %}<span class="pill dot pass">Passed</span>{% endif %}{% endif %}
       {% endcall %}
+      {% endfor %}
+      {% if title %}</details>{% endif %}
     {% else %}<div class="empty">No emails for this set.</div>{% endfor %}
     <div class="list-foot"><span>Showing <span data-shown>{{ emails | length }}</span> of {{ emails | length }} emails</span>
       <span>{{ v.data.directory.name | human }}</span></div>
@@ -43,7 +53,7 @@
 </section>
 
 <aside class="pane" id="pane" hx-disinherit="*" aria-label="Selected email" aria-live="polite"
-  {% if emails %}hx-get="/email/{{ emails[0].email_id }}" hx-select="#detail" hx-trigger="load" hx-swap="innerHTML"{% endif %}>
+  {% if groups %}hx-get="/email/{{ groups[0][1][0].email_id }}" hx-select="#detail" hx-trigger="load" hx-swap="innerHTML"{% endif %}>
   <div class="pane-head">{{ icon('mail') }}Email</div>
   <p class="muted small">Select an email to read it with its classification.</p>
 </aside>

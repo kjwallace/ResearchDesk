@@ -294,6 +294,21 @@ def test_inbox_tab_follows_the_brief_and_ratings_are_placeholders(client: TestCl
     assert "Suggested rating changes" in company and "Upcoming" in company
 
 
+def test_inbox_orders_by_relevance_and_groups_by_ticker_category_topic(client: TestClient) -> None:
+    def ids(text: str) -> list[str]:
+        return re.findall(r'id="row-(fixture_\d+)"', text)
+    arrival = client.get("/inbox").text
+    assert 'class="stat"' not in arrival and 'href="/inbox?sort=topic"' in arrival
+    assert ids(arrival) == [e for e in CORPUS]                                    # file order
+    relevance = ids(client.get("/inbox?sort=relevance").text)
+    scores = [RESULTS[i].signal_score for i in relevance]
+    assert scores == sorted(scores, reverse=True) and sorted(relevance) == sorted(CORPUS)
+    for sort, heading in (("ticker", "No company"), ("category", "Actionable"), ("topic", "No topic")):
+        text = client.get(f"/inbox?sort={sort}").text
+        assert heading in text and sorted(ids(text)) == sorted(CORPUS), sort   # every email once
+    assert "0.9" not in client.get("/inbox?sort=relevance").text.split('class="list"')[1].split("</section>")[0]
+
+
 def test_brief_lists_every_section(client: TestClient) -> None:
     text = client.get("/").text
     for heading in ("Suggested thesis changes", "New thesis candidates", "Worth watching", "Needs your attention",

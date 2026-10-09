@@ -38,7 +38,6 @@
       <dt>Companies</dt><dd>{% for t in result.affected_tickers %}<a class="tag" href="/company/{{ t }}">{{ t }}</a>{% else %}<span class="muted">None</span>{% endfor %}</dd>
       <dt>Topics</dt><dd>{% for t in result.additional_labels %}<span class="tag soft">{{ t | human }}</span>{% else %}<span class="muted">None</span>{% endfor %}</dd>
     </dl>
-    <div class="callout plain"><div class="eyebrow">{{ icon('shield') }}What happened</div><p>{{ result | verdict }}</p></div>
     {% if redundancy and redundancy.flagged and redundancy.nearest %}<div class="callout warn"><div class="eyebrow">{{ icon('repeat') }}Possible repeat</div>
       <p>Flagged as a possible repeat of {{ email_link(v, redundancy.nearest) }}.</p></div>{% endif %}
     {% if no_change %}<div class="callout plain"><div class="eyebrow">No change to the book</div><p>{{ no_change | prose }}</p></div>{% endif %}
