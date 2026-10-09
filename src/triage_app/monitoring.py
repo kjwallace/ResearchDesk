@@ -221,9 +221,9 @@ def build_report(corpus: ReportCorpus, calls: list[CallRecord], timings: list[St
 
 def format_summary(report: UsageReport) -> str:
     """Plain-text table that run.py prints at the end of a run."""
-    lines = [f"{'stage':<12}{'calls':>7}{'hits':>6}{'in tok':>10}{'out tok':>9}{'p50 ms':>9}{'p95 ms':>9}"]
+    lines = [f"{'stage':<16}{'calls':>7}{'hits':>6}{'in tok':>10}{'out tok':>9}{'p50 ms':>9}{'p95 ms':>9}"]
     for name, u in report.stages.items():
-        lines.append(f"{name:<12}{u.calls:>7}{u.cache_hits:>6}{u.input_tokens:>10}{u.output_tokens:>9}"
+        lines.append(f"{name:<16}{u.calls:>7}{u.cache_hits:>6}{u.input_tokens:>10}{u.output_tokens:>9}"
                      f"{u.latency_p50_ms:>9.1f}{u.latency_p95_ms:>9.1f}")
     lines.append(
         f"{report.emails} emails; {report.tokens_per_email_mean:.0f} tokens/email spent; "

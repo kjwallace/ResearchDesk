@@ -22,8 +22,8 @@
       "triage_accuracy": 0.403,
       "ticker_f1": 0.961,
       "topic_f1": 0.1449,
-      "attention_precision": 1.0,
-      "attention_recall": 0.6667
+      "human_attention_precision": 1.0,
+      "human_attention_recall": 0.6667
     },
     "validation": {
       "gate_recall": 1.0,
@@ -32,7 +32,7 @@
       "triage_accuracy": 0.5758,
       "ticker_f1": 0.8462,
       "topic_f1": 0.0984,
-      "attention_recall": 0.0
+      "human_attention_recall": 0.0
     },
     "changed": []
   },
@@ -59,8 +59,8 @@
       "triage_accuracy": 0.6866,
       "ticker_f1": 0.961,
       "topic_f1": 0.1449,
-      "attention_precision": 0.75,
-      "attention_recall": 1.0
+      "human_attention_precision": 0.75,
+      "human_attention_recall": 1.0
     },
     "validation": {
       "gate_recall": 1.0,
@@ -69,8 +69,8 @@
       "triage_accuracy": 0.8182,
       "ticker_f1": 0.88,
       "topic_f1": 0.0952,
-      "attention_precision": 0.8,
-      "attention_recall": 1.0
+      "human_attention_precision": 0.8,
+      "human_attention_recall": 1.0
     },
     "changed": [
       {
