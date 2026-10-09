@@ -1,20 +1,13 @@
 {% extends "base.html" %}
-{% from "macros.html" import icon, email_row, label_pill, stat %}
+{% from "macros.html" import icon, email_row, label_pill %}
 {% block title %}Inbox{% endblock %}
 {% block content %}
-{%- set ns = namespace(passed=0, attention=0, relevant=0) -%}
+{%- set ns = namespace(passed=0, attention=0) -%}
 {%- for e in emails %}{% set r = v.result(e.email_id) %}{% if r %}
   {%- if r.gate == 'pass' %}{% set ns.passed = ns.passed + 1 %}{% endif %}
   {%- if r.human_attention %}{% set ns.attention = ns.attention + 1 %}{% endif %}
-  {%- if r.triage in ('thesis_relevant', 'monitor') %}{% set ns.relevant = ns.relevant + 1 %}{% endif %}
 {%- endif %}{% endfor -%}
 
-<section class="stats" aria-label="Inbox in numbers">
-  {{ stat('Inbox', emails | length, 'Emails, arrival order, untouched', 'mail') }}
-  {{ stat('Actionable or worth watching', ns.relevant, 'Emails with something for the book', 'trend') }}
-  {{ stat('Attention required', ns.attention, 'A person is asked to act', 'clock') }}
-  {{ stat('Passed the gate', ns.passed, 'Sent on to the analysis model', 'layers', '/') }}
-</section>
 
 <div class="split">
 <section aria-label="Emails" data-list>

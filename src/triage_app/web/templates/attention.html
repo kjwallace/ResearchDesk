@@ -27,9 +27,19 @@
   {{ stat('Events and other', n_event + n_other, (n_event ~ ' event invitation' ~ ('' if n_event == 1 else 's')) ~ ', ' ~ n_other ~ ' other', 'book') }}
 </section>
 
+<div class="toggles">
 <div class="view-toggle" role="group" aria-label="View">
   <a href="/attention" class="{{ 'on' if mode == 'list' else '' }}" {% if mode == 'list' %}aria-current="page"{% endif %}>{{ icon('layers') }}List</a>
   <a href="/attention?view=calendar" class="{{ 'on' if mode == 'calendar' else '' }}" {% if mode == 'calendar' %}aria-current="page"{% endif %}>{{ icon('clock') }}Calendar</a>
+</div>
+{% if mode == 'list' %}
+<div class="view-toggle" role="group" aria-label="Order requests by">
+  <span class="toggle-label">Order by</span>
+  {% for key, name, ic in [('time', 'Time', 'clock'), ('relevance', 'Relevance', 'gauge')] %}
+  <a href="/attention?sort={{ key }}" class="{{ 'on' if sort == key else '' }}" {% if sort == key %}aria-current="true"{% endif %}>{{ icon(ic) }}{{ name }}</a>
+  {% endfor %}
+</div>
+{% endif %}
 </div>
 
 {% if mode == 'calendar' %}
@@ -58,57 +68,55 @@
     <button type="button" data-filter-tab="event" aria-pressed="false">Event invitations <span class="badge">{{ n_event }}</span></button>
     {% if n_other %}<button type="button" data-filter-tab="other" aria-pressed="false">Other <span class="badge">{{ n_other }}</span></button>{% endif %}
   </div>
-  <div class="search"><label class="sr-only" for="q">Search requests</label>{{ icon('search') }}
-    <input type="search" id="q" placeholder="Search by person, firm, company or subject…" data-filter-text autocomplete="off"></div>
-  <p class="xs muted" style="margin:10px 0 12px">Soonest reply first. The classifier decides which emails need a person; the note explains why and never recommends an investment action.</p>
+  <div class="toolbar req-toolbar">
+    <div class="search"><label class="sr-only" for="q">Search requests</label>{{ icon('search') }}
+      <input type="search" id="q" placeholder="Search by person, firm or subject…" data-filter-text autocomplete="off"></div>
+    <select data-filter-select aria-label="Filter by ticker">
+      <option value="">All tickers</option>
+      {% for t in config.TICKERS %}<option value="{{ t }}">{{ t }}</option>{% endfor %}
+    </select>
+  </div>
 
   <div class="list">
-    <div class="list-head"><span>Requests by deadline</span><span class="muted"><span data-shown>{{ items | length }}</span> shown</span></div>
-    {% for bucket in ['today', 'tomorrow', 'later', 'none'] %}
-      {% set group = items | selectattr('bucket', 'equalto', bucket) | list %}
+    <div class="list-head"><span>{{ 'Requests by deadline' if sort == 'time' else 'Most relevant first' }}</span><span class="muted"><span data-shown>{{ items | length }}</span> shown</span></div>
+    {% for bucket in (['today', 'tomorrow', 'later', 'none'] if sort == 'time' else ['all']) %}
+      {% set group = items if bucket == 'all' else items | selectattr('bucket', 'equalto', bucket) | list %}
       {% if group %}
-      <details class="group" open><summary>{{ icon('chev') }}<h2>{{ labels.DUE_BUCKETS[bucket] }}</h2><span class="badge">{{ group | length }}</span></summary>
+      <details class="group" open><summary>{{ icon('chev') }}<h2>{{ labels.DUE_BUCKETS[bucket] if bucket != 'all' else 'All requests' }}</h2><span class="badge">{{ group | length }}</span></summary>
       {% for it in group %}
         {% set e = it.email %}{% set n = it.note %}{% set r = it.result %}
         {% set who = labels.sender_parts(e.sender) %}
         {% set offer = labels.split_summary(n.summary) if n else ('', '') %}
-        <article class="row req" data-row id="req-{{ e.email_id }}" data-keys="{{ it.kind }}"
-                 data-search="{{ (e.sender ~ ' ' ~ e.subject ~ ' ' ~ (r.affected_tickers | join(' ') if r else '') ~ ' ' ~ (n.summary if n else '')) | lower }}">
-          <div class="req-top">
-            <div class="req-by">
-              {{ avatar(e.sender, lg=True) }}
-              <div>
-                <div class="req-label">Requested by</div>
-                <div class="req-name">{{ who[0] }}</div>
-                <div class="req-org">{% if who[1] %}{{ who[1] }}{% endif %}{% if who[1] and who[2] %} · {% endif %}{% if who[2] %}<b>{{ who[2] }}</b>{% endif %}</div>
-              </div>
-            </div>
-            <span class="pill {{ 'monitor' if it.kind == 'meeting' else ('second' if it.kind == 'event' else '') }}">{{ (it.triage.email_type | human) if it.triage else 'Request' }}</span>
+        <article class="row req" data-row id="req-{{ e.email_id }}"
+                 data-keys="{{ it.kind }} {{ r.affected_tickers | join(' ') if r else '' }}"
+                 data-search="{{ (e.sender ~ ' ' ~ e.subject ~ ' ' ~ (n.summary if n else '')) | lower }}">
+          <div class="req-head">
+            {{ avatar(e.sender) }}
+            <span class="req-who"><b>{{ who[0] }}</b>{% if who[2] %} <span class="muted">· {{ who[2] }}</span>{% endif %}</span>
+            <span class="due {{ it.bucket }}">{{ icon('clock') }}{% if it.deadline %}{{ 'Reply' if n and n.action == 'reply' else 'Respond' }} by {{ it.deadline | due(brief.day) }}{% else %}No deadline{% endif %}</span>
           </div>
-
-          <div class="req-offer">
-            {% if n %}<p><strong>{{ offer[0] }}</strong>{% if offer[1] %} <span class="muted">{{ offer[1] }}</span>{% endif %}</p>
-            {% else %}<p class="muted">No attention note was written for this email.</p>{% endif %}
-            <div class="req-subj">{{ icon('mail') }} {{ pane_link('/email/' ~ e.email_id, e.subject) }}</div>
-          </div>
-
-          <div class="req-time">
-            <span class="due {{ it.bucket }}">{{ icon('clock') }}{% if it.deadline %}{{ 'Reply' if n and n.action == 'reply' else 'Respond' }} by {{ it.deadline | due(brief.day) }}{% else %}No deadline stated{% endif %}</span>
-            {% if n %}<span class="tag">Action: {{ n.action | human }}</span>{% endif %}
-            <span class="xs muted">Received {{ e.received_at.strftime('%a') }} {{ e.received_at | clock }}</span>
-          </div>
-
-          <div class="tags">
-            {% if r %}{% for t in r.affected_tickers %}<a class="tag ticker" href="/company/{{ t }}">{{ t }}</a>{% endfor %}
-              {% for t in r.additional_labels %}<span class="tag soft">{{ t | human }}</span>{% endfor %}
-              {{ label_pill(r.triage) }}{% endif %}
+          <p class="req-offer">{{ pane_link('/email/' ~ e.email_id, n.summary if n else e.subject) }}</p>
+          <div class="req-foot">
+            <span class="tags">{% if r %}{% for t in r.affected_tickers %}<a class="tag ticker" href="/company/{{ t }}">{{ t }}</a>{% endfor %}{% endif %}
+              <span class="tag soft">{{ (it.triage.email_type | human) if it.triage else 'Request' }}</span></span>
+            <span class="req-actions above">
+              <form method="post" action="/attention/{{ e.email_id }}/respond" hx-post="/attention/{{ e.email_id }}/respond"
+                    hx-target="#req-{{ e.email_id }}" hx-swap="outerHTML"><button class="primary" title="Clears it from the queue. No email is sent.">{{ icon('check') }}Respond</button></form>
+              <form method="post" action="/attention/{{ e.email_id }}/reject" hx-post="/attention/{{ e.email_id }}/reject"
+                    hx-target="#req-{{ e.email_id }}" hx-swap="outerHTML"><button title="Clears it from the queue. No email is sent.">{{ icon('x') }}Reject</button></form>
+            </span>
           </div>
         </article>
       {% endfor %}
       </details>
       {% endif %}
     {% endfor %}
-    {% if not items %}<div class="empty">No emails require attention today.</div>{% endif %}
+    {% if not items %}<div class="empty">{{ 'Every request is handled.' if handled else 'No emails require attention today.' }}</div>{% endif %}
+    {% if handled %}
+    <details class="group"><summary>{{ icon('chev') }}<h2>Handled this session</h2><span class="badge">{{ handled | length }}</span></summary>
+      {% for it in handled %}{% with email=it.email, outcome=v.sess.handled[it.email.email_id] %}{% include "fragments/handled.html" %}{% endwith %}{% endfor %}
+    </details>
+    {% endif %}
   </div>
 </section>
 

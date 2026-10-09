@@ -215,3 +215,22 @@
     </div>
   </details>
 {%- endmacro %}
+
+{# Analyst rating: the thesis's buy/hold/sell once the backend carries it; a labelled placeholder until then. #}
+{% macro rating(thesis, compact=False) -%}
+  {%- set r = thesis.street_view if thesis.street_view is defined else none -%}
+  {%- if r -%}
+    <span class="rating {{ r }}" {% if thesis.street_view_note is defined and thesis.street_view_note %}title="{{ thesis.street_view_note }}"{% endif %}>{{ r | capitalize }}</span>
+  {%- else -%}
+    <span class="rating-pending" title="Analyst rating: coming with the next data update">
+      {%- for opt in ['Buy', 'Hold', 'Sell'] %}<span>{{ opt }}</span>{% endfor -%}
+      {%- if not compact %}<em>Pending</em>{% endif -%}
+    </span>
+  {%- endif -%}
+{%- endmacro %}
+
+{# The Street's published target price, once the backend carries it; a labelled placeholder until then. #}
+{% macro street_target(thesis) -%}
+  {%- set t = thesis.street_target_price if thesis.street_target_price is defined else none -%}
+  {%- if t is not none %}${{ t | num(0) }}{% else %}<span class="pending-chip" title="The Street's target price arrives with the next data update">Pending</span>{% endif -%}
+{%- endmacro %}

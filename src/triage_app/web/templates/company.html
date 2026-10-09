@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "macros.html" import projection_table, email_link, card, icon, stat, ticker_mark %}
+{% from "macros.html" import projection_table, email_link, card, icon, stat, ticker_mark, rating, street_target %}
 {% block title %}{{ ticker }}{% endblock %}
 {% block content %}
 {%- set a = projections['analyst'] -%}{%- set c = projections['consensus'] -%}
@@ -14,11 +14,21 @@
 
 <section class="stats" aria-label="{{ ticker }} in numbers">
   {{ stat('Position', (thesis.stance | human) ~ ' ' ~ (labels.position_usd(thesis.size_bps) | money), '{:,}'.format(labels.position_shares(ticker, thesis.size_bps)) ~ ' shares at a synthetic $' ~ thresholds.SYNTHETIC_PRICE_USD[ticker] | int, 'layers') }}
-  {{ stat('Pillars', thesis.pillars | length, 'The beliefs behind this position', 'layers') }}
+  <div class="stat"><span class="label">Analyst rating</span><span class="ic">{{ icon('gauge') }}</span>
+    <span class="value">{{ rating(thesis) }}</span>
+    <span class="hint">{% if thesis.street_view_note is defined and thesis.street_view_note %}{{ thesis.street_view_note }}{% else %}Buy, hold or sell; coming with the next data update{% endif %}</span></div>
   {{ stat('EPS, analyst', '$' ~ (a.eps | num(2)), 'Consensus $' ~ (c.eps | num(2)) ~ ' · ' ~ model.fiscal_year, 'trend') }}
-  {{ stat('Target price', '$' ~ (a.target_price | num(0)), 'Consensus $' ~ (c.target_price | num(0)) ~ ' · ' ~ model.target_multiple ~ '× EPS', 'target') }}
+  <div class="stat"><span class="label">Target price</span><span class="ic">{{ icon('target') }}</span>
+    <span class="value">${{ a.target_price | num(0) }}</span>
+    <span class="hint">Street target {{ street_target(thesis) }} · Consensus-implied ${{ c.target_price | num(0) }} · {{ model.target_multiple }}× EPS</span></div>
 </section>
 
+
+<section class="callout plain upcoming" aria-label="Suggested rating changes">
+  <div class="eyebrow">{{ icon('trend') }}Suggested rating changes <span class="tag info">Upcoming</span></div>
+  <p>When analysts' emails move the Street's buy, hold or sell view on {{ ticker }}, the suggested change will appear here,
+    labelled with the direction (toward buy or toward sell) and the emails behind it, for you to accept or dismiss.</p>
+</section>
 
 <div class="grid2">
 <section>

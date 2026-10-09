@@ -1,0 +1,10 @@
+{% from "macros.html" import icon %}
+<article class="row req handled-row" id="req-{{ email.email_id }}">
+  <div class="status-line">
+    <span class="pill dot {{ 'accepted' if outcome == 'responded' else 'dismissed' }}">{{ outcome | capitalize }}</span>
+    <span>{{ email.subject }}</span>
+    <span class="xs muted">Cleared from the queue; no email was sent.</span>
+    <form class="above" method="post" action="/attention/{{ email.email_id }}/restore" hx-post="/attention/{{ email.email_id }}/restore" hx-target="#flash">
+      <button class="ghost">{{ icon('undo') }}Undo</button></form>
+  </div>
+</article>

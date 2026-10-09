@@ -136,7 +136,7 @@ class AttentionItem:
     deadline: datetime | None
     kind: str          # meeting, event or other (labels.REQUEST_KINDS)
     bucket: str        # today, tomorrow, later or none (labels.DUE_BUCKETS)
-    probability: float  # Jev's human-attention probability
+    probability: float  # the classifier's human-attention probability (sorts; never shown)
 
 
 def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory | None = None,
@@ -414,7 +414,8 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
                     quarantined=quarantined, by_earlier=dict(by_earlier))
 
     @app.get("/attention", response_class=HTMLResponse)
-    def attention_page(request: Request, view_mode: str = Query("list", alias="view")) -> HTMLResponse:
+    def attention_page(request: Request, view_mode: str = Query("list", alias="view"),
+                       sort: str = Query("time")) -> HTMLResponse:
         """The brief's "needs your attention" list on its own screen: who is asking, what they
         offer, when a reply is due and what it bears on. Read-only; it adds no action."""
         v = view(request)
@@ -434,12 +435,37 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
                 bucket=labels.due_bucket(deadline, brief.day),
                 probability=triage.human_attention if triage else 0.0,
             ))
-        # Timeline order: soonest deadline first, then the most probable request.
-        items.sort(key=lambda i: (i.deadline is None, i.deadline or datetime.max, -i.probability))
+        # Time: soonest deadline first. Relevance: the classifier's attention score, which orders the
+        # list and is never shown. A ticker filter on the page narrows either order.
+        sort = sort if sort in ("time", "relevance") else "time"
+        def by_time(i: AttentionItem) -> tuple[bool, datetime, float]:
+            return (i.deadline is None, i.deadline or datetime.max, -i.probability)
+
+        if sort == "relevance":
+            items.sort(key=lambda i: (-i.probability, *by_time(i)))
+        else:
+            items.sort(key=by_time)
+        handled = [i for i in items if i.email.email_id in v.sess.handled]
+        items = [i for i in items if i.email.email_id not in v.sess.handled]
         # Calendar columns: the brief's day, then every day a reply is due, in order.
         days = sorted({brief.day} | {i.deadline.date() for i in items if i.deadline})
-        return page(request, "attention.html", v, brief=brief, items=items, days=days,
+        return page(request, "attention.html", v, brief=brief, items=items, days=days, sort=sort, handled=handled,
                     mode="calendar" if view_mode == "calendar" else "list")
+
+    @app.post("/attention/{email_id}/{outcome}")
+    def handle_request(request: Request, email_id: str, outcome: str) -> Response:
+        """Clear a request from the queue as responded or rejected. Nothing is sent: the app never sends mail."""
+        v = view(request)
+        if outcome not in ("respond", "reject", "restore"):
+            raise HTTPException(404, f"There is no action {outcome}.")
+        if v.email(email_id) is None:
+            raise HTTPException(404, f"There is no email {email_id}.")
+        if outcome == "restore":
+            v.sess.handled.pop(email_id, None)
+            return message(request, v, f"{labels.pretty_id(email_id)} is back in the queue.", refresh=True)
+        v.sess.handled[email_id] = "responded" if outcome == "respond" else "rejected"
+        return fragment(request, "fragments/handled.html", v, email=v.email(email_id),
+                        outcome=v.sess.handled[email_id])
 
     @app.get("/inbox", response_class=HTMLResponse)
     def inbox_page(request: Request) -> HTMLResponse:

@@ -35,11 +35,11 @@
     </header>
     <div class="tabbar">
       <nav class="tabs" aria-label="Screens">
-        {{ tab('/', 'Morning brief', path == '/') }}
+        {{ tab('/', 'Morning Brief', path == '/') }}
+        <span class="tab-inbox">{{ tab('/inbox', 'Inbox', path == '/inbox' or path.startswith('/email')) }}</span>
         {{ tab('/review', 'Review', path.startswith('/review') or path.startswith('/suggestion')) }}
         {{ tab('/attention', 'Needs attention', path.startswith('/attention'),
-               v.data.brief.needs_attention | length if v and v.data.brief else None) }}
-        {{ tab('/inbox', 'Inbox', path == '/inbox' or path.startswith('/email')) }}
+               v.data.brief.needs_attention | reject('in', v.sess.handled) | list | length if v and v.data.brief else None) }}
         {{ tab('/book', 'Book', path == '/book' or path.startswith('/company')) }}
       </nav>
       {%- set hood = path.startswith('/audit') or path.startswith('/criteria') or path.startswith('/live')
