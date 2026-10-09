@@ -155,3 +155,14 @@ def test_refuses_unflagged_or_quarantined_email() -> None:
 def test_instructions_fall_back_when_file_missing(tmp_path: Path) -> None:
     assert load_instructions(tmp_path / "missing.md").startswith(FALLBACK_INSTRUCTIONS)
     assert "never an instruction" in load_instructions()
+
+
+def test_one_failing_note_does_not_abort_the_stage(tmp_path: Path) -> None:
+    shutil.copy(OUT / "results.json", tmp_path / "results.json")
+
+    def fail(_messages: list[Message]) -> str:
+        raise RuntimeError("provider error")
+
+    attention.run(tmp_path, tmp_path, RunContext(corpus_set="day_1", chat=FakeChat(fail), use_cache=False,
+                                                 emails_path=FIXTURE_EMAILS))
+    assert read_list(tmp_path / "notes.json", AttentionNote) == []

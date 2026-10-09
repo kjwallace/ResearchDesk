@@ -14,8 +14,10 @@ fixed order, and the first rule that rejects ends the check:
    candidate is rejected.
 5. Out of bounds (keep, drop the figure): a stated value outside the driver's bounds, or
    a driver the pillar is not linked to.
-6. Wrong period (keep, drop the figure): no claim of the suggestion states the figure for
-   exactly the company's modeled fiscal year (period missing or different).
+6. Figure not stated (keep, drop the figure): no claim of the suggestion states the figure
+   for exactly the company's modeled fiscal year with the number itself in the claim's
+   quote. Value and period are model output; the quote is checked text, so a number the
+   email never states cannot reach the analyst.
 7. Second look (keep, mark): no linked email is labeled thesis_relevant or monitor.
 
 A rejected suggestion keeps everything it had, with status "rejected" and a one-line
@@ -23,6 +25,7 @@ A rejected suggestion keeps everything it had, with status "rejected" and a one-
 """
 
 import math
+import re
 from collections import defaultdict
 from collections.abc import Collection
 from pathlib import Path
@@ -151,10 +154,19 @@ def _figure_in_bounds(a: LinkedAssumption, pillar: Pillar | None, model: Company
     return driver is not None and driver.min <= a.stated_value <= driver.max
 
 
-def _figure_in_period(a: LinkedAssumption, claims: list[Claim], model: CompanyModel | None) -> bool:
+_NUMBER = re.compile(r"\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?")
+
+
+def numbers_in(text: str) -> list[float]:
+    """Every number written in the text ("4,500", "31.0%", "-2" all count; signs are ignored)."""
+    return [float(n.replace(",", "")) for n in _NUMBER.findall(text)]
+
+
+def _figure_stated(a: LinkedAssumption, claims: list[Claim], model: CompanyModel | None) -> bool:
     if model is None:
         return False
     return any(c.value is not None and math.isclose(c.value, a.stated_value) and c.period == model.fiscal_year
+               and any(math.isclose(n, abs(a.stated_value)) for n in numbers_in(c.quote))
                for c in claims)
 
 
@@ -175,7 +187,7 @@ def check(suggestion: Suggestion, ctx: RunContext, inputs: ValidationInputs) -> 
         model = inputs.models.get(body.pillar_id.split(".")[0])
         claims = [inputs.claims[c] for c in suggestion.claim_ids]
         kept = [a for a in body.assumptions
-                if _figure_in_bounds(a, pillar, model) and _figure_in_period(a, claims, model)]
+                if _figure_in_bounds(a, pillar, model) and _figure_stated(a, claims, model)]
         body = body.model_copy(update={"strength": 1 if monitor_only else body.strength, "assumptions": kept})
     checked = suggestion.model_copy(update={"body": body})
     return checked.model_copy(update={"second_look": needs_second_look(checked, inputs.results)})

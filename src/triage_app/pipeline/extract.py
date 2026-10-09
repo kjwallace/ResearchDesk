@@ -36,13 +36,18 @@ def run(in_dir: Path, out_dir: Path, ctx: RunContext) -> None:
 
     claims: list[Claim] = []
     passed = dropped_quotes = dropped_repeats = 0
+    failed: list[str] = []
     for email in emails:
         result = results.get(email.email_id)
         if result is None or result.gate != "pass":
             continue
         earlier = earlier_context(redundancy.get(email.email_id), by_id, results)
-        with ctx.recorder.stage(STAGE, email.email_id):
-            out = extract(email, result, earlier, ctx, extractor)
+        try:
+            with ctx.recorder.stage(STAGE, email.email_id):
+                out = extract(email, result, earlier, ctx, extractor)
+        except Exception as e:  # one bad model reply must not abort the stage
+            failed.append(f"{email.email_id} ({type(e).__name__})")
+            continue
         passed += 1
         claims.extend(out.claims)
         dropped_quotes += out.dropped_quotes
@@ -50,6 +55,8 @@ def run(in_dir: Path, out_dir: Path, ctx: RunContext) -> None:
     write_list(out_dir / "claims.json", claims)
     print(f"  {STAGE}: {len(claims)} claims from {passed} passed emails; "
           f"{dropped_quotes} dropped for a quote mismatch, {dropped_repeats} as repeats", flush=True)
+    if failed:
+        print(f"  {STAGE}: extraction failed for {len(failed)} emails: {', '.join(failed)}", flush=True)
 
 
 def earlier_context(record: RedundancyRecord | None, emails: dict[str, Email],

@@ -138,3 +138,12 @@ def test_missing_wording_falls_back_to_stubs(caplog: pytest.LogCaptureFixture) -
     assert "Apple" in wording.questions["affects_AAPL"]
     assert wording.type_options["company_release"] == "company release"
     assert any("affects_AAPL" in r.getMessage() for r in caplog.records)
+
+
+def test_cache_key_includes_the_jev_model(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    jev = fixture_jev()
+    cache = DiskCache(tmp_path)
+    classify(EMAILS[1], load(), jev, cache=cache)
+    monkeypatch.setenv("JEV_MODEL", "jev-0.0.0-other")
+    classify(EMAILS[1], load(), jev, cache=cache)
+    assert len(jev.requests) == 2  # a new model pin is a cache miss, not a replay

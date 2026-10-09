@@ -164,7 +164,7 @@ def ask_jev(state: dict[str, str], questions: dict[str, Choice | Noul], jev: Any
     return cached_call(
         namespace="jev",
         model=config.JEV_MODEL,
-        payload={"state": state, "questions": question_json},
+        payload={"model": config.JEV_MODEL, "state": state, "questions": question_json},
         call=lambda: JevAnswers.from_response(jev.system_one(state=state, questions=questions)),
         dump=lambda a: a.model_dump(),
         load=JevAnswers.model_validate,

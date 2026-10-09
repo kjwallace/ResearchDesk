@@ -280,3 +280,21 @@ def test_prompts_hold_no_size_conviction_or_label_fields(tmp_path: Path) -> None
         assert key not in sent
     for row in (config.FIXTURES_DIR / "labels.jsonl").read_text().splitlines():
         assert json.loads(row)["reason"] not in sent
+
+
+def test_one_failing_email_does_not_abort_the_stage(tmp_path: Path) -> None:
+    for name in ("claims.json", "results.json"):
+        shutil.copy(OUT / name, tmp_path / name)
+
+    def answer(messages: list[Message]) -> str:
+        if "fixture_001" in messages[-1].content:
+            raise RuntimeError("provider error")
+        if "next_tool_name" in messages[0].content:
+            return json.dumps(step("finish"))
+        return json.dumps({"reasoning": "", "summary": "No skill applies."})
+
+    analyze.run(tmp_path, tmp_path, RunContext(corpus_set="day_1", chat=FakeChat(answer), use_cache=False,
+                                               emails_path=FIXTURE_EMAILS))
+    records = {r.email_id: r for r in read_list(tmp_path / "analysis.json", AnalysisRecord)}
+    assert records["fixture_001"].no_change_reason == "analysis failed: RuntimeError"
+    assert len(records) == len({r.email_id for r in read_list(OUT / "results.json", EmailResult) if r.gate == "pass"})

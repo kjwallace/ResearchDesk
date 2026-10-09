@@ -184,3 +184,16 @@ def test_rejected_input_passes_through(ctx: RunContext, inputs: validate.Validat
 def test_new_thesis_kept(ctx: RunContext, inputs: validate.ValidationInputs) -> None:
     out = check(raw()["fixture_009.s1"], ctx, inputs)
     assert out.status == "open" and isinstance(out.body, NewThesis)
+
+
+def test_figure_whose_number_is_not_in_the_quote_is_dropped(ctx: RunContext,
+                                                            inputs: validate.ValidationInputs) -> None:
+    # The model wrote value 26 for the claim, but the quote states a different number.
+    claim = inputs.claims["fixture_001.c1"]
+    inputs.claims["fixture_001.c1"] = claim.model_copy(update={"quote": "Azure grew 31% y/y last quarter."})
+    out = check(raw()["fixture_001.s1"], ctx, inputs)
+    assert isinstance(out.body, ExistingThesis) and out.body.assumptions == []
+
+
+def test_numbers_in_reads_separators_and_signs() -> None:
+    assert validate.numbers_in("capex of $4,500m, up -2.5% to 31.0%") == [4500.0, 2.5, 31.0]

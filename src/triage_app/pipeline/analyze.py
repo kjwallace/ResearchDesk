@@ -46,8 +46,13 @@ def run(in_dir: Path, out_dir: Path, ctx: RunContext) -> None:
         if result.gate != "pass":
             continue
         own = [c for c in claims if c.email_id == result.email_id]
-        with ctx.recorder.stage(STAGE, result.email_id):
-            record, made = process(result.email_id, own, result, ctx, book=book, agent=agent)
+        try:
+            with ctx.recorder.stage(STAGE, result.email_id):
+                record, made = process(result.email_id, own, result, ctx, book=book, agent=agent)
+        except Exception as e:  # one bad model reply must not abort the stage
+            record, made = AnalysisRecord(email_id=result.email_id, skills_called=[], suggestion_ids=[],
+                                          no_change_reason=f"analysis failed: {type(e).__name__}"), []
+            print(f"  {STAGE}: analysis failed for {result.email_id} ({type(e).__name__})", flush=True)
         records.append(record)
         suggestions.extend(made)
     write_list(out_dir / "analysis.json", records)

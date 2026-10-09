@@ -25,14 +25,21 @@ def run(in_dir: Path, out_dir: Path, ctx: RunContext) -> None:
     writer = AttentionWriter(ctx.chat) if flagged else None
     notes: list[AttentionNote] = []
     dropped = 0
+    failed: list[str] = []
     for result in flagged:
-        with ctx.recorder.stage(STAGE, result.email_id):
-            note, n = write_note(emails[result.email_id], result, ctx, writer=writer)
+        try:
+            with ctx.recorder.stage(STAGE, result.email_id):
+                note, n = write_note(emails[result.email_id], result, ctx, writer=writer)
+        except Exception as e:  # one bad model reply must not abort the stage
+            failed.append(f"{result.email_id} ({type(e).__name__})")
+            continue
         notes.append(note)
         dropped += n
     write_list(out_dir / "notes.json", notes)
     print(f"[{ctx.corpus_set}] {STAGE}: {len(notes)} notes, {dropped} sections dropped "
           f"(quote not found in body)", flush=True)
+    if failed:
+        print(f"[{ctx.corpus_set}] {STAGE}: no note for {len(failed)} emails: {', '.join(failed)}", flush=True)
 
 
 def process(email: Email, result: EmailResult, ctx: RunContext) -> AttentionNote:
