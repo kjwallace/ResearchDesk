@@ -66,3 +66,26 @@ def test_throttle_spaces_calls_per_model(monkeypatch: pytest.MonkeyPatch) -> Non
     llm._throttle("a")
     llm._throttle("b")
     assert slept == [3.0]
+
+
+def test_network_errors_are_retried(monkeypatch: pytest.MonkeyPatch) -> None:
+    calls: list[int] = []
+
+    def post(*a: object, **k: object) -> httpx.Response:
+        calls.append(1)
+        if len(calls) < 3:
+            raise httpx.ConnectError("connection refused")
+        return response(200, OK)
+    monkeypatch.setattr(httpx, "post", post)
+    monkeypatch.setattr(time, "sleep", lambda s: None)
+    out = OpenRouterClient(api_key="k", use_cache=False).complete(model="m", messages=MSG)
+    assert out.text == "hi" and len(calls) == 3
+
+
+def test_network_errors_give_up_after_max_retries(monkeypatch: pytest.MonkeyPatch) -> None:
+    def post(*a: object, **k: object) -> httpx.Response:
+        raise httpx.ReadTimeout("timed out")
+    monkeypatch.setattr(httpx, "post", post)
+    monkeypatch.setattr(time, "sleep", lambda s: None)
+    with pytest.raises(httpx.ReadTimeout):
+        OpenRouterClient(api_key="k", use_cache=False).complete(model="m", messages=MSG)

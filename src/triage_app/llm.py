@@ -102,11 +102,17 @@ class OpenRouterClient:
             raise RuntimeError("OPENROUTER_API_KEY is not set")
         for attempt in range(thresholds.LLM_MAX_RETRIES + 1):
             _throttle(body["model"])
-            resp = httpx.post(
-                f"{self.base_url}/chat/completions",
-                headers={"Authorization": f"Bearer {self._api_key}", "Content-Type": "application/json"},
-                json=body, timeout=self.timeout,
-            )
+            try:
+                resp = httpx.post(
+                    f"{self.base_url}/chat/completions",
+                    headers={"Authorization": f"Bearer {self._api_key}", "Content-Type": "application/json"},
+                    json=body, timeout=self.timeout,
+                )
+            except httpx.TransportError:  # a dropped connection or a timeout: back off and try again
+                if attempt == thresholds.LLM_MAX_RETRIES:
+                    raise
+                time.sleep(min(thresholds.LLM_RETRY_BASE_S * 2 ** attempt, thresholds.LLM_RETRY_MAX_S))
+                continue
             retryable = resp.status_code == 429 or resp.status_code >= 500
             if retryable and attempt < thresholds.LLM_MAX_RETRIES:
                 time.sleep(_retry_delay(resp, attempt))
