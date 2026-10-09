@@ -6,6 +6,7 @@
       "pillar_id": "MSFT.p1",
       "stance": "supports",
       "strength": 2,
+      "relevance": 1.0,
       "wrong_if_met": false,
       "assumptions": [
         {
@@ -14,7 +15,9 @@
           "book_value": 24.0,
           "consensus_value": 21.5
         }
-      ]
+      ],
+      "street_view_shift": "none",
+      "street_view_note": ""
     },
     "rationale": "Reseller checks put Azure growth above consensus and show capacity arriving early, which supports the Azure pillar.",
     "claim_ids": [
@@ -42,8 +45,11 @@
       "pillar_id": "NVDA.p1",
       "stance": "supports",
       "strength": 1,
+      "relevance": 1.0,
       "wrong_if_met": false,
-      "assumptions": []
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": ""
     },
     "rationale": "Early release of GPU capacity at Microsoft points to continued AI infrastructure spending.",
     "claim_ids": [
@@ -66,8 +72,11 @@
       "pillar_id": "NVDA.p2",
       "stance": "supports",
       "strength": 2,
+      "relevance": 1.0,
       "wrong_if_met": false,
-      "assumptions": []
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": ""
     },
     "rationale": "A supplier report that memory for the next platform is booked and on schedule supports the supply pillar.",
     "claim_ids": [
@@ -95,8 +104,11 @@
       "pillar_id": "AAPL.p1",
       "stance": "supports",
       "strength": 1,
+      "relevance": 1.0,
       "wrong_if_met": false,
-      "assumptions": []
+      "assumptions": [],
+      "street_view_shift": "none",
+      "street_view_note": ""
     },
     "rationale": "A distributor report of trimmed iPhone build orders supports the view that the upgrade cycle disappoints.",
     "claim_ids": [

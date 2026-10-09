@@ -66,3 +66,19 @@ def test_records_hold_no_text() -> None:
     dumped = json.dumps([c.model_dump(mode="json") for c in rec.calls] + [t.model_dump(mode="json") for t in rec.timings])
     assert "SECRET" not in dumped
     assert rec.calls[0].stage == "extract" and rec.calls[0].email_id == "e1"
+
+
+def test_cost_estimates_use_the_price_table(monkeypatch: pytest.MonkeyPatch) -> None:
+    from triage_app import thresholds
+    monkeypatch.setattr(thresholds, "MODEL_PRICES", {"priced": (2.0, 10.0)})
+    rec = Recorder()
+    rec.record(model="priced", input_tokens=1_000_000, output_tokens=100_000, cache_hit=False, latency_ms=1)
+    rec.record(model="priced", input_tokens=1_000_000, output_tokens=0, cache_hit=True, latency_ms=1)
+    rec.record(model="jev", input_tokens=500, output_tokens=10, cache_hit=False, latency_ms=1)
+    report = build_report("day_1", rec.calls, rec.timings, emails=2)
+    assert report.cost_usd == pytest.approx(3.0)              # 2.00 input + 1.00 output, misses only
+    assert report.uncached_cost_usd == pytest.approx(5.0)     # plus the cached call
+    assert report.cost_per_email_usd == pytest.approx(1.5)
+    assert report.unpriced_models == ["jev"]
+    assert report.by_model["priced"].cost_usd == pytest.approx(3.0)
+    assert report.by_model["jev"].cost_usd is None

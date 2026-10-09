@@ -23,8 +23,10 @@ from typing import Literal
 
 from triage_app import thresholds
 from triage_app.schema import (
-    ConvictionReview, ExistingThesis, LinkedSection, LogEntry, NewThesis, Pillar, Stance, Suggestion, Ticker,
+    ConvictionReview, ExistingThesis, LinkedSection, LogEntry, NewThesis, Pillar, ProjectionChange, Stance,
+    Suggestion, Ticker,
 )
+from triage_app.state.compute import metric_value
 from triage_app.state.fold import (
     BookState, Seed, effective_entries, fold, net_contradicting, next_pillar_id, ticker_of,
 )
@@ -78,7 +80,29 @@ def accept(seed: Seed, log: list[LogEntry], suggestion: Suggestion, *, strength:
         return accept_existing(seed, log, suggestion, body, strength=strength, at=at)
     if isinstance(body, NewThesis):
         return accept_new(seed, log, suggestion, body, statement=statement, wrong_if=wrong_if, at=at)
+    if isinstance(body, ProjectionChange):
+        return accept_projection(seed, log, suggestion, body, at=at)
     raise ActionError("a conviction review is answered by setting conviction, not by accepting it")
+
+
+def accept_projection(seed: Seed, log: list[LogEntry], suggestion: Suggestion, body: ProjectionChange, *,
+                      at: datetime | None = None) -> LogEntry:
+    """A projection on a driver updates that assumption; one on an output metric is logged as evidence."""
+    state = fold(seed, log)
+    model = state.models.get(body.ticker)
+    if model is None:
+        raise ActionError(f"unknown ticker {body.ticker}")
+    if any(d.id == body.metric for d in model.drivers):
+        return update_driver(seed, log, body.metric, body.stated_value, suggestion_id=suggestion.id,
+                             sections=list(suggestion.sections), at=at)
+    current = metric_value(model, body.metric, "analyst")
+    if current is None:
+        raise ActionError(f"unknown projection metric {body.metric}")
+    return LogEntry(
+        id=next_entry_id(log), at=_now(at), suggestion_id=suggestion.id, change="projection_noted",
+        item_id=f"{body.ticker}.{body.metric}", before=current, after=body.stated_value,
+        sections=list(suggestion.sections),
+    )
 
 
 def accept_existing(seed: Seed, log: list[LogEntry], suggestion: Suggestion, body: ExistingThesis, *,

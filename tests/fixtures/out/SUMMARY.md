@@ -40,6 +40,10 @@ Quarantined (held unsummarized): `fixture_003`, `fixture_004`.
 
 - `AMZN.new1` (new AMZN thesis): Partner checks show most new internal inference moving to Amazon's own chips at a steep price discount, which no AMZN pillar covers.
 
+**Projection changes** (0)
+
+None.
+
 **Worth watching** (1)
 
 - `NVDA.p2.supports` (NVDA.p2 supports, strength 1): A supplier report that memory for the next platform is booked and on schedule supports the supply pillar.
@@ -52,5 +56,6 @@ Quarantined (held unsummarized): `fixture_003`, `fixture_004`.
 
 - Tokens spent: 45,391 (uncached cost 51,433); 4,539 per email
 - Cache hits: 6 of 39 calls
+- Estimated cost: not priced spent this run, not priced if uncached, not priced per email
 - Email latency: p50 5.7 s, p95 8.0 s
 - Total time: 44.0 s

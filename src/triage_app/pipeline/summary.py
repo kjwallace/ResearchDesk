@@ -19,8 +19,8 @@ from triage_app import config
 from triage_app import thresholds as limits
 from triage_app.pipeline.io import read_list, read_one
 from triage_app.schema import (
-    AttentionNote, Brief, Email, EmailResult, ExistingThesis, NewThesis, RedundancyRecord, Suggestion,
-    Thresholds, TriageRecord, UsageReport,
+    AttentionNote, Brief, Email, EmailResult, ExistingThesis, NewThesis, ProjectionChange, RedundancyRecord,
+    Suggestion, Thresholds, TriageRecord, UsageReport,
 )
 
 FILE = "SUMMARY.md"
@@ -100,6 +100,7 @@ def render(run: RunOutputs) -> str:
     by_id = {s.id: s for s in run.suggestions}
     lists = (("Thesis changes", run.brief.thesis_changes if run.brief else []),
              ("New thesis candidates", run.brief.new_theses if run.brief else []),
+             ("Projection changes", run.brief.projection_changes if run.brief else []),
              ("Worth watching", run.brief.worth_watching if run.brief else []))
     lines += ["", f"## Suggestions ({len(run.suggestions)})", ""]
     for title, ids in lists:
@@ -111,7 +112,10 @@ def render(run: RunOutputs) -> str:
                 continue
             target = (f"{s.body.pillar_id} {s.body.stance}, strength {s.body.strength}"
                       if isinstance(s.body, ExistingThesis)
-                      else f"new {s.body.ticker} thesis" if isinstance(s.body, NewThesis) else s.body.kind)
+                      else f"new {s.body.ticker} thesis" if isinstance(s.body, NewThesis)
+                      else (f"{s.body.ticker} {s.body.metric} {s.body.period}: email {s.body.stated_value:g}, "
+                            f"book {s.body.book_value:.2f}, consensus {s.body.consensus_value:.2f}")
+                      if isinstance(s.body, ProjectionChange) else s.body.kind)
             mark = " (second look)" if s.second_look else ""
             lines.append(f"- `{sid}` ({target}){mark}: {s.rationale}")
         if not ids:
@@ -137,10 +141,17 @@ def render(run: RunOutputs) -> str:
         lines += [
             f"- Tokens spent: {spent:,} (uncached cost {uncached:,}); {m.tokens_per_email_mean:,.0f} per email",
             f"- Cache hits: {hits:,} of {calls:,} calls",
+            f"- Estimated cost: {_usd(m.cost_usd)} spent this run, {_usd(m.uncached_cost_usd)} if uncached, "
+            f"{_usd(m.cost_per_email_usd)} per email"
+            + (f" (excludes unpriced: {', '.join(m.unpriced_models)})" if m.unpriced_models else ""),
             f"- Email latency: p50 {_ms(m.email_latency_p50_ms)}, p95 {_ms(m.email_latency_p95_ms)}",
             f"- Total time: {_ms(m.total_latency_ms)}",
         ]
     return "\n".join(lines) + "\n"
+
+
+def _usd(value: float | None) -> str:
+    return "not priced" if value is None else f"${value:,.4f}"
 
 
 def _list[M: BaseModel](path: Path, model: type[M]) -> list[M]:
