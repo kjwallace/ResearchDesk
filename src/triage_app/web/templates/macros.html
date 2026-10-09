@@ -108,7 +108,7 @@
         <span class="when">{% if th %}{{ th.stance | human }} · {{ labels.position_usd(sizes.get(t)) | money }}{% endif %}</span>
       </div>
       <div class="subj clamp">{{ pane_link('/suggestion/' ~ s.id, s.rationale if b.kind != 'conviction_review' else 'Accepted contradicting evidence on ' ~ b.pillar_id ~ ' reached the review threshold.') }}</div>
-      {% if b.assumption_impact is defined and b.assumption_impact %}<div class="snip impact-snip">{{ b.assumption_impact }}</div>{% endif %}
+      {% if b.assumption_impact is defined and b.assumption_impact %}<div class="snip impact-snip">{{ b.assumption_impact | ids }}</div>{% endif %}
       <div class="tags">
         {% if b.kind == 'existing_thesis' %}
           <span class="pill dot {{ b.stance }}">{{ b.stance | human }}</span>
@@ -168,7 +168,7 @@
       <h3><a href="/suggestion/{{ s.id }}">Conviction review: {{ b.ticker }}</a></h3>
       <div class="small">Accepted contradicting evidence on {{ b.pillar_id | ref }} reached the review threshold.</div>
     {% endif %}
-    <p class="small" style="margin:6px 0">{{ s.rationale }}</p>
+    <p class="small" style="margin:6px 0">{{ s.rationale | ids }}</p>
     <div class="small muted">Linked emails:
       {% for eid in v.sections(s) | map(attribute='email_id') | unique %}{{ email_link(v, eid) }}{% if not loop.last %}; {% endif %}{% endfor %}
     </div>
@@ -226,7 +226,7 @@
 {% macro rating(thesis, compact=False) -%}
   {%- set r = thesis.street_view if thesis.street_view is defined else none -%}
   {%- if r -%}
-    <span class="rating {{ r }}" {% if thesis.street_view_note is defined and thesis.street_view_note %}title="{{ thesis.street_view_note }}"{% endif %}>{{ r | capitalize }}</span>
+    <span class="rating {{ r }}" {% if thesis.street_view_note is defined and thesis.street_view_note %}title="{{ thesis.street_view_note | ids }}"{% endif %}>{{ r | capitalize }}</span>
   {%- else -%}
     <span class="rating-pending" title="Analyst rating: coming with the next data update">
       {%- for opt in ['Buy', 'Hold', 'Sell'] %}<span>{{ opt }}</span>{% endfor -%}

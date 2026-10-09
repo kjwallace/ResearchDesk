@@ -45,7 +45,7 @@
     <h3>{{ ticker_mark(r.ticker) }} <a href="/company/{{ r.ticker }}">{{ r.ticker }}</a>
       <span class="pill dot {{ r.thesis.stance }}">{{ r.thesis.stance | human }}</span> {{ rating(r.thesis, compact=True) }}
       <span class="grow" style="flex:1"></span><a class="btn" href="/company/{{ r.ticker }}">Model {{ icon('right') }}</a></h3>
-    {% if r.thesis.summary %}<p class="small" style="margin:0 0 6px;color:var(--ink-2)">{{ r.thesis.summary }}</p>{% endif %}
+    {% if r.thesis.summary %}<p class="small" style="margin:0 0 6px;color:var(--ink-2)">{{ r.thesis.summary | ids }}</p>{% endif %}
     <ul class="pillars">
     {% for p in r.thesis.pillars %}
       {% set ev = v.state.evidence.get(p.id, []) %}
@@ -54,7 +54,7 @@
       <li>
         <div class="pillar-head"><span class="mono-id">{{ p.id | ref }}</span>
           {% if ev %}<span class="tag {{ 'bad' if ns.net > 0 else 'good' }}">{{ ev | length }} accepted · net {{ ns.net }}</span>{% endif %}
-          {% for s in pending %}<a class="pill dot {{ s.body.stance }}" href="/review/{{ s.id }}" title="{{ s.rationale }}">{{ s.body.stance | human }}</a>{% endfor %}
+          {% for s in pending %}<a class="pill dot {{ s.body.stance }}" href="/review/{{ s.id }}" title="{{ s.rationale | ids }}">{{ s.body.stance | human }}</a>{% endfor %}
         </div>
         <div class="small">{{ p.statement }}</div>
       </li>

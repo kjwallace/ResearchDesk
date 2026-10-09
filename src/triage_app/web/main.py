@@ -157,7 +157,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
                                  metric_value=labels.metric_value)
     templates.env.filters.update(due=labels.due, human=labels.human, stage=labels.stage, measure=labels.measure,
                                  sentence=labels.sentence, prose=labels.prose, verdict=labels.verdict,
-                                 ref=labels.pretty_id, money=labels.money)
+                                 ref=labels.pretty_id, money=labels.money, ids=labels.ids_in_text)
     templates.env.filters["clock"] = _clock
     templates.env.filters["initials"] = _initials
     templates.env.filters["person"] = lambda s: s.split(",")[0].strip()

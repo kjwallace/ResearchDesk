@@ -14,7 +14,7 @@
     <div class="callout {{ '' if trace.result.gate == 'pass' else 'plain' }}">
       <div class="eyebrow">{{ label_pill(trace.result.triage) }} <span class="pill {{ trace.result.gate }}">{{ trace.result.gate | human }}</span></div>
       <p class="small">{{ trace.result | verdict }}</p></div>
-    {% for s in trace.suggestions %}<div class="linked-item"><span class="ic-round">{{ icon('trend') }}</span><div>Suggestion <a href="/suggestion/{{ trace.email_id }}.{{ s.id }}" class="mono-id">{{ s.id | ref }}</a><div class="small muted">{{ s.rationale }}</div></div></div>{% endfor %}
+    {% for s in trace.suggestions %}<div class="linked-item"><span class="ic-round">{{ icon('trend') }}</span><div>Suggestion <a href="/suggestion/{{ trace.email_id }}.{{ s.id }}" class="mono-id">{{ s.id | ref }}</a><div class="small muted">{{ s.rationale | ids }}</div></div></div>{% endfor %}
     {% if trace.note or trace.suggestions %}<p class="small"><a href="/">Added to your brief →</a></p>{% endif %}
   {% endif %}
 
@@ -93,7 +93,7 @@
               {% if s.body.kind == 'existing_thesis' %}<b>{{ s.body.pillar_id | ref }}</b> · {{ s.body.stance | human }} · Strength {{ s.body.strength }}
               {% elif s.body.kind == 'new_thesis' %}<b>{{ s.body.ticker }}</b> · {{ s.body.statement }}
               {% elif s.body.kind == 'projection_change' %}<b>{{ s.body.ticker }} {{ metric_name(s.body.ticker, s.body.metric) }}</b> · stated {{ metric_value(s.body.metric, s.body.stated_value) }}{% endif %}
-              <div class="small muted">{{ s.rationale }}</div></div>{% endfor %}
+              <div class="small muted">{{ s.rationale | ids }}</div></div>{% endfor %}
           {% elif a and a.no_change_reason %}<p class="small"><b>No change:</b> {{ a.no_change_reason | prose }}</p>{% endif %}
         {% elif st.name == 'validate' %}
           {% for s in trace.checked %}
@@ -103,7 +103,7 @@
           {% endfor %}
         {% elif st.name == 'merge' %}
           {% for s in trace.suggestions %}<div class="claim"><a href="/suggestion/{{ trace.email_id }}.{{ s.id }}" class="mono-id">{{ s.id | ref }}</a>
-            <div class="small muted">{{ s.rationale }}</div></div>{% endfor %}
+            <div class="small muted">{{ s.rationale | ids }}</div></div>{% endfor %}
         {% endif %}
 
         {% if st.records %}

@@ -118,11 +118,16 @@ def _lower(token: str) -> str:
     return " ".join(w if w.isupper() else w.lower() for w in words)
 
 
+_FAILED = re.compile(r"^\s*analysis failed\b.*", re.I | re.S)
+
+
 def prose(text: object) -> str:
     """Code-written text (gate reasons, trace details, reject reasons) made readable for display:
     known snake_case keys become words and the first letter is capitalized. IDs such as
     `synthetic_000001` or `NVDA.p2` are kept as written."""
     s = "" if text is None else str(text)
+    if _FAILED.match(s):   # a recorded failure, such as "Analysis failed: AdapterParseError"
+        return "The analysis step could not read the model's reply for this email, so it made no suggestion."
     s = ids_in_text(s)
     s = re.sub(r"\bjev\b", "classifier", s)
     # One-word labels where a reason names them: "monitor 0.76", "redundant: repeat of ...".

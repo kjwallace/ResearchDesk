@@ -46,7 +46,7 @@
       {% endfor %}
       {% if b.street_view_shift != 'none' %}
       <li><span class="rating {{ 'buy' if b.street_view_shift == 'toward_buy' else 'sell' }}">Street {{ b.street_view_shift | human | lower }}</span>
-        {{ b.street_view_note or "Analysts' emails move the Street's rating." }}</li>
+        {{ (b.street_view_note or "Analysts' emails move the Street's rating.") | ids }}</li>
       {% endif %}
     {% elif b.kind == 'new_thesis' %}
       <li>{{ icon('plus') }} The pillar is added to the {{ b.ticker }} thesis as its next pillar.</li>
@@ -79,13 +79,13 @@
   {% if b.kind != 'conviction_review' %}
   <div class="callout">
     <div class="eyebrow">{{ icon('zap') }}Reasoning</div>
-    <p><b>{{ s.rationale }}</b></p>
-    {% if b.assumption_impact is defined and b.assumption_impact %}<p class="impact">{{ b.assumption_impact }}</p>{% endif %}
+    <p><b>{{ s.rationale | ids }}</b></p>
+    {% if b.assumption_impact is defined and b.assumption_impact %}<p class="impact">{{ b.assumption_impact | ids }}</p>{% endif %}
   </div>
   {% if b.if_accepted is defined and b.if_accepted %}
   <div class="callout plain">
     <div class="eyebrow">{{ icon('check-circle') }}If you accept</div>
-    <p>{{ b.if_accepted }}</p>
+    <p>{{ b.if_accepted | ids }}</p>
   </div>
   {% endif %}
   {% endif %}

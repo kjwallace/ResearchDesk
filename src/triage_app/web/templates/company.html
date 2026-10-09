@@ -8,14 +8,14 @@
   <span class="grow" style="flex:1"></span>
   <nav class="actions" aria-label="Other companies">{% for t in config.TICKERS if t != ticker %}<a class="btn" href="/company/{{ t }}">{{ t }}</a>{% endfor %}</nav>
 </div>
-{% if thesis.summary %}<p class="thesis-summary">{{ thesis.summary }}</p>{% endif %}
+{% if thesis.summary %}<p class="thesis-summary">{{ thesis.summary | ids }}</p>{% endif %}
 {% if model.placeholder_base %}<p class="flash err">Base figures for {{ ticker }} are placeholders, not reported figures.</p>{% endif %}
 
 <section class="stats" aria-label="{{ ticker }} in numbers">
   {{ stat('Position', (thesis.stance | human) ~ ' ' ~ (labels.position_usd(thesis.size_bps) | money), '{:,}'.format(labels.position_shares(ticker, thesis.size_bps)) ~ ' shares at a synthetic $' ~ thresholds.SYNTHETIC_PRICE_USD[ticker] | int, 'layers') }}
   <div class="stat"><span class="label">Analyst rating</span><span class="ic">{{ icon('gauge') }}</span>
     <span class="value">{{ rating(thesis) }}</span>
-    <span class="hint">{% if thesis.street_view_note is defined and thesis.street_view_note %}{{ thesis.street_view_note }}{% else %}Buy, hold or sell; coming with the next data update{% endif %}</span></div>
+    <span class="hint">{% if thesis.street_view_note is defined and thesis.street_view_note %}{{ thesis.street_view_note | ids }}{% else %}Buy, hold or sell; coming with the next data update{% endif %}</span></div>
   {{ stat('EPS, analyst', '$' ~ (a.eps | num(2)), 'Consensus $' ~ (c.eps | num(2)) ~ ' · ' ~ model.fiscal_year, 'trend') }}
   <div class="stat"><span class="label">Target price</span><span class="ic">{{ icon('target') }}</span>
     <span class="value">${{ a.target_price | num(0) }}</span>
@@ -29,10 +29,10 @@
   {% for s in rating_shifts %}
     <div class="linked-item"><span class="rating {{ 'buy' if s.body.street_view_shift == 'toward_buy' else 'sell' }}">{{ s.body.street_view_shift | human }}</span>
       <div><a href="/review/{{ s.id }}" class="mono-id">{{ s.id | ref }}</a>
-        <div class="small muted">{{ s.body.street_view_note or s.rationale }}</div></div></div>
+        <div class="small muted">{{ (s.body.street_view_note or s.rationale) | ids }}</div></div></div>
   {% else %}
     <p class="small">No email today moves the Street's buy, hold or sell view on {{ ticker }}.
-      {% if thesis.street_view_note %}{{ thesis.street_view_note }}{% endif %}</p>
+      {% if thesis.street_view_note %}{{ thesis.street_view_note | ids }}{% endif %}</p>
   {% endfor %}
 </section>
 
@@ -68,7 +68,7 @@
   <article class="card pillar-card" id="pillar-{{ p.id | replace('.', '-') }}">
     <h3>{{ p.id | ref }}{% if ev %}<span class="tag {{ 'bad' if ns.net > 0 else 'good' }}" title="Net contradicting strength">Net contradicting {{ ns.net }}</span>{% endif %}</h3>
     <p style="margin:4px 0 8px"><b>{{ p.statement }}</b></p>
-    {% if p.summary %}<p class="small" style="margin:0 0 10px;color:var(--ink-2)">{{ p.summary }}</p>{% endif %}
+    {% if p.summary %}<p class="small" style="margin:0 0 10px;color:var(--ink-2)">{{ p.summary | ids }}</p>{% endif %}
     {% if p.evidence %}<details class="more evidence"><summary>Evidence ({{ p.evidence | length }})</summary>
       <ul>{% for ev_item in p.evidence %}<li>{{ ev_item.observation }} <span class="xs muted">· {{ ev_item.source }}</span></li>{% endfor %}</ul>
     </details>{% endif %}
@@ -131,5 +131,5 @@
 {% else %}<div class="empty" style="border:0">No changes in this session.</div>{% endfor %}
 </div>
 {% if dismissed %}<div class="eyebrow" style="margin-top:20px">Dismissed suggestions</div>
-  <ul class="small">{% for s in dismissed %}<li><a href="/suggestion/{{ s.id }}" class="mono-id">{{ s.id | ref }}</a> {{ s.rationale }}</li>{% endfor %}</ul>{% endif %}
+  <ul class="small">{% for s in dismissed %}<li><a href="/suggestion/{{ s.id }}" class="mono-id">{{ s.id | ref }}</a> {{ s.rationale | ids }}</li>{% endfor %}</ul>{% endif %}
 {% endblock %}
