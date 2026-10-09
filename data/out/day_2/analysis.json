@@ -7,215 +7,123 @@
   },
   {
     "email_id": "synthetic_000305",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000305.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000309",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000309.s1",
-      "synthetic_000309.s2",
-      "synthetic_000309.s3"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000318",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000318.s1",
-      "synthetic_000318.s2",
-      "synthetic_000318.s3",
-      "synthetic_000318.s4"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000322",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000322.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000329",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000329.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000330",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000330.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000333",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis",
-      "new_thesis"
-    ],
+    "skills_called": [],
     "suggestion_ids": [],
-    "no_change_reason": "The only claim comes from a monitor email and is a second-hand report about Prime cancellation paths, which is not enough alone for a new thesis."
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000335",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000335.s1",
-      "synthetic_000335.s2"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000341",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
+    "skills_called": [],
     "suggestion_ids": [],
-    "no_change_reason": "The claims are one panel-based channel check that is not first-hand, plus an opinion about tariffs, and they do not yet make a distinct debate that the existing retail margin, AWS growth and capex pillars fail to cover."
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000350",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
+    "skills_called": [],
     "suggestion_ids": [],
-    "no_change_reason": "The only email, synthetic_000350, is labelled monitor, and the rules require at least one claim from another label before a new thesis can rest on these claims."
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000355",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000355.s1",
-      "synthetic_000355.s2"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000365",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000365.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "analysis failed: RuntimeError"
   },
   {
     "email_id": "synthetic_000366",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000366.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000369",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000369.s1",
-      "synthetic_000369.s2"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000372",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000372.s1",
-      "synthetic_000372.s2",
-      "synthetic_000372.s3"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000373",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000373.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000383",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
+    "skills_called": [],
     "suggestion_ids": [],
-    "no_change_reason": "The only claim comes from a monitor email, and monitor claims are not enough alone to support a new thesis."
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000384",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000384.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000385",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000385.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000390",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000390.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000394",
@@ -225,411 +133,242 @@
   },
   {
     "email_id": "synthetic_000398",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000398.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000411",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000411.s1",
-      "synthetic_000411.s2",
-      "synthetic_000411.s3",
-      "synthetic_000411.s4"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000419",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
+    "skills_called": [],
     "suggestion_ids": [],
-    "no_change_reason": "Both claims come from synthetic_000419, which is labelled monitor, and a monitor email is not enough alone to support a new thesis."
+    "no_change_reason": "analysis failed: RuntimeError"
   },
   {
     "email_id": "synthetic_000420",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000420.s1",
-      "synthetic_000420.s2"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000421",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000421.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000423",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis",
-      "new_thesis"
-    ],
+    "skills_called": [],
     "suggestion_ids": [],
-    "no_change_reason": "The only claim comes from a monitor email, which is not enough alone for a new thesis, so no candidate is returned."
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000430",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000430.s1",
-      "synthetic_000430.s2"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000431",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000431.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000432",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
+    "skills_called": [],
     "suggestion_ids": [],
-    "no_change_reason": "The only email in the claims is labelled monitor, and claims from monitor emails are not enough alone to support a new thesis."
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000438",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
+    "skills_called": [],
     "suggestion_ids": [],
-    "no_change_reason": "Both claims come from email synthetic_000438, which is labelled monitor, and no claim from another label carries the candidate, so a new thesis is not warranted."
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000439",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000439.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000442",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000442.s1",
-      "synthetic_000442.s2"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000450",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000450.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000454",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000454.s1",
-      "synthetic_000454.s2"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000455",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
+    "skills_called": [],
     "suggestion_ids": [],
-    "no_change_reason": "The only source email is labelled monitor, and claims from monitor emails are not enough alone to support a new thesis."
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000462",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000462.s1",
-      "synthetic_000462.s2"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000477",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000477.s1",
-      "synthetic_000477.s2"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000479",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
+    "skills_called": [],
     "suggestion_ids": [],
-    "no_change_reason": "The only email, synthetic_000479, is labelled monitor, and claims from monitor emails are not enough alone to support a new thesis."
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000480",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000480.s1",
-      "synthetic_000480.s2"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000483",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
+    "skills_called": [],
     "suggestion_ids": [],
-    "no_change_reason": "The only source is a single email labelled monitor, and monitor claims are not enough alone for a new thesis; the claims also sit under existing pillars on AWS capacity and capex, so no separate debate is evident."
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000488",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000488.s1",
-      "synthetic_000488.s2"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000493",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000493.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000497",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
+    "skills_called": [],
     "suggestion_ids": [],
-    "no_change_reason": "The only source email is labelled monitor, and claims from monitor emails are not enough alone for a new thesis when no other label carries the candidate."
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000499",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
+    "skills_called": [],
     "suggestion_ids": [],
-    "no_change_reason": "The only email (synthetic_000499) is labelled monitor, and its claims are second-hand and unverified, so none of them can carry a new thesis on its own."
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000512",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000512.s1",
-      "synthetic_000512.s2"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000524",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
+    "skills_called": [],
     "suggestion_ids": [],
-    "no_change_reason": "Both claims come from a single email labelled monitor, which is not enough alone for a new thesis, and the refurbished-stock comparison falls within the existing iPhone upgrade-cycle pillar (AAPL.p1)."
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000525",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000525.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000529",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000529.s1",
-      "synthetic_000529.s2"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000535",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000535.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000537",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
+    "skills_called": [],
     "suggestion_ids": [],
-    "no_change_reason": "The only source email is labelled monitor, and claims from monitor emails are not enough alone to support a new thesis."
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000538",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000538.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000549",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000549.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000551",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000551.s1",
-      "synthetic_000551.s2"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000559",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
+    "skills_called": [],
     "suggestion_ids": [],
-    "no_change_reason": "All claims come from one email labelled monitor, and monitor claims are not enough alone to support a new thesis."
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000562",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis",
-      "new_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000562.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000572",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000572.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000577",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000577.s1"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000588",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
+    "skills_called": [],
     "suggestion_ids": [],
-    "no_change_reason": "All claims come from email synthetic_000588, which is labelled monitor, and no claim from another label supports a new thesis, so the monitor-only rule applies."
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000591",
-    "skills_called": [
-      "existing_thesis",
-      "new_thesis"
-    ],
+    "skills_called": [],
     "suggestion_ids": [],
-    "no_change_reason": "The only source email for these claims is labelled monitor, and no claim from another label carries a candidate, so the monitor-only rule blocks a new thesis."
+    "no_change_reason": "no claims extracted"
   },
   {
     "email_id": "synthetic_000595",
-    "skills_called": [
-      "existing_thesis"
-    ],
-    "suggestion_ids": [
-      "synthetic_000595.s1",
-      "synthetic_000595.s2"
-    ],
-    "no_change_reason": null
+    "skills_called": [],
+    "suggestion_ids": [],
+    "no_change_reason": "no claims extracted"
   }
 ]

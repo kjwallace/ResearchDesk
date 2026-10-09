@@ -22,6 +22,7 @@ no skill.
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from triage_app.llm import failure_note
 from triage_app import thresholds
 from triage_app.modules.analysis_agent import AgentOutcome, AnalysisAgent, candidate_pillars
 from triage_app.modules.skills import SkillContext
@@ -84,7 +85,7 @@ def run(in_dir: Path, out_dir: Path, ctx: RunContext) -> None:
         except Exception as e:  # one bad model reply must not abort the stage
             record, made = AnalysisRecord(email_id=result.email_id, skills_called=[], suggestion_ids=[],
                                           no_change_reason=f"analysis failed: {type(e).__name__}"), []
-            print(f"  {STAGE}: analysis failed for {result.email_id} ({type(e).__name__})", flush=True)
+            print(f"  {STAGE}: analysis failed for {result.email_id} ({failure_note(e)})", flush=True)
         records.append(record)
         suggestions.extend(made)
     print(f"  {STAGE}: dropped {dropped.no_bearing} no-bearing, {dropped.over_cap} over the per-email cap, "
@@ -141,6 +142,7 @@ def existing_body(draft: ExistingThesisDraft, book: BookState) -> ExistingThesis
                                       consensus_value=drivers[a.driver_id].consensus)
                      for a in draft.assumptions if a.driver_id in drivers],
         street_view_shift=draft.street_view_shift, street_view_note=draft.street_view_note,
+        assumption_impact=draft.assumption_impact, if_accepted=draft.if_accepted,
     )
 
 

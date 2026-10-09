@@ -1,7 +1,7 @@
 [
   {
     "email_id": "synthetic_000601",
-    "triage": "thesis_relevant",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
@@ -9,9 +9,9 @@
       "other"
     ],
     "human_attention": true,
-    "signal_score": 0.83,
-    "gate": "pass",
-    "reason": "thesis_relevant 0.82; signal score 0.83 clears 0.60"
+    "signal_score": 0.16,
+    "gate": "stop",
+    "reason": "irrelevant 0.58; signal score 0.16 is below 0.98"
   },
   {
     "email_id": "synthetic_000602",
@@ -22,25 +22,26 @@
     "additional_labels": [
       "other"
     ],
-    "human_attention": true,
+    "human_attention": false,
     "signal_score": 0.0,
     "gate": "stop",
-    "reason": "irrelevant 0.99; signal score 0.00 is below 0.60"
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
   },
   {
     "email_id": "synthetic_000603",
-    "triage": "thesis_relevant",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
       "sector",
-      "government"
+      "government",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.96,
-    "gate": "pass",
-    "reason": "thesis_relevant 0.95; signal score 0.96 clears 0.60"
+    "signal_score": 0.22,
+    "gate": "stop",
+    "reason": "irrelevant 0.74; signal score 0.22 is below 0.98"
   },
   {
     "email_id": "synthetic_000604",
@@ -50,12 +51,13 @@
     "affected_tickers": [],
     "additional_labels": [
       "macro",
-      "sector"
+      "sector",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.12,
+    "signal_score": 0.0,
     "gate": "stop",
-    "reason": "irrelevant 0.79; signal score 0.12 is below 0.60"
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
   },
   {
     "email_id": "synthetic_000605",
@@ -67,9 +69,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.01,
+    "signal_score": 0.0,
     "gate": "stop",
-    "reason": "irrelevant 0.98; signal score 0.01 is below 0.60"
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
   },
   {
     "email_id": "synthetic_000606",
@@ -81,25 +83,29 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.02,
+    "signal_score": 0.0,
     "gate": "stop",
-    "reason": "irrelevant 0.80; signal score 0.02 is below 0.60"
+    "reason": "irrelevant 0.90; signal score 0.00 is below 0.98"
   },
   {
     "email_id": "synthetic_000607",
-    "triage": "low_value",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
-    "additional_labels": [],
+    "additional_labels": [
+      "macro",
+      "sector",
+      "other"
+    ],
     "human_attention": false,
-    "signal_score": 0.0,
+    "signal_score": 0.05,
     "gate": "stop",
-    "reason": "low_value 0.71; signal score 0.00 is below 0.60"
+    "reason": "irrelevant 0.67; signal score 0.05 is below 0.98"
   },
   {
     "email_id": "synthetic_000608",
-    "triage": "monitor",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
@@ -107,13 +113,13 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.91,
-    "gate": "pass",
-    "reason": "monitor 0.61; signal score 0.91 clears 0.60"
+    "signal_score": 0.33,
+    "gate": "stop",
+    "reason": "irrelevant 0.59; signal score 0.33 is below 0.98"
   },
   {
     "email_id": "synthetic_000609",
-    "triage": "monitor",
+    "triage": "thesis_relevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [
@@ -121,12 +127,13 @@
       "GOOGL"
     ],
     "additional_labels": [
+      "sector",
       "other"
     ],
     "human_attention": true,
-    "signal_score": 1.0,
+    "signal_score": 0.99,
     "gate": "pass",
-    "reason": "monitor 0.92; signal score 1.00 clears 0.60"
+    "reason": "thesis_relevant 0.78; signal score 0.99 clears 0.98"
   },
   {
     "email_id": "synthetic_000610",
@@ -136,26 +143,28 @@
     "affected_tickers": [],
     "additional_labels": [
       "sector",
-      "government"
+      "government",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.18,
+    "signal_score": 0.03,
     "gate": "stop",
-    "reason": "irrelevant 0.67; signal score 0.18 is below 0.60"
+    "reason": "irrelevant 0.72; signal score 0.03 is below 0.98"
   },
   {
     "email_id": "synthetic_000611",
-    "triage": "thesis_relevant",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
+      "macro",
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.98,
-    "gate": "pass",
-    "reason": "thesis_relevant 0.92; signal score 0.98 clears 0.60"
+    "signal_score": 0.45,
+    "gate": "stop",
+    "reason": "irrelevant 0.48; signal score 0.45 is below 0.98"
   },
   {
     "email_id": "synthetic_000612",
@@ -170,9 +179,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.02,
+    "signal_score": 0.03,
     "gate": "stop",
-    "reason": "redundant 0.98; signal score 0.02 is below 0.60"
+    "reason": "redundant 0.97; signal score 0.03 is below 0.98"
   },
   {
     "email_id": "synthetic_000613",
@@ -188,30 +197,33 @@
     ],
     "additional_labels": [
       "sector",
-      "government"
+      "government",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.98,
+    "signal_score": 0.99,
     "gate": "pass",
-    "reason": "monitor 0.97; signal score 0.98 clears 0.60"
+    "reason": "monitor 0.99; signal score 0.99 clears 0.98"
   },
   {
     "email_id": "synthetic_000614",
     "triage": "redundant",
     "decided_by": "jev",
     "redundant_of": null,
-    "affected_tickers": [],
+    "affected_tickers": [
+      "MSFT"
+    ],
     "additional_labels": [
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.01,
+    "signal_score": 0.0,
     "gate": "stop",
-    "reason": "redundant 0.98; signal score 0.01 is below 0.60"
+    "reason": "redundant 1.00; signal score 0.00 is below 0.98"
   },
   {
     "email_id": "synthetic_000615",
-    "triage": "redundant",
+    "triage": "low_value",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [
@@ -221,28 +233,27 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.1,
+    "signal_score": 0.37,
     "gate": "stop",
-    "reason": "redundant 0.59; signal score 0.10 is below 0.60"
+    "reason": "low_value 0.35; signal score 0.37 is below 0.98"
   },
   {
     "email_id": "synthetic_000616",
-    "triage": "thesis_relevant",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
-      "government",
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.99,
-    "gate": "pass",
-    "reason": "thesis_relevant 0.94; signal score 0.99 clears 0.60"
+    "signal_score": 0.21,
+    "gate": "stop",
+    "reason": "irrelevant 0.78; signal score 0.21 is below 0.98"
   },
   {
     "email_id": "synthetic_000617",
-    "triage": "monitor",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
@@ -251,9 +262,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.67,
-    "gate": "pass",
-    "reason": "monitor 0.62; signal score 0.67 clears 0.60"
+    "signal_score": 0.08,
+    "gate": "stop",
+    "reason": "irrelevant 0.51; signal score 0.08 is below 0.98"
   },
   {
     "email_id": "synthetic_000618",
@@ -267,13 +278,13 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.01,
+    "signal_score": 0.0,
     "gate": "stop",
-    "reason": "redundant 0.99; signal score 0.01 is below 0.60"
+    "reason": "redundant 1.00; signal score 0.00 is below 0.98"
   },
   {
     "email_id": "synthetic_000619",
-    "triage": "monitor",
+    "triage": "thesis_relevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [
@@ -287,11 +298,11 @@
     "human_attention": false,
     "signal_score": 1.0,
     "gate": "pass",
-    "reason": "monitor 0.99; signal score 1.00 clears 0.60"
+    "reason": "thesis_relevant 0.71; signal score 1.00 clears 0.98"
   },
   {
     "email_id": "synthetic_000620",
-    "triage": "monitor",
+    "triage": "low_value",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
@@ -299,9 +310,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.79,
-    "gate": "pass",
-    "reason": "monitor 0.79; signal score 0.79 clears 0.60"
+    "signal_score": 0.08,
+    "gate": "stop",
+    "reason": "low_value 0.57; signal score 0.08 is below 0.98"
   },
   {
     "email_id": "synthetic_000621",
@@ -309,6 +320,7 @@
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [
+      "MSFT",
       "GOOGL"
     ],
     "additional_labels": [
@@ -318,22 +330,23 @@
     "human_attention": true,
     "signal_score": 0.99,
     "gate": "pass",
-    "reason": "monitor 0.97; signal score 0.99 clears 0.60"
+    "reason": "monitor 0.93; signal score 0.99 clears 0.98"
   },
   {
     "email_id": "synthetic_000622",
-    "triage": "thesis_relevant",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
-      "government",
+      "macro",
+      "sector",
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.98,
-    "gate": "pass",
-    "reason": "thesis_relevant 0.97; signal score 0.98 clears 0.60"
+    "signal_score": 0.23,
+    "gate": "stop",
+    "reason": "irrelevant 0.76; signal score 0.23 is below 0.98"
   },
   {
     "email_id": "synthetic_000623",
@@ -347,9 +360,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.25,
+    "signal_score": 0.22,
     "gate": "stop",
-    "reason": "redundant 0.73; signal score 0.25 is below 0.60"
+    "reason": "redundant 0.77; signal score 0.22 is below 0.98"
   },
   {
     "email_id": "synthetic_000624",
@@ -359,12 +372,13 @@
     "affected_tickers": [],
     "additional_labels": [
       "sector",
-      "government"
+      "government",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.12,
+    "signal_score": 0.03,
     "gate": "stop",
-    "reason": "low_value 0.54; signal score 0.12 is below 0.60"
+    "reason": "low_value 0.54; signal score 0.03 is below 0.98"
   },
   {
     "email_id": "synthetic_000625",
@@ -374,17 +388,16 @@
     "affected_tickers": [],
     "additional_labels": [
       "sector",
-      "government",
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.12,
+    "signal_score": 0.01,
     "gate": "stop",
-    "reason": "irrelevant 0.71; signal score 0.12 is below 0.60"
+    "reason": "irrelevant 0.88; signal score 0.01 is below 0.98"
   },
   {
     "email_id": "synthetic_000626",
-    "triage": "monitor",
+    "triage": "thesis_relevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [
@@ -393,10 +406,10 @@
     "additional_labels": [
       "other"
     ],
-    "human_attention": true,
+    "human_attention": false,
     "signal_score": 1.0,
     "gate": "pass",
-    "reason": "monitor 0.88; signal score 1.00 clears 0.60"
+    "reason": "thesis_relevant 0.98; signal score 1.00 clears 0.98"
   },
   {
     "email_id": "synthetic_000627",
@@ -412,7 +425,7 @@
     "human_attention": false,
     "signal_score": 1.0,
     "gate": "pass",
-    "reason": "monitor 0.99; signal score 1.00 clears 0.60"
+    "reason": "monitor 0.99; signal score 1.00 clears 0.98"
   },
   {
     "email_id": "synthetic_000628",
@@ -427,26 +440,12 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.2,
+    "signal_score": 0.26,
     "gate": "stop",
-    "reason": "low_value 0.80; signal score 0.20 is below 0.60"
+    "reason": "low_value 0.74; signal score 0.26 is below 0.98"
   },
   {
     "email_id": "synthetic_000629",
-    "triage": "thesis_relevant",
-    "decided_by": "jev",
-    "redundant_of": null,
-    "affected_tickers": [],
-    "additional_labels": [
-      "other"
-    ],
-    "human_attention": false,
-    "signal_score": 0.95,
-    "gate": "pass",
-    "reason": "thesis_relevant 0.62; signal score 0.95 clears 0.60"
-  },
-  {
-    "email_id": "synthetic_000630",
     "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
@@ -455,9 +454,24 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.0,
+    "signal_score": 0.17,
     "gate": "stop",
-    "reason": "irrelevant 0.72; signal score 0.00 is below 0.60"
+    "reason": "irrelevant 0.81; signal score 0.17 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000630",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.01,
+    "gate": "stop",
+    "reason": "low_value 0.52; signal score 0.01 is below 0.98"
   },
   {
     "email_id": "synthetic_000631",
@@ -466,30 +480,34 @@
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
-      "sector"
+      "macro",
+      "sector",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.0,
+    "signal_score": 0.02,
     "gate": "stop",
-    "reason": "irrelevant 0.80; signal score 0.00 is below 0.60"
+    "reason": "irrelevant 0.95; signal score 0.02 is below 0.98"
   },
   {
     "email_id": "synthetic_000632",
     "triage": "low_value",
     "decided_by": "jev",
     "redundant_of": null,
-    "affected_tickers": [],
+    "affected_tickers": [
+      "GOOGL"
+    ],
     "additional_labels": [
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.01,
+    "signal_score": 0.06,
     "gate": "stop",
-    "reason": "low_value 0.92; signal score 0.01 is below 0.60"
+    "reason": "low_value 0.94; signal score 0.06 is below 0.98"
   },
   {
     "email_id": "synthetic_000633",
-    "triage": "thesis_relevant",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
@@ -497,9 +515,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.97,
-    "gate": "pass",
-    "reason": "thesis_relevant 0.84; signal score 0.97 clears 0.60"
+    "signal_score": 0.25,
+    "gate": "stop",
+    "reason": "irrelevant 0.74; signal score 0.25 is below 0.98"
   },
   {
     "email_id": "synthetic_000634",
@@ -513,7 +531,7 @@
     "human_attention": false,
     "signal_score": 0.0,
     "gate": "stop",
-    "reason": "redundant 1.00; signal score 0.00 is below 0.60"
+    "reason": "redundant 1.00; signal score 0.00 is below 0.98"
   },
   {
     "email_id": "synthetic_000635",
@@ -530,22 +548,23 @@
     "human_attention": false,
     "signal_score": 1.0,
     "gate": "pass",
-    "reason": "monitor 0.98; signal score 1.00 clears 0.60"
+    "reason": "monitor 0.98; signal score 1.00 clears 0.98"
   },
   {
     "email_id": "synthetic_000636",
-    "triage": "thesis_relevant",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
       "sector",
-      "government"
+      "government",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.98,
-    "gate": "pass",
-    "reason": "thesis_relevant 0.98; signal score 0.98 clears 0.60"
+    "signal_score": 0.06,
+    "gate": "stop",
+    "reason": "irrelevant 0.93; signal score 0.06 is below 0.98"
   },
   {
     "email_id": "synthetic_000637",
@@ -556,15 +575,30 @@
     "additional_labels": [
       "macro",
       "sector",
-      "government"
+      "other"
     ],
-    "human_attention": true,
-    "signal_score": 0.26,
+    "human_attention": false,
+    "signal_score": 0.02,
     "gate": "stop",
-    "reason": "irrelevant 0.65; signal score 0.26 is below 0.60"
+    "reason": "irrelevant 0.93; signal score 0.02 is below 0.98"
   },
   {
     "email_id": "synthetic_000638",
+    "triage": "low_value",
+    "decided_by": "jev",
+    "redundant_of": null,
+    "affected_tickers": [],
+    "additional_labels": [
+      "sector",
+      "other"
+    ],
+    "human_attention": false,
+    "signal_score": 0.03,
+    "gate": "stop",
+    "reason": "low_value 0.69; signal score 0.03 is below 0.98"
+  },
+  {
+    "email_id": "synthetic_000639",
     "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
@@ -574,27 +608,13 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.33,
+    "signal_score": 0.05,
     "gate": "stop",
-    "reason": "irrelevant 0.41; signal score 0.33 is below 0.60"
-  },
-  {
-    "email_id": "synthetic_000639",
-    "triage": "monitor",
-    "decided_by": "jev",
-    "redundant_of": null,
-    "affected_tickers": [],
-    "additional_labels": [
-      "sector"
-    ],
-    "human_attention": true,
-    "signal_score": 0.38,
-    "gate": "stop",
-    "reason": "monitor 0.32; signal score 0.38 is below 0.60"
+    "reason": "irrelevant 0.80; signal score 0.05 is below 0.98"
   },
   {
     "email_id": "synthetic_000640",
-    "triage": "irrelevant",
+    "triage": "low_value",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
@@ -602,10 +622,10 @@
       "sector",
       "other"
     ],
-    "human_attention": true,
-    "signal_score": 0.13,
+    "human_attention": false,
+    "signal_score": 0.05,
     "gate": "stop",
-    "reason": "irrelevant 0.46; signal score 0.13 is below 0.60"
+    "reason": "low_value 0.58; signal score 0.05 is below 0.98"
   },
   {
     "email_id": "synthetic_000641",
@@ -616,16 +636,16 @@
     "additional_labels": [
       "macro",
       "sector",
-      "government"
+      "other"
     ],
-    "human_attention": true,
-    "signal_score": 0.1,
+    "human_attention": false,
+    "signal_score": 0.0,
     "gate": "stop",
-    "reason": "irrelevant 0.79; signal score 0.10 is below 0.60"
+    "reason": "irrelevant 0.99; signal score 0.00 is below 0.98"
   },
   {
     "email_id": "synthetic_000642",
-    "triage": "thesis_relevant",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
@@ -633,13 +653,13 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.71,
-    "gate": "pass",
-    "reason": "thesis_relevant 0.70; signal score 0.71 clears 0.60"
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "irrelevant 0.98; signal score 0.02 is below 0.98"
   },
   {
     "email_id": "synthetic_000643",
-    "triage": "low_value",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
@@ -647,24 +667,25 @@
       "other"
     ],
     "human_attention": true,
-    "signal_score": 0.18,
+    "signal_score": 0.1,
     "gate": "stop",
-    "reason": "low_value 0.55; signal score 0.18 is below 0.60"
+    "reason": "irrelevant 0.72; signal score 0.10 is below 0.98"
   },
   {
     "email_id": "synthetic_000644",
-    "triage": "monitor",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
       "sector",
-      "government"
+      "government",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.68,
-    "gate": "pass",
-    "reason": "monitor 0.43; signal score 0.68 clears 0.60"
+    "signal_score": 0.07,
+    "gate": "stop",
+    "reason": "irrelevant 0.67; signal score 0.07 is below 0.98"
   },
   {
     "email_id": "synthetic_000645",
@@ -679,9 +700,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.99,
+    "signal_score": 1.0,
     "gate": "pass",
-    "reason": "monitor 0.96; signal score 0.99 clears 0.60"
+    "reason": "monitor 0.91; signal score 1.00 clears 0.98"
   },
   {
     "email_id": "synthetic_000646",
@@ -696,9 +717,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.66,
-    "gate": "pass",
-    "reason": "thesis_relevant 0.56; signal score 0.66 clears 0.60"
+    "signal_score": 0.67,
+    "gate": "stop",
+    "reason": "thesis_relevant 0.44; signal score 0.67 is below 0.98"
   },
   {
     "email_id": "synthetic_000647",
@@ -708,12 +729,13 @@
     "affected_tickers": [],
     "additional_labels": [
       "sector",
-      "government"
+      "government",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.41,
+    "signal_score": 0.01,
     "gate": "stop",
-    "reason": "irrelevant 0.45; signal score 0.41 is below 0.60"
+    "reason": "irrelevant 0.98; signal score 0.01 is below 0.98"
   },
   {
     "email_id": "synthetic_000648",
@@ -728,9 +750,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 1.0,
+    "signal_score": 0.99,
     "gate": "pass",
-    "reason": "monitor 0.99; signal score 1.00 clears 0.60"
+    "reason": "monitor 0.95; signal score 0.99 clears 0.98"
   },
   {
     "email_id": "synthetic_000649",
@@ -742,9 +764,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.98,
-    "gate": "pass",
-    "reason": "monitor 0.98; signal score 0.98 clears 0.60"
+    "signal_score": 0.55,
+    "gate": "stop",
+    "reason": "monitor 0.54; signal score 0.55 is below 0.98"
   },
   {
     "email_id": "synthetic_000650",
@@ -754,12 +776,13 @@
     "affected_tickers": [],
     "additional_labels": [
       "sector",
-      "government"
+      "government",
+      "other"
     ],
-    "human_attention": true,
-    "signal_score": 0.47,
+    "human_attention": false,
+    "signal_score": 0.03,
     "gate": "stop",
-    "reason": "redundant: repeat of synthetic_000644 (content 0.87, subject 0.52); jev irrelevant 0.38; signal score 0.47 is below 0.60"
+    "reason": "redundant: repeat of synthetic_000644 (content 0.87, subject 0.52); jev irrelevant 0.76; signal score 0.03 is below 0.98"
   },
   {
     "email_id": "synthetic_000651",
@@ -774,35 +797,37 @@
     "human_attention": false,
     "signal_score": 0.02,
     "gate": "stop",
-    "reason": "irrelevant 0.82; signal score 0.02 is below 0.60"
+    "reason": "irrelevant 0.68; signal score 0.02 is below 0.98"
   },
   {
     "email_id": "synthetic_000652",
-    "triage": "redundant",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
+      "sector",
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.3,
+    "signal_score": 0.04,
     "gate": "stop",
-    "reason": "redundant 0.68; signal score 0.30 is below 0.60"
+    "reason": "irrelevant 0.57; signal score 0.04 is below 0.98"
   },
   {
     "email_id": "synthetic_000653",
-    "triage": "monitor",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
-      "sector"
+      "sector",
+      "other"
     ],
-    "human_attention": true,
-    "signal_score": 0.88,
-    "gate": "pass",
-    "reason": "monitor 0.85; signal score 0.88 clears 0.60"
+    "human_attention": false,
+    "signal_score": 0.11,
+    "gate": "stop",
+    "reason": "irrelevant 0.67; signal score 0.11 is below 0.98"
   },
   {
     "email_id": "synthetic_000654",
@@ -813,12 +838,13 @@
       "GOOGL"
     ],
     "additional_labels": [
+      "sector",
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.01,
+    "signal_score": 0.0,
     "gate": "stop",
-    "reason": "redundant 0.99; signal score 0.01 is below 0.60"
+    "reason": "redundant 1.00; signal score 0.00 is below 0.98"
   },
   {
     "email_id": "synthetic_000655",
@@ -829,12 +855,14 @@
       "MSFT"
     ],
     "additional_labels": [
+      "macro",
+      "sector",
       "other"
     ],
     "human_attention": true,
-    "signal_score": 1.0,
-    "gate": "pass",
-    "reason": "monitor 0.99; signal score 1.00 clears 0.60"
+    "signal_score": 0.97,
+    "gate": "stop",
+    "reason": "monitor 0.90; signal score 0.97 is below 0.98"
   },
   {
     "email_id": "synthetic_000656",
@@ -844,12 +872,13 @@
     "affected_tickers": [],
     "additional_labels": [
       "sector",
-      "government"
+      "government",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.37,
+    "signal_score": 0.01,
     "gate": "stop",
-    "reason": "irrelevant 0.46; signal score 0.37 is below 0.60"
+    "reason": "irrelevant 0.98; signal score 0.01 is below 0.98"
   },
   {
     "email_id": "synthetic_000657",
@@ -861,9 +890,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 1.0,
-    "gate": "pass",
-    "reason": "monitor 1.00; signal score 1.00 clears 0.60"
+    "signal_score": 0.7,
+    "gate": "stop",
+    "reason": "monitor 0.69; signal score 0.70 is below 0.98"
   },
   {
     "email_id": "synthetic_000658",
@@ -877,9 +906,9 @@
       "other"
     ],
     "human_attention": true,
-    "signal_score": 1.0,
+    "signal_score": 0.99,
     "gate": "pass",
-    "reason": "monitor 0.99; signal score 1.00 clears 0.60"
+    "reason": "monitor 0.93; signal score 0.99 clears 0.98"
   },
   {
     "email_id": "synthetic_000659",
@@ -894,9 +923,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 1.0,
+    "signal_score": 0.99,
     "gate": "pass",
-    "reason": "monitor 0.94; signal score 1.00 clears 0.60"
+    "reason": "monitor 0.82; signal score 0.99 clears 0.98"
   },
   {
     "email_id": "synthetic_000660",
@@ -911,9 +940,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.96,
+    "signal_score": 1.0,
     "gate": "pass",
-    "reason": "monitor 0.93; signal score 0.96 clears 0.60"
+    "reason": "monitor 0.99; signal score 1.00 clears 0.98"
   },
   {
     "email_id": "synthetic_000661",
@@ -924,14 +953,14 @@
     "additional_labels": [
       "other"
     ],
-    "human_attention": true,
+    "human_attention": false,
     "signal_score": 0.0,
     "gate": "stop",
-    "reason": "irrelevant 1.00; signal score 0.00 is below 0.60"
+    "reason": "irrelevant 1.00; signal score 0.00 is below 0.98"
   },
   {
     "email_id": "synthetic_000662",
-    "triage": "monitor",
+    "triage": "low_value",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
@@ -940,24 +969,25 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.73,
-    "gate": "pass",
-    "reason": "monitor 0.72; signal score 0.73 clears 0.60"
+    "signal_score": 0.17,
+    "gate": "stop",
+    "reason": "low_value 0.78; signal score 0.17 is below 0.98"
   },
   {
     "email_id": "synthetic_000663",
-    "triage": "thesis_relevant",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
       "sector",
-      "government"
+      "government",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.72,
-    "gate": "pass",
-    "reason": "thesis_relevant 0.58; signal score 0.72 clears 0.60"
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "irrelevant 0.98; signal score 0.02 is below 0.98"
   },
   {
     "email_id": "synthetic_000664",
@@ -971,13 +1001,13 @@
       "other"
     ],
     "human_attention": true,
-    "signal_score": 1.0,
+    "signal_score": 0.98,
     "gate": "pass",
-    "reason": "monitor 0.99; signal score 1.00 clears 0.60"
+    "reason": "monitor 0.97; signal score 0.98 clears 0.98"
   },
   {
     "email_id": "synthetic_000665",
-    "triage": "monitor",
+    "triage": "low_value",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
@@ -986,9 +1016,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.54,
+    "signal_score": 0.1,
     "gate": "stop",
-    "reason": "monitor 0.54; signal score 0.54 is below 0.60"
+    "reason": "low_value 0.81; signal score 0.10 is below 0.98"
   },
   {
     "email_id": "synthetic_000666",
@@ -1000,12 +1030,13 @@
     ],
     "additional_labels": [
       "sector",
-      "government"
+      "government",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.17,
+    "signal_score": 0.18,
     "gate": "stop",
-    "reason": "redundant 0.82; signal score 0.17 is below 0.60"
+    "reason": "redundant 0.82; signal score 0.18 is below 0.98"
   },
   {
     "email_id": "synthetic_000667",
@@ -1021,13 +1052,13 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.11,
+    "signal_score": 0.15,
     "gate": "stop",
-    "reason": "low_value 0.82; signal score 0.11 is below 0.60"
+    "reason": "low_value 0.78; signal score 0.15 is below 0.98"
   },
   {
     "email_id": "synthetic_000668",
-    "triage": "monitor",
+    "triage": "low_value",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
@@ -1035,9 +1066,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.96,
-    "gate": "pass",
-    "reason": "monitor 0.96; signal score 0.96 clears 0.60"
+    "signal_score": 0.26,
+    "gate": "stop",
+    "reason": "low_value 0.40; signal score 0.26 is below 0.98"
   },
   {
     "email_id": "synthetic_000669",
@@ -1049,9 +1080,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.01,
+    "signal_score": 0.0,
     "gate": "stop",
-    "reason": "redundant 0.99; signal score 0.01 is below 0.60"
+    "reason": "redundant 0.89; signal score 0.00 is below 0.98"
   },
   {
     "email_id": "synthetic_000670",
@@ -1062,17 +1093,18 @@
       "MSFT"
     ],
     "additional_labels": [
+      "macro",
       "sector",
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.97,
-    "gate": "pass",
-    "reason": "monitor 0.95; signal score 0.97 clears 0.60"
+    "signal_score": 0.81,
+    "gate": "stop",
+    "reason": "monitor 0.59; signal score 0.81 is below 0.98"
   },
   {
     "email_id": "synthetic_000671",
-    "triage": "thesis_relevant",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
@@ -1080,24 +1112,25 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.95,
-    "gate": "pass",
-    "reason": "thesis_relevant 0.95; signal score 0.95 clears 0.60"
+    "signal_score": 0.12,
+    "gate": "stop",
+    "reason": "irrelevant 0.83; signal score 0.12 is below 0.98"
   },
   {
     "email_id": "synthetic_000672",
-    "triage": "monitor",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
       "sector",
-      "government"
+      "government",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.46,
+    "signal_score": 0.06,
     "gate": "stop",
-    "reason": "monitor 0.40; signal score 0.46 is below 0.60"
+    "reason": "irrelevant 0.92; signal score 0.06 is below 0.98"
   },
   {
     "email_id": "synthetic_000673",
@@ -1109,9 +1142,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.41,
+    "signal_score": 0.11,
     "gate": "stop",
-    "reason": "irrelevant 0.40; signal score 0.41 is below 0.60"
+    "reason": "irrelevant 0.56; signal score 0.11 is below 0.98"
   },
   {
     "email_id": "synthetic_000674",
@@ -1125,38 +1158,40 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.96,
-    "gate": "pass",
-    "reason": "monitor 0.96; signal score 0.96 clears 0.60"
+    "signal_score": 0.86,
+    "gate": "stop",
+    "reason": "monitor 0.85; signal score 0.86 is below 0.98"
   },
   {
     "email_id": "synthetic_000675",
-    "triage": "thesis_relevant",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
       "sector",
-      "government"
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.84,
-    "gate": "pass",
-    "reason": "thesis_relevant 0.68; signal score 0.84 clears 0.60"
+    "signal_score": 0.05,
+    "gate": "stop",
+    "reason": "irrelevant 0.94; signal score 0.05 is below 0.98"
   },
   {
     "email_id": "synthetic_000676",
-    "triage": "monitor",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
-      "sector"
+      "macro",
+      "sector",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.68,
-    "gate": "pass",
-    "reason": "monitor 0.62; signal score 0.68 clears 0.60"
+    "signal_score": 0.04,
+    "gate": "stop",
+    "reason": "irrelevant 0.52; signal score 0.04 is below 0.98"
   },
   {
     "email_id": "synthetic_000677",
@@ -1168,9 +1203,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.17,
+    "signal_score": 0.33,
     "gate": "stop",
-    "reason": "low_value 0.49; signal score 0.17 is below 0.60"
+    "reason": "low_value 0.44; signal score 0.33 is below 0.98"
   },
   {
     "email_id": "synthetic_000678",
@@ -1185,9 +1220,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 1.0,
-    "gate": "pass",
-    "reason": "monitor 0.99; signal score 1.00 clears 0.60"
+    "signal_score": 0.97,
+    "gate": "stop",
+    "reason": "monitor 0.90; signal score 0.97 is below 0.98"
   },
   {
     "email_id": "synthetic_000679",
@@ -1204,11 +1239,11 @@
     "human_attention": false,
     "signal_score": 1.0,
     "gate": "pass",
-    "reason": "thesis_relevant 0.54; signal score 1.00 clears 0.60"
+    "reason": "thesis_relevant 0.93; signal score 1.00 clears 0.98"
   },
   {
     "email_id": "synthetic_000680",
-    "triage": "monitor",
+    "triage": "thesis_relevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [
@@ -1218,45 +1253,45 @@
       "sector",
       "other"
     ],
-    "human_attention": true,
+    "human_attention": false,
     "signal_score": 0.98,
     "gate": "pass",
-    "reason": "monitor 0.74; signal score 0.98 clears 0.60"
+    "reason": "thesis_relevant 0.51; signal score 0.98 clears 0.98"
   },
   {
     "email_id": "synthetic_000681",
-    "triage": "monitor",
+    "triage": "thesis_relevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [
-      "NVDA",
       "MSFT"
     ],
     "additional_labels": [
       "other"
     ],
-    "human_attention": true,
+    "human_attention": false,
     "signal_score": 1.0,
     "gate": "pass",
-    "reason": "monitor 0.99; signal score 1.00 clears 0.60"
+    "reason": "thesis_relevant 0.89; signal score 1.00 clears 0.98"
   },
   {
     "email_id": "synthetic_000682",
-    "triage": "low_value",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
-      "sector"
+      "sector",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.31,
+    "signal_score": 0.04,
     "gate": "stop",
-    "reason": "low_value 0.41; signal score 0.31 is below 0.60"
+    "reason": "irrelevant 0.64; signal score 0.04 is below 0.98"
   },
   {
     "email_id": "synthetic_000683",
-    "triage": "thesis_relevant",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
@@ -1264,9 +1299,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.56,
+    "signal_score": 0.07,
     "gate": "stop",
-    "reason": "thesis_relevant 0.42; signal score 0.56 is below 0.60"
+    "reason": "irrelevant 0.89; signal score 0.07 is below 0.98"
   },
   {
     "email_id": "synthetic_000684",
@@ -1277,25 +1312,26 @@
     "additional_labels": [
       "other"
     ],
-    "human_attention": true,
-    "signal_score": 0.99,
-    "gate": "pass",
-    "reason": "monitor 0.99; signal score 0.99 clears 0.60"
+    "human_attention": false,
+    "signal_score": 0.48,
+    "gate": "stop",
+    "reason": "monitor 0.47; signal score 0.48 is below 0.98"
   },
   {
     "email_id": "synthetic_000685",
-    "triage": "thesis_relevant",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
       "sector",
-      "government"
+      "government",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.77,
-    "gate": "pass",
-    "reason": "thesis_relevant 0.74; signal score 0.77 clears 0.60"
+    "signal_score": 0.02,
+    "gate": "stop",
+    "reason": "irrelevant 0.98; signal score 0.02 is below 0.98"
   },
   {
     "email_id": "synthetic_000686",
@@ -1307,12 +1343,13 @@
     ],
     "additional_labels": [
       "sector",
-      "government"
+      "government",
+      "other"
     ],
-    "human_attention": true,
-    "signal_score": 1.0,
+    "human_attention": false,
+    "signal_score": 0.99,
     "gate": "pass",
-    "reason": "monitor 1.00; signal score 1.00 clears 0.60"
+    "reason": "monitor 0.97; signal score 0.99 clears 0.98"
   },
   {
     "email_id": "synthetic_000687",
@@ -1321,26 +1358,28 @@
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
-      "sector"
+      "sector",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.0,
+    "signal_score": 0.02,
     "gate": "stop",
-    "reason": "irrelevant 0.62; signal score 0.00 is below 0.60"
+    "reason": "irrelevant 0.92; signal score 0.02 is below 0.98"
   },
   {
     "email_id": "synthetic_000688",
-    "triage": "low_value",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
-      "sector"
+      "sector",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.32,
+    "signal_score": 0.06,
     "gate": "stop",
-    "reason": "low_value 0.35; signal score 0.32 is below 0.60"
+    "reason": "irrelevant 0.72; signal score 0.06 is below 0.98"
   },
   {
     "email_id": "synthetic_000689",
@@ -1353,24 +1392,25 @@
     "additional_labels": [
       "other"
     ],
-    "human_attention": true,
+    "human_attention": false,
     "signal_score": 0.99,
     "gate": "pass",
-    "reason": "monitor 0.98; signal score 0.99 clears 0.60"
+    "reason": "monitor 0.99; signal score 0.99 clears 0.98"
   },
   {
     "email_id": "synthetic_000690",
-    "triage": "low_value",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
-      "sector"
+      "sector",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.08,
+    "signal_score": 0.04,
     "gate": "stop",
-    "reason": "low_value 0.50; signal score 0.08 is below 0.60"
+    "reason": "irrelevant 0.92; signal score 0.04 is below 0.98"
   },
   {
     "email_id": "synthetic_000691",
@@ -1385,13 +1425,15 @@
       "GOOGL"
     ],
     "additional_labels": [
+      "macro",
       "sector",
-      "government"
+      "government",
+      "other"
     ],
-    "human_attention": true,
+    "human_attention": false,
     "signal_score": 1.0,
     "gate": "pass",
-    "reason": "monitor 1.00; signal score 1.00 clears 0.60"
+    "reason": "monitor 0.97; signal score 1.00 clears 0.98"
   },
   {
     "email_id": "synthetic_000692",
@@ -1406,9 +1448,9 @@
       "other"
     ],
     "human_attention": true,
-    "signal_score": 1.0,
+    "signal_score": 0.99,
     "gate": "pass",
-    "reason": "monitor 1.00; signal score 1.00 clears 0.60"
+    "reason": "monitor 0.80; signal score 0.99 clears 0.98"
   },
   {
     "email_id": "synthetic_000693",
@@ -1419,12 +1461,13 @@
       "GOOGL"
     ],
     "additional_labels": [
+      "sector",
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.1,
+    "signal_score": 0.07,
     "gate": "stop",
-    "reason": "redundant 0.90; signal score 0.10 is below 0.60"
+    "reason": "redundant 0.93; signal score 0.07 is below 0.98"
   },
   {
     "email_id": "synthetic_000694",
@@ -1438,9 +1481,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.01,
+    "signal_score": 0.0,
     "gate": "stop",
-    "reason": "redundant 0.99; signal score 0.01 is below 0.60"
+    "reason": "redundant 1.00; signal score 0.00 is below 0.98"
   },
   {
     "email_id": "synthetic_000695",
@@ -1453,14 +1496,14 @@
     "additional_labels": [
       "other"
     ],
-    "human_attention": true,
-    "signal_score": 1.0,
+    "human_attention": false,
+    "signal_score": 0.99,
     "gate": "pass",
-    "reason": "thesis_relevant 0.98; signal score 1.00 clears 0.60"
+    "reason": "thesis_relevant 0.98; signal score 0.99 clears 0.98"
   },
   {
     "email_id": "synthetic_000696",
-    "triage": "monitor",
+    "triage": "thesis_relevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [
@@ -1472,7 +1515,7 @@
     "human_attention": true,
     "signal_score": 0.99,
     "gate": "pass",
-    "reason": "monitor 0.72; signal score 0.99 clears 0.60"
+    "reason": "thesis_relevant 0.95; signal score 0.99 clears 0.98"
   },
   {
     "email_id": "synthetic_000697",
@@ -1482,16 +1525,17 @@
     "affected_tickers": [],
     "additional_labels": [
       "sector",
-      "government"
+      "government",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.37,
+    "signal_score": 0.02,
     "gate": "stop",
-    "reason": "irrelevant 0.39; signal score 0.37 is below 0.60"
+    "reason": "irrelevant 0.96; signal score 0.02 is below 0.98"
   },
   {
     "email_id": "synthetic_000698",
-    "triage": "thesis_relevant",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
@@ -1499,9 +1543,9 @@
       "other"
     ],
     "human_attention": false,
-    "signal_score": 0.91,
-    "gate": "pass",
-    "reason": "thesis_relevant 0.90; signal score 0.91 clears 0.60"
+    "signal_score": 0.05,
+    "gate": "stop",
+    "reason": "irrelevant 0.94; signal score 0.05 is below 0.98"
   },
   {
     "email_id": "synthetic_000699",
@@ -1511,25 +1555,27 @@
     "affected_tickers": [],
     "additional_labels": [
       "sector",
-      "government"
+      "government",
+      "other"
     ],
-    "human_attention": true,
-    "signal_score": 0.36,
+    "human_attention": false,
+    "signal_score": 0.02,
     "gate": "stop",
-    "reason": "irrelevant 0.43; signal score 0.36 is below 0.60"
+    "reason": "irrelevant 0.93; signal score 0.02 is below 0.98"
   },
   {
     "email_id": "synthetic_000700",
-    "triage": "monitor",
+    "triage": "irrelevant",
     "decided_by": "jev",
     "redundant_of": null,
     "affected_tickers": [],
     "additional_labels": [
-      "sector"
+      "sector",
+      "other"
     ],
     "human_attention": false,
-    "signal_score": 0.71,
-    "gate": "pass",
-    "reason": "monitor 0.70; signal score 0.71 clears 0.60"
+    "signal_score": 0.23,
+    "gate": "stop",
+    "reason": "irrelevant 0.70; signal score 0.23 is below 0.98"
   }
 ]

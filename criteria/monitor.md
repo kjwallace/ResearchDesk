@@ -10,3 +10,4 @@ A credible emerging signal or developing trend that could affect a thesis on a t
 - R4: Unsourced rumors, speculative questions, hunches and teasers that offer no evidence belong in low_value, even when they hint at a target company.
 - R5: Information about companies outside the five belongs in irrelevant unless the email states a plausible effect on a target company.
 - R6: Treat signals pointing toward better or worse outcomes for the company exactly alike.
+- R7: A teaser, free sample, trial offer or event invitation that only hints at a target company is not monitor: it belongs in low_value, because it touches the company but brings no new evidence of its own.

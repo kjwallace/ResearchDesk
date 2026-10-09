@@ -10,6 +10,7 @@ stays. `run` prints one summary line with the drop count; `write_note` returns i
 
 from pathlib import Path
 
+from triage_app.llm import failure_note
 from triage_app.modules.attention import AttentionWriter
 from triage_app.pipeline.context import RunContext
 from triage_app.pipeline.io import quote_in, read_list, write_list
@@ -31,7 +32,7 @@ def run(in_dir: Path, out_dir: Path, ctx: RunContext) -> None:
             with ctx.recorder.stage(STAGE, result.email_id):
                 note, n = write_note(emails[result.email_id], result, ctx, writer=writer)
         except Exception as e:  # one bad model reply must not abort the stage
-            failed.append(f"{result.email_id} ({type(e).__name__})")
+            failed.append(f"{result.email_id} ({failure_note(e)})")
             continue
         notes.append(note)
         dropped += n

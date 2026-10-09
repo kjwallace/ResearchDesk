@@ -1,36 +1,41 @@
 [
   {
     "email_id": "synthetic_000601",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.08,
-      "monitor": 0.02,
+      "thesis_relevant": 0.1,
+      "monitor": 0.06,
       "redundant": 0.01,
-      "low_value": 0.24,
-      "irrelevant": 0.65
+      "low_value": 0.25,
+      "irrelevant": 0.58
     },
     "ticker_probs": {
-      "AMZN": 0.39,
+      "AMZN": 0.31,
       "NVDA": 0.02,
       "MSFT": 0.03,
       "AAPL": 0.03,
-      "GOOGL": 0.13
+      "GOOGL": 0.12
     },
     "human_attention": 0.95,
     "topic_probs": {
       "macro": 0.03,
       "sector": 0.06,
       "government": 0.02,
-      "other": 0.94
+      "other": 0.95
     },
-    "email_type": "invitation",
+    "email_type": "event_invitation",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 1.0,
+      "sell_side_research": 0.04,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.07,
+      "event_invitation": 0.89,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.06,
@@ -40,7 +45,7 @@
   },
   {
     "email_id": "synthetic_000602",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
       "monitor": 0.0,
@@ -49,27 +54,32 @@
       "irrelevant": 1.0
     },
     "ticker_probs": {
-      "AMZN": 0.03,
+      "AMZN": 0.02,
       "NVDA": 0.02,
       "MSFT": 0.02,
       "AAPL": 0.02,
-      "GOOGL": 0.04
+      "GOOGL": 0.05
     },
     "human_attention": 0.67,
     "topic_probs": {
       "macro": 0.01,
-      "sector": 0.19,
+      "sector": 0.2,
       "government": 0.33,
-      "other": 0.77
+      "other": 0.76
     },
-    "email_type": "other",
+    "email_type": "internal_forward",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.14,
-      "invitation": 0.0,
-      "newsletter": 0.02,
-      "other": 0.84
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
+      "newsletter": 0.0,
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.67,
+      "administrative": 0.33
     },
     "safety": {
       "possible_mnpi": 0.01,
@@ -79,13 +89,13 @@
   },
   {
     "email_id": "synthetic_000603",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.1,
+      "thesis_relevant": 0.2,
       "monitor": 0.02,
       "redundant": 0.01,
-      "low_value": 0.02,
-      "irrelevant": 0.85
+      "low_value": 0.03,
+      "irrelevant": 0.74
     },
     "ticker_probs": {
       "AMZN": 0.02,
@@ -101,14 +111,19 @@
       "government": 0.99,
       "other": 0.17
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 1.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.03,
@@ -118,7 +133,7 @@
   },
   {
     "email_id": "synthetic_000604",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
       "monitor": 0.0,
@@ -127,27 +142,32 @@
       "irrelevant": 1.0
     },
     "ticker_probs": {
-      "AMZN": 0.1,
+      "AMZN": 0.08,
       "NVDA": 0.06,
       "MSFT": 0.07,
-      "AAPL": 0.18,
+      "AAPL": 0.17,
       "GOOGL": 0.1
     },
-    "human_attention": 0.09,
+    "human_attention": 0.1,
     "topic_probs": {
       "macro": 0.99,
-      "sector": 0.76,
-      "government": 0.42,
-      "other": 0.11
+      "sector": 0.75,
+      "government": 0.41,
+      "other": 0.12
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 1.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -157,7 +177,7 @@
   },
   {
     "email_id": "synthetic_000605",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
       "monitor": 0.0,
@@ -170,23 +190,28 @@
       "NVDA": 0.02,
       "MSFT": 0.02,
       "AAPL": 0.02,
-      "GOOGL": 0.03
+      "GOOGL": 0.02
     },
-    "human_attention": 0.21,
+    "human_attention": 0.2,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.17,
-      "government": 0.05,
-      "other": 0.71
+      "sector": 0.16,
+      "government": 0.06,
+      "other": 0.72
     },
-    "email_type": "news",
+    "email_type": "news_alert",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.97,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.99,
+      "newsletter": 0.01,
+      "data_report": 0.0,
       "company_release": 0.0,
-      "invitation": 0.0,
-      "newsletter": 0.03,
-      "other": 0.0
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.01,
@@ -196,13 +221,13 @@
   },
   {
     "email_id": "synthetic_000606",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
       "monitor": 0.0,
       "redundant": 0.0,
-      "low_value": 0.16,
-      "irrelevant": 0.84
+      "low_value": 0.1,
+      "irrelevant": 0.9
     },
     "ticker_probs": {
       "AMZN": 0.02,
@@ -211,60 +236,70 @@
       "AAPL": 0.02,
       "GOOGL": 0.02
     },
-    "human_attention": 0.5,
+    "human_attention": 0.53,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.2,
+      "sector": 0.21,
       "government": 0.01,
-      "other": 0.7
+      "other": 0.72
     },
-    "email_type": "invitation",
+    "email_type": "vendor_pitch",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.9400000000000001,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.06
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 1.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.01,
+      "possible_mnpi": 0.02,
       "instructs_ai": 0.02
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000607",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
-      "monitor": 0.0,
+      "monitor": 0.05,
       "redundant": 0.0,
-      "low_value": 0.23,
-      "irrelevant": 0.77
+      "low_value": 0.28,
+      "irrelevant": 0.67
     },
     "ticker_probs": {
       "AMZN": 0.02,
-      "NVDA": 0.02,
+      "NVDA": 0.01,
       "MSFT": 0.02,
       "AAPL": 0.02,
-      "GOOGL": 0.02
+      "GOOGL": 0.01
     },
-    "human_attention": 0.37,
+    "human_attention": 0.44,
     "topic_probs": {
       "macro": 0.14,
-      "sector": 0.46,
+      "sector": 0.45,
       "government": 0.01,
-      "other": 0.46
+      "other": 0.45
     },
-    "email_type": "invitation",
+    "email_type": "event_invitation",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 1.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.89,
+      "vendor_pitch": 0.11,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.01,
@@ -274,49 +309,54 @@
   },
   {
     "email_id": "synthetic_000608",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.13,
+      "thesis_relevant": 0.11,
       "monitor": 0.22,
       "redundant": 0.01,
-      "low_value": 0.05,
+      "low_value": 0.07,
       "irrelevant": 0.59
     },
     "ticker_probs": {
       "AMZN": 0.07,
       "NVDA": 0.02,
       "MSFT": 0.02,
-      "AAPL": 0.03,
+      "AAPL": 0.02,
       "GOOGL": 0.03
     },
     "human_attention": 0.12,
     "topic_probs": {
       "macro": 0.04,
-      "sector": 0.21,
+      "sector": 0.25,
       "government": 0.01,
       "other": 0.85
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 1.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.03,
+      "possible_mnpi": 0.04,
       "instructs_ai": 0.03
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000609",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.85,
-      "monitor": 0.14,
+      "thesis_relevant": 0.78,
+      "monitor": 0.21,
       "redundant": 0.0,
       "low_value": 0.01,
       "irrelevant": 0.0
@@ -324,41 +364,46 @@
     "ticker_probs": {
       "AMZN": 0.92,
       "NVDA": 0.05,
-      "MSFT": 0.08,
+      "MSFT": 0.07,
       "AAPL": 0.06,
-      "GOOGL": 0.63
+      "GOOGL": 0.6
     },
     "human_attention": 0.97,
     "topic_probs": {
       "macro": 0.03,
       "sector": 0.42,
       "government": 0.01,
-      "other": 0.78
+      "other": 0.72
     },
-    "email_type": "invitation",
+    "email_type": "meeting_request",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 1.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.04,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.96,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.11,
+      "possible_mnpi": 0.1,
       "instructs_ai": 0.03
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000610",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.01,
+      "monitor": 0.02,
       "redundant": 0.0,
-      "low_value": 0.29,
-      "irrelevant": 0.69
+      "low_value": 0.25,
+      "irrelevant": 0.72
     },
     "ticker_probs": {
       "AMZN": 0.05,
@@ -367,21 +412,26 @@
       "AAPL": 0.04,
       "GOOGL": 0.03
     },
-    "human_attention": 0.16,
+    "human_attention": 0.14,
     "topic_probs": {
-      "macro": 0.05,
-      "sector": 0.95,
+      "macro": 0.04,
+      "sector": 0.94,
       "government": 0.98,
-      "other": 0.15
+      "other": 0.14
     },
-    "email_type": "newsletter",
+    "email_type": "vendor_pitch",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.22,
-      "company_release": 0.14,
-      "invitation": 0.02,
-      "newsletter": 0.38,
-      "other": 0.24
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.12,
+      "newsletter": 0.0,
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.88,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -391,36 +441,41 @@
   },
   {
     "email_id": "synthetic_000611",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.2,
-      "monitor": 0.39,
+      "thesis_relevant": 0.16,
+      "monitor": 0.29,
       "redundant": 0.01,
-      "low_value": 0.07,
-      "irrelevant": 0.33
+      "low_value": 0.06,
+      "irrelevant": 0.48
     },
     "ticker_probs": {
-      "AMZN": 0.23,
-      "NVDA": 0.08,
-      "MSFT": 0.16,
-      "AAPL": 0.25,
-      "GOOGL": 0.2
+      "AMZN": 0.21,
+      "NVDA": 0.12,
+      "MSFT": 0.17,
+      "AAPL": 0.24,
+      "GOOGL": 0.22
     },
-    "human_attention": 0.11,
+    "human_attention": 0.1,
     "topic_probs": {
-      "macro": 0.22,
-      "sector": 0.25,
+      "macro": 0.23,
+      "sector": 0.28,
       "government": 0.04,
       "other": 0.91
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 0.98,
-      "news": 0.0,
+      "sell_side_research": 1.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
+      "newsletter": 0.0,
+      "data_report": 0.0,
       "company_release": 0.0,
-      "invitation": 0.0,
-      "newsletter": 0.02,
-      "other": 0.0
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.04,
@@ -430,36 +485,41 @@
   },
   {
     "email_id": "synthetic_000612",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
-      "monitor": 0.02,
-      "redundant": 0.98,
+      "monitor": 0.03,
+      "redundant": 0.97,
       "low_value": 0.0,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.29,
-      "NVDA": 0.79,
-      "MSFT": 0.13,
+      "AMZN": 0.3,
+      "NVDA": 0.82,
+      "MSFT": 0.14,
       "AAPL": 0.07,
-      "GOOGL": 0.21
+      "GOOGL": 0.2
     },
     "human_attention": 0.1,
     "topic_probs": {
       "macro": 0.03,
-      "sector": 0.8,
-      "government": 0.15,
-      "other": 0.66
+      "sector": 0.82,
+      "government": 0.17,
+      "other": 0.63
     },
-    "email_type": "newsletter",
+    "email_type": "internal_forward",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.01,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
+      "newsletter": 0.06,
+      "data_report": 0.0,
       "company_release": 0.0,
-      "invitation": 0.0,
-      "newsletter": 0.96,
-      "other": 0.03
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.94,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.04,
@@ -469,7 +529,7 @@
   },
   {
     "email_id": "synthetic_000613",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
       "monitor": 0.99,
@@ -478,27 +538,32 @@
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.78,
-      "NVDA": 0.85,
+      "AMZN": 0.8,
+      "NVDA": 0.86,
       "MSFT": 0.83,
-      "AAPL": 0.84,
-      "GOOGL": 0.74
+      "AAPL": 0.86,
+      "GOOGL": 0.76
     },
-    "human_attention": 0.45,
+    "human_attention": 0.44,
     "topic_probs": {
       "macro": 0.06,
       "sector": 0.97,
       "government": 0.99,
       "other": 0.1
     },
-    "email_type": "research",
+    "email_type": "news_alert",
     "email_type_probs": {
-      "research": 0.42,
-      "news": 0.07,
-      "company_release": 0.12,
-      "invitation": 0.0,
+      "sell_side_research": 0.12,
+      "primary_research": 0.0,
+      "news_alert": 0.61,
       "newsletter": 0.12,
-      "other": 0.27
+      "data_report": 0.0,
+      "company_release": 0.13,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.01,
+      "internal_forward": 0.01,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -508,7 +573,7 @@
   },
   {
     "email_id": "synthetic_000614",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
       "monitor": 0.0,
@@ -517,42 +582,47 @@
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.4,
-      "NVDA": 0.25,
-      "MSFT": 0.4,
-      "AAPL": 0.08,
-      "GOOGL": 0.24
+      "AMZN": 0.44,
+      "NVDA": 0.22,
+      "MSFT": 0.43,
+      "AAPL": 0.09,
+      "GOOGL": 0.29
     },
     "human_attention": 0.11,
     "topic_probs": {
       "macro": 0.06,
       "sector": 0.1,
       "government": 0.03,
-      "other": 0.79
+      "other": 0.76
     },
-    "email_type": "research",
+    "email_type": "internal_forward",
     "email_type_probs": {
-      "research": 0.69,
-      "news": 0.29,
+      "sell_side_research": 0.17,
+      "primary_research": 0.0,
+      "news_alert": 0.21,
+      "newsletter": 0.0,
+      "data_report": 0.0,
       "company_release": 0.0,
-      "invitation": 0.0,
-      "newsletter": 0.01,
-      "other": 0.01
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.62,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.02,
+      "possible_mnpi": 0.03,
       "instructs_ai": 0.03
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000615",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.05,
-      "monitor": 0.14,
-      "redundant": 0.53,
-      "low_value": 0.27,
+      "thesis_relevant": 0.04,
+      "monitor": 0.33,
+      "redundant": 0.27,
+      "low_value": 0.35,
       "irrelevant": 0.01
     },
     "ticker_probs": {
@@ -560,23 +630,28 @@
       "NVDA": 0.05,
       "MSFT": 0.08,
       "AAPL": 0.03,
-      "GOOGL": 0.61
+      "GOOGL": 0.62
     },
-    "human_attention": 0.33,
+    "human_attention": 0.35,
     "topic_probs": {
       "macro": 0.02,
       "sector": 0.17,
-      "government": 0.14,
+      "government": 0.13,
       "other": 0.62
     },
-    "email_type": "invitation",
+    "email_type": "event_invitation",
     "email_type_probs": {
-      "research": 0.03,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.97,
+      "sell_side_research": 0.27,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.01,
+      "event_invitation": 0.72,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.03,
@@ -586,13 +661,13 @@
   },
   {
     "email_id": "synthetic_000616",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.22,
-      "monitor": 0.02,
+      "thesis_relevant": 0.18,
+      "monitor": 0.03,
       "redundant": 0.0,
       "low_value": 0.01,
-      "irrelevant": 0.75
+      "irrelevant": 0.78
     },
     "ticker_probs": {
       "AMZN": 0.04,
@@ -601,60 +676,70 @@
       "AAPL": 0.02,
       "GOOGL": 0.02
     },
-    "human_attention": 0.09,
+    "human_attention": 0.1,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.31,
-      "government": 0.67,
-      "other": 0.95
+      "sector": 0.3,
+      "government": 0.65,
+      "other": 0.94
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 1.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.05,
-      "instructs_ai": 0.02
+      "possible_mnpi": 0.06,
+      "instructs_ai": 0.01
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000617",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.05,
+      "monitor": 0.07,
       "redundant": 0.0,
-      "low_value": 0.53,
-      "irrelevant": 0.41
+      "low_value": 0.41,
+      "irrelevant": 0.51
     },
     "ticker_probs": {
-      "AMZN": 0.46,
+      "AMZN": 0.43,
       "NVDA": 0.03,
-      "MSFT": 0.06,
+      "MSFT": 0.07,
       "AAPL": 0.04,
-      "GOOGL": 0.14
+      "GOOGL": 0.12
     },
-    "human_attention": 0.22,
+    "human_attention": 0.25,
     "topic_probs": {
       "macro": 0.02,
       "sector": 0.95,
       "government": 0.01,
       "other": 0.51
     },
-    "email_type": "research",
+    "email_type": "vendor_pitch",
     "email_type_probs": {
-      "research": 0.84,
-      "news": 0.0,
-      "company_release": 0.03,
-      "invitation": 0.09,
-      "newsletter": 0.03,
-      "other": 0.01
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
+      "newsletter": 0.0,
+      "data_report": 0.19,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.81,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.03,
@@ -664,7 +749,7 @@
   },
   {
     "email_id": "synthetic_000618",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
       "monitor": 0.0,
@@ -674,26 +759,31 @@
     },
     "ticker_probs": {
       "AMZN": 0.15,
-      "NVDA": 0.09,
+      "NVDA": 0.1,
       "MSFT": 0.07,
-      "AAPL": 0.73,
+      "AAPL": 0.77,
       "GOOGL": 0.08
     },
     "human_attention": 0.1,
     "topic_probs": {
       "macro": 0.03,
-      "sector": 0.08,
-      "government": 0.12,
+      "sector": 0.09,
+      "government": 0.13,
       "other": 0.95
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 1.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -703,75 +793,85 @@
   },
   {
     "email_id": "synthetic_000619",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.64,
-      "monitor": 0.36,
+      "thesis_relevant": 0.71,
+      "monitor": 0.29,
       "redundant": 0.0,
       "low_value": 0.0,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.1,
-      "NVDA": 0.84,
-      "MSFT": 0.06,
+      "AMZN": 0.09,
+      "NVDA": 0.83,
+      "MSFT": 0.07,
       "AAPL": 0.03,
       "GOOGL": 0.91
     },
     "human_attention": 0.3,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.68,
-      "government": 0.01,
+      "sector": 0.65,
+      "government": 0.02,
       "other": 0.93
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.82,
+      "primary_research": 0.17,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.01,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.23,
+      "possible_mnpi": 0.24,
       "instructs_ai": 0.03
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000620",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
       "monitor": 0.08,
       "redundant": 0.0,
-      "low_value": 0.58,
-      "irrelevant": 0.34
+      "low_value": 0.57,
+      "irrelevant": 0.35
     },
     "ticker_probs": {
       "AMZN": 0.02,
-      "NVDA": 0.02,
+      "NVDA": 0.01,
       "MSFT": 0.02,
       "AAPL": 0.02,
-      "GOOGL": 0.01
+      "GOOGL": 0.02
     },
     "human_attention": 0.36,
     "topic_probs": {
       "macro": 0.03,
-      "sector": 0.33,
-      "government": 0.15,
-      "other": 0.91
+      "sector": 0.32,
+      "government": 0.14,
+      "other": 0.9
     },
     "email_type": "newsletter",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 1.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.07,
@@ -781,7 +881,7 @@
   },
   {
     "email_id": "synthetic_000621",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.06,
       "monitor": 0.93,
@@ -790,105 +890,120 @@
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.23,
-      "NVDA": 0.18,
-      "MSFT": 0.26,
-      "AAPL": 0.07,
+      "AMZN": 0.29,
+      "NVDA": 0.21,
+      "MSFT": 0.41,
+      "AAPL": 0.06,
       "GOOGL": 0.84
     },
     "human_attention": 0.96,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.6,
+      "sector": 0.61,
       "government": 0.01,
-      "other": 0.71
+      "other": 0.73
     },
-    "email_type": "invitation",
+    "email_type": "meeting_request",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 1.0,
+      "sell_side_research": 0.01,
+      "primary_research": 0.03,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.93,
+      "event_invitation": 0.03,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.09,
-      "instructs_ai": 0.05
+      "instructs_ai": 0.04
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000622",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.14,
+      "thesis_relevant": 0.22,
       "monitor": 0.01,
       "redundant": 0.0,
       "low_value": 0.01,
-      "irrelevant": 0.84
+      "irrelevant": 0.76
     },
     "ticker_probs": {
       "AMZN": 0.03,
-      "NVDA": 0.02,
+      "NVDA": 0.01,
       "MSFT": 0.02,
       "AAPL": 0.02,
       "GOOGL": 0.02
     },
-    "human_attention": 0.09,
+    "human_attention": 0.07,
     "topic_probs": {
       "macro": 0.08,
-      "sector": 0.45,
-      "government": 0.58,
-      "other": 0.88
+      "sector": 0.44,
+      "government": 0.53,
+      "other": 0.87
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 1.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.04,
-      "instructs_ai": 0.01
+      "instructs_ai": 0.02
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000623",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.2,
-      "monitor": 0.04,
-      "redundant": 0.75,
+      "thesis_relevant": 0.19,
+      "monitor": 0.03,
+      "redundant": 0.77,
       "low_value": 0.01,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.12,
-      "NVDA": 0.12,
-      "MSFT": 0.09,
-      "AAPL": 0.9,
-      "GOOGL": 0.1
+      "AMZN": 0.1,
+      "NVDA": 0.13,
+      "MSFT": 0.1,
+      "AAPL": 0.91,
+      "GOOGL": 0.11
     },
     "human_attention": 0.16,
     "topic_probs": {
-      "macro": 0.05,
+      "macro": 0.04,
       "sector": 0.07,
       "government": 0.18,
       "other": 0.94
     },
     "email_type": "newsletter",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 1.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.04,
@@ -898,36 +1013,41 @@
   },
   {
     "email_id": "synthetic_000624",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.01,
+      "monitor": 0.02,
       "redundant": 0.0,
-      "low_value": 0.56,
-      "irrelevant": 0.42
+      "low_value": 0.54,
+      "irrelevant": 0.43
     },
     "ticker_probs": {
-      "AMZN": 0.22,
-      "NVDA": 0.05,
+      "AMZN": 0.23,
+      "NVDA": 0.04,
       "MSFT": 0.06,
       "AAPL": 0.07,
       "GOOGL": 0.05
     },
-    "human_attention": 0.28,
+    "human_attention": 0.25,
     "topic_probs": {
       "macro": 0.02,
       "sector": 0.94,
       "government": 0.98,
-      "other": 0.22
+      "other": 0.23
     },
-    "email_type": "other",
+    "email_type": "vendor_pitch",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.02,
-      "invitation": 0.25,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.73
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 1.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.01,
@@ -937,59 +1057,64 @@
   },
   {
     "email_id": "synthetic_000625",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
       "monitor": 0.01,
       "redundant": 0.0,
-      "low_value": 0.18,
-      "irrelevant": 0.81
+      "low_value": 0.11,
+      "irrelevant": 0.88
     },
     "ticker_probs": {
-      "AMZN": 0.05,
+      "AMZN": 0.04,
       "NVDA": 0.04,
       "MSFT": 0.05,
       "AAPL": 0.07,
-      "GOOGL": 0.04
+      "GOOGL": 0.05
     },
-    "human_attention": 0.37,
+    "human_attention": 0.38,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.64,
+      "sector": 0.66,
       "government": 0.64,
-      "other": 0.52
+      "other": 0.53
     },
     "email_type": "newsletter",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
+      "newsletter": 0.93,
+      "data_report": 0.0,
       "company_release": 0.0,
-      "invitation": 0.0,
-      "newsletter": 1.0,
-      "other": 0.0
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.07,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.02,
+      "possible_mnpi": 0.01,
       "instructs_ai": 0.03
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000626",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.97,
-      "monitor": 0.03,
+      "thesis_relevant": 0.98,
+      "monitor": 0.02,
       "redundant": 0.0,
       "low_value": 0.0,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.06,
+      "AMZN": 0.07,
       "NVDA": 0.02,
       "MSFT": 0.05,
       "AAPL": 0.96,
-      "GOOGL": 0.1
+      "GOOGL": 0.11
     },
     "human_attention": 0.69,
     "topic_probs": {
@@ -998,14 +1123,19 @@
       "government": 0.01,
       "other": 0.96
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.47000000000000003,
+      "primary_research": 0.45,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.08,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.06,
@@ -1015,7 +1145,7 @@
   },
   {
     "email_id": "synthetic_000627",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
       "monitor": 0.99,
@@ -1024,27 +1154,32 @@
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.07,
+      "AMZN": 0.09,
       "NVDA": 0.03,
       "MSFT": 0.04,
-      "AAPL": 0.75,
+      "AAPL": 0.76,
       "GOOGL": 0.03
     },
-    "human_attention": 0.15,
+    "human_attention": 0.16,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.07,
+      "sector": 0.08,
       "government": 0.02,
-      "other": 0.93
+      "other": 0.92
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.53,
+      "primary_research": 0.47,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.05,
@@ -1054,36 +1189,41 @@
   },
   {
     "email_id": "synthetic_000628",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.29,
+      "monitor": 0.25,
       "redundant": 0.0,
-      "low_value": 0.7,
+      "low_value": 0.74,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.62,
+      "AMZN": 0.61,
       "NVDA": 0.03,
-      "MSFT": 0.06,
-      "AAPL": 0.03,
+      "MSFT": 0.07,
+      "AAPL": 0.04,
       "GOOGL": 0.06
     },
-    "human_attention": 0.52,
+    "human_attention": 0.56,
     "topic_probs": {
       "macro": 0.03,
-      "sector": 0.69,
+      "sector": 0.72,
       "government": 0.01,
       "other": 0.58
     },
-    "email_type": "invitation",
+    "email_type": "vendor_pitch",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.01,
+      "news_alert": 0.0,
+      "newsletter": 0.0,
+      "data_report": 0.0,
       "company_release": 0.0,
-      "invitation": 0.65,
-      "newsletter": 0.23,
-      "other": 0.12
+      "meeting_request": 0.32,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.67,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.04,
@@ -1093,36 +1233,41 @@
   },
   {
     "email_id": "synthetic_000629",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.1,
-      "monitor": 0.08,
-      "redundant": 0.01,
-      "low_value": 0.02,
-      "irrelevant": 0.79
+      "monitor": 0.07,
+      "redundant": 0.0,
+      "low_value": 0.01,
+      "irrelevant": 0.81
     },
     "ticker_probs": {
-      "AMZN": 0.07,
-      "NVDA": 0.07,
-      "MSFT": 0.11,
-      "AAPL": 0.07,
+      "AMZN": 0.08,
+      "NVDA": 0.04,
+      "MSFT": 0.13,
+      "AAPL": 0.06,
       "GOOGL": 0.12
     },
     "human_attention": 0.08,
     "topic_probs": {
       "macro": 0.04,
-      "sector": 0.23,
-      "government": 0.3,
+      "sector": 0.22,
+      "government": 0.32,
       "other": 0.86
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 1.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.05,
@@ -1132,36 +1277,41 @@
   },
   {
     "email_id": "synthetic_000630",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
-      "monitor": 0.0,
+      "monitor": 0.01,
       "redundant": 0.0,
-      "low_value": 0.62,
-      "irrelevant": 0.38
+      "low_value": 0.52,
+      "irrelevant": 0.47
     },
     "ticker_probs": {
-      "AMZN": 0.43,
-      "NVDA": 0.11,
-      "MSFT": 0.22,
-      "AAPL": 0.08,
+      "AMZN": 0.39,
+      "NVDA": 0.1,
+      "MSFT": 0.18,
+      "AAPL": 0.09,
       "GOOGL": 0.13
     },
-    "human_attention": 0.45,
+    "human_attention": 0.44,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.47,
+      "sector": 0.45,
       "government": 0.01,
-      "other": 0.68
+      "other": 0.67
     },
-    "email_type": "invitation",
+    "email_type": "vendor_pitch",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.84,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.16
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 1.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.01,
@@ -1171,36 +1321,41 @@
   },
   {
     "email_id": "synthetic_000631",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
-      "monitor": 0.0,
+      "monitor": 0.02,
       "redundant": 0.0,
       "low_value": 0.03,
-      "irrelevant": 0.97
+      "irrelevant": 0.95
     },
     "ticker_probs": {
       "AMZN": 0.02,
       "NVDA": 0.03,
       "MSFT": 0.03,
       "AAPL": 0.03,
-      "GOOGL": 0.02
+      "GOOGL": 0.03
     },
-    "human_attention": 0.52,
+    "human_attention": 0.47,
     "topic_probs": {
-      "macro": 0.51,
+      "macro": 0.49,
       "sector": 0.87,
-      "government": 0.11,
+      "government": 0.1,
       "other": 0.22
     },
-    "email_type": "invitation",
+    "email_type": "event_invitation",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 1.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 1.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.01,
@@ -1210,12 +1365,12 @@
   },
   {
     "email_id": "synthetic_000632",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
-      "monitor": 0.0,
-      "redundant": 0.01,
-      "low_value": 0.99,
+      "monitor": 0.06,
+      "redundant": 0.0,
+      "low_value": 0.9400000000000001,
       "irrelevant": 0.0
     },
     "ticker_probs": {
@@ -1223,72 +1378,82 @@
       "NVDA": 0.03,
       "MSFT": 0.08,
       "AAPL": 0.03,
-      "GOOGL": 0.46
+      "GOOGL": 0.48
     },
-    "human_attention": 0.1,
+    "human_attention": 0.09,
     "topic_probs": {
-      "macro": 0.02,
-      "sector": 0.09,
+      "macro": 0.03,
+      "sector": 0.1,
       "government": 0.01,
       "other": 0.9
     },
-    "email_type": "invitation",
+    "email_type": "event_invitation",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 1.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.99,
+      "vendor_pitch": 0.01,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.03,
-      "instructs_ai": 0.05
+      "instructs_ai": 0.04
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000633",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.13,
-      "monitor": 0.02,
+      "thesis_relevant": 0.22,
+      "monitor": 0.03,
       "redundant": 0.0,
       "low_value": 0.01,
-      "irrelevant": 0.84
+      "irrelevant": 0.74
     },
     "ticker_probs": {
-      "AMZN": 0.22,
-      "NVDA": 0.23,
-      "MSFT": 0.31,
-      "AAPL": 0.06,
-      "GOOGL": 0.18
+      "AMZN": 0.2,
+      "NVDA": 0.21,
+      "MSFT": 0.34,
+      "AAPL": 0.09,
+      "GOOGL": 0.21
     },
-    "human_attention": 0.08,
+    "human_attention": 0.09,
     "topic_probs": {
       "macro": 0.03,
       "sector": 0.04,
       "government": 0.01,
       "other": 0.97
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 1.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.04,
+      "possible_mnpi": 0.05,
       "instructs_ai": 0.02
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000634",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
       "monitor": 0.0,
@@ -1298,120 +1463,135 @@
     },
     "ticker_probs": {
       "AMZN": 0.06,
-      "NVDA": 0.06,
-      "MSFT": 0.05,
-      "AAPL": 0.43,
-      "GOOGL": 0.08
+      "NVDA": 0.05,
+      "MSFT": 0.04,
+      "AAPL": 0.45,
+      "GOOGL": 0.09
     },
-    "human_attention": 0.13,
+    "human_attention": 0.14,
     "topic_probs": {
       "macro": 0.04,
-      "sector": 0.05,
+      "sector": 0.06,
       "government": 0.27,
-      "other": 0.92
+      "other": 0.91
     },
-    "email_type": "news",
+    "email_type": "internal_forward",
     "email_type_probs": {
-      "research": 0.36,
-      "news": 0.58,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.06
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 1.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.03,
-      "instructs_ai": 0.04
+      "instructs_ai": 0.03
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000635",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.03,
-      "monitor": 0.97,
+      "thesis_relevant": 0.02,
+      "monitor": 0.98,
       "redundant": 0.0,
       "low_value": 0.0,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.13,
-      "NVDA": 0.28,
-      "MSFT": 0.8,
+      "AMZN": 0.1,
+      "NVDA": 0.3,
+      "MSFT": 0.78,
       "AAPL": 0.04,
       "GOOGL": 0.12
     },
-    "human_attention": 0.58,
+    "human_attention": 0.59,
     "topic_probs": {
       "macro": 0.05,
       "sector": 0.85,
       "government": 0.01,
-      "other": 0.7
+      "other": 0.71
     },
-    "email_type": "research",
+    "email_type": "internal_forward",
     "email_type_probs": {
-      "research": 0.96,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.04,
+      "primary_research": 0.14,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.04
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.82,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.08,
-      "instructs_ai": 0.04
+      "possible_mnpi": 0.07,
+      "instructs_ai": 0.03
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000636",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.05,
-      "monitor": 0.03,
-      "redundant": 0.01,
+      "thesis_relevant": 0.04,
+      "monitor": 0.02,
+      "redundant": 0.0,
       "low_value": 0.01,
-      "irrelevant": 0.9
+      "irrelevant": 0.93
     },
     "ticker_probs": {
-      "AMZN": 0.06,
+      "AMZN": 0.07,
       "NVDA": 0.04,
       "MSFT": 0.05,
-      "AAPL": 0.18,
+      "AAPL": 0.16,
       "GOOGL": 0.11
     },
-    "human_attention": 0.09,
+    "human_attention": 0.08,
     "topic_probs": {
       "macro": 0.03,
       "sector": 0.98,
       "government": 0.99,
-      "other": 0.11
+      "other": 0.12
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 1.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.04,
-      "instructs_ai": 0.02
+      "possible_mnpi": 0.03,
+      "instructs_ai": 0.01
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000637",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
       "monitor": 0.01,
       "redundant": 0.0,
-      "low_value": 0.03,
-      "irrelevant": 0.95
+      "low_value": 0.05,
+      "irrelevant": 0.93
     },
     "ticker_probs": {
       "AMZN": 0.03,
@@ -1420,21 +1600,26 @@
       "AAPL": 0.05,
       "GOOGL": 0.03
     },
-    "human_attention": 0.78,
+    "human_attention": 0.77,
     "topic_probs": {
       "macro": 0.99,
-      "sector": 0.75,
-      "government": 0.78,
-      "other": 0.14
+      "sector": 0.76,
+      "government": 0.77,
+      "other": 0.13
     },
-    "email_type": "other",
+    "email_type": "vendor_pitch",
     "email_type_probs": {
-      "research": 0.03,
-      "news": 0.0,
-      "company_release": 0.02,
-      "invitation": 0.39,
+      "sell_side_research": 0.0,
+      "primary_research": 0.01,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.56
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.44,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.55,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -1444,36 +1629,41 @@
   },
   {
     "email_id": "synthetic_000638",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.01,
+      "monitor": 0.02,
       "redundant": 0.0,
-      "low_value": 0.79,
-      "irrelevant": 0.19
+      "low_value": 0.69,
+      "irrelevant": 0.28
     },
     "ticker_probs": {
-      "AMZN": 0.11,
+      "AMZN": 0.09,
       "NVDA": 0.03,
       "MSFT": 0.03,
       "AAPL": 0.03,
-      "GOOGL": 0.08
+      "GOOGL": 0.07
     },
     "human_attention": 0.49,
     "topic_probs": {
-      "macro": 0.05,
+      "macro": 0.04,
       "sector": 0.76,
       "government": 0.01,
-      "other": 0.53
+      "other": 0.52
     },
-    "email_type": "invitation",
+    "email_type": "vendor_pitch",
     "email_type_probs": {
-      "research": 0.21,
-      "news": 0.0,
-      "company_release": 0.02,
-      "invitation": 0.75,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.02
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 1.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.04,
@@ -1483,36 +1673,41 @@
   },
   {
     "email_id": "synthetic_000639",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.06,
+      "monitor": 0.04,
       "redundant": 0.02,
       "low_value": 0.13,
-      "irrelevant": 0.78
+      "irrelevant": 0.8
     },
     "ticker_probs": {
-      "AMZN": 0.06,
+      "AMZN": 0.05,
       "NVDA": 0.04,
       "MSFT": 0.04,
       "AAPL": 0.04,
       "GOOGL": 0.04
     },
-    "human_attention": 0.86,
+    "human_attention": 0.85,
     "topic_probs": {
       "macro": 0.03,
       "sector": 0.82,
       "government": 0.24,
-      "other": 0.34
+      "other": 0.36
     },
-    "email_type": "other",
+    "email_type": "meeting_request",
     "email_type_probs": {
-      "research": 0.12,
-      "news": 0.0,
-      "company_release": 0.02,
-      "invitation": 0.39,
+      "sell_side_research": 0.0,
+      "primary_research": 0.02,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.47
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.83,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.15,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -1522,46 +1717,51 @@
   },
   {
     "email_id": "synthetic_000640",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.01,
+      "monitor": 0.04,
       "redundant": 0.0,
-      "low_value": 0.72,
-      "irrelevant": 0.26
+      "low_value": 0.58,
+      "irrelevant": 0.37
     },
     "ticker_probs": {
-      "AMZN": 0.12,
+      "AMZN": 0.11,
       "NVDA": 0.05,
-      "MSFT": 0.05,
+      "MSFT": 0.06,
       "AAPL": 0.09,
-      "GOOGL": 0.1
+      "GOOGL": 0.08
     },
     "human_attention": 0.61,
     "topic_probs": {
       "macro": 0.02,
       "sector": 0.88,
       "government": 0.01,
-      "other": 0.49
+      "other": 0.47
     },
-    "email_type": "research",
+    "email_type": "vendor_pitch",
     "email_type_probs": {
-      "research": 0.74,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.22,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.04
+      "data_report": 0.01,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.99,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.04,
+      "possible_mnpi": 0.03,
       "instructs_ai": 0.02
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000641",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
       "monitor": 0.0,
@@ -1571,26 +1771,31 @@
     },
     "ticker_probs": {
       "AMZN": 0.07,
-      "NVDA": 0.08,
-      "MSFT": 0.05,
+      "NVDA": 0.09,
+      "MSFT": 0.06,
       "AAPL": 0.12,
       "GOOGL": 0.08
     },
     "human_attention": 0.92,
     "topic_probs": {
       "macro": 0.95,
-      "sector": 0.8,
+      "sector": 0.82,
       "government": 0.79,
-      "other": 0.11
+      "other": 0.09
     },
-    "email_type": "invitation",
+    "email_type": "meeting_request",
     "email_type_probs": {
-      "research": 0.02,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.98,
+      "sell_side_research": 0.02,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.98,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -1600,7 +1805,7 @@
   },
   {
     "email_id": "synthetic_000642",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
       "monitor": 0.01,
@@ -1611,25 +1816,30 @@
     "ticker_probs": {
       "AMZN": 0.04,
       "NVDA": 0.02,
-      "MSFT": 0.02,
-      "AAPL": 0.02,
+      "MSFT": 0.03,
+      "AAPL": 0.03,
       "GOOGL": 0.02
     },
     "human_attention": 0.08,
     "topic_probs": {
       "macro": 0.01,
-      "sector": 0.12,
-      "government": 0.42,
-      "other": 0.83
+      "sector": 0.13,
+      "government": 0.4,
+      "other": 0.82
     },
-    "email_type": "news",
+    "email_type": "news_alert",
     "email_type_probs": {
-      "research": 0.01,
-      "news": 0.49,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.88,
+      "newsletter": 0.12,
+      "data_report": 0.0,
       "company_release": 0.0,
-      "invitation": 0.0,
-      "newsletter": 0.49,
-      "other": 0.01
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -1639,75 +1849,85 @@
   },
   {
     "email_id": "synthetic_000643",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.02,
-      "monitor": 0.03,
-      "redundant": 0.03,
-      "low_value": 0.15,
-      "irrelevant": 0.77
+      "monitor": 0.08,
+      "redundant": 0.02,
+      "low_value": 0.16,
+      "irrelevant": 0.72
     },
     "ticker_probs": {
       "AMZN": 0.12,
       "NVDA": 0.05,
-      "MSFT": 0.1,
-      "AAPL": 0.09,
-      "GOOGL": 0.13
+      "MSFT": 0.09,
+      "AAPL": 0.08,
+      "GOOGL": 0.14
     },
     "human_attention": 0.94,
     "topic_probs": {
       "macro": 0.03,
-      "sector": 0.09,
-      "government": 0.01,
+      "sector": 0.08,
+      "government": 0.02,
       "other": 0.89
     },
-    "email_type": "invitation",
+    "email_type": "meeting_request",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 1.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 1.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.03,
-      "instructs_ai": 0.03
+      "instructs_ai": 0.02
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000644",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.05,
+      "monitor": 0.06,
       "redundant": 0.01,
-      "low_value": 0.32,
-      "irrelevant": 0.61
+      "low_value": 0.25,
+      "irrelevant": 0.67
     },
     "ticker_probs": {
-      "AMZN": 0.11,
-      "NVDA": 0.11,
+      "AMZN": 0.08,
+      "NVDA": 0.09,
       "MSFT": 0.06,
       "AAPL": 0.07,
       "GOOGL": 0.04
     },
-    "human_attention": 0.2,
+    "human_attention": 0.18,
     "topic_probs": {
       "macro": 0.03,
       "sector": 0.97,
       "government": 0.99,
       "other": 0.12
     },
-    "email_type": "invitation",
+    "email_type": "vendor_pitch",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.01,
-      "company_release": 0.03,
-      "invitation": 0.65,
-      "newsletter": 0.02,
-      "other": 0.29
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
+      "newsletter": 0.0,
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 1.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.01,
@@ -1717,36 +1937,41 @@
   },
   {
     "email_id": "synthetic_000645",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.06,
-      "monitor": 0.9400000000000001,
+      "thesis_relevant": 0.09,
+      "monitor": 0.91,
       "redundant": 0.0,
       "low_value": 0.0,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.1,
-      "NVDA": 0.08,
+      "AMZN": 0.09,
+      "NVDA": 0.09,
       "MSFT": 0.86,
       "AAPL": 0.04,
-      "GOOGL": 0.11
+      "GOOGL": 0.1
     },
     "human_attention": 0.1,
     "topic_probs": {
       "macro": 0.02,
       "sector": 0.92,
       "government": 0.01,
-      "other": 0.73
+      "other": 0.69
     },
-    "email_type": "research",
+    "email_type": "data_report",
     "email_type_probs": {
-      "research": 0.99,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.01,
+      "primary_research": 0.04,
+      "news_alert": 0.0,
       "newsletter": 0.01,
-      "other": 0.0
+      "data_report": 0.94,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.08,
@@ -1756,36 +1981,41 @@
   },
   {
     "email_id": "synthetic_000646",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.55,
-      "monitor": 0.2,
-      "redundant": 0.2,
+      "thesis_relevant": 0.44,
+      "monitor": 0.23,
+      "redundant": 0.27,
       "low_value": 0.05,
-      "irrelevant": 0.0
+      "irrelevant": 0.01
     },
     "ticker_probs": {
-      "AMZN": 0.58,
+      "AMZN": 0.52,
       "NVDA": 0.07,
       "MSFT": 0.06,
-      "AAPL": 0.11,
-      "GOOGL": 0.1
+      "AAPL": 0.1,
+      "GOOGL": 0.09
     },
     "human_attention": 0.08,
     "topic_probs": {
       "macro": 0.03,
-      "sector": 0.89,
+      "sector": 0.9,
       "government": 0.02,
-      "other": 0.59
+      "other": 0.57
     },
-    "email_type": "research",
+    "email_type": "data_report",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.04,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.96,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.05,
@@ -1795,7 +2025,7 @@
   },
   {
     "email_id": "synthetic_000647",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
       "monitor": 0.01,
@@ -1810,21 +2040,26 @@
       "AAPL": 0.02,
       "GOOGL": 0.02
     },
-    "human_attention": 0.11,
+    "human_attention": 0.12,
     "topic_probs": {
-      "macro": 0.02,
+      "macro": 0.03,
       "sector": 0.87,
       "government": 0.94,
-      "other": 0.45
+      "other": 0.42
     },
     "email_type": "newsletter",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.02,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
+      "newsletter": 1.0,
+      "data_report": 0.0,
       "company_release": 0.0,
-      "invitation": 0.0,
-      "newsletter": 0.98,
-      "other": 0.0
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -1834,36 +2069,41 @@
   },
   {
     "email_id": "synthetic_000648",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.03,
-      "monitor": 0.96,
+      "thesis_relevant": 0.04,
+      "monitor": 0.95,
       "redundant": 0.0,
       "low_value": 0.01,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.31,
-      "NVDA": 0.07,
+      "AMZN": 0.25,
+      "NVDA": 0.06,
       "MSFT": 0.16,
       "AAPL": 0.06,
-      "GOOGL": 0.81
+      "GOOGL": 0.8
     },
     "human_attention": 0.52,
     "topic_probs": {
       "macro": 0.01,
-      "sector": 0.67,
+      "sector": 0.64,
       "government": 0.01,
       "other": 0.77
     },
-    "email_type": "research",
+    "email_type": "data_report",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 1.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.04,
@@ -1873,7 +2113,7 @@
   },
   {
     "email_id": "synthetic_000649",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
       "monitor": 0.54,
@@ -1888,42 +2128,47 @@
       "AAPL": 0.02,
       "GOOGL": 0.02
     },
-    "human_attention": 0.42,
+    "human_attention": 0.38,
     "topic_probs": {
       "macro": 0.02,
       "sector": 0.04,
       "government": 0.01,
       "other": 0.97
     },
-    "email_type": "research",
+    "email_type": "vendor_pitch",
     "email_type_probs": {
-      "research": 0.61,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.35,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.04
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 1.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.19,
+      "possible_mnpi": 0.2,
       "instructs_ai": 0.04
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000650",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
       "monitor": 0.02,
       "redundant": 0.01,
-      "low_value": 0.15,
-      "irrelevant": 0.8099999999999999
+      "low_value": 0.2,
+      "irrelevant": 0.76
     },
     "ticker_probs": {
-      "AMZN": 0.1,
+      "AMZN": 0.08,
       "NVDA": 0.03,
-      "MSFT": 0.06,
+      "MSFT": 0.05,
       "AAPL": 0.06,
       "GOOGL": 0.04
     },
@@ -1934,92 +2179,107 @@
       "government": 0.99,
       "other": 0.14
     },
-    "email_type": "invitation",
+    "email_type": "meeting_request",
     "email_type_probs": {
-      "research": 0.01,
-      "news": 0.0,
-      "company_release": 0.01,
-      "invitation": 0.87,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.11
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.95,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.05,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.02,
-      "instructs_ai": 0.02
+      "instructs_ai": 0.03
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000651",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.0,
-      "monitor": 0.0,
+      "thesis_relevant": 0.01,
+      "monitor": 0.01,
       "redundant": 0.0,
-      "low_value": 0.35,
-      "irrelevant": 0.65
+      "low_value": 0.3,
+      "irrelevant": 0.6799999999999999
     },
     "ticker_probs": {
-      "AMZN": 0.03,
+      "AMZN": 0.02,
       "NVDA": 0.02,
-      "MSFT": 0.09,
+      "MSFT": 0.07,
       "AAPL": 0.03,
       "GOOGL": 0.04
     },
-    "human_attention": 0.47,
+    "human_attention": 0.51,
     "topic_probs": {
       "macro": 0.01,
-      "sector": 0.75,
+      "sector": 0.73,
       "government": 0.01,
-      "other": 0.74
+      "other": 0.73
     },
-    "email_type": "invitation",
+    "email_type": "vendor_pitch",
     "email_type_probs": {
-      "research": 0.02,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.96,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.02
+      "data_report": 0.01,
+      "company_release": 0.0,
+      "meeting_request": 0.01,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.98,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.01,
-      "instructs_ai": 0.02
+      "possible_mnpi": 0.02,
+      "instructs_ai": 0.03
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000652",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.03,
       "monitor": 0.01,
-      "redundant": 0.33,
+      "redundant": 0.38,
       "low_value": 0.01,
-      "irrelevant": 0.62
+      "irrelevant": 0.57
     },
     "ticker_probs": {
-      "AMZN": 0.08,
+      "AMZN": 0.12,
       "NVDA": 0.01,
       "MSFT": 0.02,
       "AAPL": 0.02,
-      "GOOGL": 0.03
+      "GOOGL": 0.02
     },
     "human_attention": 0.1,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.28,
+      "sector": 0.35,
       "government": 0.03,
-      "other": 0.83
+      "other": 0.8
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 1.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.03,
@@ -2029,46 +2289,51 @@
   },
   {
     "email_id": "synthetic_000653",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.09,
+      "monitor": 0.1,
       "redundant": 0.0,
-      "low_value": 0.28,
-      "irrelevant": 0.62
+      "low_value": 0.22,
+      "irrelevant": 0.67
     },
     "ticker_probs": {
-      "AMZN": 0.11,
-      "NVDA": 0.07,
+      "AMZN": 0.1,
+      "NVDA": 0.06,
       "MSFT": 0.1,
-      "AAPL": 0.09,
-      "GOOGL": 0.04
+      "AAPL": 0.11,
+      "GOOGL": 0.05
     },
-    "human_attention": 0.73,
+    "human_attention": 0.72,
     "topic_probs": {
       "macro": 0.05,
       "sector": 0.91,
       "government": 0.01,
-      "other": 0.5
+      "other": 0.49
     },
-    "email_type": "invitation",
+    "email_type": "primary_research",
     "email_type_probs": {
-      "research": 0.32,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.36,
+      "sell_side_research": 0.0,
+      "primary_research": 0.52,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.32
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.02,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.46,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.04,
-      "instructs_ai": 0.02
+      "instructs_ai": 0.03
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000654",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
       "monitor": 0.0,
@@ -2077,27 +2342,32 @@
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.31,
-      "NVDA": 0.13,
-      "MSFT": 0.23,
+      "AMZN": 0.28,
+      "NVDA": 0.11,
+      "MSFT": 0.2,
       "AAPL": 0.12,
-      "GOOGL": 0.54
+      "GOOGL": 0.53
     },
-    "human_attention": 0.08,
+    "human_attention": 0.07,
     "topic_probs": {
-      "macro": 0.04,
+      "macro": 0.05,
       "sector": 0.37,
       "government": 0.01,
       "other": 0.86
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 1.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.03,
@@ -2107,36 +2377,41 @@
   },
   {
     "email_id": "synthetic_000655",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.09,
-      "monitor": 0.89,
+      "thesis_relevant": 0.07,
+      "monitor": 0.9,
       "redundant": 0.0,
-      "low_value": 0.02,
+      "low_value": 0.03,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.07,
+      "AMZN": 0.09,
       "NVDA": 0.03,
-      "MSFT": 0.83,
+      "MSFT": 0.81,
       "AAPL": 0.03,
       "GOOGL": 0.04
     },
     "human_attention": 0.95,
     "topic_probs": {
       "macro": 0.49,
-      "sector": 0.43,
+      "sector": 0.49,
       "government": 0.03,
       "other": 0.73
     },
-    "email_type": "invitation",
+    "email_type": "meeting_request",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 1.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 1.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.07,
@@ -2146,36 +2421,41 @@
   },
   {
     "email_id": "synthetic_000656",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
-      "monitor": 0.0,
+      "monitor": 0.01,
       "redundant": 0.0,
-      "low_value": 0.0,
-      "irrelevant": 1.0
+      "low_value": 0.01,
+      "irrelevant": 0.98
     },
     "ticker_probs": {
-      "AMZN": 0.11,
+      "AMZN": 0.1,
       "NVDA": 0.03,
       "MSFT": 0.03,
-      "AAPL": 0.08,
-      "GOOGL": 0.03
+      "AAPL": 0.12,
+      "GOOGL": 0.04
     },
     "human_attention": 0.4,
     "topic_probs": {
       "macro": 0.06,
       "sector": 0.98,
       "government": 0.99,
-      "other": 0.1
+      "other": 0.09
     },
-    "email_type": "invitation",
+    "email_type": "event_invitation",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 1.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 1.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.01,
@@ -2185,49 +2465,54 @@
   },
   {
     "email_id": "synthetic_000657",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.55,
+      "monitor": 0.69,
       "redundant": 0.0,
-      "low_value": 0.13,
-      "irrelevant": 0.31
+      "low_value": 0.1,
+      "irrelevant": 0.2
     },
     "ticker_probs": {
       "AMZN": 0.02,
-      "NVDA": 0.02,
+      "NVDA": 0.01,
       "MSFT": 0.02,
       "AAPL": 0.02,
       "GOOGL": 0.05
     },
-    "human_attention": 0.11,
+    "human_attention": 0.1,
     "topic_probs": {
       "macro": 0.02,
       "sector": 0.08,
       "government": 0.01,
       "other": 0.96
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 1.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.06,
+      "possible_mnpi": 0.05,
       "instructs_ai": 0.02
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000658",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.04,
-      "monitor": 0.95,
+      "thesis_relevant": 0.06,
+      "monitor": 0.93,
       "redundant": 0.0,
       "low_value": 0.01,
       "irrelevant": 0.0
@@ -2237,62 +2522,72 @@
       "NVDA": 0.03,
       "MSFT": 0.03,
       "AAPL": 0.77,
-      "GOOGL": 0.03
+      "GOOGL": 0.04
     },
     "human_attention": 0.93,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.14,
-      "government": 0.02,
-      "other": 0.87
+      "sector": 0.13,
+      "government": 0.01,
+      "other": 0.89
     },
-    "email_type": "invitation",
+    "email_type": "meeting_request",
     "email_type_probs": {
-      "research": 0.28,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.72,
+      "sell_side_research": 0.02,
+      "primary_research": 0.3,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.68,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.07,
-      "instructs_ai": 0.04
+      "instructs_ai": 0.03
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000659",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.16,
-      "monitor": 0.84,
+      "thesis_relevant": 0.17,
+      "monitor": 0.82,
       "redundant": 0.0,
       "low_value": 0.0,
-      "irrelevant": 0.0
+      "irrelevant": 0.01
     },
     "ticker_probs": {
-      "AMZN": 0.36,
-      "NVDA": 0.86,
-      "MSFT": 0.22,
-      "AAPL": 0.11,
-      "GOOGL": 0.22
+      "AMZN": 0.35,
+      "NVDA": 0.87,
+      "MSFT": 0.23,
+      "AAPL": 0.13,
+      "GOOGL": 0.2
     },
     "human_attention": 0.21,
     "topic_probs": {
-      "macro": 0.02,
-      "sector": 0.89,
+      "macro": 0.03,
+      "sector": 0.88,
       "government": 0.02,
-      "other": 0.64
+      "other": 0.61
     },
-    "email_type": "research",
+    "email_type": "primary_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.01,
+      "primary_research": 0.99,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.16,
@@ -2302,17 +2597,17 @@
   },
   {
     "email_id": "synthetic_000660",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.02,
-      "monitor": 0.98,
+      "thesis_relevant": 0.01,
+      "monitor": 0.99,
       "redundant": 0.0,
       "low_value": 0.0,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.68,
-      "NVDA": 0.12,
+      "AMZN": 0.69,
+      "NVDA": 0.13,
       "MSFT": 0.06,
       "AAPL": 0.04,
       "GOOGL": 0.07
@@ -2324,14 +2619,19 @@
       "government": 0.03,
       "other": 0.79
     },
-    "email_type": "news",
+    "email_type": "news_alert",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 1.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 1.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.08,
@@ -2341,7 +2641,7 @@
   },
   {
     "email_id": "synthetic_000661",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
       "monitor": 0.0,
@@ -2351,26 +2651,31 @@
     },
     "ticker_probs": {
       "AMZN": 0.03,
-      "NVDA": 0.03,
-      "MSFT": 0.05,
+      "NVDA": 0.02,
+      "MSFT": 0.04,
       "AAPL": 0.03,
-      "GOOGL": 0.03
+      "GOOGL": 0.04
     },
     "human_attention": 0.9,
     "topic_probs": {
       "macro": 0.01,
-      "sector": 0.03,
+      "sector": 0.04,
       "government": 0.01,
       "other": 0.77
     },
-    "email_type": "company_release",
+    "email_type": "administrative",
     "email_type_probs": {
-      "research": 0.05,
-      "news": 0.0,
-      "company_release": 0.6,
-      "invitation": 0.0,
+      "sell_side_research": 0.01,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.35
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.99
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -2380,46 +2685,51 @@
   },
   {
     "email_id": "synthetic_000662",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.11,
+      "monitor": 0.16,
       "redundant": 0.0,
-      "low_value": 0.83,
+      "low_value": 0.78,
       "irrelevant": 0.05
     },
     "ticker_probs": {
       "AMZN": 0.1,
-      "NVDA": 0.09,
+      "NVDA": 0.08,
       "MSFT": 0.1,
-      "AAPL": 0.1,
-      "GOOGL": 0.13
+      "AAPL": 0.09,
+      "GOOGL": 0.14
     },
-    "human_attention": 0.45,
+    "human_attention": 0.43,
     "topic_probs": {
       "macro": 0.03,
       "sector": 0.96,
       "government": 0.01,
-      "other": 0.5
+      "other": 0.52
     },
-    "email_type": "invitation",
+    "email_type": "vendor_pitch",
     "email_type_probs": {
-      "research": 0.08,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.9,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.02
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 1.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.08,
-      "instructs_ai": 0.04
+      "possible_mnpi": 0.09,
+      "instructs_ai": 0.03
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000663",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
       "monitor": 0.02,
@@ -2428,27 +2738,32 @@
       "irrelevant": 0.98
     },
     "ticker_probs": {
-      "AMZN": 0.05,
+      "AMZN": 0.06,
       "NVDA": 0.03,
       "MSFT": 0.04,
       "AAPL": 0.04,
-      "GOOGL": 0.04
+      "GOOGL": 0.03
     },
     "human_attention": 0.09,
     "topic_probs": {
       "macro": 0.04,
-      "sector": 0.97,
+      "sector": 0.98,
       "government": 0.99,
-      "other": 0.07
+      "other": 0.08
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
-      "newsletter": 0.0,
-      "other": 0.0
+      "sell_side_research": 0.61,
+      "primary_research": 0.0,
+      "news_alert": 0.37,
+      "newsletter": 0.01,
+      "data_report": 0.0,
+      "company_release": 0.01,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -2458,7 +2773,7 @@
   },
   {
     "email_id": "synthetic_000664",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
       "monitor": 0.97,
@@ -2467,144 +2782,164 @@
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.03,
+      "AMZN": 0.04,
       "NVDA": 0.03,
       "MSFT": 0.03,
-      "AAPL": 0.81,
+      "AAPL": 0.79,
       "GOOGL": 0.02
     },
-    "human_attention": 0.94,
+    "human_attention": 0.95,
     "topic_probs": {
       "macro": 0.03,
-      "sector": 0.2,
-      "government": 0.14,
-      "other": 0.91
+      "sector": 0.16,
+      "government": 0.16,
+      "other": 0.93
     },
-    "email_type": "invitation",
+    "email_type": "meeting_request",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 1.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.01,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.98,
+      "event_invitation": 0.01,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.3,
+      "possible_mnpi": 0.29,
       "instructs_ai": 0.02
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000665",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
-      "monitor": 0.07,
+      "monitor": 0.1,
       "redundant": 0.0,
-      "low_value": 0.84,
+      "low_value": 0.81,
       "irrelevant": 0.09
     },
     "ticker_probs": {
-      "AMZN": 0.19,
-      "NVDA": 0.08,
+      "AMZN": 0.18,
+      "NVDA": 0.07,
       "MSFT": 0.13,
       "AAPL": 0.1,
       "GOOGL": 0.15
     },
-    "human_attention": 0.09,
+    "human_attention": 0.08,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.71,
+      "sector": 0.72,
       "government": 0.01,
       "other": 0.89
     },
-    "email_type": "news",
+    "email_type": "news_alert",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.97,
+      "sell_side_research": 0.01,
+      "primary_research": 0.0,
+      "news_alert": 0.96,
+      "newsletter": 0.03,
+      "data_report": 0.0,
       "company_release": 0.0,
-      "invitation": 0.0,
-      "newsletter": 0.02,
-      "other": 0.01
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.05,
+      "possible_mnpi": 0.04,
       "instructs_ai": 0.02
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000666",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.13,
-      "monitor": 0.1,
-      "redundant": 0.76,
-      "low_value": 0.01,
+      "thesis_relevant": 0.09,
+      "monitor": 0.09,
+      "redundant": 0.8200000000000001,
+      "low_value": 0.0,
       "irrelevant": 0.0
     },
     "ticker_probs": {
       "AMZN": 0.12,
-      "NVDA": 0.73,
-      "MSFT": 0.1,
+      "NVDA": 0.77,
+      "MSFT": 0.11,
       "AAPL": 0.06,
       "GOOGL": 0.09
     },
-    "human_attention": 0.1,
+    "human_attention": 0.11,
     "topic_probs": {
       "macro": 0.04,
       "sector": 0.7,
       "government": 0.99,
       "other": 0.32
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 1.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.04,
+      "possible_mnpi": 0.05,
       "instructs_ai": 0.03
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000667",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.02,
-      "monitor": 0.19,
+      "monitor": 0.13,
       "redundant": 0.02,
-      "low_value": 0.72,
+      "low_value": 0.78,
       "irrelevant": 0.05
     },
     "ticker_probs": {
-      "AMZN": 0.6,
+      "AMZN": 0.61,
       "NVDA": 0.06,
-      "MSFT": 0.54,
+      "MSFT": 0.52,
       "AAPL": 0.07,
-      "GOOGL": 0.38
+      "GOOGL": 0.37
     },
-    "human_attention": 0.35,
+    "human_attention": 0.32,
     "topic_probs": {
       "macro": 0.01,
-      "sector": 0.94,
+      "sector": 0.93,
       "government": 0.01,
-      "other": 0.72
+      "other": 0.74
     },
-    "email_type": "research",
+    "email_type": "data_report",
     "email_type_probs": {
-      "research": 0.85,
-      "news": 0.0,
-      "company_release": 0.01,
-      "invitation": 0.07,
-      "newsletter": 0.07,
-      "other": 0.0
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
+      "newsletter": 0.0,
+      "data_report": 1.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -2614,114 +2949,129 @@
   },
   {
     "email_id": "synthetic_000668",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.28,
+      "monitor": 0.25,
       "redundant": 0.0,
-      "low_value": 0.32,
-      "irrelevant": 0.39
+      "low_value": 0.4,
+      "irrelevant": 0.34
     },
     "ticker_probs": {
       "AMZN": 0.03,
       "NVDA": 0.02,
       "MSFT": 0.02,
-      "AAPL": 0.03,
-      "GOOGL": 0.04
+      "AAPL": 0.02,
+      "GOOGL": 0.03
     },
-    "human_attention": 0.35,
+    "human_attention": 0.36,
     "topic_probs": {
       "macro": 0.02,
       "sector": 0.04,
       "government": 0.02,
       "other": 0.95
     },
-    "email_type": "research",
+    "email_type": "primary_research",
     "email_type_probs": {
-      "research": 0.69,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.99,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.31
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.01,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.05,
+      "possible_mnpi": 0.06,
       "instructs_ai": 0.03
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000669",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
       "monitor": 0.0,
-      "redundant": 0.84,
-      "low_value": 0.01,
-      "irrelevant": 0.15
+      "redundant": 0.89,
+      "low_value": 0.0,
+      "irrelevant": 0.11
     },
     "ticker_probs": {
-      "AMZN": 0.29,
+      "AMZN": 0.3,
       "NVDA": 0.04,
       "MSFT": 0.11,
-      "AAPL": 0.05,
-      "GOOGL": 0.25
+      "AAPL": 0.06,
+      "GOOGL": 0.24
     },
-    "human_attention": 0.58,
+    "human_attention": 0.57,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.36,
+      "sector": 0.34,
       "government": 0.01,
       "other": 0.84
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 0.75,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.01,
+      "sell_side_research": 0.98,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.24
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.02,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.07,
-      "instructs_ai": 0.03
+      "possible_mnpi": 0.06,
+      "instructs_ai": 0.04
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000670",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.21,
-      "monitor": 0.61,
+      "thesis_relevant": 0.22,
+      "monitor": 0.59,
       "redundant": 0.0,
-      "low_value": 0.18,
+      "low_value": 0.19,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.06,
-      "NVDA": 0.08,
-      "MSFT": 0.78,
+      "AMZN": 0.07,
+      "NVDA": 0.09,
+      "MSFT": 0.8,
       "AAPL": 0.04,
-      "GOOGL": 0.1
+      "GOOGL": 0.12
     },
     "human_attention": 0.27,
     "topic_probs": {
-      "macro": 0.15,
-      "sector": 0.72,
+      "macro": 0.16,
+      "sector": 0.75,
       "government": 0.01,
-      "other": 0.69
+      "other": 0.68
     },
-    "email_type": "research",
+    "email_type": "vendor_pitch",
     "email_type_probs": {
-      "research": 0.76,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.22,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.02
+      "data_report": 0.01,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.99,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.04,
@@ -2731,13 +3081,13 @@
   },
   {
     "email_id": "synthetic_000671",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.1,
+      "thesis_relevant": 0.11,
       "monitor": 0.01,
       "redundant": 0.04,
       "low_value": 0.01,
-      "irrelevant": 0.84
+      "irrelevant": 0.83
     },
     "ticker_probs": {
       "AMZN": 0.11,
@@ -2746,21 +3096,26 @@
       "AAPL": 0.02,
       "GOOGL": 0.03
     },
-    "human_attention": 0.17,
+    "human_attention": 0.16,
     "topic_probs": {
       "macro": 0.04,
-      "sector": 0.06,
+      "sector": 0.07,
       "government": 0.01,
-      "other": 0.98
+      "other": 0.97
     },
-    "email_type": "news",
+    "email_type": "news_alert",
     "email_type_probs": {
-      "research": 0.37,
-      "news": 0.45999999999999996,
+      "sell_side_research": 0.2,
+      "primary_research": 0.0,
+      "news_alert": 0.65,
+      "newsletter": 0.14,
+      "data_report": 0.0,
       "company_release": 0.01,
-      "invitation": 0.0,
-      "newsletter": 0.15,
-      "other": 0.01
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.04,
@@ -2770,36 +3125,41 @@
   },
   {
     "email_id": "synthetic_000672",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.03,
+      "monitor": 0.05,
       "redundant": 0.0,
       "low_value": 0.02,
-      "irrelevant": 0.93
+      "irrelevant": 0.92
     },
     "ticker_probs": {
       "AMZN": 0.28,
       "NVDA": 0.03,
       "MSFT": 0.06,
-      "AAPL": 0.06,
-      "GOOGL": 0.05
+      "AAPL": 0.07,
+      "GOOGL": 0.04
     },
-    "human_attention": 0.5,
+    "human_attention": 0.45,
     "topic_probs": {
       "macro": 0.02,
       "sector": 0.98,
       "government": 0.99,
-      "other": 0.12
+      "other": 0.11
     },
-    "email_type": "invitation",
+    "email_type": "event_invitation",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 1.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 1.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.01,
@@ -2809,13 +3169,13 @@
   },
   {
     "email_id": "synthetic_000673",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.07,
-      "monitor": 0.03,
-      "redundant": 0.0,
+      "monitor": 0.04,
+      "redundant": 0.01,
       "low_value": 0.32,
-      "irrelevant": 0.58
+      "irrelevant": 0.5599999999999999
     },
     "ticker_probs": {
       "AMZN": 0.04,
@@ -2824,21 +3184,26 @@
       "AAPL": 0.13,
       "GOOGL": 0.03
     },
-    "human_attention": 0.1,
+    "human_attention": 0.09,
     "topic_probs": {
       "macro": 0.03,
-      "sector": 0.09,
-      "government": 0.02,
+      "sector": 0.1,
+      "government": 0.01,
       "other": 0.95
     },
-    "email_type": "research",
+    "email_type": "sell_side_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 1.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.05,
@@ -2848,114 +3213,129 @@
   },
   {
     "email_id": "synthetic_000674",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.0,
-      "monitor": 0.93,
+      "thesis_relevant": 0.01,
+      "monitor": 0.85,
       "redundant": 0.0,
-      "low_value": 0.07,
+      "low_value": 0.14,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.73,
+      "AMZN": 0.77,
       "NVDA": 0.03,
       "MSFT": 0.05,
       "AAPL": 0.08,
-      "GOOGL": 0.05
+      "GOOGL": 0.04
     },
-    "human_attention": 0.39,
+    "human_attention": 0.36,
     "topic_probs": {
-      "macro": 0.03,
-      "sector": 0.14,
+      "macro": 0.02,
+      "sector": 0.16,
       "government": 0.01,
-      "other": 0.83
+      "other": 0.84
     },
-    "email_type": "invitation",
+    "email_type": "event_invitation",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 1.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 1.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.05,
+      "possible_mnpi": 0.04,
       "instructs_ai": 0.02
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000675",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.03,
+      "monitor": 0.04,
       "redundant": 0.0,
-      "low_value": 0.0,
-      "irrelevant": 0.96
+      "low_value": 0.01,
+      "irrelevant": 0.94
     },
     "ticker_probs": {
       "AMZN": 0.04,
-      "NVDA": 0.03,
+      "NVDA": 0.04,
       "MSFT": 0.04,
       "AAPL": 0.03,
-      "GOOGL": 0.03
+      "GOOGL": 0.04
     },
     "human_attention": 0.14,
     "topic_probs": {
       "macro": 0.03,
       "sector": 0.98,
-      "government": 0.79,
-      "other": 0.28
+      "government": 0.8,
+      "other": 0.26
     },
     "email_type": "newsletter",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.01,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
+      "newsletter": 1.0,
+      "data_report": 0.0,
       "company_release": 0.0,
-      "invitation": 0.0,
-      "newsletter": 0.99,
-      "other": 0.0
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.03,
+      "possible_mnpi": 0.04,
       "instructs_ai": 0.02
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000676",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.02,
+      "monitor": 0.03,
       "redundant": 0.0,
-      "low_value": 0.57,
-      "irrelevant": 0.4
+      "low_value": 0.44,
+      "irrelevant": 0.52
     },
     "ticker_probs": {
-      "AMZN": 0.06,
+      "AMZN": 0.07,
       "NVDA": 0.03,
-      "MSFT": 0.04,
+      "MSFT": 0.03,
       "AAPL": 0.04,
-      "GOOGL": 0.04
+      "GOOGL": 0.03
     },
-    "human_attention": 0.34,
+    "human_attention": 0.32,
     "topic_probs": {
-      "macro": 0.07,
+      "macro": 0.08,
       "sector": 0.93,
       "government": 0.01,
-      "other": 0.36
+      "other": 0.34
     },
-    "email_type": "research",
+    "email_type": "vendor_pitch",
     "email_type_probs": {
-      "research": 0.84,
-      "news": 0.0,
-      "company_release": 0.04,
-      "invitation": 0.11,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.01
+      "data_report": 0.02,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.98,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.03,
@@ -2965,114 +3345,129 @@
   },
   {
     "email_id": "synthetic_000677",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.08,
-      "redundant": 0.01,
-      "low_value": 0.53,
-      "irrelevant": 0.37
+      "monitor": 0.32,
+      "redundant": 0.0,
+      "low_value": 0.44,
+      "irrelevant": 0.23
     },
     "ticker_probs": {
-      "AMZN": 0.07,
-      "NVDA": 0.21,
+      "AMZN": 0.08,
+      "NVDA": 0.22,
       "MSFT": 0.06,
       "AAPL": 0.05,
-      "GOOGL": 0.05
+      "GOOGL": 0.06
     },
-    "human_attention": 0.53,
+    "human_attention": 0.52,
     "topic_probs": {
       "macro": 0.03,
-      "sector": 0.2,
+      "sector": 0.21,
       "government": 0.01,
-      "other": 0.58
+      "other": 0.52
     },
-    "email_type": "invitation",
+    "email_type": "event_invitation",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 1.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.06,
+      "event_invitation": 0.94,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.04,
-      "instructs_ai": 0.05
+      "possible_mnpi": 0.03,
+      "instructs_ai": 0.06
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000678",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.05,
-      "monitor": 0.93,
+      "thesis_relevant": 0.07,
+      "monitor": 0.9,
       "redundant": 0.0,
-      "low_value": 0.02,
+      "low_value": 0.03,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.08,
+      "AMZN": 0.09,
       "NVDA": 0.91,
-      "MSFT": 0.07,
-      "AAPL": 0.04,
-      "GOOGL": 0.07
+      "MSFT": 0.1,
+      "AAPL": 0.05,
+      "GOOGL": 0.06
     },
-    "human_attention": 0.08,
+    "human_attention": 0.09,
     "topic_probs": {
       "macro": 0.03,
-      "sector": 0.68,
+      "sector": 0.67,
       "government": 0.02,
       "other": 0.89
     },
-    "email_type": "news",
+    "email_type": "news_alert",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 1.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 1.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.12,
+      "possible_mnpi": 0.13,
       "instructs_ai": 0.02
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000679",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.96,
-      "monitor": 0.04,
+      "thesis_relevant": 0.93,
+      "monitor": 0.07,
       "redundant": 0.0,
       "low_value": 0.0,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.09,
+      "AMZN": 0.08,
       "NVDA": 0.06,
-      "MSFT": 0.08,
+      "MSFT": 0.09,
       "AAPL": 0.94,
-      "GOOGL": 0.1
+      "GOOGL": 0.09
     },
-    "human_attention": 0.61,
+    "human_attention": 0.6,
     "topic_probs": {
       "macro": 0.03,
-      "sector": 0.93,
-      "government": 0.02,
-      "other": 0.54
+      "sector": 0.94,
+      "government": 0.03,
+      "other": 0.53
     },
-    "email_type": "research",
+    "email_type": "data_report",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.07,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.93,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.07,
@@ -3082,36 +3477,41 @@
   },
   {
     "email_id": "synthetic_000680",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.55,
-      "monitor": 0.43,
+      "thesis_relevant": 0.51,
+      "monitor": 0.47,
       "redundant": 0.0,
       "low_value": 0.01,
       "irrelevant": 0.01
     },
     "ticker_probs": {
-      "AMZN": 0.4,
-      "NVDA": 0.08,
+      "AMZN": 0.44,
+      "NVDA": 0.09,
       "MSFT": 0.11,
-      "AAPL": 0.08,
+      "AAPL": 0.1,
       "GOOGL": 0.92
     },
     "human_attention": 0.75,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.62,
+      "sector": 0.61,
       "government": 0.01,
-      "other": 0.63
+      "other": 0.6
     },
-    "email_type": "research",
+    "email_type": "data_report",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 1.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.05,
@@ -3121,75 +3521,85 @@
   },
   {
     "email_id": "synthetic_000681",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.92,
-      "monitor": 0.08,
+      "thesis_relevant": 0.89,
+      "monitor": 0.11,
       "redundant": 0.0,
       "low_value": 0.0,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.21,
-      "NVDA": 0.61,
+      "AMZN": 0.16,
+      "NVDA": 0.59,
       "MSFT": 0.94,
       "AAPL": 0.04,
-      "GOOGL": 0.31
+      "GOOGL": 0.25
     },
-    "human_attention": 0.71,
+    "human_attention": 0.7,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.19,
+      "sector": 0.17,
       "government": 0.01,
       "other": 0.94
     },
-    "email_type": "research",
+    "email_type": "primary_research",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.08,
+      "primary_research": 0.91,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.01,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.23,
-      "instructs_ai": 0.06
+      "possible_mnpi": 0.26,
+      "instructs_ai": 0.07
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000682",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.02,
+      "monitor": 0.03,
       "redundant": 0.0,
-      "low_value": 0.49,
-      "irrelevant": 0.48
+      "low_value": 0.32,
+      "irrelevant": 0.64
     },
     "ticker_probs": {
       "AMZN": 0.04,
       "NVDA": 0.02,
-      "MSFT": 0.03,
+      "MSFT": 0.02,
       "AAPL": 0.04,
       "GOOGL": 0.03
     },
-    "human_attention": 0.54,
+    "human_attention": 0.56,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.87,
+      "sector": 0.88,
       "government": 0.12,
-      "other": 0.44
+      "other": 0.48
     },
-    "email_type": "invitation",
+    "email_type": "vendor_pitch",
     "email_type_probs": {
-      "research": 0.1,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.89,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.01
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 1.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -3199,36 +3609,41 @@
   },
   {
     "email_id": "synthetic_000683",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.07,
+      "monitor": 0.06,
       "redundant": 0.01,
-      "low_value": 0.05,
-      "irrelevant": 0.86
+      "low_value": 0.03,
+      "irrelevant": 0.89
     },
     "ticker_probs": {
-      "AMZN": 0.07,
-      "NVDA": 0.05,
-      "MSFT": 0.05,
+      "AMZN": 0.08,
+      "NVDA": 0.06,
+      "MSFT": 0.07,
       "AAPL": 0.04,
-      "GOOGL": 0.23
+      "GOOGL": 0.24
     },
-    "human_attention": 0.07,
+    "human_attention": 0.06,
     "topic_probs": {
       "macro": 0.02,
       "sector": 0.05,
       "government": 0.01,
       "other": 0.97
     },
-    "email_type": "news",
+    "email_type": "news_alert",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 1.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 1.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -3238,75 +3653,85 @@
   },
   {
     "email_id": "synthetic_000684",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.48,
+      "monitor": 0.47,
       "redundant": 0.0,
-      "low_value": 0.1,
-      "irrelevant": 0.41
+      "low_value": 0.15,
+      "irrelevant": 0.37
     },
     "ticker_probs": {
       "AMZN": 0.02,
-      "NVDA": 0.01,
+      "NVDA": 0.02,
       "MSFT": 0.02,
       "AAPL": 0.02,
       "GOOGL": 0.02
     },
-    "human_attention": 0.75,
+    "human_attention": 0.74,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.07,
-      "government": 0.02,
+      "sector": 0.06,
+      "government": 0.03,
       "other": 0.94
     },
-    "email_type": "invitation",
+    "email_type": "meeting_request",
     "email_type_probs": {
-      "research": 0.05,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.95,
+      "sell_side_research": 0.0,
+      "primary_research": 0.15,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.85,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.13,
-      "instructs_ai": 0.02
+      "possible_mnpi": 0.14,
+      "instructs_ai": 0.03
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000685",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.0,
+      "thesis_relevant": 0.01,
       "monitor": 0.01,
       "redundant": 0.0,
       "low_value": 0.0,
-      "irrelevant": 0.99
+      "irrelevant": 0.98
     },
     "ticker_probs": {
-      "AMZN": 0.14,
+      "AMZN": 0.13,
       "NVDA": 0.03,
-      "MSFT": 0.05,
-      "AAPL": 0.18,
-      "GOOGL": 0.06
+      "MSFT": 0.06,
+      "AAPL": 0.17,
+      "GOOGL": 0.07
     },
     "human_attention": 0.16,
     "topic_probs": {
       "macro": 0.03,
       "sector": 0.98,
       "government": 0.99,
-      "other": 0.07
+      "other": 0.08
     },
     "email_type": "newsletter",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.01,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
+      "newsletter": 1.0,
+      "data_report": 0.0,
       "company_release": 0.0,
-      "invitation": 0.0,
-      "newsletter": 0.99,
-      "other": 0.0
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.01,
@@ -3316,7 +3741,7 @@
   },
   {
     "email_id": "synthetic_000686",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.02,
       "monitor": 0.97,
@@ -3329,39 +3754,44 @@
       "NVDA": 0.84,
       "MSFT": 0.07,
       "AAPL": 0.1,
-      "GOOGL": 0.07
+      "GOOGL": 0.06
     },
-    "human_attention": 0.89,
+    "human_attention": 0.9,
     "topic_probs": {
-      "macro": 0.04,
-      "sector": 0.93,
-      "government": 0.95,
-      "other": 0.38
+      "macro": 0.05,
+      "sector": 0.94,
+      "government": 0.96,
+      "other": 0.37
     },
-    "email_type": "invitation",
+    "email_type": "meeting_request",
     "email_type_probs": {
-      "research": 0.02,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.91,
+      "sell_side_research": 0.08,
+      "primary_research": 0.27,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.07
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.62,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.03,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.1,
+      "possible_mnpi": 0.11,
       "instructs_ai": 0.03
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000687",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
-      "monitor": 0.0,
+      "monitor": 0.02,
       "redundant": 0.0,
-      "low_value": 0.05,
-      "irrelevant": 0.95
+      "low_value": 0.06,
+      "irrelevant": 0.92
     },
     "ticker_probs": {
       "AMZN": 0.02,
@@ -3373,18 +3803,23 @@
     "human_attention": 0.2,
     "topic_probs": {
       "macro": 0.04,
-      "sector": 0.9,
+      "sector": 0.89,
       "government": 0.02,
-      "other": 0.3
+      "other": 0.31
     },
-    "email_type": "invitation",
+    "email_type": "event_invitation",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 1.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 1.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.01,
@@ -3394,36 +3829,41 @@
   },
   {
     "email_id": "synthetic_000688",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.02,
+      "monitor": 0.05,
       "redundant": 0.0,
-      "low_value": 0.24,
-      "irrelevant": 0.73
+      "low_value": 0.22,
+      "irrelevant": 0.72
     },
     "ticker_probs": {
       "AMZN": 0.04,
       "NVDA": 0.03,
       "MSFT": 0.04,
       "AAPL": 0.03,
-      "GOOGL": 0.04
+      "GOOGL": 0.03
     },
     "human_attention": 0.23,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.94,
-      "government": 0.01,
-      "other": 0.46
+      "sector": 0.95,
+      "government": 0.02,
+      "other": 0.45
     },
     "email_type": "newsletter",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 1.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -3433,75 +3873,85 @@
   },
   {
     "email_id": "synthetic_000689",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
-      "monitor": 0.98,
+      "monitor": 0.99,
       "redundant": 0.0,
-      "low_value": 0.02,
+      "low_value": 0.01,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.79,
+      "AMZN": 0.78,
       "NVDA": 0.04,
-      "MSFT": 0.08,
-      "AAPL": 0.11,
-      "GOOGL": 0.1
+      "MSFT": 0.1,
+      "AAPL": 0.13,
+      "GOOGL": 0.12
     },
     "human_attention": 0.82,
     "topic_probs": {
-      "macro": 0.02,
-      "sector": 0.15,
+      "macro": 0.03,
+      "sector": 0.16,
       "government": 0.01,
-      "other": 0.84
+      "other": 0.82
     },
-    "email_type": "invitation",
+    "email_type": "meeting_request",
     "email_type_probs": {
-      "research": 0.11,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.89,
+      "sell_side_research": 0.01,
+      "primary_research": 0.38,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.61,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.12,
-      "instructs_ai": 0.05
+      "instructs_ai": 0.04
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000690",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.02,
+      "monitor": 0.03,
       "redundant": 0.01,
-      "low_value": 0.05,
-      "irrelevant": 0.91
+      "low_value": 0.03,
+      "irrelevant": 0.92
     },
     "ticker_probs": {
-      "AMZN": 0.39,
-      "NVDA": 0.23,
-      "MSFT": 0.22,
-      "AAPL": 0.19,
-      "GOOGL": 0.28
+      "AMZN": 0.37,
+      "NVDA": 0.25,
+      "MSFT": 0.23,
+      "AAPL": 0.18,
+      "GOOGL": 0.31
     },
     "human_attention": 0.08,
     "topic_probs": {
       "macro": 0.04,
       "sector": 0.99,
-      "government": 0.07,
+      "government": 0.06,
       "other": 0.17
     },
-    "email_type": "newsletter",
+    "email_type": "data_report",
     "email_type_probs": {
-      "research": 0.03,
-      "news": 0.03,
-      "company_release": 0.34,
-      "invitation": 0.0,
-      "newsletter": 0.59,
-      "other": 0.01
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.02,
+      "newsletter": 0.02,
+      "data_report": 0.9,
+      "company_release": 0.06,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.01,
@@ -3511,75 +3961,85 @@
   },
   {
     "email_id": "synthetic_000691",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.04,
-      "monitor": 0.96,
+      "thesis_relevant": 0.03,
+      "monitor": 0.97,
       "redundant": 0.0,
       "low_value": 0.0,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.81,
+      "AMZN": 0.79,
       "NVDA": 0.87,
       "MSFT": 0.87,
       "AAPL": 0.84,
-      "GOOGL": 0.87
+      "GOOGL": 0.85
     },
     "human_attention": 0.75,
     "topic_probs": {
-      "macro": 0.09,
+      "macro": 0.08,
       "sector": 0.96,
       "government": 0.98,
-      "other": 0.11
+      "other": 0.09
     },
-    "email_type": "research",
+    "email_type": "primary_research",
     "email_type_probs": {
-      "research": 0.99,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.0,
+      "primary_research": 1.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.01
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.08,
+      "possible_mnpi": 0.07,
       "instructs_ai": 0.03
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000692",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.2,
-      "monitor": 0.79,
+      "thesis_relevant": 0.19,
+      "monitor": 0.8,
       "redundant": 0.0,
       "low_value": 0.01,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.08,
-      "NVDA": 0.89,
-      "MSFT": 0.15,
-      "AAPL": 0.06,
-      "GOOGL": 0.09
+      "AMZN": 0.06,
+      "NVDA": 0.87,
+      "MSFT": 0.09,
+      "AAPL": 0.05,
+      "GOOGL": 0.05
     },
     "human_attention": 0.95,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.68,
+      "sector": 0.71,
       "government": 0.02,
       "other": 0.91
     },
-    "email_type": "invitation",
+    "email_type": "meeting_request",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 1.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.02,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.97,
+      "event_invitation": 0.01,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.1,
@@ -3589,36 +4049,41 @@
   },
   {
     "email_id": "synthetic_000693",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.08,
-      "monitor": 0.01,
-      "redundant": 0.91,
+      "thesis_relevant": 0.07,
+      "monitor": 0.0,
+      "redundant": 0.93,
       "low_value": 0.0,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.29,
+      "AMZN": 0.3,
       "NVDA": 0.17,
-      "MSFT": 0.21,
-      "AAPL": 0.04,
-      "GOOGL": 0.76
+      "MSFT": 0.2,
+      "AAPL": 0.05,
+      "GOOGL": 0.77
     },
     "human_attention": 0.11,
     "topic_probs": {
-      "macro": 0.02,
-      "sector": 0.38,
-      "government": 0.02,
-      "other": 0.92
+      "macro": 0.03,
+      "sector": 0.35,
+      "government": 0.01,
+      "other": 0.93
     },
-    "email_type": "research",
+    "email_type": "internal_forward",
     "email_type_probs": {
-      "research": 0.98,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.05,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.02
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.95,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.03,
@@ -3628,7 +4093,7 @@
   },
   {
     "email_id": "synthetic_000694",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
       "monitor": 0.0,
@@ -3638,26 +4103,31 @@
     },
     "ticker_probs": {
       "AMZN": 0.12,
-      "NVDA": 0.28,
-      "MSFT": 0.11,
-      "AAPL": 0.05,
-      "GOOGL": 0.68
+      "NVDA": 0.29,
+      "MSFT": 0.12,
+      "AAPL": 0.04,
+      "GOOGL": 0.69
     },
-    "human_attention": 0.07,
+    "human_attention": 0.06,
     "topic_probs": {
       "macro": 0.06,
-      "sector": 0.08,
+      "sector": 0.07,
       "government": 0.16,
-      "other": 0.68
+      "other": 0.7
     },
-    "email_type": "news",
+    "email_type": "news_alert",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.98,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 1.0,
+      "newsletter": 0.0,
+      "data_report": 0.0,
       "company_release": 0.0,
-      "invitation": 0.0,
-      "newsletter": 0.02,
-      "other": 0.0
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.03,
@@ -3667,7 +4137,7 @@
   },
   {
     "email_id": "synthetic_000695",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.98,
       "monitor": 0.01,
@@ -3676,105 +4146,120 @@
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.16,
-      "NVDA": 0.96,
-      "MSFT": 0.11,
+      "AMZN": 0.15,
+      "NVDA": 0.95,
+      "MSFT": 0.08,
       "AAPL": 0.03,
       "GOOGL": 0.08
     },
-    "human_attention": 0.9,
+    "human_attention": 0.91,
     "topic_probs": {
       "macro": 0.02,
-      "sector": 0.19,
+      "sector": 0.16,
       "government": 0.02,
-      "other": 0.94
+      "other": 0.95
     },
-    "email_type": "research",
+    "email_type": "internal_forward",
     "email_type_probs": {
-      "research": 1.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.15,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.85,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.11,
-      "instructs_ai": 0.07
+      "instructs_ai": 0.06
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000696",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.97,
-      "monitor": 0.03,
+      "thesis_relevant": 0.95,
+      "monitor": 0.04,
       "redundant": 0.0,
-      "low_value": 0.0,
+      "low_value": 0.01,
       "irrelevant": 0.0
     },
     "ticker_probs": {
-      "AMZN": 0.19,
-      "NVDA": 0.34,
+      "AMZN": 0.17,
+      "NVDA": 0.45,
       "MSFT": 0.93,
       "AAPL": 0.04,
       "GOOGL": 0.12
     },
-    "human_attention": 0.96,
+    "human_attention": 0.95,
     "topic_probs": {
       "macro": 0.03,
       "sector": 0.09,
       "government": 0.01,
       "other": 0.9
     },
-    "email_type": "invitation",
+    "email_type": "meeting_request",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 1.0,
+      "sell_side_research": 0.01,
+      "primary_research": 0.03,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.96,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
-      "possible_mnpi": 0.51,
+      "possible_mnpi": 0.5,
       "instructs_ai": 0.04
     },
     "truncated": false
   },
   {
     "email_id": "synthetic_000697",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.0,
+      "thesis_relevant": 0.01,
       "monitor": 0.01,
       "redundant": 0.01,
-      "low_value": 0.0,
-      "irrelevant": 0.98
+      "low_value": 0.01,
+      "irrelevant": 0.96
     },
     "ticker_probs": {
-      "AMZN": 0.11,
+      "AMZN": 0.1,
       "NVDA": 0.04,
       "MSFT": 0.04,
       "AAPL": 0.03,
       "GOOGL": 0.03
     },
-    "human_attention": 0.49,
+    "human_attention": 0.48,
     "topic_probs": {
       "macro": 0.02,
       "sector": 0.98,
       "government": 0.99,
       "other": 0.08
     },
-    "email_type": "invitation",
+    "email_type": "event_invitation",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 1.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 1.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.01,
@@ -3784,16 +4269,16 @@
   },
   {
     "email_id": "synthetic_000698",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
-      "thesis_relevant": 0.02,
-      "monitor": 0.01,
+      "thesis_relevant": 0.03,
+      "monitor": 0.02,
       "redundant": 0.0,
       "low_value": 0.01,
-      "irrelevant": 0.96
+      "irrelevant": 0.94
     },
     "ticker_probs": {
-      "AMZN": 0.02,
+      "AMZN": 0.03,
       "NVDA": 0.02,
       "MSFT": 0.02,
       "AAPL": 0.02,
@@ -3803,17 +4288,22 @@
     "topic_probs": {
       "macro": 0.01,
       "sector": 0.05,
-      "government": 0.18,
+      "government": 0.17,
       "other": 0.92
     },
-    "email_type": "news",
+    "email_type": "news_alert",
     "email_type_probs": {
-      "research": 0.02,
-      "news": 0.52,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.98,
+      "newsletter": 0.02,
+      "data_report": 0.0,
       "company_release": 0.0,
-      "invitation": 0.0,
-      "newsletter": 0.35,
-      "other": 0.11
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.03,
@@ -3823,36 +4313,41 @@
   },
   {
     "email_id": "synthetic_000699",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.0,
       "monitor": 0.02,
       "redundant": 0.0,
-      "low_value": 0.06,
-      "irrelevant": 0.92
+      "low_value": 0.05,
+      "irrelevant": 0.93
     },
     "ticker_probs": {
       "AMZN": 0.07,
       "NVDA": 0.05,
       "MSFT": 0.07,
-      "AAPL": 0.08,
+      "AAPL": 0.07,
       "GOOGL": 0.09
     },
-    "human_attention": 0.69,
+    "human_attention": 0.7,
     "topic_probs": {
       "macro": 0.04,
-      "sector": 0.97,
+      "sector": 0.98,
       "government": 0.99,
       "other": 0.09
     },
-    "email_type": "invitation",
+    "email_type": "meeting_request",
     "email_type_probs": {
-      "research": 0.0,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 1.0,
+      "sell_side_research": 0.0,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.0,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 1.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.02,
@@ -3862,40 +4357,45 @@
   },
   {
     "email_id": "synthetic_000700",
-    "criteria_version": "1f44a2faac8e",
+    "criteria_version": "0b34df14dec8",
     "triage_probs": {
       "thesis_relevant": 0.01,
-      "monitor": 0.18,
+      "monitor": 0.22,
       "redundant": 0.01,
-      "low_value": 0.09,
-      "irrelevant": 0.71
+      "low_value": 0.06,
+      "irrelevant": 0.7
     },
     "ticker_probs": {
       "AMZN": 0.13,
       "NVDA": 0.11,
       "MSFT": 0.2,
-      "AAPL": 0.1,
-      "GOOGL": 0.16
+      "AAPL": 0.09,
+      "GOOGL": 0.15
     },
-    "human_attention": 0.14,
+    "human_attention": 0.15,
     "topic_probs": {
       "macro": 0.04,
       "sector": 0.98,
       "government": 0.01,
-      "other": 0.27
+      "other": 0.28
     },
     "email_type": "newsletter",
     "email_type_probs": {
-      "research": 0.02,
-      "news": 0.0,
-      "company_release": 0.0,
-      "invitation": 0.0,
+      "sell_side_research": 0.02,
+      "primary_research": 0.0,
+      "news_alert": 0.0,
       "newsletter": 0.98,
-      "other": 0.0
+      "data_report": 0.0,
+      "company_release": 0.0,
+      "meeting_request": 0.0,
+      "event_invitation": 0.0,
+      "vendor_pitch": 0.0,
+      "internal_forward": 0.0,
+      "administrative": 0.0
     },
     "safety": {
       "possible_mnpi": 0.02,
-      "instructs_ai": 0.02
+      "instructs_ai": 0.03
     },
     "truncated": false
   }

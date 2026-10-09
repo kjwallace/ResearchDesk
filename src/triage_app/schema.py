@@ -136,6 +136,8 @@ class ExistingThesisDraft(BaseModel):   # one suggestion from the existing-thesi
     assumptions: list[AssumptionDraft] = []
     street_view_shift: StreetViewShift = "none"  # did analysts' emails move the street's buy/hold/sell view?
     street_view_note: str = ""          # one sentence on the street's view versus the desk's stance
+    assumption_impact: str = ""         # why it is relevant and what it says about the desk's assumptions or base case
+    if_accepted: str = ""               # what accepting the change would mean for the book
     rationale: str
     claim_ids: list[str]
     sections: list[LinkedSection]
@@ -199,6 +201,8 @@ class ExistingThesis(BaseModel):        # skill: alter an existing thesis
     assumptions: list[LinkedAssumption] = []
     street_view_shift: StreetViewShift = "none"
     street_view_note: str = ""
+    assumption_impact: str = ""         # why the email matters and what it says about the desk's assumptions
+    if_accepted: str = ""               # what accepting would mean for the pillar, conviction and assumptions
 
 class NewThesis(BaseModel):             # skill: spawn a new thesis
     kind: Literal["new_thesis"]

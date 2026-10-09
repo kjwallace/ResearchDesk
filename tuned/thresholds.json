@@ -1,18 +1,18 @@
 {
-  "pass_signal": 0.98,
+  "pass_signal": 0.97,
   "human_attention": 0.925,
   "ticker": {
-    "AMZN": 0.52,
-    "NVDA": 0.7,
-    "MSFT": 0.355,
-    "AAPL": 0.49,
-    "GOOGL": 0.385
+    "AMZN": 0.48,
+    "NVDA": 0.705,
+    "MSFT": 0.42,
+    "AAPL": 0.505,
+    "GOOGL": 0.395
   },
   "topic": {
     "macro": 0.07,
-    "sector": 0.35,
-    "government": 0.87,
-    "other": 0.08
+    "sector": 0.345,
+    "government": 0.875,
+    "other": 0.085
   },
   "content_similarity": 0.85,
   "content_similarity_with_subject": 0.75,
