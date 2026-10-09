@@ -20,7 +20,7 @@ from triage_app import config
 from triage_app.monitoring import Recorder, recording
 from triage_app.pipeline.context import RunContext
 from triage_app.schema import (
-    AnalysisRecord, AttentionNote, Claim, Email, EmailResult, LogEntry, RedundancyRecord, Suggestion,
+    AnalysisRecord, AttentionNote, CallRecord, Claim, Email, EmailResult, LogEntry, RedundancyRecord, Suggestion,
     TriageRecord, VerifyResult,
 )
 from triage_app.state.fold import Seed, fold
@@ -60,6 +60,7 @@ class Step:
     input_tokens: int = 0
     output_tokens: int = 0
     latency_ms: float = 0.0
+    records: list[CallRecord] = field(default_factory=list)   # each model or embedding call the step made
 
 
 @dataclass
@@ -76,6 +77,8 @@ class Trace:
     analysis: AnalysisRecord | None = None
     suggestions: list[Suggestion] = field(default_factory=list)
     rejected: list[Suggestion] = field(default_factory=list)
+    raw: list[Suggestion] = field(default_factory=list)       # the analysis agent's output, before validation
+    checked: list[Suggestion] = field(default_factory=list)   # after validation: open or rejected with a reason
 
     @property
     def quarantined(self) -> bool:
@@ -116,7 +119,7 @@ class _Runner:
         self.trace.steps.append(Step(
             name=name, status=status, detail=detail, calls=len(calls),
             cache_hits=sum(c.cache_hit for c in calls), input_tokens=sum(c.input_tokens for c in calls),
-            output_tokens=sum(c.output_tokens for c in calls), latency_ms=timing,
+            output_tokens=sum(c.output_tokens for c in calls), latency_ms=timing, records=list(calls),
         ))
         return value if status == "ok" else None
 
@@ -253,6 +256,7 @@ def _analyse(r: _Runner, trace: Trace, email: Email, result: EmailResult, earlie
             r.skip(name, "Needs the analysis")
         return
     trace.analysis, raw = out
+    trace.raw = list(raw)
     if not raw:
         for name in ("validate", "merge"):
             r.skip(name, "No suggestions to check")
@@ -269,6 +273,7 @@ def _analyse(r: _Runner, trace: Trace, email: Email, result: EmailResult, earlie
     if checked is None:
         r.skip("merge", "Needs validated suggestions")
         return
+    trace.checked = list(checked)
     trace.rejected = [s for s in checked if s.status == "rejected"]
     valid = [s for s in checked if s.status == "open"]
     if not valid:

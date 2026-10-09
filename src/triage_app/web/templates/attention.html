@@ -96,6 +96,7 @@
             <span class="due {{ it.bucket }}">{{ icon('clock') }}{% if it.deadline %}{{ 'Reply' if n and n.action == 'reply' else 'Respond' }} by {{ it.deadline | due(brief.day) }}{% else %}No deadline{% endif %}</span>
           </div>
           <p class="req-offer">{{ pane_link('/email/' ~ e.email_id, n.summary if n else e.subject) }}</p>
+          {% if n and n.follow_up %}<p class="req-follow"><b>Next step:</b> {{ n.follow_up }}</p>{% endif %}
           <div class="req-foot">
             <span class="tags">{% if r %}{% for t in r.affected_tickers %}<a class="tag ticker" href="/company/{{ t }}">{{ t }}</a>{% endfor %}{% endif %}
               <span class="tag soft">{{ (it.triage.email_type | human) if it.triage else 'Request' }}</span></span>

@@ -3,6 +3,7 @@
 import html
 import json
 import re
+import shutil
 import sys
 from collections.abc import Iterator
 from pathlib import Path
@@ -22,7 +23,7 @@ from triage_app.monitoring import Recorder
 from triage_app.pipeline.context import RunContext
 from triage_app.pipeline.io import read_list
 from triage_app.schema import (
-    AnalysisRecord, AttentionNote, Claim, Email, EmailResult, LinkedSection, RedundancyRecord, Suggestion, TriageRecord,
+    AnalysisRecord, AttentionNote, Claim, Email, EmailResult, ExistingThesis, LinkedSection, ProjectionChange, RedundancyRecord, Suggestion, TriageRecord,
     VerifyResult,
 )
 from triage_app.state.compute import compute
@@ -282,31 +283,85 @@ def test_requests_order_by_time_or_relevance_and_filter_by_ticker(client: TestCl
     assert "Requested by" not in text and "Received " not in text
 
 
-def test_inbox_tab_follows_the_brief_and_ratings_are_placeholders(client: TestClient) -> None:
+def test_inbox_tab_follows_the_brief_and_book_shows_street_view(client: TestClient) -> None:
     text = client.get("/").text
     nav = text[text.index('class="tabs"'):text.index("</nav>")]
     assert nav.index("Morning Brief") < nav.index("Inbox") < nav.index("Review")
     book = client.get("/book").text
-    assert "Analyst rating</th>" in book and "rating-pending" in book
-    assert "Street target</th>" in book and "pending-chip" in book
-    assert "Street target" in client.get("/company/MSFT").text
+    thesis = next(t for t in load_seed().theses if t.ticker == "MSFT")
+    assert "Analyst rating</th>" in book and f'class="rating {thesis.street_view}"' in book
+    assert "Street target</th>" in book
+    if thesis.street_target_price is not None:
+        assert f"${thesis.street_target_price:,.0f}" in book
     company = client.get("/company/MSFT").text
-    assert "Suggested rating changes" in company and "Upcoming" in company
+    assert "Suggested rating changes" in company and "Street target" in company
+    if thesis.summary:
+        assert str(escape(thesis.summary)) in company
 
-
-def test_inbox_orders_by_relevance_and_groups_by_ticker_category_topic(client: TestClient) -> None:
+def test_inbox_orders_by_time_or_relevance_and_filters_by_tags(client: TestClient) -> None:
     def ids(text: str) -> list[str]:
         return re.findall(r'id="row-(fixture_\d+)"', text)
-    arrival = client.get("/inbox").text
-    assert 'class="stat"' not in arrival and 'href="/inbox?sort=topic"' in arrival
-    assert ids(arrival) == [e for e in CORPUS]                                    # file order
+    by_time = client.get("/inbox").text
+    assert 'class="stat"' not in by_time and 'href="/inbox?sort=relevance"' in by_time
+    assert "sort=ticker" not in by_time and "sort=topic" not in by_time
+    received = sorted(CORPUS.values(), key=lambda e: e.received_at)
+    assert ids(by_time) == [e.email_id for e in received]                           # time received
     relevance = ids(client.get("/inbox?sort=relevance").text)
     scores = [RESULTS[i].signal_score for i in relevance]
     assert scores == sorted(scores, reverse=True) and sorted(relevance) == sorted(CORPUS)
-    for sort, heading in (("ticker", "No company"), ("category", "Actionable"), ("topic", "No topic")):
-        text = client.get(f"/inbox?sort={sort}").text
-        assert heading in text and sorted(ids(text)) == sorted(CORPUS), sort   # every email once
     assert "0.9" not in client.get("/inbox?sort=relevance").text.split('class="list"')[1].split("</section>")[0]
+    # Tags: the search bar knows them, and each row carries its tickers and topics as filter keys.
+    assert "data-taginput" in by_time and 'data-add-tag="AAPL"' in by_time and "Actionable" in by_time
+    r = RESULTS["fixture_001"]
+    row = by_time[by_time.index('id="row-fixture_001"') - 300:by_time.index('id="row-fixture_001"') + 200]
+    for key in [*r.affected_tickers, *r.additional_labels]:
+        assert key in row
+
+def test_projection_changes_render_and_accept(tmp_path: Path, presets: Path) -> None:
+    """A projection change (an email's figure against the book's) shows in the brief, the review queue
+    and the book, and accepting one on a driver updates that assumption."""
+    out = tmp_path / "out"
+    shutil.copytree(OUT, out)
+    model = next(m for m in load_seed().models if m.ticker == "MSFT")
+    driver = next(d for d in model.drivers if d.id == "MSFT.intelligent_cloud_growth")
+    stated = min(driver.max, driver.analyst + 2.0)
+    proj = Suggestion(
+        id="MSFT.intelligent_cloud_growth.proj1",
+        body=ProjectionChange(kind="projection_change", ticker="MSFT", metric=driver.id, period=model.fiscal_year,
+                              stated_value=stated, book_value=driver.analyst, consensus_value=driver.consensus),
+        rationale="Reseller checks put Azure growth above the book's assumption.", claim_ids=[],
+        sections=[], status="open")
+    suggestions = json.loads((out / "suggestions.json").read_text()) + [proj.model_dump(mode="json")]
+    (out / "suggestions.json").write_text(json.dumps(suggestions))
+    brief = json.loads((out / "brief.json").read_text())
+    brief["projection_changes"] = [proj.id]
+    (out / "brief.json").write_text(json.dumps(brief))
+    with TestClient(create_app(out, make_ctx=fake_ctx, presets_dir=presets, emails_path=FIXTURE_EMAILS)) as c:
+        assert "Projection changes" in c.get("/").text and f"/suggestion/{proj.id}" in c.get("/").text
+        detail = c.get(f"/suggestion/{proj.id}").text
+        assert "Stated in the email" in detail and f"{stated:,.1f}%" in detail and "Gap to the book" in detail
+        assert f'href="/review/{proj.id}"' in c.get("/book").text
+        assert proj.id in c.get("/review").text
+        r = c.post(f"/suggestion/{proj.id}/accept", headers=HX)
+        assert r.status_code == 200 and "Accepted" in r.text
+        assert f'value="{stated}"' in c.get("/company/MSFT").text   # the assumption took the stated figure
+
+
+def test_suggestion_explains_impact_and_what_accepting_means(tmp_path: Path, presets: Path) -> None:
+    if "assumption_impact" not in ExistingThesis.model_fields:
+        pytest.skip("ExistingThesis.assumption_impact / if_accepted arrive with the analysis-upgrade merge")
+    out = tmp_path / "out"
+    shutil.copytree(OUT, out)
+    rows = json.loads((out / "suggestions.json").read_text())
+    row = next(r for r in rows if r["id"] == "MSFT.p1.supports")
+    row["body"]["assumption_impact"] = "Reseller checks show Azure consumption running ahead of the book's assumption."
+    row["body"]["if_accepted"] = "The evidence is logged against MSFT pillar 1 and the Azure view holds more firmly."
+    (out / "suggestions.json").write_text(json.dumps(rows))
+    with TestClient(create_app(out, make_ctx=fake_ctx, presets_dir=presets, emails_path=FIXTURE_EMAILS)) as c:
+        page = c.get("/suggestion/MSFT.p1.supports").text
+        assert "Reseller checks show Azure consumption" in page and "If you accept" in page
+        assert "The evidence is logged against MSFT pillar 1" in page
+        assert "Reseller checks show Azure consumption" in c.get("/").text   # on the brief's card too
 
 
 def test_brief_lists_every_section(client: TestClient) -> None:
@@ -444,7 +499,10 @@ def test_conviction_review_and_set_conviction(client: TestClient) -> None:
     assert client.get("/suggestion/MSFT.p1.review").status_code == 200
     r = client.post("/conviction/MSFT", headers=HX, data={"conviction": "2", "suggestion_id": "MSFT.p1.review"})
     assert r.status_code == 200 and "from 3 to 2" in r.text
-    assert "onviction" not in client.get("/company/MSFT").text and "onviction" not in client.get("/book").text
+    for url in ("/company/MSFT", "/book"):   # no conviction in the book's UI (seed prose may mention it)
+        page = client.get(url).text
+        assert "Set conviction" not in page and ">Conviction<" not in page and "Conviction changed" not in page
+        assert "Conviction " not in re.sub(r'<p class="(thesis-summary|small)[^"]*"[^>]*>.*?</p>', "", page, flags=re.S)
     assert "MSFT.p1.review" not in client.get("/").text
     assert client.post("/conviction/MSFT", headers=HX, data={"conviction": "9"}).status_code == 422
 
@@ -499,7 +557,7 @@ def test_live_with_fakes_traces_every_stage(client: TestClient, fake_stages: dic
     r = client.post("/live", headers=HX, data={"sender": "A", "subject": "Live check", "body": body})
     assert r.status_code == 200
     for stage in ("redundancy", "classify", "gate", "human_attention", "extract", "analyze", "validate", "merge"):
-        assert f"<td>{labels.stage(stage)}</td>" in r.text
+        assert f'<span class="step-name">{labels.stage(stage)}</span>' in r.text
     assert "<td>parse</td>" not in r.text and "<td>Parse</td>" not in r.text
     assert "100" in r.text  # FakeChat's input tokens, shown beside a stage
     sid = re.search(r"/suggestion/(live_\d+\.MSFT\.p1\.supports)", r.text)
@@ -589,8 +647,11 @@ def test_mattered_extracts_claims_from_a_stopped_email(presets: Path, monkeypatc
         assert RESULTS["fixture_010"].gate == "stop"
         r = c.post("/audit/fixture_010/mattered", headers=HX)
         assert r.status_code == 200
-        assert re.search(r"<td>Extract claims</td><td><span class=\"pill ok\">Done</span></td><td class=\"small\">1 claim<", r.text)
+        assert re.search(r'data-step="extract">.*?<span class="step-name">Extract claims</span>\s*<span class="pill ok">Done</span>\s*<span class="step-detail">1 claim<', r.text, re.S)
         assert chat.calls and chat.calls[0]["namespace"] == "extract"
+        step = r.text[r.text.index('data-step="extract"'):]
+        step = step[:step.index("</li>")]
+        assert str(escape(quote)) in step and "Model calls" in step and "First-hand" in step   # the claim, its call
 
 
 def test_mattered_on_quarantined_spends_nothing(client: TestClient) -> None:

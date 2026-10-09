@@ -41,7 +41,10 @@ NAMES: dict[str, str] = {
     # Change log
     "pillar_evidence": "Evidence logged", "pillar_added": "Pillar added",
     "driver_updated": "Assumption updated", "conviction_changed": "Conviction changed",
-    "pillar_edited": "Pillar edited", "pillar_removed": "Pillar removed",
+    "pillar_edited": "Pillar edited", "pillar_removed": "Pillar removed", "projection_noted": "Projection noted",
+    "projection_change": "Projection change",
+    # Street view
+    "buy": "Buy", "hold": "Hold", "sell": "Sell", "toward_buy": "Toward buy", "toward_sell": "Toward sell",
     # Verify verdicts
     "confirmed": "Confirmed", "contradicted": "Contradicted", "not_found": "Not found",
     # Live-trace step status
@@ -197,8 +200,15 @@ _STANCE_WORDS = {"supports": "Supports", "contradicts": "Contradicts", "review":
 _EMAIL_ID = r"(?:synthetic|fixture|live)_\d+"
 _ID_PATTERN = re.compile(
     rf"\b(?P<email>{_EMAIL_ID})(?:\.(?P<rest>[A-Za-z0-9_.]+?))?(?=[^A-Za-z0-9_.]|\.(?:\s|$)|$)"
-    r"|\b(?P<ticker>[A-Z]{2,5})\.(?P<item>p\d+(?:\.(?:supports|contradicts|review))?|new\d+|[a-z][a-z_]*[a-z])\b"
+    r"|\b(?P<ticker>[A-Z]{2,5})\.(?P<item>p\d+(?:\.(?:supports|contradicts|review))?|new\d+"
+    r"|[a-z][a-z_]*[a-z](?:\.proj\d+)?)\b"
 )
+
+
+@cache
+def _driver_units() -> dict[str, str]:
+    from triage_app.state.fold import load_seed
+    return {d.id: d.unit for m in load_seed().models for d in m.drivers}
 
 
 @cache
@@ -218,6 +228,10 @@ def _item_name(ticker: str, item: str) -> str:
         return f"{name} · {_STANCE_WORDS[m.group(2)]}" if m.group(2) else name
     if m := re.fullmatch(r"new(\d+)", item):
         return f"{ticker} new thesis {m.group(1)}"
+    if m := re.fullmatch(r"([a-z][a-z_]*[a-z])\.proj(\d+)", item):
+        return f"{ticker} {metric_name(ticker, m.group(1))} · projection {m.group(2)}"
+    if item in OUTPUT_METRICS:
+        return f"{ticker} {OUTPUT_METRICS[item][0]}"
     return _driver_labels().get(f"{ticker}.{item}", f"{ticker} {item.replace('_', ' ')}")
 
 
@@ -283,3 +297,32 @@ CRITERIA_GROUPS: list[tuple[str, str, str, list[str]]] = [
      "Which topics an email touches and which of the five covered companies it materially affects.",
      ["macro", "sector", "government", "other", "affected_tickers"]),
 ]
+
+
+
+# ---- Projection metrics: a driver, or one of the computed outputs ----
+
+OUTPUT_METRICS: dict[str, tuple[str, str]] = {   # metric: (name, unit)
+    "revenue": ("revenue", "usd_bn"), "operating_income": ("operating income", "usd_bn"),
+    "eps": ("EPS", "usd"), "target_price": ("target price", "usd"),
+}
+
+
+def metric_name(ticker: str, metric: str) -> str:
+    """'EPS', 'revenue', or a driver's label for a driver metric (given as an ID or a bare name)."""
+    if metric in OUTPUT_METRICS:
+        return OUTPUT_METRICS[metric][0]
+    driver_id = metric if "." in metric else f"{ticker}.{metric}"
+    return _driver_labels().get(driver_id, metric.replace("_", " "))
+
+
+def metric_value(metric: str, value: float | None, unit: str | None = None) -> str:
+    """A projection figure with its unit: '12.5%', '$81.0bn', '$6.55'."""
+    if value is None:
+        return ""
+    unit = unit or (OUTPUT_METRICS[metric][1] if metric in OUTPUT_METRICS else _driver_units().get(metric, "pct"))
+    if unit == "usd_bn":
+        return f"${value:,.1f}bn"
+    if unit == "usd":
+        return f"${value:,.2f}"
+    return f"{value:,.1f}%"

@@ -1,32 +1,124 @@
-{% from "macros.html" import icon, scores %}
+{% from "macros.html" import icon, scores, prob_bars, email_link, label_pill %}
 {% if error %}<div class="flash err">{{ error | sentence }}</div>{% endif %}
 {% if trace %}
-<div class="trace">
-  <div class="pane-head">{{ icon('activity') }}<span>Trace</span> <a class="mono-id" href="/email/{{ trace.email_id }}">{{ trace.email_id | ref }}</a></div>
+{%- set t = trace.totals -%}
+<div class="trace" data-trace>
+  <div class="pane-head">{{ icon('activity') }}<span>Trace</span> <a class="mono-id" href="/email/{{ trace.email_id }}">{{ trace.email_id | ref }}</a>
+    <span class="grow"></span><button type="button" class="ghost" data-act="expand-steps">Expand all</button></div>
   <h2 style="font-size:17px">{{ trace.subject }}</h2>
   <p class="small muted" style="margin-top:-8px">{{ trace.sender }}</p>
-  {% if trace.quarantined %}<div class="callout bad"><div class="eyebrow">{{ icon('lock') }}Quarantined</div><p>Quarantined: held unsummarized; no later model saw it.</p></div>
+
+  {% if trace.quarantined %}
+    <div class="callout bad"><div class="eyebrow">{{ icon('lock') }}Quarantined</div><p>Quarantined: held unsummarized; no later model saw it.</p></div>
   {% elif trace.result %}
     <div class="callout {{ '' if trace.result.gate == 'pass' else 'plain' }}">
-      <div class="eyebrow"><span class="pill {{ trace.result.triage }}">{{ trace.result.triage | human }}</span> <span class="pill {{ trace.result.gate }}">{{ trace.result.gate | human }}</span></div>
+      <div class="eyebrow">{{ label_pill(trace.result.triage) }} <span class="pill {{ trace.result.gate }}">{{ trace.result.gate | human }}</span></div>
       <p class="small">{{ trace.result | verdict }}</p></div>
-    {{ scores(v, trace.triage, trace.result, trace.redundancy) }}
-    {% if trace.note %}<div class="callout warn"><div class="eyebrow">{{ icon('clock') }}Attention note · {{ trace.note.action | human }}</div><p>{{ trace.note.summary }}</p></div>{% endif %}
     {% for s in trace.suggestions %}<div class="linked-item"><span class="ic-round">{{ icon('trend') }}</span><div>Suggestion <a href="/suggestion/{{ trace.email_id }}.{{ s.id }}" class="mono-id">{{ s.id | ref }}</a><div class="small muted">{{ s.rationale }}</div></div></div>{% endfor %}
-    {% for s in trace.rejected %}<p class="small muted">Rejected <span class="mono-id">{{ s.id | ref }}</span>: {{ s.reject_reason | prose }}</p>{% endfor %}
-    {% if trace.analysis and trace.analysis.no_change_reason %}<p class="small">No change: {{ trace.analysis.no_change_reason | prose }}</p>{% endif %}
     {% if trace.note or trace.suggestions %}<p class="small"><a href="/">Added to your brief →</a></p>{% endif %}
   {% endif %}
-  <div class="table-wrap" style="margin-top:14px"><table>
-    <thead><tr><th>Stage</th><th>Status</th><th>Result</th><th class="num">Calls</th><th class="num">Tokens in</th><th class="num">Tokens out</th><th class="num">ms</th></tr></thead>
-    {% for st in trace.steps %}
-      <tr><td>{{ st.name | stage }}</td><td><span class="pill {{ st.status }}">{{ st.status | human }}</span></td><td class="small">{{ st.detail | prose }}</td>
-        <td class="num">{{ st.calls }}{% if st.cache_hits %} <span class="muted">({{ st.cache_hits }} cached)</span>{% endif %}</td>
-        <td class="num">{{ st.input_tokens }}</td><td class="num">{{ st.output_tokens }}</td><td class="num">{{ st.latency_ms | num(0) }}</td></tr>
-    {% endfor %}
-    {% set t = trace.totals %}
-    <tr class="total"><th>Total</th><th></th><th></th><th class="num">{{ t.calls }}</th><th class="num">{{ t.input_tokens }}</th><th class="num">{{ t.output_tokens }}</th><th class="num">{{ t.latency_ms | num(0) }}</th></tr>
-  </table></div>
+
+  <div class="trace-totals small">
+    <span><b>{{ t.calls }}</b> model call{{ '' if t.calls == 1 else 's' }}{% if t.cache_hits %} ({{ t.cache_hits }} cached){% endif %}</span>
+    <span><b>{{ '{:,}'.format(t.input_tokens) }}</b> tokens in · <b>{{ '{:,}'.format(t.output_tokens) }}</b> out</span>
+    <span><b>{{ t.latency_ms | num(0) }}</b> ms</span>
+  </div>
+
+  <ol class="steps">
+  {% for st in trace.steps %}
+    <li class="step {{ st.status }}" data-step="{{ st.name }}">
+      <details {% if st.status == 'failed' %}open{% endif %}>
+        <summary>
+          <span class="step-dot" aria-hidden="true"></span>
+          <span class="step-name">{{ st.name | stage }}</span>
+          <span class="pill {{ st.status }}">{{ st.status | human }}</span>
+          <span class="step-detail">{{ st.detail | prose }}</span>
+          <span class="step-meta">{% if st.calls %}{{ st.calls }} call{{ '' if st.calls == 1 else 's' }} · {{ '{:,}'.format(st.input_tokens) }} / {{ '{:,}'.format(st.output_tokens) }} tokens · {% endif %}{{ st.latency_ms | num(0) }} ms</span>
+        </summary>
+        <div class="step-body">
+        {% if st.status != 'ok' %}
+          <p class="small muted">{{ st.detail | prose }}</p>
+        {% elif st.name == 'redundancy' %}
+          {% set red = trace.redundancy %}
+          {% if red and red.nearest %}
+            <dl class="kv"><dt>Nearest earlier email</dt><dd class="left">{{ email_link(v, red.nearest) }}</dd>
+              <dt>Content similarity</dt><dd>{{ red.content_similarity | num(2) }}</dd>
+              <dt>Subject similarity</dt><dd>{{ red.subject_score | num(2) }}</dd>
+              <dt>Flagged as a possible repeat</dt><dd>{{ 'Yes' if red.flagged else 'No' }}</dd></dl>
+          {% else %}<p class="small muted">No earlier email today to compare with.</p>{% endif %}
+        {% elif st.name == 'classify' and trace.triage %}
+          {% set tr = trace.triage %}
+          <dl class="kv"><dt>Email type</dt><dd><span class="tag">{{ tr.email_type | human }}</span></dd>
+            <dt>Body trimmed to the input limit</dt><dd>{{ 'Yes' if tr.truncated else 'No' }}</dd></dl>
+          <div class="score-group"><div class="score-h">Label</div>{{ prob_bars(tr.triage_probs) }}</div>
+          <div class="score-group"><div class="score-h">Companies</div>{{ prob_bars(tr.ticker_probs) }}</div>
+          <div class="score-group"><div class="score-h">Topics</div>{{ prob_bars(tr.topic_probs) }}</div>
+          <div class="score-group"><div class="score-h">Attention required, and safety checks</div>{{ prob_bars(dict(tr.safety, human_attention=tr.human_attention)) }}</div>
+        {% elif st.name == 'gate' and trace.result %}
+          {% set r = trace.result %}
+          <dl class="kv"><dt>Label</dt><dd>{{ label_pill(r.triage) }}</dd>
+            <dt>Decided by</dt><dd>{{ r.decided_by | human }}</dd>
+            <dt>Analysis</dt><dd><span class="pill {{ r.gate }}">{{ r.gate | human }}</span></dd>
+            <dt>Attention required</dt><dd>{{ 'Yes' if r.human_attention else 'No' }}</dd>
+            <dt>Companies</dt><dd>{% for x in r.affected_tickers %}<span class="tag">{{ x }}</span>{% else %}None{% endfor %}</dd>
+            <dt>Topics</dt><dd>{% for x in r.additional_labels %}<span class="tag soft">{{ x | human }}</span>{% else %}None{% endfor %}</dd></dl>
+          <div class="score-note"><b>Decision record</b> <span class="xs muted">(written by code, not a model)</span><br>{{ r.reason | prose }}</div>
+        {% elif st.name == 'human_attention' and trace.note %}
+          {% set n = trace.note %}
+          <dl class="kv"><dt>Action asked for</dt><dd>{{ n.action | human }}</dd>
+            <dt>Deadline</dt><dd>{{ n.deadline.strftime('%b %d, %H:%M') if n.deadline else 'None stated' }}</dd></dl>
+          <p class="small" style="margin:8px 0">{{ n.summary }}</p>
+          {% if n.follow_up %}<p class="small"><b>Next step:</b> {{ n.follow_up }}</p>{% endif %}
+          {% for q in n.sections %}<blockquote>{{ q.quote }}</blockquote>{% endfor %}
+        {% elif st.name == 'extract' %}
+          {% for c in trace.claims %}
+            <div class="claim">
+              <blockquote>{{ c.quote }}</blockquote>
+              <div class="tags">
+                <span class="tag soft">{{ c.kind | human }}</span>
+                {% for x in c.tickers %}<span class="tag ticker">{{ x }}</span>{% endfor %}
+                {% for x in c.entities %}<span class="tag">{{ x }}</span>{% endfor %}
+                {% if c.metric %}<span class="tag">{{ c.metric | human }}{% if c.value is not none %}: {{ c.value | num(1) }}{{ ('%' if c.unit == 'pct' else ' ' ~ (c.unit | human)) if c.unit else '' }}{% endif %}{% if c.direction %} ({{ c.direction }}){% endif %}{% if c.period %} · {{ c.period }}{% endif %}</span>{% endif %}
+                {% if c.first_hand %}<span class="tag good">First-hand</span>{% endif %}
+              </div>
+            </div>
+          {% else %}<p class="small muted">No claims extracted.</p>{% endfor %}
+        {% elif st.name == 'analyze' %}
+          {% set a = trace.analysis %}
+          <div class="score-h">Skills the agent called</div>
+          {% if a and a.skills_called %}<ol class="tool-calls">{% for k in a.skills_called %}<li>{{ icon('zap') }}<b>{{ 'Alter an existing thesis' if k == 'existing_thesis' else ('Spawn a new thesis' if k == 'new_thesis' else ('Revise projections' if k == 'projection_change' else k | human)) }}</b></li>{% endfor %}</ol>
+          {% else %}<p class="small muted">No skill was called.</p>{% endif %}
+          {% if trace.raw %}<div class="score-h" style="margin-top:10px">What the skills returned</div>
+            {% for s in trace.raw %}<div class="claim"><span class="tag soft">{{ s.body.kind | human }}</span>
+              {% if s.body.kind == 'existing_thesis' %}<b>{{ s.body.pillar_id | ref }}</b> · {{ s.body.stance | human }} · Strength {{ s.body.strength }}
+              {% elif s.body.kind == 'new_thesis' %}<b>{{ s.body.ticker }}</b> · {{ s.body.statement }}
+              {% elif s.body.kind == 'projection_change' %}<b>{{ s.body.ticker }} {{ metric_name(s.body.ticker, s.body.metric) }}</b> · stated {{ metric_value(s.body.metric, s.body.stated_value) }}{% endif %}
+              <div class="small muted">{{ s.rationale }}</div></div>{% endfor %}
+          {% elif a and a.no_change_reason %}<p class="small"><b>No change:</b> {{ a.no_change_reason | prose }}</p>{% endif %}
+        {% elif st.name == 'validate' %}
+          {% for s in trace.checked %}
+            <div class="claim"><span class="pill {{ 'ok' if s.status == 'open' else 'failed' }}">{{ 'Kept' if s.status == 'open' else 'Rejected' }}</span>
+              <b>{{ s.id | ref }}</b>{% if s.second_look %} <span class="pill second">Second look</span>{% endif %}
+              {% if s.reject_reason %}<div class="small" style="color:var(--bad)">{{ s.reject_reason | prose }}</div>{% endif %}</div>
+          {% endfor %}
+        {% elif st.name == 'merge' %}
+          {% for s in trace.suggestions %}<div class="claim"><a href="/suggestion/{{ trace.email_id }}.{{ s.id }}" class="mono-id">{{ s.id | ref }}</a>
+            <div class="small muted">{{ s.rationale }}</div></div>{% endfor %}
+        {% endif %}
+
+        {% if st.records %}
+          <div class="score-h" style="margin-top:12px">Model calls</div>
+          <div class="table-wrap"><table class="calls">
+            <thead><tr><th>Model</th><th>Source</th><th class="num">Tokens in</th><th class="num">Tokens out</th><th class="num">ms</th></tr></thead>
+            {% for c in st.records %}<tr><td class="small">{{ c.model }}</td><td class="small">{{ 'Cache' if c.cache_hit else 'Live call' }}{% if c.estimated %} <span class="muted">(tokens estimated)</span>{% endif %}</td>
+              <td class="num">{{ '{:,}'.format(c.input_tokens) }}</td><td class="num">{{ '{:,}'.format(c.output_tokens) }}</td><td class="num">{{ c.latency_ms | num(0) }}</td></tr>{% endfor %}
+          </table></div>
+        {% elif st.status == 'ok' %}<p class="xs muted" style="margin:10px 0 0">No model calls: this step is code.</p>{% endif %}
+        </div>
+      </details>
+    </li>
+  {% endfor %}
+  </ol>
   <p class="xs muted">{{ runs_left }} {{ 'run' if runs_left == 1 else 'runs' }} left this hour.</p>
 </div>
 {% endif %}

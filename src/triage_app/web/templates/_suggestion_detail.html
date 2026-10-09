@@ -11,6 +11,8 @@
     <h2>{{ b.stance | human }} {{ b.pillar_id | ref }}</h2>
   {% elif b.kind == 'new_thesis' %}
     <h2>New thesis candidate for {{ b.ticker }}</h2>
+  {% elif b.kind == 'projection_change' %}
+    <h2>{{ b.ticker }} {{ metric_name(b.ticker, b.metric) }}, {{ b.period }}</h2>
   {% else %}
     <h2>Conviction review for {{ b.ticker }}</h2>
   {% endif %}
@@ -24,6 +26,9 @@
     {% if p %}<p class="lede">{{ p.statement }}</p>{% endif %}
   {% elif b.kind == 'new_thesis' %}
     <p class="lede">{{ b.statement }}</p>
+  {% elif b.kind == 'projection_change' %}
+    <p class="lede">An email states {{ metric_name(b.ticker, b.metric) }} of <b>{{ metric_value(b.metric, b.stated_value) }}</b> for {{ b.period }};
+      the book has {{ metric_value(b.metric, b.book_value) }} and consensus {{ metric_value(b.metric, b.consensus_value) }}.</p>
   {% else %}
     <p class="lede">Accepted contradicting evidence on {{ b.pillar_id | ref }} reached the review threshold.
       Current conviction: <b>{{ th.conviction }}</b> of 5. Pick a value, or dismiss the review. The app never proposes one.</p>
@@ -35,6 +40,14 @@
     {% if b.kind == 'existing_thesis' %}
       <dt>Stance</dt><dd><span class="pill dot {{ b.stance }}">{{ b.stance | human }}</span></dd>
       <dt>Strength</dt><dd class="big-num">{{ b.strength }} of 3</dd>
+      {% if b.street_view_shift != 'none' %}<dt>Street view</dt><dd><span class="rating {{ 'buy' if b.street_view_shift == 'toward_buy' else 'sell' }}">{{ b.street_view_shift | human }}</span></dd>{% endif %}
+    {% elif b.kind == 'projection_change' %}
+      {% set gap = b.stated_value - b.book_value %}
+      <dt>Stated in the email</dt><dd class="big-num">{{ metric_value(b.metric, b.stated_value) }}</dd>
+      <dt>Book now</dt><dd>{{ metric_value(b.metric, b.book_value) }}</dd>
+      <dt>Consensus</dt><dd>{{ metric_value(b.metric, b.consensus_value) }}</dd>
+      <dt>Gap to the book</dt><dd class="{{ 'gap-pos' if gap > 0 else ('gap-neg' if gap < 0 else '') }}">{{ '+' if gap > 0 else ('−' if gap < 0 else '') }}{{ metric_value(b.metric, gap | abs) }}</dd>
+      <dt>On accept</dt><dd>{{ 'Updates the assumption; EPS and target price recompute' if '.' in b.metric else 'Noted against the book’s projection' }}</dd>
     {% elif b.kind == 'new_thesis' %}
       <dt>Linked assumptions</dt><dd>{% for d in b.driver_ids %}<span class="mono-id">{{ d | ref }}</span>{% else %}None{% endfor %}</dd>
     {% else %}
@@ -42,14 +55,26 @@
     {% endif %}
       {% if s.second_look %}<dt>Second look</dt><dd><span class="pill second">Yes: no linked email is labeled as signal</span></dd>{% endif %}
     </dl>
-    {% if b.kind == 'existing_thesis' %}<div class="bar lg"><span style="width: {{ (b.strength / 3 * 100) | round }}%"></span></div>{% endif %}
+    {% if b.kind == 'existing_thesis' %}<div class="bar lg"><span style="width: {{ (b.strength / 3 * 100) | round }}%"></span></div>
+      {% if b.street_view_shift != 'none' and b.street_view_note %}<p class="small muted" style="margin:8px 0 0">{{ b.street_view_note }}</p>{% endif %}
+      <details class="scores compact"><summary>{{ icon('gauge') }}View scores</summary>
+        <div class="scores-body"><dl class="kv"><dt>Relevance to this pillar</dt><dd class="big-num">{{ b.relevance | num(2) }}</dd></dl>
+          {{ bar(b.relevance) }}</div></details>
+    {% endif %}
   </div>
 
   {% if b.kind != 'conviction_review' %}
   <div class="callout">
     <div class="eyebrow">{{ icon('zap') }}Why the model suggests it</div>
-    <p>{{ s.rationale }}</p>
+    <p><b>{{ s.rationale }}</b></p>
+    {% if b.assumption_impact is defined and b.assumption_impact %}<p class="impact">{{ b.assumption_impact }}</p>{% endif %}
   </div>
+  {% if b.if_accepted is defined and b.if_accepted %}
+  <div class="callout plain">
+    <div class="eyebrow">{{ icon('check-circle') }}If you accept</div>
+    <p>{{ b.if_accepted }}</p>
+  </div>
+  {% endif %}
   {% endif %}
   {% if s.status == 'rejected' %}<div class="callout bad"><div class="eyebrow">{{ icon('x') }}Rejected in validation</div><p>{{ s.reject_reason | prose }}</p></div>{% endif %}
 

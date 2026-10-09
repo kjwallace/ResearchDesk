@@ -24,6 +24,7 @@
   <div class="callout warn">
     <div class="eyebrow">{{ icon('clock') }}Attention note · {{ note.action | human }}{% if note.deadline %} · by {{ note.deadline.strftime('%b %d, %H:%M') }}{% endif %}</div>
     <p>{{ note.summary }}</p>
+    {% if note.follow_up %}<p class="small" style="margin-top:6px"><b>Next step:</b> {{ note.follow_up }}</p>{% endif %}
   </div>
   {% endif %}
 

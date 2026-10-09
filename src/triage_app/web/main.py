@@ -32,7 +32,8 @@ from triage_app import config, thresholds
 from triage_app.criteria import CriteriaError, parse_file, read_files
 from triage_app.pipeline import deliver
 from triage_app.schema import (
-    AttentionNote, Brief, CompanyModel, LogEntry, ConvictionReview, Email, EmailResult, ExistingThesis, NewThesis,
+    AttentionNote, Brief, CompanyModel, ConvictionReview, Email, EmailResult, ExistingThesis, LogEntry, NewThesis,
+    ProjectionChange,
     Suggestion, Thesis, TriageRecord,
 )
 from triage_app.state import apply
@@ -152,7 +153,8 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
                                  ASSET_V=_asset_version())
     templates.env.filters["num"] = lambda v, d=1: "" if v is None else f"{v:,.{d}f}"
     templates.env.filters["pct"] = lambda v: "N/A" if v is None else f"{v * 100:.1f}%"
-    templates.env.globals.update(labels=labels, position=labels.position)
+    templates.env.globals.update(labels=labels, position=labels.position, metric_name=labels.metric_name,
+                                 metric_value=labels.metric_value)
     templates.env.filters.update(due=labels.due, human=labels.human, stage=labels.stage, measure=labels.measure,
                                  sentence=labels.sentence, prose=labels.prose, verdict=labels.verdict,
                                  ref=labels.pretty_id, money=labels.money)
@@ -258,6 +260,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         return page(
             request, "brief.html", v, brief=brief, alerts=v.alerts(brief), reviews=v.reviews(),
             thesis_changes=grouped(brief.thesis_changes), new_theses=grouped(brief.new_theses),
+            projection_changes=grouped(brief.projection_changes),
             worth_watching=grouped(brief.worth_watching),
             extras=extras, sizes={t.ticker: t.size_bps for t in v.state.theses.values()},
         )
@@ -286,7 +289,8 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         new theses, worth watching, then what this session's live runs added."""
         brief = brief_of(v)
         sugg = v.suggestions()
-        ids = [r.id for r in v.reviews()] + brief.thesis_changes + brief.new_theses + brief.worth_watching
+        ids = ([r.id for r in v.reviews()] + brief.thesis_changes + brief.projection_changes + brief.new_theses
+               + brief.worth_watching)
         ids += [i for i in v.sess.suggestions if i not in ids]
         return [sugg[i] for i in dict.fromkeys(ids) if i in sugg]
 
@@ -330,6 +334,7 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
         v = view(request)
         open_by_pillar: dict[str, list[Suggestion]] = defaultdict(list)
         new_by_ticker: dict[str, list[Suggestion]] = defaultdict(list)
+        projections_by_ticker: dict[str, list[Suggestion]] = defaultdict(list)
         for s in review_queue(v):
             if v.status(s) != "open":
                 continue
@@ -337,15 +342,19 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
                 open_by_pillar[s.body.pillar_id].append(s)
             elif isinstance(s.body, NewThesis):
                 new_by_ticker[s.body.ticker].append(s)
+            elif isinstance(s.body, ProjectionChange):
+                projections_by_ticker[s.body.ticker].append(s)
         rows = []
         for ticker in config.TICKERS:
             thesis, model = v.thesis(ticker), v.model(ticker)
             if thesis is None or model is None:
                 continue
             rows.append({"ticker": ticker, "thesis": thesis, "model": model, "proj": compute(model),
-                         "open": sum(len(open_by_pillar[p.id]) for p in thesis.pillars) + len(new_by_ticker[ticker])})
+                         "open": sum(len(open_by_pillar[p.id]) for p in thesis.pillars) + len(new_by_ticker[ticker])
+                                 + len(projections_by_ticker[ticker])})
         return page(request, "book.html", v, rows=rows, open_by_pillar=dict(open_by_pillar),
-                    new_by_ticker=dict(new_by_ticker), changes=len(v.sess.log))
+                    new_by_ticker=dict(new_by_ticker), projections_by_ticker=dict(projections_by_ticker),
+                    changes=len(v.sess.log))
 
     @app.get("/company/{ticker}", response_class=HTMLResponse)
     def company_page(request: Request, ticker: str) -> HTMLResponse:
@@ -363,6 +372,8 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
             history=list(reversed(history)), reviews=[r for r in v.reviews() if v.ticker_of(r) == ticker],
             dismissed=[s for s in mine if v.status(s) == "dismissed"],
             accepted=[s for s in mine if v.status(s) == "accepted"],
+            rating_shifts=[s for s in mine if isinstance(s.body, ExistingThesis) and s.body.street_view_shift != "none"
+                           and v.status(s) == "open"],
         )
 
     def criteria_context(label: str | None) -> dict[str, Any]:
@@ -468,45 +479,17 @@ def create_app(data_dir: Path | None = None, *, make_ctx: runner.ContextFactory 
                         outcome=v.sess.handled[email_id])
 
     @app.get("/inbox", response_class=HTMLResponse)
-    def inbox_page(request: Request, sort: str = Query("arrival")) -> HTMLResponse:
-        """The day's emails, in arrival order, by relevance, or grouped by ticker, category or topic.
-        Scores order the list and are never shown."""
+    def inbox_page(request: Request, sort: str = Query("time")) -> HTMLResponse:
+        """The day's emails by time received, or by the hidden relevance (signal) score, which orders
+        the list and is never shown. Tags in the search bar filter on the page."""
         v = view(request)
-        sort = sort if sort in ("arrival", "relevance", "ticker", "category", "topic") else "arrival"
-        emails = sorted(v.data.inbox, key=lambda e: e.received_at)   # arrival time, not ID order
-
-        def signal(e: Email) -> float:
-            r = v.result(e.email_id)
-            return r.signal_score if r else 0.0
-
-        def strongest(e: Email, kind: str) -> str | None:
-            """The ticker or topic the email most bears on, among those its result lists."""
-            r, t = v.result(e.email_id), v.data.triage.get(e.email_id)
-            if r is None or r.gate == "quarantine":
-                return None
-            listed = r.affected_tickers if kind == "ticker" else r.additional_labels
-            probs = (t.ticker_probs if kind == "ticker" else t.topic_probs) if t else {}
-            return max(listed, key=lambda x: probs.get(x, 0.0)) if listed else None
-
-        groups: list[tuple[str, list[Email]]]
+        sort = "relevance" if sort == "relevance" else "time"
+        emails = sorted(v.data.inbox, key=lambda e: e.received_at)   # time received, not ID order
         if sort == "relevance":
-            groups = [("", sorted(emails, key=signal, reverse=True))]
-        elif sort == "category":
-            order = [*config.TRIAGE_LABELS, None]
-            groups = [(labels.human(k) if k else "Quarantined",
-                       [e for e in emails if (r := v.result(e.email_id)) is not None and r.triage == k])
-                      for k in order]
-        elif sort in ("ticker", "topic"):
-            keys: list[str] = list(config.TICKERS if sort == "ticker" else config.TOPICS)
-            by: dict[str | None, list[Email]] = defaultdict(list)
-            for e in emails:
-                by[strongest(e, sort)].append(e)
-            groups = [(labels.human(k), sorted(by[k], key=signal, reverse=True)) for k in keys]
-            groups.append(("No company" if sort == "ticker" else "No topic", by[None]))
-        else:
-            groups = [("", emails)]
-        groups = [(title, rows) for title, rows in groups if rows]
-        return page(request, "inbox.html", v, emails=emails, groups=groups, sort=sort)
+            emails.sort(key=lambda e: r.signal_score if (r := v.result(e.email_id)) else 0.0, reverse=True)
+        tags = ({t: t for t in config.TICKERS} | {labels.human(k): k for k in config.TRIAGE_LABELS}
+                | {labels.human(k): k for k in config.TOPICS} | {"Quarantined": "quarantine"})
+        return page(request, "inbox.html", v, emails=emails, sort=sort, tags=tags)
 
     @app.get("/email/{email_id}", response_class=HTMLResponse)
     def email_page(request: Request, email_id: str) -> HTMLResponse:

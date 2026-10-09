@@ -2,7 +2,7 @@
 {% from "macros.html" import icon, suggestion_row, email_row, email_link, label_pill, pane_link %}
 {% block title %}Brief {{ brief.day }}{% endblock %}
 {% block content %}
-{%- set first = (thesis_changes + new_theses + worth_watching) | first -%}
+{%- set first = (thesis_changes + projection_changes + new_theses + worth_watching) | first -%}
 {%- if reviews %}{% set first_href = '/suggestion/' ~ reviews[0].id %}
 {%- elif first %}{% set first_href = '/suggestion/' ~ first[0].id %}
 {%- elif brief.needs_attention %}{% set first_href = '/email/' ~ brief.needs_attention[0] %}
@@ -50,6 +50,9 @@
 
     <details class="group" open><summary>{{ icon('chev') }}<h2>Suggested thesis changes</h2><span class="badge">{{ thesis_changes | map('length') | sum }}</span></summary>
       {{ groups(thesis_changes) }}
+    </details>
+    <details class="group" open><summary>{{ icon('chev') }}<h2>Projection changes</h2><span class="badge">{{ projection_changes | map('length') | sum }}</span></summary>
+      {{ groups(projection_changes) }}
     </details>
     <details class="group" open><summary>{{ icon('chev') }}<h2>New thesis candidates</h2><span class="badge">{{ new_theses | map('length') | sum }}</span></summary>
       {{ groups(new_theses) }}

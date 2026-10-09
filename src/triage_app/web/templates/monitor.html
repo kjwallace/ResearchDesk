@@ -11,20 +11,23 @@
   {{ stat('Tokens per email', m.tokens_per_email_mean | num(0), 'Spent this run, input plus output', 'activity') }}
   {{ stat('Median email latency', (m.email_latency_p50_ms | num(0)) ~ ' ms', '95th percentile ' ~ (m.email_latency_p95_ms | num(0)) ~ ' ms, end to end', 'clock') }}
   {{ stat('Total latency', ((m.total_latency_ms / 1000) | num(1)) ~ ' s', m.emails ~ ' emails', 'gauge') }}
+  {{ stat('Cost this run', ('$' ~ '%.2f' | format(m.cost_usd)) if m.cost_usd is not none else 'N/A', ('Uncached $' ~ '%.2f' | format(m.uncached_cost_usd) ~ ' · $' ~ '%.4f' | format(m.cost_per_email_usd) ~ ' per email') if m.uncached_cost_usd is not none and m.cost_per_email_usd is not none else 'Not priced', 'activity') }}
   {{ stat('Cache hits', hits ~ ' / ' ~ calls, ((hits / calls * 100) | round | int if calls else 0) ~ '% of model and embedding calls', 'layers') }}
 </section>
 {% macro usage_table(rows, first, stages=False) %}
 <div class="table-wrap"><table>
   <thead><tr><th>{{ first }}</th><th class="num">Calls</th><th class="num">Cache hits</th><th class="num">Spent in</th><th class="num">Spent out</th>
-    <th class="num">Uncached in</th><th class="num">Uncached out</th><th class="num">Median (ms)</th><th class="num">95th percentile (ms)</th><th class="num">Max (ms)</th></tr></thead>
+    <th class="num">Uncached in</th><th class="num">Uncached out</th><th class="num">Cost ($)</th><th class="num">Uncached cost ($)</th><th class="num">Median (ms)</th><th class="num">95th percentile (ms)</th><th class="num">Max (ms)</th></tr></thead>
   {% for name, u in rows.items() %}
     <tr><td>{{ name | stage if stages else name }}</td><td class="num">{{ u.calls }}</td><td class="num">{{ u.cache_hits }}</td>
       <td class="num">{{ u.input_tokens | num(0) }}</td><td class="num">{{ u.output_tokens | num(0) }}</td>
       <td class="num">{{ u.uncached_input_tokens | num(0) }}</td><td class="num">{{ u.uncached_output_tokens | num(0) }}</td>
+      <td class="num">{{ '%.4f' | format(u.cost_usd) if u.cost_usd is not none else '—' }}</td><td class="num">{{ '%.4f' | format(u.uncached_cost_usd) if u.uncached_cost_usd is not none else '—' }}</td>
       <td class="num">{{ u.latency_p50_ms | num(0) }}</td><td class="num">{{ u.latency_p95_ms | num(0) }}</td><td class="num">{{ u.latency_max_ms | num(0) }}</td></tr>
   {% endfor %}
 </table></div>
 {% endmacro %}
+{% if m.unpriced_models %}<p class="xs muted">Not priced (no published per-token price): {{ m.unpriced_models | join(', ') }}. Their tokens are counted; their cost is not.</p>{% endif %}
 <div class="eyebrow">Per stage</div>{{ usage_table(m.stages, 'Stage', stages=True) }}
 <div class="eyebrow" style="margin-top:28px">Per model</div>{{ usage_table(m.by_model, 'Model') }}
 {% endif %}

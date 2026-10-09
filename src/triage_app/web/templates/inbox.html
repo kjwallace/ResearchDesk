@@ -13,7 +13,7 @@
 <section aria-label="Emails" data-list>
   <div class="view-toggle inbox-order" role="group" aria-label="Order emails by">
     <span class="toggle-label">Order by</span>
-    {% for key, name, ic in [('arrival', 'Arrival', 'clock'), ('relevance', 'Relevance', 'gauge'), ('ticker', 'Ticker', 'trend'), ('category', 'Category', 'layers'), ('topic', 'Topic', 'file')] %}
+    {% for key, name, ic in [('time', 'Time received', 'clock'), ('relevance', 'Relevance', 'gauge')] %}
     <a href="/inbox?sort={{ key }}" class="{{ 'on' if sort == key else '' }}" {% if sort == key %}aria-current="true"{% endif %}>{{ icon(ic) }}{{ name }}</a>
     {% endfor %}
   </div>
@@ -22,38 +22,33 @@
     <button type="button" data-filter-tab="pass" aria-pressed="false">Passed <span class="badge">{{ ns.passed }}</span></button>
     <button type="button" data-filter-tab="attention" aria-pressed="false">Needs attention <span class="badge">{{ ns.attention }}</span></button>
   </div>
-  <div class="search"><label class="sr-only" for="q">Search emails</label>{{ icon('search') }}
-    <input type="search" id="q" placeholder="Search sender, subject or ID…" data-filter-text autocomplete="off"></div>
-  <div class="toolbar">
-    <select data-filter-select aria-label="Filter by label">
-      <option value="">All labels</option>
-      {% for l in config.TRIAGE_LABELS %}<option value="{{ l }}">{{ l | human }}</option>{% endfor %}
-      <option value="quarantine">Quarantined</option>
-    </select>
+  <div class="search tag-search" data-taginput data-tags='{{ tags | tojson }}'>
+    <label class="sr-only" for="q">Search emails, or add a tag</label>{{ icon('search') }}
+    <span class="chips" data-chips></span>
+    <input type="search" id="q" list="inbox-tags" placeholder="Search, or type a tag (AAPL, Actionable, Macro) and press Enter" data-filter-text autocomplete="off">
+    <datalist id="inbox-tags">{% for name in tags %}<option value="{{ name }}">{% endfor %}</datalist>
   </div>
+  <div class="quick-tags">{% for t in config.TICKERS %}<button type="button" class="tag ticker" data-add-tag="{{ t }}">{{ t }}</button>{% endfor %}</div>
   <p class="xs muted" style="margin:-4px 0 12px">The raw emails, untouched. Compare with the brief. A quarantined email shows its sender and subject only.</p>
   <div class="list">
-    <div class="list-head"><span>Incoming emails</span><span class="muted">{{ {'arrival': 'Arrival order', 'relevance': 'Most relevant first', 'ticker': 'By company', 'category': 'By category', 'topic': 'By topic'}[sort] }}</span></div>
-    {% for title, rows in groups %}
-      {% if title %}<details class="group" open><summary>{{ icon('chev') }}<h2>{{ title }}</h2><span class="badge">{{ rows | length }}</span></summary>{% endif %}
-      {% for e in rows %}{% set r = v.result(e.email_id) %}
-      {% set keys = [r.triage or 'quarantine', r.gate, 'attention' if r.human_attention else ''] | join(' ') if r else '' %}
+    <div class="list-head"><span>Incoming emails</span><span class="muted">{{ 'Most relevant first' if sort == 'relevance' else 'By time received' }}</span></div>
+      {% for e in emails %}{% set r = v.result(e.email_id) %}
+      {% set keys = ([r.triage or 'quarantine', r.gate, 'attention' if r.human_attention else ''] + r.affected_tickers + r.additional_labels) | join(' ') if r else '' %}
       {% call email_row(v, e, keys=keys) %}
-        {% if r %}{{ label_pill(r.triage) }}
-          {% for t in r.affected_tickers %}<span class="tag">{{ t }}</span>{% endfor %}
+        {% if r %}<button type="button" class="tagbtn" data-add-tag="{{ r.triage or 'quarantine' }}" title="Filter by this tag">{{ label_pill(r.triage) }}</button>
+          {% for t in r.affected_tickers %}<button type="button" class="tag ticker" data-add-tag="{{ t }}" title="Filter by {{ t }}">{{ t }}</button>{% endfor %}
+          {% for t in r.additional_labels %}<button type="button" class="tag soft" data-add-tag="{{ t }}" title="Filter by this topic">{{ t | human }}</button>{% endfor %}
           {% if r.human_attention %}<span class="pill attention">Needs attention</span>{% endif %}
           {% if r.gate == 'pass' %}<span class="pill dot pass">Passed</span>{% endif %}{% endif %}
       {% endcall %}
-      {% endfor %}
-      {% if title %}</details>{% endif %}
-    {% else %}<div class="empty">No emails for this set.</div>{% endfor %}
+      {% else %}<div class="empty">No emails for this set.</div>{% endfor %}
     <div class="list-foot"><span>Showing <span data-shown>{{ emails | length }}</span> of {{ emails | length }} emails</span>
       <span>{{ v.data.directory.name | human }}</span></div>
   </div>
 </section>
 
 <aside class="pane" id="pane" hx-disinherit="*" aria-label="Selected email" aria-live="polite"
-  {% if groups %}hx-get="/email/{{ groups[0][1][0].email_id }}" hx-select="#detail" hx-trigger="load" hx-swap="innerHTML"{% endif %}>
+  {% if emails %}hx-get="/email/{{ emails[0].email_id }}" hx-select="#detail" hx-trigger="load" hx-swap="innerHTML"{% endif %}>
   <div class="pane-head">{{ icon('mail') }}Email</div>
   <p class="muted small">Select an email to read it with its classification.</p>
 </aside>

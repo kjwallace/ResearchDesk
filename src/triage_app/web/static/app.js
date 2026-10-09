@@ -32,8 +32,11 @@
     var tab = list.querySelector("[data-filter-tab].on");
     var tabKey = tab ? tab.dataset.filterTab : "";
     var shown = 0;
+    var chips = Array.prototype.map.call(list.querySelectorAll("[data-chip]"), function (c) { return c.dataset.chip; });
     list.querySelectorAll("[data-row]").forEach(function (r) {
+      var keys = " " + (r.dataset.keys || "") + " ";
       var ok = (!q || r.dataset.search.indexOf(q) !== -1) &&
+               chips.every(function (k) { return keys.indexOf(" " + k + " ") !== -1; }) &&
                (!key || (" " + r.dataset.keys + " ").indexOf(" " + key + " ") !== -1) &&
                (!tabKey || (" " + r.dataset.keys + " ").indexOf(" " + tabKey + " ") !== -1);
       r.hidden = !ok;
@@ -53,6 +56,48 @@
   // A select fires "change" everywhere and "input" only in some browsers; listen for both.
   document.addEventListener("input", onFilterInput);
   document.addEventListener("change", onFilterInput);
+  // Tags in the search bar: typed (Enter), picked from the suggestions, or clicked on a row.
+  function tagInput(list) { return list && list.querySelector("[data-taginput]"); }
+  function tagMap(box) { try { return JSON.parse(box.dataset.tags || "{}"); } catch (err) { return {}; } }
+  function addChip(list, key) {
+    var box = tagInput(list); if (!box || !key) return;
+    var chips = box.querySelector("[data-chips]");
+    if (chips.querySelector('[data-chip="' + key + '"]')) return;
+    var map = tagMap(box), name = Object.keys(map).find(function (n) { return map[n] === key; }) || key;
+    var chip = document.createElement("span");
+    chip.className = "chip-tag"; chip.dataset.chip = key; chip.textContent = name;
+    var x = document.createElement("button"); x.type = "button"; x.textContent = "×"; x.setAttribute("aria-label", "Remove " + name);
+    chip.appendChild(x); chips.appendChild(chip);
+    applyFilter(list);
+  }
+  function lookup(box, text) {
+    var map = tagMap(box), t = text.trim().toLowerCase();
+    var name = Object.keys(map).find(function (n) { return n.toLowerCase() === t || map[n].toLowerCase() === t; });
+    return name ? map[name] : null;
+  }
+  document.addEventListener("keydown", function (e) {
+    var box = e.target.closest("[data-taginput]"); if (!box || e.target.tagName !== "INPUT") return;
+    var list = box.closest("[data-list]");
+    if (e.key === "Enter") {
+      e.preventDefault();
+      var key = lookup(box, e.target.value);
+      if (key) { e.target.value = ""; addChip(list, key); }
+    } else if (e.key === "Backspace" && !e.target.value) {
+      var last = box.querySelector("[data-chip]:last-of-type"); if (last) { last.remove(); applyFilter(list); }
+    }
+  });
+  document.addEventListener("input", function (e) {
+    var box = e.target.closest("[data-taginput]"); if (!box) return;
+    if (e.inputType && e.inputType !== "insertReplacementText") return;   // a pick from the suggestions
+    var key = lookup(box, e.target.value);
+    if (key) { e.target.value = ""; addChip(box.closest("[data-list]"), key); }
+  });
+  document.addEventListener("click", function (e) {
+    var add = e.target.closest("[data-add-tag]");
+    if (add) { e.preventDefault(); addChip(add.closest("[data-list]"), add.dataset.addTag); return; }
+    var x = e.target.closest(".chip-tag button");
+    if (x) { var l = x.closest("[data-list]"); x.parentNode.remove(); applyFilter(l); return; }
+  });
   document.addEventListener("click", function (e) {
     var t = e.target.closest("[data-filter-tab]");
     if (!t) return;
@@ -206,4 +251,14 @@
 document.addEventListener("submit", function (e) {
   var panel = e.target.closest("details.tool, details.more");
   if (panel) setTimeout(function () { panel.open = false; }, 0);
+});
+
+// Live trace: expand or collapse every step at once.
+document.addEventListener("click", function (e) {
+  var b = e.target.closest('[data-act="expand-steps"]');
+  if (!b) return;
+  var trace = b.closest("[data-trace]"), steps = trace.querySelectorAll("li.step > details");
+  var open = b.textContent.trim() === "Expand all";
+  steps.forEach(function (d) { d.open = open; });
+  b.textContent = open ? "Collapse all" : "Expand all";
 });
