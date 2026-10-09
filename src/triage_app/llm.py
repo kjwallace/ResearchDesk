@@ -53,6 +53,19 @@ def _retry_delay(resp: httpx.Response, attempt: int) -> float:
         return float(min(thresholds.LLM_RETRY_BASE_S * 2 ** attempt, thresholds.LLM_RETRY_MAX_S))
 
 
+def failure_note(error: Exception) -> str:
+    """A short, text-free description of a failed call for stage logs.
+
+    OpenRouter errors carry the status code and the provider's message (never the email);
+    anything else is reported by its type only.
+    """
+    text = str(error)
+    if isinstance(error, RuntimeError) and text.startswith("OpenRouter "):
+        return text.split(":", 1)[0] + (": " + text.split('"message":"', 1)[1].split('"', 1)[0][:80]
+                                        if '"message":"' in text else "")
+    return type(error).__name__
+
+
 class Message(BaseModel):
     role: str  # "system" | "user" | "assistant"
     content: str

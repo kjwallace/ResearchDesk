@@ -12,6 +12,7 @@ dropped and counted. Code assigns claim IDs `<email_id>.c<n>`.
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from triage_app.llm import failure_note
 from triage_app.modules.extract import ClaimExtractor
 from triage_app.pipeline.context import RunContext
 from triage_app.pipeline.io import quote_in, read_list, write_list
@@ -46,7 +47,7 @@ def run(in_dir: Path, out_dir: Path, ctx: RunContext) -> None:
             with ctx.recorder.stage(STAGE, email.email_id):
                 out = extract(email, result, earlier, ctx, extractor)
         except Exception as e:  # one bad model reply must not abort the stage
-            failed.append(f"{email.email_id} ({type(e).__name__})")
+            failed.append(f"{email.email_id} ({failure_note(e)})")
             continue
         passed += 1
         claims.extend(out.claims)

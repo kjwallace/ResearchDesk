@@ -1,80 +1,75 @@
 [
   {
-    "summary": "Brightwater Capital Markets' Expert Access desk is offering a 45-minute small-group call on Thursday 7:30-8:15am ET with a former head of device financing and trade-in programs at a top-three U.S. postpaid carrier. The group has four people and three seats left, and the sender asks for confirmation by 5pm today to lock the slot.",
-    "why_attention": "This is a time-limited booking for scarce access to a former insider, and the sender needs a reply today to hold a seat. The email also contains the expert's claims about upgrade rates and promotional spend, which are the sender's account and are not verified in the email.",
+    "summary": "The email bears on GOOGL. Eastgate Hollis Securities is offering one of four open seats on a call at 8:00-8:45am ET on Wednesday with a former Director of Cloud AI Pricing and Capacity Planning at Google Cloud. The guest reports that TPU and Gemini inference capacity has moved from constrained to roughly balanced, and the call will cover utilization of reserved AI capacity, discounting, TPU margins and what to watch in Google's Oct 27 print.",
+    "why_attention": "Replying gives the desk a first-hand account from a recent Google Cloud insider on capacity, utilization and pricing, in a group of four. The seat is held only until 6pm today and the call is the next morning.",
     "action": "reply",
+    "follow_up": "",
+    "deadline": "2026-10-13T18:00:00",
+    "email_id": "synthetic_000234",
+    "sections": [
+      {
+        "email_id": "synthetic_000234",
+        "quote": "Only four seats are open"
+      },
+      {
+        "email_id": "synthetic_000234",
+        "quote": "TPU and Gemini inference capacity had moved from constrained to roughly balanced in North America and Western Europe"
+      },
+      {
+        "email_id": "synthetic_000234",
+        "quote": "Please let me know by 6pm tonight so I can hold the seat."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on MSFT and, secondarily, NVDA. Ironbridge Securities is offering one of four seats on a call with the founder and CEO of a Texas GPU colocation operator, with Microsoft as a top-3 tenant. He says Microsoft's leasing team has changed its tone in renegotiations: 3-year terms instead of 5, swap rights to Rubin-class systems, and about 20% of discussed GB300 capacity pushed to 1Q27. The sender notes this is one operator's view and that nothing has been cancelled.",
+    "why_attention": "Attending gives the desk a first-hand account from a Microsoft counterparty on lease negotiations, and on whether his GB300 delivery schedule from Nvidia and ODMs is affected. Only four seats exist, the guest is traveling Thursday, and the seats are held only until a stated time today.",
+    "action": "attend",
+    "follow_up": "",
     "deadline": "2026-10-13T17:00:00",
-    "email_id": "synthetic_000001",
+    "email_id": "synthetic_000237",
     "sections": [
       {
-        "email_id": "synthetic_000001",
-        "quote": "Can you confirm by 5pm today so I can lock the slot?"
+        "email_id": "synthetic_000237",
+        "quote": "Microsoft's capacity-leasing team has changed its tone over the last three weeks in renegotiation talks on two follow-on contracts"
       },
       {
-        "email_id": "synthetic_000001",
-        "quote": "Logistics: Thursday 7:30-8:15am ET, four-person group, three seats left."
+        "email_id": "synthetic_000237",
+        "quote": "Wednesday 10:00-10:45am ET, dial-in sent on confirmation."
+      },
+      {
+        "email_id": "synthetic_000237",
+        "quote": "Please confirm by 5pm today so I can hold the seats."
       }
     ]
   },
   {
-    "summary": "Pemberton Rowe & Co. (Naveen Choudhury, Head of Corporate Access) is requesting two seats for Larchmont Ridge on a 45-minute expert call on Thursday, October 15, 8:30-9:15am ET. The expert is a former Microsoft VP of Commercial Sales who left in August, and the topics are Copilot seat renewals, Azure consumption trends and deal slippage.",
-    "why_attention": "Access to a recently departed senior Microsoft sales leader is limited to two seats, and the sender needs seat confirmation by noon tomorrow (October 14), so a person must reply before then if they want to join.",
-    "action": "attend",
-    "deadline": "2026-10-14T12:00:00",
-    "email_id": "synthetic_000036",
-    "sections": [
-      {
-        "email_id": "synthetic_000036",
-        "quote": "We need to confirm seats by noon tomorrow."
-      },
-      {
-        "email_id": "synthetic_000036",
-        "quote": "I am holding two seats for Larchmont Ridge."
-      },
-      {
-        "email_id": "synthetic_000036",
-        "quote": "Left in August after 9 years."
-      }
-    ]
-  },
-  {
-    "summary": "Brightwell Expert Network is offering a call this Thursday, 15 October, with a former Microsoft enterprise licensing negotiator. He says some large corporates have cut paid Copilot seats at renewal, and the call fee is $1,400 per hour.",
-    "why_attention": "Access to this expert is limited to two slots, and the sender wants a slot choice by noon tomorrow. The expert's claims are unverified and he describes a small sample, mostly large corporates.",
+    "summary": "The email bears on MSFT and NVDA. Redfern Bay Securities is offering one of four seats on a small-group call on Thursday 15 October, 12:30-1:15pm ET, with the CIO of a large global bank (name withheld). The sender reports that the CIO says the bank has paused a planned on-prem expansion of about 2,000 accelerators and is renegotiating an Azure AI/OpenAI commitment toward consumption-based pricing. The sender also notes this is one customer and one conversation.",
+    "why_attention": "Attending gives the desk a first-hand account from a large Azure customer of how it is changing its AI infrastructure commitments and hardware pace, including how Microsoft responded in renewal talks. Seats are few, the desk has first refusal, and the sender needs an answer by a stated time.",
     "action": "reply",
-    "deadline": "2026-10-14T12:00:00",
-    "email_id": "synthetic_000041",
+    "follow_up": "",
+    "deadline": "2026-10-14T17:00:00",
+    "email_id": "synthetic_000174",
     "sections": [
       {
-        "email_id": "synthetic_000041",
-        "quote": "Please let me know by noon tomorrow which slot you prefer and I'll hold it for you."
+        "email_id": "synthetic_000174",
+        "quote": "We've arranged a small-group call for Thursday and wanted to give you first refusal on a seat, given your MSFT and NVDA coverage."
       },
       {
-        "email_id": "synthetic_000041",
-        "quote": "In roughly six of the renewals he has seen since July, the customer cut the number of paid Copilot seats at renewal by 30-50% versus the original commitment."
+        "email_id": "synthetic_000174",
+        "quote": "A multi-year Azure AI/OpenAI commitment that was due to renew at a higher floor is being renegotiated toward consumption-based pricing with a lower committed minimum."
+      },
+      {
+        "email_id": "synthetic_000174",
+        "quote": "Please let me know by 5pm tomorrow if you want a seat."
       }
     ]
   },
   {
-    "summary": "Brannock Hale & Co. is inviting recipients to a small investor lunch with the management of Gridline Robotics, a NASDAQ small-cap maker of autonomous mobile robots for warehouse picking. The lunch is on Tuesday, October 27, 12:00-1:30pm ET, at a private dining room in The Alder Club on 52nd Street, with the CEO and CFO hosting.",
-    "why_attention": "The invitation offers direct access to a listed company's CEO and CFO in a seating-limited setting of about 20 guests, and RSVPs are due by October 20. The email also discloses that the firm has provided investment banking services to Gridline in the past 12 months.",
-    "action": "reply",
-    "deadline": "2026-10-20T23:59:59",
-    "email_id": "synthetic_000053",
-    "sections": [
-      {
-        "email_id": "synthetic_000053",
-        "quote": "Seating is limited to about 20 guests. Please RSVP by Oct 20 to cwhitaker@brannockhale.com."
-      },
-      {
-        "email_id": "synthetic_000053",
-        "quote": "The firm has had a banking relationship with Gridline."
-      }
-    ]
-  },
-  {
-    "summary": "Jordan Pell of Wexford Lane Securities is moving a 45-minute 1:1 call with Brightwater Medical's CFO, Annika Voss, from Wednesday at 3:00pm to Thursday, October 15 at 11:00am ET, and gives a dial-in. The email also includes a pre-read summary on Brightwater Medical (BWMD) from the firm's analyst, with the full note on the portal.",
-    "why_attention": "The call is a direct 1:1 with a company's CFO, which is scarce access, and the time has changed. The sender asks you to say soon if the new time is a problem so they can try to hold both slots.",
+    "summary": "The email names none of the five covered stocks; it concerns Brightwater Medical (BWMD). Wexford Lane Securities reports that a 45-minute 1:1 call with BWMD's CFO has moved to Thursday, October 15 at 11:00am ET, and supplies the dial-in and a pre-read summary from its own analyst.",
+    "why_attention": "Attending gives the desk direct access to a CFO in a 1:1 call, with a pre-read and suggested questions. The time has changed and the sender asks to be told if the new slot is a problem.",
     "action": "attend",
+    "follow_up": "",
     "deadline": "2026-10-15T11:00:00",
     "email_id": "synthetic_000054",
     "sections": [
@@ -85,61 +80,156 @@
       {
         "email_id": "synthetic_000054",
         "quote": "Please let me know if the new time is a problem and we will try to hold both."
+      },
+      {
+        "email_id": "synthetic_000054",
+        "quote": "Questions we suggest: Contract renewal cadence with the two GPOs; articulating stapler adoption in ambulatory surgery centers; capital allocation after the refinancing."
       }
     ]
   },
   {
-    "summary": "Pembroke Lane Advisors is offering a 40-minute small-group call on Friday, October 16, 8:00-8:40am ET, with the CEO of a Taipei-based air freight forwarder. The sender says three seats are left and asks for a reply by Thursday noon if the analyst wants one.",
-    "why_attention": "Access to a company CEO is limited to three seats, and the sender asks for a reply by Thursday noon, so a place has to be requested before then. The sender presents the call's content, including cargo volumes and currency effects, as anecdotal and unconfirmed.",
+    "summary": "The email bears on AMZN. Corrigan Hale Research is inviting the desk to a closed session with the VP of Interconnection at Delmarre Grid Partners on a filed request for a roughly 2.4GW dedicated power block that the sender reads as being for AWS. The sender says the filing has not been picked up by the trade press, and the session would cover timeline, transmission cost and accounting, and project risks.",
+    "why_attention": "Attending gives the desk early access to a developer's account of a filing the sender says is not yet in the trade press, and of how its cost might be accounted for. Only six buy-side seats exist, three are held for the firm, and confirmation is due by a stated time.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-14T17:00:00",
+    "email_id": "synthetic_000241",
+    "sections": [
+      {
+        "email_id": "synthetic_000241",
+        "quote": "Six buy-side seats only, and we are holding three for Larchmont Ridge given your AMZN work."
+      },
+      {
+        "email_id": "synthetic_000241",
+        "quote": "Delmarre filed a supplemental interconnection request last week that has not been picked up by the trade press."
+      },
+      {
+        "email_id": "synthetic_000241",
+        "quote": "Please confirm by 5pm tomorrow."
+      }
+    ]
+  },
+  {
+    "summary": "The email names none of the five covered stocks directly, though it says the press has linked Gridline Robotics' undisclosed large e-commerce customer to Amazon (AMZN). Brannock Hale & Co. is inviting the desk to a lunch on Tuesday, October 27 with Gridline's CEO and CFO. The agenda covers the 2027 product roadmap, unit economics of the Series 4 picking robot and backlog commentary.",
+    "why_attention": "Attending gives the desk direct access to Gridline management in a group of about 20, where backlog commentary on a single large customer linked in the press to Amazon may come up. Seating is limited and RSVPs close on a stated date.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-20T23:59:59",
+    "email_id": "synthetic_000053",
+    "sections": [
+      {
+        "email_id": "synthetic_000053",
+        "quote": "the company says about a third comes from a single large e-commerce customer, which it declines to name, and the press has linked it to Amazon"
+      },
+      {
+        "email_id": "synthetic_000053",
+        "quote": "Seating is limited to about 20 guests. Please RSVP by Oct 20 to cwhitaker@brannockhale.com."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on AAPL. Brightwater Capital Markets is offering one of three remaining seats on a four-person call with a former head of device financing and trade-in programs at a top-three U.S. postpaid carrier. The sender reports she says September-quarter iPhone 18 upgrade rates at two carriers are running roughly 15-20% below plan. The call is set for Thursday 7:30-8:15am ET.",
+    "why_attention": "Replying secures a seat in a very small group with a source who, per the sender, is in daily contact with her old team's planning group. She would discuss upgrade rates, trade-in promotions, Pro and Pro Max inventory orders and her expectations for Apple's report on the 29th. Seats are scarce and the sender needs confirmation by 5pm on the day the email was received.",
     "action": "reply",
+    "follow_up": "",
+    "deadline": "2026-10-13T17:00:00",
+    "email_id": "synthetic_000001",
+    "sections": [
+      {
+        "email_id": "synthetic_000001",
+        "quote": "September-quarter iPhone 18 upgrade rates at her former employer and at one other national carrier are running roughly 15-20% below the internal plan set in July"
+      },
+      {
+        "email_id": "synthetic_000001",
+        "quote": "Thursday 7:30-8:15am ET, four-person group, three seats left."
+      },
+      {
+        "email_id": "synthetic_000001",
+        "quote": "Can you confirm by 5pm today so I can lock the slot?"
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on GOOGL. Kessler Ridgeway Securities is offering a small-group call on Wednesday 8:15-9:00am ET with the founder of a performance and brand agency that manages about $1.4bn of annual media spend. The sender says he will share aggregated trends from his own client book on YouTube Q4 commitments, CTV pricing and Shorts monetization. Five slots are available and three are already taken.",
+    "why_attention": "Attending gives the desk an early, first-hand read on YouTube advertiser demand from an agency's client book, ahead of Alphabet's report on the 27th. The sender says this is the guest's only window before then, seats are limited, and confirmation is due tonight.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-13T19:00:00",
+    "email_id": "synthetic_000177",
+    "sections": [
+      {
+        "email_id": "synthetic_000177",
+        "quote": "We have a small-group call tomorrow morning with a guest whose agency's data looks directly relevant to your GOOGL work."
+      },
+      {
+        "email_id": "synthetic_000177",
+        "quote": "Q4 YouTube commitments across his book are up roughly 24% y/y, against ~14% growth in Q3."
+      },
+      {
+        "email_id": "synthetic_000177",
+        "quote": "Please confirm by 7pm tonight so I can hold your seat."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on MSFT. Brightwell Expert Network is offering a call this Thursday (Oct 15) with a former Microsoft enterprise licensing negotiator, who reports that in about six of roughly 20 renewals since July, large customers cut paid Copilot seats by 30-50%. The sender notes the sample is small, mostly large corporates, and that she cannot verify his count. The call would come ahead of MSFT's Oct 28 report.",
+    "why_attention": "Attending gives the desk a first-hand, early account of enterprise Copilot renewal behaviour from someone who worked on the renewals. The expert is available on Thursday only, and the sender asks for a slot choice by noon tomorrow. The call costs $1,400 per hour and the sender says compliance will pre-clear it.",
+    "action": "reply",
+    "follow_up": "",
+    "deadline": "2026-10-14T12:00:00",
+    "email_id": "synthetic_000041",
+    "sections": [
+      {
+        "email_id": "synthetic_000041",
+        "quote": "In roughly six of the renewals he has seen since July, the customer cut the number of paid Copilot seats at renewal by 30-50% versus the original commitment."
+      },
+      {
+        "email_id": "synthetic_000041",
+        "quote": "One of our newer experts is available this Thursday only (Oct 15, 8:30-9:15am or 4:00-4:45pm ET) before he starts a new role."
+      },
+      {
+        "email_id": "synthetic_000041",
+        "quote": "Please let me know by noon tomorrow which slot you prefer and I'll hold it for you."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on NVDA and AAPL. Pembroke Lane Advisors is offering one of three remaining seats on a small-group call on Friday 16 October, 8:00-8:40am ET, with the CEO of a Taipei-based air freight forwarder. He is expected to cover Q4 rack shipments for Nvidia-based systems and whether Apple-related volume is for the holiday quarter or an early start on next year's program. The sender reports his pre-call anecdotes on cargo mix and the NT dollar as unconfirmed and drawn from one forwarder's book.",
+    "why_attention": "Attending gives the desk a first-hand read from a freight forwarder on server and iPhone-related cargo, which the sender says could not be confirmed elsewhere. Only three seats remain, the CEO is in New York for just two days, and seat requests close on a stated day.",
+    "action": "attend",
+    "follow_up": "",
     "deadline": "2026-10-15T12:00:00",
     "email_id": "synthetic_000074",
     "sections": [
       {
         "email_id": "synthetic_000074",
-        "quote": "Three seats are left."
+        "quote": "What he sees in Q4 rack shipments for Nvidia-based systems"
+      },
+      {
+        "email_id": "synthetic_000074",
+        "quote": "Whether Apple-related volume is for the holiday quarter or an early start on next year's program"
       },
       {
         "email_id": "synthetic_000074",
         "quote": "Please let me know by Thursday noon if you want a seat."
-      },
-      {
-        "email_id": "synthetic_000074",
-        "quote": "This is one forwarder's book, so I'd treat it as unconfirmed."
       }
     ]
   },
   {
-    "summary": "Fenwick & Marrow Securities corporate access (Daniel Okafor) is offering a one-off 30-minute expert call on Thursday 15 October, 4:15-4:45pm ET, with an unnamed CTO of a Series C generative-AI startup. The guest will describe reported AWS discount offers on Trainium capacity tied to multi-year commits, and the sender says this is one customer's account plus one secondhand reference that has not been confirmed.",
-    "why_attention": "There are only three buy-side slots, the guest is unavailable again before earnings, and a place must be confirmed by noon Wednesday 14 October so unclaimed slots can be released.",
+    "summary": "The email bears on NVDA and GOOGL. Tessellate Advisory Network is offering one of four seats on a small-group call with a former head of compute capacity planning at a frontier AI lab. The guest relays secondhand word that AI labs are asking for committed Google Cloud TPU capacity for 2027 inference, volume previously assumed to go to Nvidia systems.",
+    "why_attention": "Attending gives the desk an early read on a possible shift in the inference mix, ahead of the Oct 27 and November reports, from someone with capacity-sourcing experience. Seats are capped at four and the sender asks for confirmation the same day. The sender stresses the report is unconfirmed and secondhand.",
     "action": "attend",
-    "deadline": "2026-10-14T12:00:00",
-    "email_id": "synthetic_000136",
-    "sections": [
-      {
-        "email_id": "synthetic_000136",
-        "quote": "Three buy-side slots only."
-      },
-      {
-        "email_id": "synthetic_000136",
-        "quote": "he said AWS offered his company a steep discount"
-      },
-      {
-        "email_id": "synthetic_000136",
-        "quote": "Please confirm by noon Wednesday so we can release unclaimed slots."
-      }
-    ]
-  },
-  {
-    "summary": "Tessellate Advisory Network is offering a small-group call on Wednesday 7:45-8:30am ET with a former Head of Compute Capacity Planning at a frontier AI lab. The topic is whether 2027 inference sourcing is shifting toward Google Cloud TPUs, and the sender describes the signal as early and unconfirmed.",
-    "why_attention": "Seats are capped at four in total and the sender needs a confirmation today to hold one, so a reply is needed before the deadline. The call's subject is relevant to the Nvidia inference-mix and Google Cloud capacity reports, though the sender says the underlying information is secondhand.",
-    "action": "reply",
+    "follow_up": "",
     "deadline": "2026-10-13T17:00:00",
     "email_id": "synthetic_000144",
     "sections": [
       {
         "email_id": "synthetic_000144",
-        "quote": "we are capping this at four seats in total."
+        "quote": "their organizations are asking for committed TPU capacity from Google Cloud for 2027 inference"
+      },
+      {
+        "email_id": "synthetic_000144",
+        "quote": "He was explicit that this is secondhand."
       },
       {
         "email_id": "synthetic_000144",
@@ -148,26 +238,120 @@
     ]
   },
   {
-    "summary": "Calder Expert Network is offering a one-on-one phone call with a former performance marketing executive at Hearthline Home, an online home goods retailer, about a paid search pullback on Google Shopping and Performance Max. The call is Wednesday, Oct 14, 4:00-4:45pm ET, and a reply is needed by noon tomorrow to hold the slot.",
-    "why_attention": "The slot was offered to this desk first because of its Alphabet coverage, and another client has also asked for it, so a place has to be confirmed by noon on Oct 14 to keep it.",
+    "summary": "The email bears on AMZN. Northgate Expert Exchange is offering one of three seats on a Thursday 9:00-9:40am ET small-group call with a former CFO of a small-appliance maker. He reports second-hand that Amazon's Oct-Nov purchase orders to that vendor were trimmed by about 20% and that Amazon's replenishment algorithm has been tightening weeks-of-cover targets. The sender cautions that this is one vendor, the order data is second-hand, and he cannot speak to Amazon's third-party marketplace or holiday plans.",
+    "why_attention": "Attending gives the desk a direct read on Amazon's first-party inventory stance into Q4 from someone in contact with a major vendor's commercial team, ahead of the 29 October date the sender mentions. Only three seats are offered and confirmation closes Wednesday at 5pm.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-14T17:00:00",
+    "email_id": "synthetic_000208",
+    "sections": [
+      {
+        "email_id": "synthetic_000208",
+        "quote": "He says Amazon purchase orders for Oct-Nov have reportedly been trimmed by about 20% vs. the original plan"
+      },
+      {
+        "email_id": "synthetic_000208",
+        "quote": "this is one vendor, the order data is second-hand"
+      },
+      {
+        "email_id": "synthetic_000208",
+        "quote": "Please confirm by 5pm Wednesday."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on GOOGL. Calder Expert Network is offering a one-on-one phone call on Wednesday 14 October, 4:00-4:45pm ET, with a former Hearthline Home performance marketing executive who managed roughly $180m a year in paid search, largely Google Shopping and Performance Max. Hearthline pre-announced 3Q results showing paid-search spend down about 14% y/y, and the expert says she cut Performance Max bids because incremental returns fell sharply. The sender states the call is one retailer's early signal, not confirmation.",
+    "why_attention": "Attending gives the desk a first-hand account of advertiser behaviour on Google's shopping ad products from someone who ran the spend until July 2026. The slot is a single one-on-one, and another client has requested it.",
     "action": "reply",
+    "follow_up": "",
     "deadline": "2026-10-14T12:00:00",
     "email_id": "synthetic_000150",
     "sections": [
       {
         "email_id": "synthetic_000150",
-        "quote": "Please let me know by noon tomorrow so we can hold the slot; another client has requested it."
+        "quote": "wanted to offer you the slot first, given your Alphabet coverage"
       },
       {
         "email_id": "synthetic_000150",
-        "quote": "Wednesday, Oct 14, 4:00-4:45pm ET by phone."
+        "quote": "Our expert ran performance marketing at Hearthline until July 2026 and managed roughly $180m in annual paid search spend, largely Google Shopping and Performance Max."
+      },
+      {
+        "email_id": "synthetic_000150",
+        "quote": "Please let me know by noon tomorrow so we can hold the slot; another client has requested it."
       }
     ]
   },
   {
-    "summary": "Vellacourt Partners is inviting investors to a small lunch on Wednesday, October 28, with the CFO of Aldwyn Water Technologies (AWT), held at the Whitmore Club in Midtown. The email also includes a summary of the bank's new coverage initiation on AWT and attaches the full 22-page report.",
-    "why_attention": "Seats are limited to 14 investors and access to the CFO is by invitation only, so a place has to be confirmed by RSVP before the stated date.",
+    "summary": "The email bears on GOOGL and NVDA, though the company on the call, Tessaral Test Systems (TSTS), is not one of the five. Greywell Securities is offering one of five client slots on a Wednesday 7:30-8:00am ET call with TSTS management after its pre-announcement. The call is to cover AI accelerator test demand, split between custom ASIC and GPU-class orders. The sender's own read links ASIC demand to Google's TPU line and raises questions about rack-level test needs for Nvidia's newest systems.",
+    "why_attention": "Attending gives the desk direct access to management on test demand for custom ASIC and GPU programs, which may bear on Google and Nvidia. Only five slots exist, management is about to travel, and confirmation closes at a stated time. The Google link comes from the sender's supply-chain work, not from the company.",
     "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-13T17:00:00",
+    "email_id": "synthetic_000197",
+    "sections": [
+      {
+        "email_id": "synthetic_000197",
+        "quote": "We have only five client slots"
+      },
+      {
+        "email_id": "synthetic_000197",
+        "quote": "Our own supply-chain work suggests at least one of the largest ASIC programs is Google's TPU line"
+      },
+      {
+        "email_id": "synthetic_000197",
+        "quote": "Please confirm by 5pm today."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on MSFT. Pemberton Rowe & Co. is offering two held seats on a Thursday 15 October call (8:30-9:15am ET) with a former VP of Commercial Sales at Microsoft who left in August. Topics are Copilot seat renewals, Azure consumption versus commit trends, and deal slippage. The sender says the guest's views are anecdotal and drawn from his own region.",
+    "why_attention": "Attending gives the desk a first-hand account of Copilot renewal pricing and Azure consumption trends from a recently departed senior sales leader, which is hard to get elsewhere. Only two seats are held and they must be confirmed by a stated time.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-14T12:00:00",
+    "email_id": "synthetic_000036",
+    "sections": [
+      {
+        "email_id": "synthetic_000036",
+        "quote": "We have a call set for Thursday with a recently departed senior Azure sales leader, and I am holding two seats for Larchmont Ridge."
+      },
+      {
+        "email_id": "synthetic_000036",
+        "quote": "A meaningful share of enterprises that bought Microsoft 365 Copilot in first-wave deals in late 2025 are now negotiating down seat counts at renewal, with discounts of 25-35% being offered to hold the logo"
+      },
+      {
+        "email_id": "synthetic_000036",
+        "quote": "We need to confirm seats by noon tomorrow."
+      }
+    ]
+  },
+  {
+    "summary": "The email bears on GOOGL. Merrowby Securities is offering one of three remaining seats on a 40-minute call with a VP of Cloud Alliances at a Google Cloud premier partner. She reports that three enterprise accounts recently asked to cut or restructure Vertex AI provisioned-throughput commitments. The sender describes this as an early signal from a small sample, ahead of the 27 October print.",
+    "why_attention": "Attending gives the desk a first-hand early read on customer behaviour around Vertex AI commitments from someone who works with Google's field team weekly. Only three seats remain and confirmation closes at a stated time.",
+    "action": "attend",
+    "follow_up": "",
+    "deadline": "2026-10-14T17:00:00",
+    "email_id": "synthetic_000280",
+    "sections": [
+      {
+        "email_id": "synthetic_000280",
+        "quote": "Over the last two to three weeks, three of her enterprise accounts asked to cut or restructure their Vertex AI provisioned-throughput commitments."
+      },
+      {
+        "email_id": "synthetic_000280",
+        "quote": "Thursday, Oct 15, 8:00-8:40am ET."
+      },
+      {
+        "email_id": "synthetic_000280",
+        "quote": "Three seats remain; please confirm by 5pm tomorrow."
+      }
+    ]
+  },
+  {
+    "summary": "The email names none of the five covered stocks; it bears on Aldwyn Water Technologies (AWT). Vellacourt Partners is offering a seat at a small investor lunch with the AWT CFO on Wednesday, October 28, limited to 14 investors, and attaches its 22-page initiation report on the company.",
+    "why_attention": "Replying gives the desk direct access to a company CFO in a small group, plus the broker's initiation research. Seating is limited and RSVPs close on a stated date.",
+    "action": "reply",
+    "follow_up": "",
     "deadline": "2026-10-21T23:59:59",
     "email_id": "synthetic_000159",
     "sections": [
@@ -178,200 +362,32 @@
       {
         "email_id": "synthetic_000159",
         "quote": "Please RSVP by October 21 to events@vellacourtpartners.com."
+      },
+      {
+        "email_id": "synthetic_000159",
+        "quote": "The full 22-page initiation report is attached."
       }
     ]
   },
   {
-    "summary": "Redfern Bay Securities' Corporate Access team (Naomi Castellanos) is offering a small-group call on Thursday 15 October, 12:30-1:15pm ET, with the CIO of a large global bank, and says 4 seats are available. The call covers a reported pause in GPU expansion and a renegotiation of Azure AI commitments toward consumption-based pricing.",
-    "why_attention": "The email offers first refusal on one of four seats with a customer-side CIO, which is scarce access, and asks for an answer by 5pm tomorrow (14 October). The sender links the topic to your MSFT and NVDA coverage.",
+    "summary": "The email bears on NVDA. Brandt & Lowe Securities is offering one of five seats on a call, Wednesday 12:15-1:00pm ET, with a VP Operations at a rack-scale integrator that builds GB300 NVL72 systems. The guest reports more than 5,000 finished or near-finished racks held in staging at the end of September, against about 800 typically, because customer sites were not yet ready. He is not a Nvidia employee.",
+    "why_attention": "Attending gives the desk a first-hand account from an integrator of rack staging levels, customer-site readiness and order sequencing. The sender says this is not in sell-side models it has seen and that Nvidia has not addressed it publicly. Only five seats are available, and the sender asks for confirmation by a stated cutoff.",
     "action": "reply",
-    "deadline": "2026-10-14T17:00:00",
-    "email_id": "synthetic_000174",
-    "sections": [
-      {
-        "email_id": "synthetic_000174",
-        "quote": "Please let me know by 5pm tomorrow if you want a seat."
-      },
-      {
-        "email_id": "synthetic_000174",
-        "quote": "We've arranged a small-group call for Thursday and wanted to give you first refusal on a seat, given your MSFT and NVDA coverage."
-      }
-    ]
-  },
-  {
-    "summary": "Tomas Brandvold of Kessler Ridgeway Securities Corporate Access invites Ellen to a 45-minute small-group call on Wednesday 8:15-9:00am ET with the founder and CEO of a mid-size performance and brand agency that manages about $1.4bn of annual media spend. The email shares the guest's pre-screen points on YouTube commitments, CTV CPMs and budget shifts, and says the call is for the GOOGL work ahead of Alphabet's report on the 27th.",
-    "why_attention": "The call is a time-limited, scarce-access opportunity: five slots with three already taken, and only one window before Alphabet reports. Ellen must confirm by 7pm tonight to hold a seat.",
-    "action": "reply",
-    "deadline": "2026-10-13T19:00:00",
-    "email_id": "synthetic_000177",
-    "sections": [
-      {
-        "email_id": "synthetic_000177",
-        "quote": "Five slots, and three are already taken."
-      },
-      {
-        "email_id": "synthetic_000177",
-        "quote": "Please confirm by 7pm tonight so I can hold your seat."
-      }
-    ]
-  },
-  {
-    "summary": "Greywell Securities (Dana Whitfield) is inviting you to a small-group call with the CEO and CFO of Tessaral Test Systems (TSTS), a supplier of burn-in and system-level test equipment for AI accelerators, on Wednesday 7:30-8:00am ET after a pre-announcement. The email also gives the company's public bookings figures and the sender's own, partly speculative, read on custom ASIC versus GPU test demand.",
-    "why_attention": "Access to management before they travel is scarce, with only five client slots, and a place must be confirmed by 5pm today. The sender's read includes an unverified attribution of a large ASIC program to Google, so it should be treated as the sender's view.",
-    "action": "attend",
-    "deadline": "2026-10-13T17:00:00",
-    "email_id": "synthetic_000197",
-    "sections": [
-      {
-        "email_id": "synthetic_000197",
-        "quote": "We have only five client slots, and you were on our list because of your interest in AI silicon."
-      },
-      {
-        "email_id": "synthetic_000197",
-        "quote": "Please confirm by 5pm today."
-      },
-      {
-        "email_id": "synthetic_000197",
-        "quote": "Compliance cleared, with public information only."
-      }
-    ]
-  },
-  {
-    "summary": "Northgate Expert Exchange is offering a 40-minute small-group call on Thursday 9:00-9:40am ET with a former CFO of Hearthgrove Appliances, a small-appliance maker whose sales came in below guidance. There are 3 seats, and the sender asks for confirmation by 5pm Wednesday.",
-    "why_attention": "Seats on this call are limited to three, and the expert's view on Amazon purchase orders and Q4 inventory is second-hand, single-vendor and time-bound. The sender asks for confirmation by a stated deadline, so a place has to be requested before then.",
-    "action": "attend",
-    "deadline": "2026-10-14T17:00:00",
-    "email_id": "synthetic_000208",
-    "sections": [
-      {
-        "email_id": "synthetic_000208",
-        "quote": "We have a former CFO of a mid-cap small-appliance maker available for a small-group call Thursday."
-      },
-      {
-        "email_id": "synthetic_000208",
-        "quote": "Please confirm by 5pm Wednesday."
-      },
-      {
-        "email_id": "synthetic_000208",
-        "quote": "the Amazon 1P inventory stance into Q4 is a question you may want to test before Oct 29."
-      }
-    ]
-  },
-  {
-    "summary": "Eastgate Hollis Securities' Head of Corporate Access is offering a small-group call on Wednesday morning, 8:00-8:45am ET, with a former Director of Cloud AI Pricing and Capacity Planning at Google Cloud. The email says the call will cover TPU and Gemini capacity, discounting and margins, and it argues that the 'supply-constrained' narrative is out of date.",
-    "why_attention": "Only four seats are open, and the sender needs a reply by 6pm tonight to hold one, so a person has to decide today whether to request a place. The email is a broker's offer of expert access, and its claims about Google Cloud capacity and pricing come from the guest's own account.",
-    "action": "reply",
-    "deadline": "2026-10-13T18:00:00",
-    "email_id": "synthetic_000234",
-    "sections": [
-      {
-        "email_id": "synthetic_000234",
-        "quote": "Only four seats are open and I thought of you given your GOOGL position."
-      },
-      {
-        "email_id": "synthetic_000234",
-        "quote": "Please let me know by 6pm tonight so I can hold the seat."
-      },
-      {
-        "email_id": "synthetic_000234",
-        "quote": "Wednesday 8:00-8:45am ET, dial-in provided on confirmation."
-      }
-    ]
-  },
-  {
-    "summary": "Ironbridge Securities' Dana Whitfield is offering four seats on a 45-minute small-group call on Wednesday 10:00-10:45am ET. The guest is the founder and CEO of a Texas-based GPU colocation and neocloud operator, who will discuss changes in Microsoft's lease negotiations.",
-    "why_attention": "Seats are limited to four and are reserved by name for Ellen and Raj based on MSFT and NVDA coverage, and the sender asks for confirmation by 5pm today so the seats can be held.",
-    "action": "reply",
-    "deadline": "2026-10-13T17:00:00",
-    "email_id": "synthetic_000237",
-    "sections": [
-      {
-        "email_id": "synthetic_000237",
-        "quote": "Four seats total; you and Raj were on the list given your MSFT and NVDA coverage."
-      },
-      {
-        "email_id": "synthetic_000237",
-        "quote": "Please confirm by 5pm today so I can hold the seats."
-      },
-      {
-        "email_id": "synthetic_000237",
-        "quote": "Wednesday 10:00-10:45am ET, dial-in sent on confirmation."
-      }
-    ]
-  },
-  {
-    "summary": "Corrigan Hale Research invites the desk to a 45-minute closed session with the VP of Interconnection at Delmarre Grid Partners on a roughly 2.4GW power block in Mississippi, scheduled for Thursday at 11:00am ET. Six buy-side seats are offered, and three are being held for Larchmont Ridge.",
-    "why_attention": "This is a sales pitch for a limited expert session, and it makes claims that the desk should check before relying on them. The email says the customer is AWS and that the cost sits outside Street 2027 capex and free cash flow estimates, but these are the sender's own read and the sender says the VP will not name the customer. A person needs to decide whether to confirm a seat by 5pm the next day.",
-    "action": "other",
-    "deadline": "2026-10-14T17:00:00",
-    "email_id": "synthetic_000241",
-    "sections": [
-      {
-        "email_id": "synthetic_000241",
-        "quote": "Six buy-side seats only, and we are holding three for Larchmont Ridge given your AMZN work."
-      },
-      {
-        "email_id": "synthetic_000241",
-        "quote": "We do not believe that is in Street 2027 capex or free cash flow estimates."
-      },
-      {
-        "email_id": "synthetic_000241",
-        "quote": "Please confirm by 5pm tomorrow."
-      }
-    ]
-  },
-  {
-    "summary": "Trellis Wharf Securities' corporate access team is offering a 30-minute call with a former Google Search partnerships director about renewal terms for Apple's Safari default arrangement with Google. The sender says the call is limited to five firms and is set for tomorrow at 3:30pm ET.",
-    "why_attention": "Access to a former insider is scarce, and seats are capped at five firms. The sender asks for a yes or no by noon tomorrow, so a person needs to decide whether to request a seat before then.",
-    "action": "attend",
-    "deadline": "2026-10-14T12:00:00",
-    "email_id": "synthetic_000243",
-    "sections": [
-      {
-        "email_id": "synthetic_000243",
-        "quote": "Our guest has agreed to a 30-minute call tomorrow at 3:30pm ET, limited to five firms."
-      },
-      {
-        "email_id": "synthetic_000243",
-        "quote": "Please let me know by noon tomorrow if you would like a seat."
-      }
-    ]
-  },
-  {
-    "summary": "Dana Whitlock of Merrowby Securities Corporate Access is offering a 40-minute call on Thursday, Oct 15, 8:00-8:40am ET, with a VP of Cloud Alliances at a Google Cloud premier partner. The call covers reported cuts or restructuring of Vertex AI commitments at three of the partner's enterprise accounts.",
-    "why_attention": "The guest is a scarce source with direct weekly contact with Google's field team, and only three seats remain. Confirmation is requested by 5pm tomorrow, so a seat has to be secured before then.",
-    "action": "attend",
-    "deadline": "2026-10-14T17:00:00",
-    "email_id": "synthetic_000280",
-    "sections": [
-      {
-        "email_id": "synthetic_000280",
-        "quote": "Over the last two to three weeks, three of her enterprise accounts asked to cut or restructure their Vertex AI provisioned-throughput commitments."
-      },
-      {
-        "email_id": "synthetic_000280",
-        "quote": "Three seats remain; please confirm by 5pm tomorrow."
-      }
-    ]
-  },
-  {
-    "summary": "Brandt & Lowe Securities is offering a short-notice call on Wednesday 12:15-1:00pm ET with a VP Operations at a rack-scale integrator. The email says the guest reports more than 5,000 finished racks stranded in staging, against about 800 typically.",
-    "why_attention": "Access is scarce: the call has five seats and is on short notice, and the email asks for confirmation by 4pm \"today\", which is earlier than the 18:41 send time, so the window may already have closed and the sender should be asked to clarify.",
-    "action": "reply",
+    "follow_up": "",
     "deadline": null,
     "email_id": "synthetic_000294",
     "sections": [
       {
         "email_id": "synthetic_000294",
-        "quote": "Only five seats."
+        "quote": "as of the end of September his company held more than 5,000 finished or near-finished racks in staging at its sites, versus about 800 typically"
+      },
+      {
+        "email_id": "synthetic_000294",
+        "quote": "Wednesday 12:15-1:00pm ET, dial-in on confirmation"
       },
       {
         "email_id": "synthetic_000294",
         "quote": "Please confirm by 4pm today so I can hold your seats."
-      },
-      {
-        "email_id": "synthetic_000294",
-        "quote": "his company held more than 5,000 finished or near-finished racks in staging at its sites, versus about 800 typically."
       }
     ]
   }
