@@ -24,9 +24,9 @@ Branch: `cleanup/repo-presentation`, started from `main` after merging `cursor/v
 
 ## C. Dependencies (medium risk, verify with a clean install)
 
-- [ ] **C1. `jupyter` is a main dependency** but nothing imports it; the notebook builder already has its own `notebook` group. Remove it from `dependencies` (it drags in a large tree).
-- [ ] **C2. `huggingface-hub` is declared directly** but never imported (it arrives through `sentence-transformers`). Remove the direct line.
-- [ ] **C3. Two dependency lists.** `pyproject.toml` / `uv.lock` (local, full) and `requirements.txt` (Vercel, slim) can drift. Add a test that every package in `requirements.txt` also appears in `uv.lock` at the same version, and document why the two exist.
+- [x] **C1. `jupyter` is a main dependency** but nothing imports it; the notebook builder already has its own `notebook` group. Remove it from `dependencies` (it drags in a large tree).
+- [x] **C2. `huggingface-hub` is declared directly** but never imported (it arrives through `sentence-transformers`). Remove the direct line.
+- [x] **C3. Two dependency lists.** `pyproject.toml` / `uv.lock` (local, full) and `requirements.txt` (Vercel, slim) can drift. Add a test that every package in `requirements.txt` also appears in `uv.lock` at the same version, and document why the two exist.
 - [ ] **C4. Confirm `itsdangerous` and `python-multipart`** are required at runtime (session cookies and forms) and keep them; note this in the lists so they are not "cleaned" later.
 
 ## D. Data and cache (medium risk, large size win)
@@ -38,11 +38,11 @@ Branch: `cleanup/repo-presentation`, started from `main` after merging `cursor/v
 
 ## E. Documentation that has drifted from the code (low risk, high visibility)
 
-- [ ] **E1. `CLAUDE.md`** still says "two skills" in the analysis agent (there are three: alter existing thesis, revise projections, spawn new thesis), calls the embedding "local" only, and lists `EMBEDDING_PROVIDER`/`EMBEDDING_DIM` as leftovers while the app now uses `EMBEDDING_BACKEND`. Update, and mention the Vercel files.
-- [ ] **E2. `DECISIONS.md` #125** says keys go to Preview only; #126 and the deployment supersede it. Mark #125 as superseded rather than editing history.
-- [ ] **E3. `README.md`:** the setup and commands sections were trimmed; add a short "Run and deploy" section (local, Docker, Vercel) and a pointer to this plan.
-- [ ] **E4. `SPEC.md` / `KICKOFF.md`** refer to `transcripts/`; the transcripts now live in `AI_transcripts/`. Leave the spec text alone (it is the source of truth) but add a one-line note at the top of each pointing to the new location.
-- [ ] **E5. `scripts/run_generation_prompt.py`** still writes to `transcripts/generation/`. Point it at `AI_transcripts/agent_transcripts/generation/`.
+- [x] **E1. `CLAUDE.md`** still says "two skills" in the analysis agent (there are three: alter existing thesis, revise projections, spawn new thesis), calls the embedding "local" only, and lists `EMBEDDING_PROVIDER`/`EMBEDDING_DIM` as leftovers while the app now uses `EMBEDDING_BACKEND`. Update, and mention the Vercel files.
+- [x] **E2. `DECISIONS.md` #125** says keys go to Preview only; #126 and the deployment supersede it. Mark #125 as superseded rather than editing history.
+- [ ] **E3. `README.md`:** the owner deliberately removed the running instructions from the README, so leave that as is; only add a pointer to this plan if wanted.
+- [x] **E4. `SPEC.md` / `KICKOFF.md`** refer to `transcripts/`; the transcripts now live in `AI_transcripts/`. Leave the spec text alone (it is the source of truth) but add a one-line note at the top of each pointing to the new location.
+- [x] **E5. `scripts/run_generation_prompt.py`** still writes to `transcripts/generation/`. Point it at `AI_transcripts/agent_transcripts/generation/`.
 
 ## F. Repository layout and presentation (decisions needed)
 

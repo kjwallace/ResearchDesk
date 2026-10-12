@@ -1,6 +1,6 @@
 # Kickoff brief for the lead coding agent
 
-> The original brief that started the build, kept for the record. `SPEC.md` and `DECISIONS.md` describe the current state.
+> The original brief that started the build, kept for the record. `SPEC.md` and `DECISIONS.md` describe the current state. Transcripts it mentions under `transcripts/` now live in `AI_transcripts/`.
 
 You are building the email triage prototype that `SPEC.md` specifies. Nothing is built yet.
 

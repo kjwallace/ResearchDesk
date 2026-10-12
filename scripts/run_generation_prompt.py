@@ -3,7 +3,7 @@
 Sends only the text below the prompt's first '---' line. Output written:
   - for multi-file prompts, each '=== <path> ===' block to <path> under the repo root;
   - for --json-out, the single JSON document to that path.
-The request and the raw response are saved under transcripts/generation/.
+The request and the raw response are saved under AI_transcripts/agent_transcripts/generation/.
 
 Reads OPENROUTER_API_KEY from the environment or .env. Never prints it.
 
@@ -72,7 +72,7 @@ def main() -> None:
     text = completion.text
 
     stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
-    log_dir = ROOT / "transcripts" / "generation"
+    log_dir = ROOT / "AI_transcripts" / "agent_transcripts" / "generation"
     log_dir.mkdir(parents=True, exist_ok=True)
     stem = f"{stamp}_{args.prompt.stem}"
     (log_dir / f"{stem}.request.md").write_text(body)

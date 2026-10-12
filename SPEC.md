@@ -1,5 +1,7 @@
 # Email triage and newsflow redesign: plan
 
+> Note (repository cleanup): transcripts referred to below as `transcripts/` now live in `AI_transcripts/`; the spec text is otherwise unchanged.
+
 Oct 8, 2026 · @Kelvin
 
 This is a build spec to be used by a coding agent. The prototype classifies each of 300 synthetic emails by how much attention it needs, then compares the relevant ones with a five-company book and suggests changes for an investment analyst to decide on.
