@@ -179,3 +179,14 @@ def test_model_bases_match_filings_and_stance_matches_estimates() -> None:
         c = compute(models[t.ticker])
         assert (c["analyst"].eps > c["consensus"].eps) == (t.stance == "long"), t.ticker
         assert {d for p in t.pillars for d in p.driver_ids} <= {d.id for d in models[t.ticker].drivers}
+
+
+def test_fixture_validator_passes() -> None:
+    """tests/fixtures/validate_fixtures.py checks every fixture stage file against its contract."""
+    import subprocess
+    import sys
+    from pathlib import Path
+
+    root = Path(__file__).parent.parent
+    out = subprocess.run([sys.executable, "tests/fixtures/validate_fixtures.py"], cwd=root, capture_output=True, text=True)
+    assert out.returncode == 0 and out.stdout.startswith("OK"), out.stdout + out.stderr

@@ -31,9 +31,9 @@ Branch: `cleanup/repo-presentation`, started from `main` after merging `cursor/v
 
 ## D. Data and cache (medium risk, large size win)
 
-- [ ] **D1. Two caches in git.** `data/cache` (3,083 files, 30 MB) and `data/cache_web` (708 files, 13 MB) overlap: every `cache_web` entry is a copy of a `cache` entry. Regenerate `cache_web` with a script (`scripts/build_web_cache.py`) from a cache trace so it is reproducible rather than hand-copied, and document it.
+- [x] **D1. Two caches in git.** `data/cache` (3,083 files, 30 MB) and `data/cache_web` (708 files, 13 MB) overlap: every `cache_web` entry is a copy of a `cache` entry. Done: `scripts/build_web_cache.py` regenerates `cache_web` from a cache trace (rerun produced the same 708 entries). The two caches still overlap by design; `cache_web` is the deployable subset.
 - [ ] **D2. Stale entries in `data/cache`.** The `embed` namespace alone holds 1,538 entries from two models (the local one and the hosted one), and each deployment needs only one of them; model replies from earlier criteria versions are never read. `scripts/prune_cache.py` (trace-based) exists: run the three sets plus the presets with `TRIAGE_CACHE_TRACE`, prune, and record the entry count before and after in `DECISIONS.md`.
-- [ ] **D3. `data/seed/models_draft.json`** is input to `state/seed_merge.py` and must stay, but add a one-line note in `data/seed/` explaining draft versus merged files.
+- [x] **D3. `data/seed/models_draft.json`** is input to `state/seed_merge.py` and must stay, but add a one-line note in `data/seed/` explaining draft versus merged files.
 - [ ] **D4. Review which `data/out` files need to be tracked** for each set. `day_2` and `tuning` outputs are not served by the Vercel app; keep them if the Docker app and the evals read them, otherwise drop.
 
 ## E. Documentation that has drifted from the code (low risk, high visibility)
@@ -48,13 +48,13 @@ Branch: `cleanup/repo-presentation`, started from `main` after merging `cursor/v
 
 - [ ] **F1. Root folder.** Twenty-plus entries at the top level. Proposed grouping: keep `src/`, `tests/`, `data/`, `criteria/`, `skills/`, `instructions/`, `tools/`, `tuned/`, `notebooks/`, `scripts/`; move `SPEC.md`, `KICKOFF.md`, `DECISIONS.md`, `REVIEW.md` into `docs/` (leave `README.md`, `CLAUDE.md`, `CLEANUP_PLAN.md` at the root). Needs the Dockerfile, `CLAUDE.md` and links updated.
 - [ ] **F2. `scripts/jev_spike.py`** is a one-off spike (its result is recorded in `DECISIONS.md`). Move to `scripts/archive/` or delete.
-- [ ] **F3. Tooling folders.** `.claude/launch.json` is tracked; `.claude/worktrees` and `.cursor` are tooling leftovers. Add them to `.gitignore` except `launch.json`, and confirm `.vercel/` stays ignored.
-- [ ] **F4. `AI_transcripts/`** is 20+ MB of raw session logs. Keep (it is a deliverable) but add a one-page `AI_transcripts/README.md` saying what each file is and that tool output is truncated.
-- [ ] **F5. `data/live_presets`, `data/filings`** each get a one-line README so a new reader knows what feeds them.
+- [x] **F3. Tooling folders** (already ignored in `.gitignore`). `.claude/launch.json` is tracked; `.claude/worktrees` and `.cursor` are tooling leftovers. Add them to `.gitignore` except `launch.json`, and confirm `.vercel/` stays ignored.
+- [x] **F4. `AI_transcripts/`** is 20+ MB of raw session logs. Keep (it is a deliverable) but add a one-page `AI_transcripts/README.md` saying what each file is and that tool output is truncated.
+- [x] **F5. `data/live_presets`, `data/filings`** each get a one-line README so a new reader knows what feeds them.
 
 ## G. Tests (low risk)
 
-- [ ] **G1. Fixtures.** `tests/fixtures/validate_fixtures.py` is a script, not a test; confirm it is wired into a test or documented as a manual check.
+- [x] **G1. Fixtures.** `tests/fixtures/validate_fixtures.py` is a script, not a test; confirm it is wired into a test or documented as a manual check.
 
 ## H. Web app (low risk)
 
