@@ -27,7 +27,7 @@ Branch: `cleanup/repo-presentation`, started from `main` after merging `cursor/v
 - [x] **C1. `jupyter` is a main dependency** but nothing imports it; the notebook builder already has its own `notebook` group. Remove it from `dependencies` (it drags in a large tree).
 - [x] **C2. `huggingface-hub` is declared directly** but never imported (it arrives through `sentence-transformers`). Remove the direct line.
 - [x] **C3. Two dependency lists.** `pyproject.toml` / `uv.lock` (local, full) and `requirements.txt` (Vercel, slim) can drift. Add a test that every package in `requirements.txt` also appears in `uv.lock` at the same version, and document why the two exist.
-- [ ] **C4. Confirm `itsdangerous` and `python-multipart`** are required at runtime (session cookies and forms) and keep them; note this in the lists so they are not "cleaned" later.
+- [x] **C4. Confirmed (the session cookie signer and the form routes need them); keep. `itsdangerous` and `python-multipart`** are required at runtime (session cookies and forms) and keep them; note this in the lists so they are not "cleaned" later.
 
 ## D. Data and cache (medium risk, large size win)
 
