@@ -380,13 +380,6 @@ GLOSSARY: list[tuple[str, list[tuple[str, str, str]]]] = [
         ("Second look", "pill second", "No linked email was labeled actionable or worth watching; check it with care."),
         ("Open / Accepted / Dismissed", "pill open", "Where the suggestion stands in this session; only an accept changes the book."),
     ]),
-    ("The book", [
-        ("Pillar", "tag", "One belief the position rests on, such as “Azure growth stays above consensus”."),
-        ("Assumption", "tag", "A model input the analyst sets, such as revenue growth or margin; EPS follows from them."),
-        ("Analyst rating", "rating buy", "The Street's buy, hold or sell view on the stock."),
-        ("Toward buy / Toward sell", "rating hold", "An email that moves the Street's rating one way or the other."),
-        ("Street target", "tag", "The Street's published target price, beside the desk's own."),
-    ]),
     ("Topics", [
         ("Macro", "tag soft", "Economy-wide: rates, inflation, currencies, global demand."),
         ("Sector", "tag soft", "Affects the industry, not just one company."),

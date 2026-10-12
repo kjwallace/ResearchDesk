@@ -19,7 +19,7 @@ CORPUS_DIR = ROOT / "data" / "corpus"
 SEED_DIR = ROOT / "data" / "seed"
 FILINGS_DIR = ROOT / "data" / "filings"
 OUT_DIR = ROOT / "data" / "out"
-CACHE_DIR = ROOT / "data" / "cache"
+CACHE_DIR = (ROOT / os.environ["TRIAGE_CACHE_DIR"]) if os.environ.get("TRIAGE_CACHE_DIR") else ROOT / "data" / "cache"   # a deployment can ship a smaller cache
 LIVE_PRESETS_DIR = ROOT / "data" / "live_presets"
 CRITERIA_DIR = ROOT / "criteria"
 SKILLS_DIR = ROOT / "skills"
@@ -76,7 +76,8 @@ CRITERIA_FILES = (
 #   JEV_MODEL         TypeSafe model for stage 3, e.g. a pinned jev-<version>
 #   ANALYSIS_MODEL    OpenRouter slug: extraction, analysis agent, verify agent, generation prompts
 #   NOTES_MODEL       OpenRouter slug: attention notes
-#   EMBEDDING_MODEL   Hugging Face repo ID, run locally: redundancy check, duplicate checks, filing search
+#   EMBEDDING_MODEL   Hugging Face repo ID, run locally (default), or an OpenRouter slug when EMBEDDING_BACKEND=openrouter:
+#                     redundancy check, duplicate checks, filing search
 
 MODEL_ENV_VARS = ("JEV_MODEL", "ANALYSIS_MODEL", "NOTES_MODEL", "EMBEDDING_MODEL")
 

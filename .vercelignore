@@ -12,7 +12,6 @@ docs
 scripts
 prompts
 notebooks
-data/cache
 data/corpus/day_2
 data/corpus/tuning
 data/corpus/**/email_plan.jsonl

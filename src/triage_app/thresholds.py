@@ -34,6 +34,12 @@ SUBJECT_MATCH = 0.6                      # fixed  token-set subject similarity t
 EMBEDDING_MAX_TOKENS = 512               # fixed  fallback input limit if the embedder reports none
 SPECIAL_TOKEN_HEADROOM = 8               # fixed  tokens kept free under that limit when chunking
 
+REMOTE_EMBED_MAX_TOKENS = 512            # fixed  input limit of the hosted embedding model (bge-base-en-v1.5)
+REMOTE_CHARS_PER_TOKEN = 2               # fixed  conservative text-to-token estimate where no tokenizer is installed
+                                         #        (digits and symbols tokenise densely; 3 let a 513-token chunk through)
+REMOTE_EMBED_BATCH = 64                  # fixed  texts per embeddings request
+EMBED_TIMEOUT_S = 60.0                   # fixed  hosted embeddings request timeout
+
 # ---- Stage 3: Jev -------------------------------------------------------------------------
 
 JEV_INPUT_LIMIT_TOKENS = 32_000   # fixed  email plus the longest question; beyond it the body is trimmed
