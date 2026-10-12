@@ -58,3 +58,8 @@ disallow_subclassing_any = false
 module = ["build_walkthrough_notebook"]
 disallow_untyped_calls = false
 warn_return_any = false
+
+# Lint: pyflakes errors and bugbear checks. B008 is FastAPI's `Form(...)` default style; E701/E702 are not selected.
+[tool.ruff.lint]
+select = ["F", "B"]
+ignore = ["B008"]

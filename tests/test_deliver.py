@@ -11,7 +11,7 @@ from triage_app import thresholds
 from triage_app.pipeline import deliver
 from triage_app.pipeline.context import RunContext
 from triage_app.pipeline.io import read_list, read_one
-from triage_app.schema import Brief, Email, EmailResult, ExistingThesis, Suggestion, TriageRecord
+from triage_app.schema import Brief, EmailResult, ExistingThesis, Suggestion, TriageRecord
 
 OUT = Path(__file__).parent / "fixtures" / "out"
 

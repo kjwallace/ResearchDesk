@@ -10,7 +10,7 @@ import re
 import sys
 from pathlib import Path
 
-from pydantic import BaseModel, TypeAdapter
+from pydantic import BaseModel
 
 from triage_app.state.fold import ticker_of
 from triage_app import thresholds
@@ -112,7 +112,7 @@ for e in emails:
     check(e.body == ROW[e.email_id]["body"], f"loader {e.email_id}: body must be exactly the corpus body")
     check(not (set(e.model_dump()) & LABEL_FIELDS), f"loader {e.email_id}: Email holds label fields")
     check(str(e.received_at.date()) == config.SET_DATES["day_1"], f"loader {e.email_id}: received_at not on day_1")
-check(all(x.received_at < y.received_at for x, y in zip(emails, emails[1:])), "loader: received_at must increase")
+check(all(x.received_at < y.received_at for x, y in zip(emails, emails[1:], strict=False)), "loader: received_at must increase")
 BODY = {e.email_id: e.body for e in emails}
 
 # ---- stage 2: redundancy.json holds flagged emails only ----

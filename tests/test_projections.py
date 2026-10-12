@@ -5,7 +5,7 @@ from typing import Any
 
 import pytest
 from fakes import FIXTURE_EMAILS, FakeEmbedder, fixture_emails
-from test_analyze import MSFT_Q1, Script, claims_of, run_one, step
+from test_analyze import MSFT_Q1, Script, run_one, step
 
 from triage_app import thresholds
 from triage_app.config import FIXTURES_DIR

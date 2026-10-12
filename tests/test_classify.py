@@ -1,6 +1,5 @@
 import json
 import logging
-import shutil
 from pathlib import Path
 from typing import Any
 
@@ -15,7 +14,7 @@ from triage_app.modules.classify import QUESTION_IDS, classify, load_wording, pa
 from triage_app.pipeline import classify as stage
 from triage_app.pipeline.context import RunContext
 from triage_app.pipeline.io import read_list
-from triage_app.schema import Email, TriageRecord
+from triage_app.schema import TriageRecord
 
 OUT = config.FIXTURES_DIR / "out"
 EMAILS = fixture_emails()

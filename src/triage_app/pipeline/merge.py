@@ -29,7 +29,6 @@ from pathlib import Path
 from typing import Any
 
 from triage_app import thresholds
-from triage_app import config
 from triage_app.pipeline.context import RunContext
 from triage_app.pipeline.io import read_list, write_list
 from triage_app.pipeline.validate import linked_emails, needs_second_look

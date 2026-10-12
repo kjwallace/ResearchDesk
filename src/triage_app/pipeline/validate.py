@@ -43,7 +43,6 @@ from pathlib import Path
 import numpy as np
 
 from triage_app import thresholds
-from triage_app import config
 from triage_app.embed import Vector
 from triage_app.pipeline.context import RunContext
 from triage_app.pipeline.io import quote_in, read_list, write_list

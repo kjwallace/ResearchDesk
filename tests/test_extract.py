@@ -98,7 +98,6 @@ def test_flagged_repeat_gets_earlier_body_and_keeps_only_new_claims(tmp_path: Pa
     write_list(d / "results.json", res)
 
     def answer(messages: list[Message]) -> str:
-        body = text(messages)
         if "earlier_email" in messages[-1].content:
             return reply(claim(SHARED, "GOOGL"), claim(NEW_006, "GOOGL"))
         return reply()

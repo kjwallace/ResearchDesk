@@ -149,7 +149,7 @@ def parse_batch(text: str, batch: list[dict]) -> list[dict]:
     got = [item.get("email_id") for item in items]
     if got != expected:
         raise ValueError(f"email_ids {got} != {expected}")
-    for item, slot in zip(items, batch):
+    for item, slot in zip(items, batch, strict=True):
         for key in ("sender", "sender_email", "subject", "body", "reason"):
             if not isinstance(item.get(key), str) or not item[key].strip():
                 raise ValueError(f"{slot['email_id']} missing {key}")
@@ -162,8 +162,8 @@ def parse_batch(text: str, batch: list[dict]) -> list[dict]:
                 hits = sum(len(re.findall(rf"\b{re.escape(n)}\b", text_blob)) for n in names)
                 if hits >= 3:
                     raise ValueError(f"{slot['email_id']} discusses untagged {ticker} ({hits} mentions)")
-    records = [full_record(slot, item) for item, slot in zip(items, batch)]
-    for record, slot in zip(records, batch):
+    records = [full_record(slot, item) for item, slot in zip(items, batch, strict=True)]
+    for record, slot in zip(records, batch, strict=True):
         assert all(record[k] == slot[k] for k in LABEL_FIELDS), record["email_id"]
     return records
 

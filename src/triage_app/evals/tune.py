@@ -58,9 +58,9 @@ def fit_pass_threshold(relevant: Sequence[float], monitor: Sequence[float], defa
 
 
 def f1_at(probs: Sequence[float], truth: Sequence[bool], threshold: float) -> float | None:
-    tp = sum(1 for p, y in zip(probs, truth) if p >= threshold and y)
-    fp = sum(1 for p, y in zip(probs, truth) if p >= threshold and not y)
-    fn = sum(1 for p, y in zip(probs, truth) if p < threshold and y)
+    tp = sum(1 for p, y in zip(probs, truth, strict=True) if p >= threshold and y)
+    fp = sum(1 for p, y in zip(probs, truth, strict=True) if p >= threshold and not y)
+    fn = sum(1 for p, y in zip(probs, truth, strict=True) if p < threshold and y)
     return 2 * tp / (2 * tp + fp + fn) if tp + fp + fn else None
 
 
@@ -71,7 +71,7 @@ def fit_f1_threshold(probs: Sequence[float], truth: Sequence[bool], default: flo
     if not any(truth):
         return default
     values = sorted(set(probs))
-    candidates = [values[0], *((a + b) / 2 for a, b in zip(values, values[1:]))]
+    candidates = [values[0], *((a + b) / 2 for a, b in zip(values, values[1:], strict=False))]
     best = max(candidates, key=lambda t: (f1_at(probs, truth, t) or 0.0, -abs(t - default)))
     return round(best, 4)
 

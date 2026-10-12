@@ -170,7 +170,7 @@ def build_plan(rng: random.Random, total: int, start_id: int, day: int) -> list[
     # Balanced single-name coverage across thesis_relevant and monitor.
     for label, second_prob in (("thesis_relevant", 0.2), ("monitor", 0.25)):
         names = [s for s in by_triage[label] if not s["systemic"]]
-        for slot, ticker in zip(names, balanced_tickers(rng, len(names))):
+        for slot, ticker in zip(names, balanced_tickers(rng, len(names)), strict=True):
             slot["affected_tickers"] = [ticker]
             if rng.random() < second_prob:
                 slot["affected_tickers"].append(rng.choice([t for t in TICKERS if t != ticker]))

@@ -8,19 +8,19 @@ Branch: `cleanup/repo-presentation`, started from `main` after merging `cursor/v
 
 ## A. Dead code (low risk)
 
-- [ ] **A1. `evals/score.py: load_labels`.** Defined, referenced nowhere, not in any doc. Remove.
-- [ ] **A2. `web/labels.py: REQUEST_KIND_NAMES`.** Constant used nowhere (the attention page builds its own tab names). Remove.
+- [x] **A1. `evals/score.py: load_labels`.** Defined, referenced nowhere, not in any doc. Remove.
+- [x] **A2. `web/labels.py: REQUEST_KIND_NAMES`.** Constant used nowhere (the attention page builds its own tab names). Remove.
 - [x] **A3. `web/main.py: http_error`** is the registered HTTP error handler (decorated), so vulture's report is a false positive. Keep.
-- [ ] **A4. Unused CSS.** Ten selectors match no template, script or Python string: `dots`, `faint`, `stack`, `req-by`, `req-label`, `req-name`, `req-org`, `req-subj`, `req-time`, `req-top` (the old request-card layout). `t1`, `t2`, `t3` and `htmx-request` are built dynamically and must stay. Remove the ten after a visual check of Needs attention.
+- [x] **A4. Unused CSS.** Ten selectors match no template, script or Python string: `dots`, `faint`, `stack`, `req-by`, `req-label`, `req-name`, `req-org`, `req-subj`, `req-time`, `req-top` (the old request-card layout). `t1`, `t2`, `t3` and `htmx-request` are built dynamically and must stay. Remove the ten after a visual check of Needs attention.
 - [ ] **A5. `evals/metric.projection_review`** is defined and tested but `evals/score.py` never calls it, so it feeds no report. Either wire it into the scorer and `eval.json`, or remove it with its test. (`View.seed_driver` is used by `company.html` and stays.)
 - [ ] **A6. Placeholder route `research_log_page`.** The docstring says "not connected to anything". Decide: keep as a labelled placeholder (the Book page links to it) or remove the route and the link.
 
 ## B. Lint-level tidy (low risk, mechanical)
 
-- [ ] **B1. Unused imports.** `config` in `pipeline/merge.py` and `pipeline/validate.py`; `shutil` and `Email` in `tests/test_classify.py`; `Email` in `tests/test_deliver.py` and `tests/test_validate.py`; `config` in `tests/test_redundancy.py`; `claims_of` in `tests/test_projections.py`; `TypeAdapter` in `tests/fixtures/validate_fixtures.py`. `ruff --fix` handles nine of them.
-- [ ] **B2. Unused local** `body` in `tests/test_extract.py:101`.
-- [ ] **B3. `zip()` without `strict=`** in 11 places (corpus loader, tuning, scripts, tests). Add `strict=True` where lengths must match; this documents the invariant.
-- [ ] **B4. Decide on a linter.** Add `ruff` with a small rule set (F, B, I) to `pyproject.toml` so B1-B3 stay fixed; `mypy --strict` is already enforced.
+- [x] **B1. Unused imports.** `config` in `pipeline/merge.py` and `pipeline/validate.py`; `shutil` and `Email` in `tests/test_classify.py`; `Email` in `tests/test_deliver.py` and `tests/test_validate.py`; `config` in `tests/test_redundancy.py`; `claims_of` in `tests/test_projections.py`; `TypeAdapter` in `tests/fixtures/validate_fixtures.py`. `ruff --fix` handles nine of them.
+- [x] **B2. Unused local** `body` in `tests/test_extract.py:101`.
+- [x] **B3. `zip()` without `strict=`** in 11 places (corpus loader, tuning, scripts, tests). Add `strict=True` where lengths must match; this documents the invariant.
+- [x] **B4. Decide on a linter.** Add `ruff` with a small rule set (F, B, I) to `pyproject.toml` so B1-B3 stay fixed; `mypy --strict` is already enforced.
 
 ## C. Dependencies (medium risk, verify with a clean install)
 

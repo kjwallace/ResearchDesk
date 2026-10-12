@@ -152,7 +152,7 @@ def load_with_report(path: Path, corpus_set: CorpusSet | None = None) -> LoadRes
     seen: dict[str, str] = {}
     ids_seen: set[str] = set()
 
-    for (lineno, line), received_at in zip(lines, times):
+    for (lineno, line), received_at in zip(lines, times, strict=True):
         try:
             row = json.loads(line)
         except json.JSONDecodeError as e:
