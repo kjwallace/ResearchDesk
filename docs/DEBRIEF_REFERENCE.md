@@ -2,7 +2,7 @@
 
 A crib sheet for the case-study debrief.
 
-- **Each component section has the same parts:** prompts, reasoning, spec, design choices, features, and likely questions.
+- **Each component section has the same parts:** prompts, reasoning, spec, design choices, features, and notes.
 - **`#N`** is a row in `DECISIONS.md`.
 - **Numbers** come from the committed `data/out/<set>/eval.json` and `metrics.json`. Quote these, not #67.
 - **Deeper reading:** how the evals are built, and the feedback-loop design, are in [EVALS_AND_FEEDBACK_LOOP.md](EVALS_AND_FEEDBACK_LOOP.md).
@@ -175,10 +175,10 @@ Scores are in the table above, and causes are in W1–W6.
 | Bodies kept exactly as in the corpus (#46) | One source for verbatim quote checks | No cleaning step |
 | Email types cut from 18 to 11 (#45) | The types overlapped | The generation scripts no longer reproduce the files |
 
-**Likely questions.**
+**Notes.**
 
-- **Is the corpus reproducible?** The plans are. The text isn't: it was generated at temperature 1.0 and later edited in place.
-- **What are its limits?**
+- **Reproducibility:** the label plans can be reproduced; the text can't (temperature 1.0, later edited).
+- **Limits:**
   - Emails are short (about 250 words).
   - There are only two test days.
   - There's no repeat check across days.
@@ -246,15 +246,14 @@ flowchart TD
 | Signal = P(TR) + P(monitor) | Jev splits probability between these two adjacent labels | A zero-margin threshold generalizes poorly (W1) |
 | TypeSafe SDK rather than DSPy (#9) | DSPy bakes criteria into types, so every edit means a rebuild. The SDK maps 1:1 to the files and reports tokens | No ReAnchor; thresholds are fit by code sweep |
 
-**Likely questions.**
+**Notes.**
 
-- **How do you handle prompt injection?**
+- **Prompt-injection defence:**
   - The safety questions quarantine an email at 0.65, before anything else runs.
-  - Later prompts wrap the body as data.
-  - All output is validated.
-- **Why a monitor minimum of 0.70?** It's the smallest value that reaches the plateau in fit signal accuracy without losing correct monitor labels.
-- **How is a rule change accepted?** Through `criteria_check`: the change must fix at least 2 fit emails, break none, and not lower validation accuracy. #39 and #92 each broke one email and were kept by explicit decision.
-- **What are the known gaps?**
+  - Later prompts wrap the email body as data.
+  - All model output is validated.
+- **Monitor minimum of 0.70:** the smallest value that reaches the plateau in fit signal accuracy without losing correct monitor labels.
+- **Known gaps:**
   - The "no" side of each yes/no question has no description (#10).
   - The SDK sends no system preamble (#32).
   - Jev's cost isn't tracked.
@@ -333,20 +332,23 @@ sequenceDiagram
 | Suggestions come from skill results, not the agent's text | The agent can't slip one in | The analyst never sees the agent's reasoning |
 | Each email processed in isolation (#54C) | One bad reply doesn't stop the stage | That email is logged as failed |
 
-**Likely questions.**
+**Notes.**
 
-- **How do you control hallucination?** Verbatim quotes, figures that must appear in the quote (#54), and IDs and values assigned by code. Quote faithfulness was 1.0 with 0 stray suggestions.
-- **Why not fuzzy-match quotes?** Paraphrases would pass. Whitespace is the only difference allowed.
-- **Why use an agent?** The spec has it choose the skills, so adding a skill doesn't grow the prompt. Code still limits its scope.
-- **What failure modes did you see?**
+- **Hallucination control:**
+  - Quotes must match verbatim; only whitespace may differ, so paraphrases fail.
+  - A figure must appear in its quote (#54).
+  - Code assigns IDs and fills book values.
+  - Result: quote faithfulness 1.0 and 0 stray suggestions.
+- **Why an agent:** it chooses the skills, so adding a skill doesn't grow the prompt.
+- **Failures seen:**
   - Haiku replied with fenced JSON and its own tool markup.
   - OpenRouter errors sank a Sonnet rerun (#91).
   - Figures for the wrong fiscal year are dropped (#34).
-- **What are the limits?**
+- **Limits:**
   - Relevance is self-rated by the model.
   - The merge thresholds aren't tuned.
-  - Verify knows one 10-K per company.
-  - The analysis stages have no measure of quality yet.
+  - Verify knows only one 10-K per company.
+  - The analysis stages have no quality measure yet.
 
 ---
 
@@ -403,13 +405,13 @@ flowchart LR
 | Pure `compute` | Tested by hand; reused by the skills and the UI | A one-year model |
 | Modeled year = last reported year + 1 (#14) | The same rule for every company | FY2027 figures are rejected for three companies |
 
-**Likely questions.**
+**Notes.**
 
-- **Can a model change the book?** No. Only an analyst accept or a manual action writes a `LogEntry`.
-- **Which numbers are real?**
+- Only an analyst's accept or a manual action writes to the book; no model can.
+- **Real vs synthetic numbers:**
   - Real, from the 10-Ks: base revenue, tax and share counts.
   - Synthetic: the drivers, multiples and street targets.
-- **Does the batch pipeline see accepted changes?** No. It analyzes against `fold(seed, [])`.
+- The batch pipeline analyzes against the seed alone (`fold(seed, [])`), not against accepted changes.
 
 ---
 
@@ -442,11 +444,10 @@ For metric definitions, the tuning algorithm, error analysis and the weaknesses 
 | Clients injected as arguments | Tests stay offline | A client in every signature |
 | One `cached_call` path (#12) | Caching and metering can't drift apart | Depends on a deprecated DSPy API (pinned at 3.4.0) |
 
-**Likely questions.**
+**Notes.**
 
-- **What does a run cost?** About $0.001 per email, excluding Jev. A cached rerun costs $0.
-  - `metrics.json` shows no classify stage; the run was probably started `--from extract`.
-- **Is it reproducible?** Yes: every input is part of the cache key. Changing the criteria or a prompt changes the key, so those calls run live.
+- **Cost:** about $0.001 per email excluding Jev, and $0 on a cached rerun. `metrics.json` has no classify stage; the run probably started `--from extract`.
+- **Reproducibility:** every input is in the cache key, so a changed prompt or criteria file runs live.
 
 ---
 
@@ -499,10 +500,13 @@ The key permission was #60: UX may depart from the spec, backend contracts may n
 5. **Book:** EPS and target against consensus and the Street, with editable pillars.
 6. **Under the hood:** audit with "This mattered", criteria, live, eval, monitor.
 
-**Likely questions.**
+**Notes.**
 
-- **Why not React?** One deployable Python process, with partial updates from HTMX.
-- **Is it secure?** Jinja autoescapes, highlighting escapes the email body first, and API keys live only in environment variables.
+- **HTMX, not React:** one deployable Python process.
+- **Security:**
+  - Jinja autoescapes output.
+  - Highlighting escapes the email body first.
+  - Keys live only in environment variables.
 
 ---
 
@@ -578,34 +582,28 @@ flowchart LR
 - Flags: MNPI sign-off, and Jev's lean toward `monitor`.
 - Gap: `skills/revise_projections.md` isn't listed.
 
-**Likely questions.**
+**Notes.**
 
-- **How much did AI write?** Nearly all the code, tests, drafts and corpus. You wrote the spec and directed every change in behaviour; DECISIONS has dozens of "Person's instruction" rows.
-- **How did you verify the AI's work?**
-  - 344 tests and `mypy --strict`;
-  - verbatim quote checks in code;
-  - an independent review subagent;
-  - held-out evals;
-  - reading the output in the UI.
-- **What did you decide yourself?**
-  - providers and models;
-  - the MNPI rule;
-  - the monitor/TR boundary;
-  - the corpus edits;
-  - UX freedom;
-  - simpler outputs.
-- **Why subagents?** Parallel builds against frozen contracts, plus a reviewer with no stake in the code.
-- **What went wrong in coordination?** DECISIONS numbers collided between sessions. Rows 120–149 were reserved for UI rows to fix it.
-- **What would you do differently?**
+- **Who did what:**
+  - AI wrote nearly all the code, tests, drafts and the corpus.
+  - The person wrote the spec and directed every change in behaviour: providers and models, the MNPI rule, the monitor/TR boundary, the corpus edits, UX freedom and the simpler outputs.
+- **Verification:**
+  - 344 tests and `mypy --strict`.
+  - Verbatim quote checks in code.
+  - An independent review subagent.
+  - Held-out evals.
+  - Reading the output in the UI.
+- **Coordination issue:** DECISIONS numbers collided between sessions; rows 120–149 were reserved for UI rows to fix it.
+- **In hindsight:**
   - Choose the model once.
   - Clear REVIEW before tuning.
-  - Reserve DECISIONS numbering per session.
+  - Reserve DECISIONS number blocks per session.
   - Add a threshold margin.
   - Build a larger tuning set.
-- **What's the path to production?**
+- **Path to production:**
   - Shadow mode on real mail.
   - Compliance review of quarantine.
   - Margins on the thresholds.
   - Price and monitor Jev.
   - Repeat detection across days.
-  - The feedback loop in the companion doc.
+  - The feedback loop (companion doc).
