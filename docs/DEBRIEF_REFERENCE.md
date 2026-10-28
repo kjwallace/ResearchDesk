@@ -6,7 +6,7 @@ A crib sheet for the case-study debrief.
 - **`#N`** is a row in `DECISIONS.md`.
 - **Numbers** come from the committed `data/out/<set>/eval.json` and `metrics.json`. Quote these, not #67.
 - **Deeper reading:** how the evals are built, and the feedback-loop design, are in [EVALS_AND_FEEDBACK_LOOP.md](EVALS_AND_FEEDBACK_LOOP.md).
-- **Metric definitions:** [Glossary](#glossary-testing-metrics) at the end.
+- **Metric definitions:** [Glossary](#glossary-testing-metrics), directly below the results table.
 
 ---
 
@@ -53,6 +53,73 @@ flowchart LR
 | Repeat flags / precision | 54 / 0.111 | 43 / 0.070 |
 | Quote faithfulness · stray suggestions | **1.0 · 0** | **1.0 · 0** |
 | Cost (Haiku 5.5, excl. Jev) · p95 latency | $0.34 · 31 s | $0.43 · 38 s |
+
+### Glossary: testing metrics
+
+#### Building blocks
+
+| Term | Meaning |
+|---|---|
+| **Precision** | Of what the system flagged, the share that was right. Low precision means noise for the analyst |
+| **Recall** | Of what should have been flagged, the share the system caught. Low recall means missed signal |
+| **F1** | 2·P·R / (P + R): one number that balances precision and recall |
+| **Micro vs macro F1** | Micro pools every decision, so common tickers dominate. Macro averages per class, so rare tickers count equally |
+| **Signal score** | P(thesis_relevant) + P(monitor) from Jev. The gate passes an email when the score ≥ 0.97 |
+| **Signal / redundant / noise** | The 3-class view: signal = TR + monitor, noise = low_value + irrelevant |
+| **Miss** | One email where a measure went wrong, with what was expected and what came out. Every miss is listed in `eval.json` |
+| **Quarantine rule** | A quarantined email counts as a miss on every label measure, so quarantine can't improve a score |
+
+#### Measures in `eval.json` (current system)
+
+| Metric | What it measures | Why it matters / what to say |
+|---|---|---|
+| **Gate recall** | Share of TR emails that pass the gate | The most important number: a stopped TR email is never analyzed. 0.833 / 0.667 (W1) |
+| **Monitor gate recall** | Same, for monitor emails | Second-tier signal. 0.867 / 0.938 |
+| **Gate reduction** | Share of emails stopped before analysis | Analyst load saved. About 77–79%. No target, since it trades off against recall |
+| **Signal accuracy** | Correct on the 3-class view | The product's headline accuracy. 0.882 / 0.867 |
+| **Triage accuracy** | Exact match on all 5 labels | Lower (about 0.68), mostly low_value vs irrelevant mix-ups, which don't matter |
+| **Confusion table** | Corpus label × pipeline label counts | Shows the costly error: TR → redundant (3 a day) |
+| **Ticker F1** | Micro-F1 on which of the 5 companies are affected | Drives which pillars get compared. 0.75 / 0.84 |
+| **Topic F1** | Micro-F1 on macro, sector, government, other | About 0.11; poorly calibrated, not investigated (W6) |
+| **Attention precision / recall** | The "needs a human" flag | 0.82 / 0.95 on day_1. Recall matters more: a missed meeting request is costly |
+| **Repeat flagged / precision** | Number of repeat flags; share labeled redundant | Precision about 0.1, so the flag is only a hint. No recall, because there's no ground truth (W3) |
+| **Stray suggestions** | Suggestions backed only by noise emails | 0 on both days. Shows the gate and validation keep junk out |
+| **Quote faithfulness** | Share of quoted sections found verbatim in the email | 1.0. Enforced by code, so it confirms the guardrail works rather than measuring quality |
+| **Email type accuracy** | Jev's email type vs the corpus | Display only. 0.79 / 0.84 |
+| **Meetings share** | Share of emails that are meetings, events or newsletters | Descriptive check of the corpus mix |
+| **Note / suggestion / new-thesis review** | Share of items a person marked correct on every check | Empty: the sheets haven't been filled. The only quality measure for the analysis stages |
+| **Cost per email, p95 latency** | From `metrics.json` | About $0.001 per email excluding Jev; p95 31–38 s. Cached reruns cost $0 |
+
+#### Tuning and method terms
+
+| Term | Meaning |
+|---|---|
+| **Fit / validation split** | The tuning set is split 2/3 to fit thresholds and 1/3 to check them. The test days are never used for fitting |
+| **Holdout** | Data used only to judge a change, never to make it. Reused too often, it stops being one (M2) |
+| **In-sample** | A score measured on the data used to fit. Gate recall there is 1.0 by construction (M1) |
+| **Keep rule** | A criteria edit is kept only if it fixes ≥ 2 fit emails, breaks none, and doesn't lower validation signal accuracy |
+| **Wilson CI** | A confidence interval for a proportion that holds up at small n. For example, 0.833 on 30 emails is [0.66, 0.93] |
+
+#### Terms from the feedback-loop design
+
+| Term | Meaning |
+|---|---|
+| **G1–G6 (invariants)** | Must hold exactly: quote faithfulness 1.0, no quarantined body shown, no labels in prompts, no book in Jev, regression suite 100%, no model-assigned IDs |
+| **P1 / P2: estimated gate recall** | Recall on real mail, estimated from a random audit of stopped emails, weighted by inverse propensity |
+| **Propensity / IPW** | Propensity is how likely an email was to be sampled for audit. Inverse-propensity weighting reweights the sample so the estimate is unbiased |
+| **P3: analyst load** | Emails passed plus suggestions shown per day |
+| **P4: suggestion precision** | (accept + edit) ÷ (accept + edit + dismiss for an error) |
+| **P5: useful-but-low** | Dismissed as "not material" or "already known": correct but below the bar |
+| **P6: contradiction recall** | Share of contradicting evidence surfaced. Guards against the loop learning to hide bad news |
+| **P7: attention precision** | respond ÷ (respond + reject) |
+| **P8: mattered rate** | "This mattered" clicks per 100 stopped emails browsed: the analyst flagging a gate miss |
+| **Non-inferiority margin** | How much a metric may drop while another improves, for example −1 pt on P1 |
+| **Conformal threshold** | A threshold picked from positive scores so a new positive passes with a stated probability, for example ≥ 98% |
+| **Calibration** | Whether a 0.8 probability is right 80% of the time |
+| **Brier score** | Mean squared error of the probabilities; lower is better |
+| **ECE** | Expected calibration error: the average gap between predicted and actual rates across probability bins |
+| **Cohen's κ** | Agreement between two analysts beyond chance. Below 0.6 means the label definition is unclear |
+| **McNemar's test / paired bootstrap** | Ways to compare two versions on the same emails, so the comparison isn't noise |
 
 **The build.**
 
@@ -557,72 +624,3 @@ flowchart LR
   - Price and monitor Jev.
   - Repeat detection across days.
   - The feedback loop in the companion doc.
-
----
-
-## Glossary: testing metrics
-
-### Building blocks
-
-| Term | Meaning |
-|---|---|
-| **Precision** | Of what the system flagged, the share that was right. Low precision means noise for the analyst |
-| **Recall** | Of what should have been flagged, the share the system caught. Low recall means missed signal |
-| **F1** | 2·P·R / (P + R): one number that balances precision and recall |
-| **Micro vs macro F1** | Micro pools every decision, so common tickers dominate. Macro averages per class, so rare tickers count equally |
-| **Signal score** | P(thesis_relevant) + P(monitor) from Jev. The gate passes an email when the score ≥ 0.97 |
-| **Signal / redundant / noise** | The 3-class view: signal = TR + monitor, noise = low_value + irrelevant |
-| **Miss** | One email where a measure went wrong, with what was expected and what came out. Every miss is listed in `eval.json` |
-| **Quarantine rule** | A quarantined email counts as a miss on every label measure, so quarantine can't improve a score |
-
-### Measures in `eval.json` (current system)
-
-| Metric | What it measures | Why it matters / what to say |
-|---|---|---|
-| **Gate recall** | Share of TR emails that pass the gate | The most important number: a stopped TR email is never analyzed. 0.833 / 0.667 (W1) |
-| **Monitor gate recall** | Same, for monitor emails | Second-tier signal. 0.867 / 0.938 |
-| **Gate reduction** | Share of emails stopped before analysis | Analyst load saved. About 77–79%. No target, since it trades off against recall |
-| **Signal accuracy** | Correct on the 3-class view | The product's headline accuracy. 0.882 / 0.867 |
-| **Triage accuracy** | Exact match on all 5 labels | Lower (about 0.68), mostly low_value vs irrelevant mix-ups, which don't matter |
-| **Confusion table** | Corpus label × pipeline label counts | Shows the costly error: TR → redundant (3 a day) |
-| **Ticker F1** | Micro-F1 on which of the 5 companies are affected | Drives which pillars get compared. 0.75 / 0.84 |
-| **Topic F1** | Micro-F1 on macro, sector, government, other | About 0.11; poorly calibrated, not investigated (W6) |
-| **Attention precision / recall** | The "needs a human" flag | 0.82 / 0.95 on day_1. Recall matters more: a missed meeting request is costly |
-| **Repeat flagged / precision** | Number of repeat flags; share labeled redundant | Precision about 0.1, so the flag is only a hint. No recall, because there's no ground truth (W3) |
-| **Stray suggestions** | Suggestions backed only by noise emails | 0 on both days. Shows the gate and validation keep junk out |
-| **Quote faithfulness** | Share of quoted sections found verbatim in the email | 1.0. Enforced by code, so it confirms the guardrail works rather than measuring quality |
-| **Email type accuracy** | Jev's email type vs the corpus | Display only. 0.79 / 0.84 |
-| **Meetings share** | Share of emails that are meetings, events or newsletters | Descriptive check of the corpus mix |
-| **Note / suggestion / new-thesis review** | Share of items a person marked correct on every check | Empty: the sheets haven't been filled. The only quality measure for the analysis stages |
-| **Cost per email, p95 latency** | From `metrics.json` | About $0.001 per email excluding Jev; p95 31–38 s. Cached reruns cost $0 |
-
-### Tuning and method terms
-
-| Term | Meaning |
-|---|---|
-| **Fit / validation split** | The tuning set is split 2/3 to fit thresholds and 1/3 to check them. The test days are never used for fitting |
-| **Holdout** | Data used only to judge a change, never to make it. Reused too often, it stops being one (M2) |
-| **In-sample** | A score measured on the data used to fit. Gate recall there is 1.0 by construction (M1) |
-| **Keep rule** | A criteria edit is kept only if it fixes ≥ 2 fit emails, breaks none, and doesn't lower validation signal accuracy |
-| **Wilson CI** | A confidence interval for a proportion that holds up at small n. For example, 0.833 on 30 emails is [0.66, 0.93] |
-
-### Terms from the feedback-loop design
-
-| Term | Meaning |
-|---|---|
-| **G1–G6 (invariants)** | Must hold exactly: quote faithfulness 1.0, no quarantined body shown, no labels in prompts, no book in Jev, regression suite 100%, no model-assigned IDs |
-| **P1 / P2: estimated gate recall** | Recall on real mail, estimated from a random audit of stopped emails, weighted by inverse propensity |
-| **Propensity / IPW** | Propensity is how likely an email was to be sampled for audit. Inverse-propensity weighting reweights the sample so the estimate is unbiased |
-| **P3: analyst load** | Emails passed plus suggestions shown per day |
-| **P4: suggestion precision** | (accept + edit) ÷ (accept + edit + dismiss for an error) |
-| **P5: useful-but-low** | Dismissed as "not material" or "already known": correct but below the bar |
-| **P6: contradiction recall** | Share of contradicting evidence surfaced. Guards against the loop learning to hide bad news |
-| **P7: attention precision** | respond ÷ (respond + reject) |
-| **P8: mattered rate** | "This mattered" clicks per 100 stopped emails browsed: the analyst flagging a gate miss |
-| **Non-inferiority margin** | How much a metric may drop while another improves, for example −1 pt on P1 |
-| **Conformal threshold** | A threshold picked from positive scores so a new positive passes with a stated probability, for example ≥ 98% |
-| **Calibration** | Whether a 0.8 probability is right 80% of the time |
-| **Brier score** | Mean squared error of the probabilities; lower is better |
-| **ECE** | Expected calibration error: the average gap between predicted and actual rates across probability bins |
-| **Cohen's κ** | Agreement between two analysts beyond chance. Below 0.6 means the label definition is unclear |
-| **McNemar's test / paired bootstrap** | Ways to compare two versions on the same emails, so the comparison isn't noise |
