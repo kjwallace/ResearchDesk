@@ -188,3 +188,18 @@ print("BAD", bad)
         env.pop(k, None)   # the entrypoint must supply these itself
     out = subprocess.run([sys.executable, "-c", script], cwd=ROOT, env=env, capture_output=True, text=True, timeout=600)
     assert "BAD []" in out.stdout, out.stdout[-600:] + out.stderr[-600:]
+
+
+def test_requirements_pins_match_the_locked_versions() -> None:
+    """requirements.txt (Vercel) and uv.lock (local, Docker) are two lists; they must not drift apart."""
+    import tomllib
+
+    lock = tomllib.loads((ROOT / "uv.lock").read_text())
+    locked = {p["name"].lower().replace("_", "-"): p["version"] for p in lock["package"]}
+    for line in (ROOT / "requirements.txt").read_text().splitlines():
+        if not line.strip() or line.startswith("#"):
+            continue
+        m = re.match(r"([A-Za-z0-9_.\-]+)(?:\[[^\]]*\])?==(.+)", line.strip())
+        assert m, f"requirements.txt line is not a pinned version: {line}"
+        name = m.group(1).lower().replace("_", "-")
+        assert locked.get(name) == m.group(2), f"{name}: requirements {m.group(2)} vs uv.lock {locked.get(name)}"

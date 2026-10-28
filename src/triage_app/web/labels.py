@@ -140,8 +140,6 @@ def prose(text: object) -> str:
 # ---- Attention requests: who is asking, the offer, and the deadline for a reply ----
 
 REQUEST_KINDS: dict[str, str] = {"meeting_request": "meeting", "event_invitation": "event"}
-REQUEST_KIND_NAMES: dict[str, str] = {"meeting": "Meeting requests", "event": "Event invitations",
-                                      "other": "Other requests"}
 DEADLINE_BUCKETS: dict[str, str] = {"today": "Deadline today", "tomorrow": "Deadline tomorrow", "later": "Deadline later",
                                     "none": "No deadline stated"}
 _SENTENCE_END = re.compile(r"(?<=[.!?])\s+(?=[A-Z])")

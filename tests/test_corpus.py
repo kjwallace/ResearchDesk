@@ -44,7 +44,7 @@ def test_fixture_arrival_times_follow_file_order() -> None:
     emails, _ = corpus.load(FIXTURE)
     times = [e.received_at.isoformat() for e in emails]
     assert times[0] == f"{config.SET_DATES['day_1']}T05:30:00-04:00" and times[-1].endswith("17:39:00-04:00")
-    assert all(a.received_at < b.received_at for a, b in zip(emails, emails[1:]))
+    assert all(a.received_at < b.received_at for a, b in zip(emails, emails[1:], strict=False))
 
 
 def test_generation_fields_never_reach_email() -> None:

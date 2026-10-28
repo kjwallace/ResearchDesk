@@ -5,7 +5,7 @@ import numpy as np
 import pytest
 from fakes import FIXTURE_EMAILS, FakeEmbedder, fixture_emails
 
-from triage_app import config, thresholds
+from triage_app import thresholds
 from triage_app.embed import Embedder
 from triage_app.pipeline import redundancy
 from triage_app.pipeline.context import RunContext

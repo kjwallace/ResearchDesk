@@ -53,10 +53,6 @@ def load_corpus(corpus_set: CorpusSet) -> tuple[list[Email], list[EmailLabel]]:
     return corpus.load(config.corpus_file(corpus_set))
 
 
-def load_labels(corpus_set: CorpusSet, labels_path: Path | None = None) -> list[EmailLabel]:
-    return read_labels_file(labels_path) if labels_path else load_corpus(corpus_set)[1]
-
-
 # ---- Eval report ----
 
 def _optional[M: BaseModel](path: Path, model: type[M]) -> list[M] | None:

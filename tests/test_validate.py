@@ -11,7 +11,6 @@ from triage_app.pipeline.context import RunContext
 from triage_app.pipeline.io import read_list
 from triage_app.schema import (
     Claim,
-    Email,
     EmailResult,
     ExistingThesis,
     LinkedAssumption,
