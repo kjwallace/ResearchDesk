@@ -92,7 +92,9 @@ flowchart TD
   - 10 of the 13 scored 0.93–0.96, just under the 0.97 threshold (W1).
   - **For 7 of the 13, Jev's top label was TR.** The gate ignores the label, because it reads the summed signal score.
   - **A cheap fix:** "Jev's top label is TR → pass". It would recover those 7 at a cost of 13 extra passed emails over two days, lifting gate recall to about 0.90 on day_1 and 0.85 on day_2.
-- **Topic F1:** 285 of 288 emails mismatch. Investigate before quoting it (W6).
+- **Topic F1** (W6) is driven by over-flagging:
+  - 32 TP against 502 FP on day_1.
+  - Best-F1 tuning on very few topic positives chose near-zero thresholds (other 0.085, macro 0.07).
 
 ## A5. Weaknesses in the method
 

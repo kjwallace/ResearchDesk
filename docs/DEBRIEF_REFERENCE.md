@@ -69,6 +69,39 @@ flowchart LR
 | **Miss** | One email where a measure went wrong, with what was expected and what came out. Every miss is listed in `eval.json` |
 | **Quarantine rule** | A quarantined email counts as a miss on every label measure, so quarantine can't improve a score |
 
+#### F1 in more depth
+
+- **Counts:**
+  - **TP:** flagged and right.
+  - **FP:** flagged but wrong.
+  - **FN:** missed.
+  - True negatives are left out on purpose: most emails aren't about most tickers, so counting them would flatter any system.
+- **Formulas:**
+  - Precision = TP / (TP + FP)
+  - Recall = TP / (TP + FN)
+  - F1 = 2·P·R / (P + R) = 2TP / (2TP + FP + FN)
+- **Why the harmonic mean:** it punishes imbalance. P = 1.0 with R = 0.1 averages to 0.55, but F1 is 0.18. Tagging everything gives recall 1.0 but a low F1.
+- **Equal weighting is a choice.** F-beta weights recall more, which suits the gate, where a miss costs more than an extra read.
+
+**Worked numbers (day_1, from `results.json` and the labels):**
+
+| | TP | FP | FN | Precision | Recall | F1 |
+|---|---|---|---|---|---|---|
+| Tickers | 123 | 56 | 25 | 0.687 | 0.831 | **0.752** |
+| Topics | 32 | 502 | 2 | 0.06 | 0.94 | **0.113** |
+
+- **Tickers:**
+  - 83% of the right tickers are found, but about 1 tag in 3 is spurious, mostly AMZN (20 FP) and GOOGL (19 FP).
+  - Per ticker: AAPL 0.83, MSFT 0.81, GOOGL 0.72, AMZN 0.71, NVDA 0.71.
+  - Macro-F1 is about 0.76, close to micro because the tickers are similarly common.
+- **Topics:**
+  - Recall is fine; precision has collapsed. "other" alone has 273 FP and sector 175.
+  - The cause is the thresholds: best-F1 tuning on the few topic positives in the tuning set chose near-zero values (other 0.085, macro 0.07), which flag almost everything.
+- **Where F1 is used:**
+  - Reported: ticker and topic F1 in `eval.json`.
+  - Tuning objective: the attention, ticker and topic thresholds come from `tune.fit_f1_threshold`.
+  - Not for the gate: it uses a recall rule (every TR email in the fit split must pass), because equal weighting is the wrong trade there.
+
 #### Measures in `eval.json` (current system)
 
 | Metric | What it measures | Why it matters / what to say |
@@ -80,7 +113,7 @@ flowchart LR
 | **Triage accuracy** | Exact match on all 5 labels | Lower (about 0.68), mostly low_value vs irrelevant mix-ups, which don't matter |
 | **Confusion table** | Corpus label × pipeline label counts | Shows the costly error: TR → redundant (3 a day) |
 | **Ticker F1** | Micro-F1 on which of the 5 companies are affected | Drives which pillars get compared. 0.75 / 0.84 |
-| **Topic F1** | Micro-F1 on macro, sector, government, other | About 0.11; poorly calibrated, not investigated (W6) |
+| **Topic F1** | Micro-F1 on macro, sector, government, other | About 0.11: over-flagging from near-zero tuned thresholds (W6; see F1 in more depth) |
 | **Attention precision / recall** | The "needs a human" flag | 0.82 / 0.95 on day_1. Recall matters more: a missed meeting request is costly |
 | **Repeat flagged / precision** | Number of repeat flags; share labeled redundant | Precision about 0.1, so the flag is only a hint. No recall, because there's no ground truth (W3) |
 | **Stray suggestions** | Suggestions backed only by noise emails | 0 on both days. Shows the gate and validation keep junk out |
@@ -140,7 +173,10 @@ flowchart LR
    - 11 emails were replaced and 12 removed.
    - The edits are disclosed. They added test inputs and weren't made to raise a score.
 5. **W5 – No generated draft has been reviewed.** Compliance sign-off on the MNPI quarantine rule is still open.
-6. **W6 – Topic F1 is about 0.11.** Jev's topic probabilities are poorly calibrated, and this wasn't investigated.
+6. **W6 – Topic F1 is about 0.11.**
+   - Cause: recall is 0.94, but precision is 0.06, with 502 false positives on day_1.
+   - Best-F1 tuning on very few topic positives chose near-zero thresholds (other 0.085, macro 0.07).
+   - Fix: require a minimum number of positives before a threshold is tuned (otherwise keep 0.5), or tune on more data.
 
 ---
 
