@@ -56,103 +56,52 @@ flowchart LR
 
 ### Glossary: testing metrics
 
-#### Building blocks
+Scores are in the table above, and causes are in W1–W6.
+
+| Metric | Meaning |
+|---|---|
+| **Gate recall** (TR / monitor) | Share of signal emails that pass the gate. The key number, because a stopped email is never analyzed |
+| **Gate reduction** | Share of emails stopped: the analyst load saved |
+| **Signal accuracy** | Correct on 3 classes: signal (TR + monitor), redundant, noise |
+| **Triage accuracy** | Exact match on all 5 labels; the misses are mostly low_value vs irrelevant |
+| **Ticker / topic F1** | How well tickers and topics are tagged (see F1 below) |
+| **Attention P / R** | Precision and recall on the "needs a human" flag |
+| **Repeat precision** | Share of repeat flags labeled redundant; no recall, because there's no ground truth |
+| **Stray suggestions** | Suggestions backed only by noise emails |
+| **Quote faithfulness** | Quotes found verbatim in the email; enforced by code, so it's a guardrail |
+| **Review scores** | Share of items a person marked correct; still empty |
+
+**F1 in brief.**
+
+- **Precision** = TP / (TP + FP), the share of flags that are right. **Recall** = TP / (TP + FN), the share of true cases caught.
+- **F1** = 2·P·R / (P + R).
+  - It's a harmonic mean, so it's high only when both are: P = 1.0 and R = 0.1 give F1 = 0.18.
+  - True negatives aren't counted.
+- **Micro vs macro:**
+  - Micro (what's reported) pools all counts.
+  - Macro averages per class, so it exposes a rare class that does badly.
+  - Ticker macro is about 0.76, close to micro.
+- **Day_1 counts:**
+
+  | | TP | FP | FN |
+  |---|---|---|---|
+  | Tickers | 123 | 56 | 25 |
+  | Topics | 32 | 502 | 2 |
+
+- **Where it's used:**
+  - It's the tuning objective for the attention, ticker and topic thresholds.
+  - Not for the gate: a miss costs more than a false alarm, so the gate uses a recall rule.
+
+**Method terms.**
 
 | Term | Meaning |
 |---|---|
-| **Precision** | Of what the system flagged, the share that was right. Low precision means noise for the analyst |
-| **Recall** | Of what should have been flagged, the share the system caught. Low recall means missed signal |
-| **F1** | 2·P·R / (P + R): one number that balances precision and recall |
-| **Micro vs macro F1** | Micro pools every decision, so common tickers dominate. Macro averages per class, so rare tickers count equally |
-| **Signal score** | P(thesis_relevant) + P(monitor) from Jev. The gate passes an email when the score ≥ 0.97 |
-| **Signal / redundant / noise** | The 3-class view: signal = TR + monitor, noise = low_value + irrelevant |
-| **Miss** | One email where a measure went wrong, with what was expected and what came out. Every miss is listed in `eval.json` |
-| **Quarantine rule** | A quarantined email counts as a miss on every label measure, so quarantine can't improve a score |
-
-#### F1 in more depth
-
-- **Counts:**
-  - **TP:** flagged and right.
-  - **FP:** flagged but wrong.
-  - **FN:** missed.
-  - True negatives are left out on purpose: most emails aren't about most tickers, so counting them would flatter any system.
-- **Formulas:**
-  - Precision = TP / (TP + FP)
-  - Recall = TP / (TP + FN)
-  - F1 = 2·P·R / (P + R) = 2TP / (2TP + FP + FN)
-- **Why the harmonic mean:** it punishes imbalance. P = 1.0 with R = 0.1 averages to 0.55, but F1 is 0.18. Tagging everything gives recall 1.0 but a low F1.
-- **Equal weighting is a choice.** F-beta weights recall more, which suits the gate, where a miss costs more than an extra read.
-
-**Worked numbers (day_1, from `results.json` and the labels):**
-
-| | TP | FP | FN | Precision | Recall | F1 |
-|---|---|---|---|---|---|---|
-| Tickers | 123 | 56 | 25 | 0.687 | 0.831 | **0.752** |
-| Topics | 32 | 502 | 2 | 0.06 | 0.94 | **0.113** |
-
-- **Tickers:**
-  - 83% of the right tickers are found, but about 1 tag in 3 is spurious, mostly AMZN (20 FP) and GOOGL (19 FP).
-  - Per ticker: AAPL 0.83, MSFT 0.81, GOOGL 0.72, AMZN 0.71, NVDA 0.71.
-  - Macro-F1 is about 0.76, close to micro because the tickers are similarly common.
-- **Topics:**
-  - Recall is fine; precision has collapsed. "other" alone has 273 FP and sector 175.
-  - The cause is the thresholds: best-F1 tuning on the few topic positives in the tuning set chose near-zero values (other 0.085, macro 0.07), which flag almost everything.
-- **Where F1 is used:**
-  - Reported: ticker and topic F1 in `eval.json`.
-  - Tuning objective: the attention, ticker and topic thresholds come from `tune.fit_f1_threshold`.
-  - Not for the gate: it uses a recall rule (every TR email in the fit split must pass), because equal weighting is the wrong trade there.
-
-#### Measures in `eval.json` (current system)
-
-| Metric | What it measures | Why it matters / what to say |
-|---|---|---|
-| **Gate recall** | Share of TR emails that pass the gate | The most important number: a stopped TR email is never analyzed. 0.833 / 0.667 (W1) |
-| **Monitor gate recall** | Same, for monitor emails | Second-tier signal. 0.867 / 0.938 |
-| **Gate reduction** | Share of emails stopped before analysis | Analyst load saved. About 77–79%. No target, since it trades off against recall |
-| **Signal accuracy** | Correct on the 3-class view | The product's headline accuracy. 0.882 / 0.867 |
-| **Triage accuracy** | Exact match on all 5 labels | Lower (about 0.68), mostly low_value vs irrelevant mix-ups, which don't matter |
-| **Confusion table** | Corpus label × pipeline label counts | Shows the costly error: TR → redundant (3 a day) |
-| **Ticker F1** | Micro-F1 on which of the 5 companies are affected | Drives which pillars get compared. 0.75 / 0.84 |
-| **Topic F1** | Micro-F1 on macro, sector, government, other | About 0.11: over-flagging from near-zero tuned thresholds (W6; see F1 in more depth) |
-| **Attention precision / recall** | The "needs a human" flag | 0.82 / 0.95 on day_1. Recall matters more: a missed meeting request is costly |
-| **Repeat flagged / precision** | Number of repeat flags; share labeled redundant | Precision about 0.1, so the flag is only a hint. No recall, because there's no ground truth (W3) |
-| **Stray suggestions** | Suggestions backed only by noise emails | 0 on both days. Shows the gate and validation keep junk out |
-| **Quote faithfulness** | Share of quoted sections found verbatim in the email | 1.0. Enforced by code, so it confirms the guardrail works rather than measuring quality |
-| **Email type accuracy** | Jev's email type vs the corpus | Display only. 0.79 / 0.84 |
-| **Meetings share** | Share of emails that are meetings, events or newsletters | Descriptive check of the corpus mix |
-| **Note / suggestion / new-thesis review** | Share of items a person marked correct on every check | Empty: the sheets haven't been filled. The only quality measure for the analysis stages |
-| **Cost per email, p95 latency** | From `metrics.json` | About $0.001 per email excluding Jev; p95 31–38 s. Cached reruns cost $0 |
-
-#### Tuning and method terms
-
-| Term | Meaning |
-|---|---|
-| **Fit / validation split** | The tuning set is split 2/3 to fit thresholds and 1/3 to check them. The test days are never used for fitting |
-| **Holdout** | Data used only to judge a change, never to make it. Reused too often, it stops being one (M2) |
-| **In-sample** | A score measured on the data used to fit. Gate recall there is 1.0 by construction (M1) |
-| **Keep rule** | A criteria edit is kept only if it fixes ≥ 2 fit emails, breaks none, and doesn't lower validation signal accuracy |
-| **Wilson CI** | A confidence interval for a proportion that holds up at small n. For example, 0.833 on 30 emails is [0.66, 0.93] |
-
-#### Terms from the feedback-loop design
-
-| Term | Meaning |
-|---|---|
-| **G1–G6 (invariants)** | Must hold exactly: quote faithfulness 1.0, no quarantined body shown, no labels in prompts, no book in Jev, regression suite 100%, no model-assigned IDs |
-| **P1 / P2: estimated gate recall** | Recall on real mail, estimated from a random audit of stopped emails, weighted by inverse propensity |
-| **Propensity / IPW** | Propensity is how likely an email was to be sampled for audit. Inverse-propensity weighting reweights the sample so the estimate is unbiased |
-| **P3: analyst load** | Emails passed plus suggestions shown per day |
-| **P4: suggestion precision** | (accept + edit) ÷ (accept + edit + dismiss for an error) |
-| **P5: useful-but-low** | Dismissed as "not material" or "already known": correct but below the bar |
-| **P6: contradiction recall** | Share of contradicting evidence surfaced. Guards against the loop learning to hide bad news |
-| **P7: attention precision** | respond ÷ (respond + reject) |
-| **P8: mattered rate** | "This mattered" clicks per 100 stopped emails browsed: the analyst flagging a gate miss |
-| **Non-inferiority margin** | How much a metric may drop while another improves, for example −1 pt on P1 |
-| **Conformal threshold** | A threshold picked from positive scores so a new positive passes with a stated probability, for example ≥ 98% |
-| **Calibration** | Whether a 0.8 probability is right 80% of the time |
-| **Brier score** | Mean squared error of the probabilities; lower is better |
-| **ECE** | Expected calibration error: the average gap between predicted and actual rates across probability bins |
-| **Cohen's κ** | Agreement between two analysts beyond chance. Below 0.6 means the label definition is unclear |
-| **McNemar's test / paired bootstrap** | Ways to compare two versions on the same emails, so the comparison isn't noise |
+| **Fit / validation / holdout** | Fit sets thresholds, validation checks them, and a holdout only judges. Reusing a holdout turns it into a dev set |
+| **Keep rule** | A criteria edit must fix ≥ 2 fit emails, break none, and not lower validation accuracy |
+| **Wilson CI** | A confidence interval for a proportion at small n. 0.833 on 30 emails is [0.66, 0.93] |
+| **Calibration · Brier · ECE** | Does a probability of 0.8 come true 80% of the time? Brier and ECE score how far off it is; lower is better |
+| **Cohen's κ** | Agreement between analysts beyond chance; below 0.6, the label definition is unclear |
+| **Feedback-loop metrics** | G1–G6 (invariants) and P1–P8 (primary metrics) are defined in the companion doc, B6 |
 
 **The build.**
 
